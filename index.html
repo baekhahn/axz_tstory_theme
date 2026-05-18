@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clarkson 베이스 티스토리 테마 — 통합 미리보기 (1차)</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root {
+  /* ── Clarkson Primitives (셸 UI · iframe 양쪽에서 동일 사용) ── */
+  --raw-bg-base:    #F5F1EA;
+  --raw-bg-elev:    #FFFFFF;
+  --raw-bg-muted:   #EDE7DC;
+  --raw-bg-inv:     #1F1D18;
+  --raw-text-str:   #1F1D18;
+  --raw-text-pri:   #2A2722;
+  --raw-text-mut:   #6B6760;
+  --raw-text-sub:   #A09B91;
+  --raw-text-inv:   #F5F1EA;
+  --raw-accent-hi:  #1F1D18;
+  --raw-border-def: #DBD4C7;
+  --raw-border-str: #C5BCAB;
+  --raw-border-sub: #E8E2D6;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; }
+body {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+  background: var(--raw-bg-base);
+  color: var(--raw-text-pri);
+  -webkit-font-smoothing: antialiased;
+}
+button { font-family: inherit; cursor: pointer; }
+
+/* 셸 레이아웃 */
+.shell { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+
+/* 좌측 사이드 네비 */
+.sidenav {
+  background: var(--raw-bg-inv);
+  color: var(--raw-text-inv);
+  padding: 24px 16px;
+  position: sticky; top: 0; height: 100vh;
+  overflow-y: auto;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.sidenav-brand {
+  padding: 8px 12px 20px;
+  border-bottom: 1px solid rgba(245,241,234,.12);
+  margin-bottom: 12px;
+}
+.sidenav-title {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--raw-text-inv);
+  letter-spacing: -.015em;
+  margin: 0 0 4px;
+  line-height: 1.35;
+}
+.sidenav-sub {
+  font-size: 11.5px;
+  color: var(--raw-text-sub);
+  margin: 0;
+  letter-spacing: -.005em;
+}
+.sidenav-section {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(245,241,234,.5);
+  padding: 14px 12px 6px;
+}
+.nav-item {
+  background: transparent; border: none;
+  color: var(--raw-text-inv); text-align: left;
+  padding: 10px 14px; border-radius: 2px;
+  font-size: 13.5px; font-weight: 500;
+  transition: background .15s ease, color .15s ease;
+  border-left: 2px solid transparent;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-item:hover { background: rgba(245,241,234,.06); }
+.nav-item.active {
+  background: rgba(245,241,234,.08);
+  color: var(--raw-text-inv);
+  border-left-color: var(--raw-text-inv);
+  font-weight: 600;
+}
+.nav-item[disabled] { opacity: .42; cursor: not-allowed; }
+.nav-label { display: block; }
+.nav-tag {
+  display: inline-block;
+  font-size: 9.5px;
+  padding: 1px 6px;
+  border: 1px solid rgba(245,241,234,.3);
+  border-radius: 2px;
+  letter-spacing: .04em;
+  font-weight: 500;
+  margin-left: 6px;
+}
+
+/* 메인/패널 */
+.main { background: var(--raw-bg-base); min-width: 0; display: flex; flex-direction: column; }
+.panel { display: none; flex: 1; flex-direction: column; }
+.panel.active { display: flex; }
+
+.panel-header {
+  padding: 28px 36px 20px;
+  border-bottom: 1px solid var(--raw-border-def);
+  background: var(--raw-bg-elev);
+}
+.panel-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--raw-text-str);
+  margin: 0 0 6px;
+  letter-spacing: -.02em;
+}
+.panel-desc {
+  font-size: 13.5px;
+  color: var(--raw-text-mut);
+  margin: 0 0 14px;
+  line-height: 1.5;
+}
+.panel-meta {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+}
+.panel-file {
+  font-size: 12px;
+  color: var(--raw-text-mut);
+  background: var(--raw-bg-muted);
+  border: 1px solid var(--raw-border-sub);
+  padding: 4px 10px;
+  border-radius: 2px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+.btn-open {
+  background: var(--raw-bg-inv); color: var(--raw-text-inv);
+  border: none; padding: 5px 12px;
+  font-size: 12px; border-radius: 2px;
+  letter-spacing: -.005em;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn-open:hover { opacity: .85; }
+
+/* variant 토글 */
+.variant-toggle { display: flex; gap: 0; margin-top: 12px; }
+.variant-btn {
+  background: var(--raw-bg-elev);
+  border: 1px solid var(--raw-border-str);
+  color: var(--raw-text-mut);
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -.01em;
+  border-right: none;
+  transition: all .15s ease;
+}
+.variant-btn:last-child { border-right: 1px solid var(--raw-border-str); }
+.variant-btn:hover { background: var(--raw-bg-muted); }
+.variant-btn.active {
+  background: var(--raw-bg-inv);
+  color: var(--raw-text-inv);
+  border-color: var(--raw-bg-inv);
+}
+
+/* 프레임 */
+.frame-wrap { flex: 1; padding: 0; background: var(--raw-bg-muted); display: flex; }
+.preview-frame {
+  flex: 1; width: 100%;
+  min-height: calc(100vh - 220px);
+  border: none;
+  background: var(--raw-bg-elev);
+}
+
+/* placeholder */
+.placeholder {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 12px;
+  color: var(--raw-text-sub);
+  padding: 80px 24px;
+}
+.placeholder-text { font-size: 14px; }
+.placeholder-sub { font-size: 12px; color: var(--raw-text-sub); }
+
+/* 스크롤바 */
+.sidenav::-webkit-scrollbar { width: 6px; }
+.sidenav::-webkit-scrollbar-thumb { background: rgba(245,241,234,.2); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- 좌측 네비 -->
+  <nav class="sidenav">
+    <div class="sidenav-brand">
+      <h1 class="sidenav-title">티스토리 테마 — Clarkson 베이스</h1>
+      <p class="sidenav-sub">마이터랩 · 1차 통합 미리보기</p>
+    </div>
+
+    <div class="sidenav-section">완성본</div>
+    <button class="nav-item active" data-tab="theme">
+      <span class="nav-label">전체 테마</span>
+    </button>
+
+    <div class="sidenav-section">게시글 상세</div>
+    <button class="nav-item" data-tab="post">
+      <span class="nav-label">게시글 (블로그형)</span>
+    </button>
+
+    <div class="sidenav-section">공통 영역 · 추후</div>
+    <button class="nav-item" disabled>
+      <span class="nav-label">헤더</span><span class="nav-tag">TODO</span>
+    </button>
+    <button class="nav-item" disabled>
+      <span class="nav-label">푸터</span><span class="nav-tag">TODO</span>
+    </button>
+    <button class="nav-item" disabled>
+      <span class="nav-label">사이드바</span><span class="nav-tag">TODO</span>
+    </button>
+
+    <div class="sidenav-section">홈 화면 · 추후</div>
+    <button class="nav-item" disabled>
+      <span class="nav-label">홈 — 게시글 목록</span><span class="nav-tag">TODO</span>
+    </button>
+    <button class="nav-item" disabled>
+      <span class="nav-label">홈 — 페이지네이션</span><span class="nav-tag">TODO</span>
+    </button>
+
+    <div class="sidenav-section">기타 · 추후</div>
+    <button class="nav-item" disabled>
+      <span class="nav-label">태그 / 방명록</span><span class="nav-tag">TODO</span>
+    </button>
+  </nav>
+
+  <!-- 메인 -->
+  <main class="main">
+
+    <!-- 완성본 -->
+    <section class="panel active" data-panel="theme">
+      <header class="panel-header">
+        <h2 class="panel-title">전체 테마 — 두 가지 디자인</h2>
+        <p class="panel-desc">Clarkson 디자인 토큰 베이스의 홈 화면 — 기본형(카드 리스트) / 캠페인형(풀폭 알터네이트). 헤더 · 푸터 · 토큰은 공유, 본문 레이아웃만 분기.</p>
+        <div class="panel-meta">
+          <span class="panel-file" data-panel-file="theme">clarkson_base_theme.html</span>
+          <a class="btn-open" data-target="theme" target="_blank" rel="noopener" href="clarkson_base_theme.html">새 창에서 열기 ↗</a>
+        </div>
+        <div class="variant-toggle" role="tablist">
+          <button class="variant-btn active" data-frame="theme" data-variant="base">기본형 (카드 리스트)</button>
+          <button class="variant-btn" data-frame="theme" data-variant="campaign">캠페인형 (풀폭 알터네이트)</button>
+        </div>
+      </header>
+      <div class="frame-wrap">
+        <iframe class="preview-frame" id="frame-theme" title="전체 테마"></iframe>
+      </div>
+    </section>
+
+    <!-- 게시글 (블로그형) -->
+    <section class="panel" data-panel="post">
+      <header class="panel-header">
+        <h2 class="panel-title">게시글 상세 — 블로그형</h2>
+        <p class="panel-desc">단일 컬럼 블로그 글 형식의 게시글 상세 화면 — 큰 히어로 이미지, 긴 본문, 인용, 태그, 이전/다음, 댓글 영역까지.</p>
+        <div class="panel-meta">
+          <span class="panel-file">post_detail.html</span>
+          <a class="btn-open" data-target="post" target="_blank" rel="noopener" href="post_detail.html">새 창에서 열기 ↗</a>
+        </div>
+      </header>
+      <div class="frame-wrap">
+        <iframe class="preview-frame" id="frame-post" title="게시글 상세"></iframe>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+/* ───────────────────────────────────────────────────────────
+   공통 토큰 + 컴포넌트 CSS  (iframe 내부에서 동일하게 사용)
+   ─────────────────────────────────────────────────────────── */
+const BASE_STYLE = `
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root {
+  --raw-bg-base:    #F5F1EA;
+  --raw-bg-elev:    #FFFFFF;
+  --raw-bg-muted:   #EDE7DC;
+  --raw-bg-inv:     #1F1D18;
+  --raw-text-str:   #1F1D18;
+  --raw-text-pri:   #2A2722;
+  --raw-text-mut:   #6B6760;
+  --raw-text-sub:   #A09B91;
+  --raw-text-inv:   #F5F1EA;
+  --raw-accent-hi:  #1F1D18;
+  --raw-border-def: #DBD4C7;
+  --raw-border-str: #C5BCAB;
+  --raw-border-sub: #E8E2D6;
+
+  --color-surface-page:    var(--raw-bg-base);
+  --color-surface-card:    var(--raw-bg-elev);
+  --color-surface-subtle:  var(--raw-bg-muted);
+  --color-text-heading:    var(--raw-text-str);
+  --color-text-default:    var(--raw-text-pri);
+  --color-text-secondary:  var(--raw-text-mut);
+  --color-text-subtle:     var(--raw-text-sub);
+  --color-border-default:  var(--raw-border-def);
+  --color-border-strong:   var(--raw-border-str);
+  --color-border-subtle:   var(--raw-border-sub);
+  --color-accent-primary:  var(--raw-accent-hi);
+
+  --font-display: "Pretendard", -apple-system, "Apple SD Gothic Neo", sans-serif;
+  --font-body:    "Pretendard", -apple-system, "Apple SD Gothic Neo", sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { font-size: 16px; }
+body {
+  margin: 0; padding: 0;
+  font-family: var(--font-body);
+  background: var(--color-surface-page);
+  color: var(--color-text-default);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+ul, ol { margin: 0; padding: 0; list-style: none; }
+a { color: inherit; text-decoration: none; }
+p { margin: 0; }
+img { max-width: 100%; height: auto; vertical-align: middle; display: block; }
+button { font-family: inherit; cursor: pointer; }
+
+/* ── 공통 헤더 (Clarkson 톤) ── */
+.site-header {
+  background: var(--color-surface-page);
+  border-bottom: 1px solid var(--color-border-subtle);
+  position: sticky; top: 0; z-index: 100;
+}
+.site-header-inner {
+  max-width: 1280px; margin: 0 auto;
+  padding: 24px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 32px;
+}
+.site-brand {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-text-heading);
+  letter-spacing: -.02em;
+}
+.site-brand-sub {
+  font-size: 11px;
+  color: var(--color-text-subtle);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  margin-top: 3px;
+  font-weight: 500;
+}
+.site-nav {
+  display: flex; align-items: center; gap: 28px;
+}
+.site-nav a {
+  font-size: 14px;
+  color: var(--color-text-default);
+  font-weight: 500;
+  letter-spacing: -.005em;
+  padding: 4px 0;
+  border-bottom: 1px solid transparent;
+  transition: border-color .15s ease;
+}
+.site-nav a:hover { border-bottom-color: var(--color-text-heading); }
+.site-search {
+  border: 1px solid var(--color-border-strong);
+  padding: 6px 10px;
+  font-size: 13px;
+  background: transparent;
+  font-family: inherit;
+  color: var(--color-text-default);
+  width: 160px;
+  border-radius: 0;
+}
+.site-search::placeholder { color: var(--color-text-subtle); }
+
+/* ── 공통 푸터 (Clarkson 톤) ── */
+.site-footer {
+  background: var(--color-surface-page);
+  border-top: 1px solid var(--color-border-default);
+  padding: 64px 40px 32px;
+  margin-top: 80px;
+}
+.site-footer-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+.footer-brand-block .footer-brand {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text-heading);
+  letter-spacing: -.02em;
+  margin-bottom: 8px;
+}
+.footer-brand-block .footer-desc {
+  font-size: 13.5px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  max-width: 320px;
+}
+.footer-col-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-heading);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.footer-col ul li { margin-bottom: 10px; }
+.footer-col ul li a {
+  font-size: 13.5px;
+  color: var(--color-text-secondary);
+}
+.footer-col ul li a:hover { color: var(--color-text-heading); }
+.footer-meta {
+  max-width: 1280px; margin: 0 auto;
+  padding-top: 24px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px;
+  color: var(--color-text-subtle);
+  letter-spacing: -.005em;
+}
+.footer-meta a { color: var(--color-text-secondary); }
+.footer-meta a:hover { color: var(--color-text-heading); }
+@media (max-width: 900px) {
+  .site-footer-inner { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .site-footer-inner { grid-template-columns: 1fr; }
+  .footer-meta { flex-direction: column; gap: 8px; }
+}
+
+/* 공통: 큰 헤딩 시스템 (Clarkson 톤 — Light weight + 큰 사이즈 + tight) */
+.display-xl { font-size: 64px; font-weight: 600; letter-spacing: -.035em; line-height: 1.05; color: var(--color-text-heading); }
+.display-lg { font-size: 48px; font-weight: 600; letter-spacing: -.03em;  line-height: 1.1;  color: var(--color-text-heading); }
+.display-md { font-size: 36px; font-weight: 600; letter-spacing: -.025em; line-height: 1.15; color: var(--color-text-heading); }
+.display-sm { font-size: 28px; font-weight: 600; letter-spacing: -.02em;  line-height: 1.2;  color: var(--color-text-heading); }
+.eyebrow {
+  font-size: 11.5px; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+.btn-primary {
+  display: inline-block;
+  background: var(--raw-bg-inv);
+  color: var(--raw-text-inv);
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: -.005em;
+  padding: 14px 28px;
+  border: none;
+  text-decoration: none;
+  transition: opacity .15s ease;
+}
+.btn-primary:hover { opacity: .85; }
+.btn-ghost {
+  display: inline-block;
+  background: transparent;
+  color: var(--color-text-heading);
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: -.005em;
+  padding: 13px 27px;
+  border: 1px solid var(--color-text-heading);
+  text-decoration: none;
+  transition: all .15s ease;
+}
+.btn-ghost:hover { background: var(--color-text-heading); color: var(--raw-text-inv); }
+
+@media (max-width: 760px) {
+  .site-header-inner { padding: 16px 20px; flex-wrap: wrap; gap: 12px; }
+  .site-nav { gap: 18px; }
+  .site-search { display: none; }
+  .display-xl { font-size: 42px; }
+  .display-lg { font-size: 34px; }
+  .display-md { font-size: 28px; }
+  .display-sm { font-size: 22px; }
+}
+</style>
+`;
+
+/* ───────────────────────────────────────────────────────────
+   공통 헤더 / 푸터 HTML
+   ─────────────────────────────────────────────────────────── */
+const HEADER_HTML = `
+<header class="site-header">
+  <div class="site-header-inner">
+    <div>
+      <div class="site-brand">공간노트</div>
+      <div class="site-brand-sub">Notes on Architecture &amp; Spaces</div>
+    </div>
+    <nav class="site-nav">
+      <a href="#">홈</a>
+      <a href="#">태그</a>
+      <a href="#">방명록</a>
+      <input class="site-search" type="text" placeholder="검색…">
+    </nav>
+  </div>
+</header>
+`;
+
+const FOOTER_HTML = `
+<footer class="site-footer">
+  <div class="footer-meta">
+    <span>© 공간노트. All rights reserved.</span>
+    <span>Powered by <a href="#">Tistory</a> · Theme by <a href="#">Miterlab</a></span>
+  </div>
+</footer>
+`;
+
+/* ───────────────────────────────────────────────────────────
+   1) 완성본 — Clarkson 톤 홈
+   ─────────────────────────────────────────────────────────── */
+const THEME_STYLE = `
+<style>
+.theme-hero {
+  max-width: 1280px; margin: 0 auto;
+  padding: 100px 40px 80px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  align-items: end;
+}
+.theme-hero .eyebrow { margin-bottom: 16px; }
+.theme-hero p {
+  font-size: 16px;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  max-width: 460px;
+}
+
+.theme-list {
+  max-width: 1280px; margin: 0 auto;
+  padding: 0 40px;
+}
+.post-row {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  padding: 64px 0;
+  border-top: 1px solid var(--color-border-subtle);
+  align-items: center;
+}
+.post-row:last-child { border-bottom: 1px solid var(--color-border-subtle); }
+.post-row.reverse .post-row-media { order: 2; }
+.post-row.reverse .post-row-body  { order: 1; }
+.post-row-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--color-surface-subtle);
+}
+.post-row-media img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .6s ease;
+}
+.post-row:hover .post-row-media img { transform: scale(1.03); }
+.post-row-body .eyebrow { margin-bottom: 14px; }
+.post-row-body h2 {
+  font-size: 36px; font-weight: 600;
+  letter-spacing: -.025em; line-height: 1.15;
+  color: var(--color-text-heading);
+  margin: 0 0 18px;
+}
+.post-row-body p {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  margin: 0 0 24px;
+  max-width: 480px;
+}
+.post-meta {
+  display: flex; gap: 14px;
+  font-size: 12px;
+  color: var(--color-text-subtle);
+  letter-spacing: -.005em;
+}
+.post-meta-sep { color: var(--color-border-strong); }
+
+.theme-pagination {
+  max-width: 1280px; margin: 0 auto;
+  padding: 64px 40px 0;
+  display: flex; justify-content: center; align-items: center; gap: 8px;
+}
+.theme-pagination a, .theme-pagination span {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 36px; height: 36px;
+  font-size: 13px; color: var(--color-text-secondary);
+  padding: 0 12px;
+}
+.theme-pagination a:hover { color: var(--color-text-heading); }
+.theme-pagination .current {
+  color: var(--color-text-heading);
+  font-weight: 600;
+  border-bottom: 1px solid var(--color-text-heading);
+}
+.theme-pagination .disabled { opacity: .3; pointer-events: none; }
+
+.newsletter-band {
+  max-width: 1280px; margin: 96px auto 0;
+  padding: 0 40px;
+}
+.newsletter-band-inner {
+  background: var(--color-surface-subtle);
+  padding: 80px 64px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.newsletter-band-inner h3 {
+  font-size: 32px; font-weight: 600;
+  letter-spacing: -.025em; line-height: 1.2;
+  color: var(--color-text-heading);
+  margin: 0 0 14px;
+}
+.newsletter-band-inner p {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  max-width: 480px;
+}
+.newsletter-form { display: flex; gap: 0; }
+.newsletter-form input {
+  flex: 1;
+  background: var(--color-surface-card);
+  border: 1px solid var(--color-border-strong);
+  padding: 14px 16px;
+  font-size: 13.5px;
+  font-family: inherit;
+  border-right: none;
+}
+.newsletter-form input:focus { outline: none; border-color: var(--color-text-heading); }
+.newsletter-form button {
+  background: var(--raw-bg-inv);
+  color: var(--raw-text-inv);
+  border: none;
+  padding: 0 24px;
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: -.005em;
+}
+
+@media (max-width: 900px) {
+  .theme-hero { grid-template-columns: 1fr; padding: 60px 24px 40px; gap: 24px; }
+  .theme-list { padding: 0 24px; }
+  .post-row { grid-template-columns: 1fr; gap: 28px; padding: 48px 0; }
+  .post-row.reverse .post-row-media { order: 0; }
+  .post-row.reverse .post-row-body { order: 0; }
+  .post-row-body h2 { font-size: 26px; }
+  .newsletter-band { padding: 0 24px; margin-top: 64px; }
+  .newsletter-band-inner { grid-template-columns: 1fr; padding: 48px 28px; gap: 32px; }
+}
+</style>
+`;
+
+const THEME_BODY = `
+<section class="theme-hero">
+  <div>
+    <div class="eyebrow">Notebook · Since 2023</div>
+    <h1 class="display-xl">건축에 대한,<br>천천히 적는 노트.</h1>
+  </div>
+  <div>
+    <p>도시를 걸으며 본 것들, 책을 읽다 멈춘 문장들, 그리고 직접 살아본 공간들에 대한 메모. 거창한 비평이 아니라, 한 사람의 사용자가 공간을 어떻게 읽었는지에 대한 기록입니다.</p>
+  </div>
+</section>
+
+<section class="theme-list">
+
+  <article class="post-row">
+    <a class="post-row-media" href="#"><img src="https://images.unsplash.com/photo-1774050952646-a850ad28ad6f?w=900&amp;h=680&amp;fit=crop&amp;q=75&amp;auto=format" alt="기하학적 패턴이 적용된 현대식 건물 내부"></a>
+    <div class="post-row-body">
+      <div class="eyebrow">Essay · 건축적 사고</div>
+      <h2><a href="#">건축에 대한 깊은 사고 — 짓는 일이 아니라 묻는 일이다</a></h2>
+      <p>좋은 건축은 멋진 형태에서 시작하지 않습니다. 누가 이 공간에 머물 것인가, 그 사람의 하루는 어떻게 흐를 것인가 — 이 질문에서 시작합니다. 모든 결정은 그 질문에 대한 답입니다.</p>
+      <div class="post-meta">
+        <span>2026. 4. 28.</span>
+        <span class="post-meta-sep">·</span>
+        <span>by 백희</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="post-row reverse">
+    <a class="post-row-media" href="#"><img src="https://images.unsplash.com/photo-1752154023453-faba02f8a841?w=900&amp;h=680&amp;fit=crop&amp;q=75&amp;auto=format" alt="따뜻한 빛이 새어 나오는 건물 창문"></a>
+    <div class="post-row-body">
+      <div class="eyebrow">Material · 빛</div>
+      <h2><a href="#">빛은 가장 비싼 재료입니다 — 그러나 가장 공짜입니다</a></h2>
+      <p>건축에서 빛은 마감재가 아니라 시간의 매개입니다. 같은 공간이 아침과 저녁에 다른 표정을 짓는 이유, 그리고 좋은 건축가들이 창의 위치와 깊이에 가장 오래 고민하는 이유.</p>
+      <div class="post-meta">
+        <span>2026. 4. 14.</span>
+        <span class="post-meta-sep">·</span>
+        <span>by 백희</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="post-row">
+    <a class="post-row-media" href="#"><img src="https://images.unsplash.com/photo-1777997288465-c435b4d03133?w=900&amp;h=680&amp;fit=crop&amp;q=75&amp;auto=format" alt="목재 장식과 검은 난간이 있는 현대식 계단"></a>
+    <div class="post-row-body">
+      <div class="eyebrow">Detail · 디테일</div>
+      <h2><a href="#">좋은 계단은 발이 먼저 알아봅니다</a></h2>
+      <p>계단은 건축에서 가장 정직한 요소입니다. 단 높이 1cm, 디딤판 깊이 2cm의 차이를 우리 몸은 다섯 칸을 채 오르기 전에 감지합니다. 좋은 디테일이란 무엇인지에 대한 작은 사례.</p>
+      <div class="post-meta">
+        <span>2026. 3. 30.</span>
+        <span class="post-meta-sep">·</span>
+        <span>by 백희</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="post-row reverse">
+    <a class="post-row-media" href="#"><img src="https://images.unsplash.com/photo-1768836180167-6d4a25c421b2?w=900&amp;h=680&amp;fit=crop&amp;q=75&amp;auto=format" alt="따뜻한 조명과 나무 의자가 있는 현대 사무실 공간"></a>
+    <div class="post-row-body">
+      <div class="eyebrow">Workplace · 사무공간</div>
+      <h2><a href="#">사무실은 왜 점점 거실을 닮아가는가</a></h2>
+      <p>책상이 줄어들고 의자가 더 푹신해지는 흐름은 단지 유행이 아닙니다. 사람들이 어디서 가장 잘 일하는지에 대한 십 년치 데이터가 만든, 조용한 결론입니다.</p>
+      <div class="post-meta">
+        <span>2026. 3. 18.</span>
+        <span class="post-meta-sep">·</span>
+        <span>by 백희</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="post-row">
+    <a class="post-row-media" href="#"><img src="https://images.unsplash.com/photo-1769745918779-f255f567664c?w=900&amp;h=680&amp;fit=crop&amp;q=75&amp;auto=format" alt="타일 백스플래시가 있는 빈티지 나무 주방 캐비닛"></a>
+    <div class="post-row-body">
+      <div class="eyebrow">Domestic · 주거</div>
+      <h2><a href="#">오래된 주방이 가르쳐주는 것</a></h2>
+      <p>새 부엌은 빛이 잘 들고, 옛 부엌은 손이 잘 닿는다. 디자인이 시간을 통과해야만 알 수 있는 것들에 대해서. 할머니의 부엌에서 배운 다섯 가지 비례.</p>
+      <div class="post-meta">
+        <span>2026. 3. 5.</span>
+        <span class="post-meta-sep">·</span>
+        <span>by 백희</span>
+      </div>
+    </div>
+  </article>
+
+</section>
+
+<nav class="theme-pagination">
+  <a href="#" class="disabled">← Previous</a>
+  <span class="current">1</span>
+  <a href="#">2</a>
+  <a href="#">3</a>
+  <a href="#">Next →</a>
+</nav>
+`;
+
+/* ───────────────────────────────────────────────────────────
+   2) 게시글 — Stanton 스타일 (블로그 글)
+   ─────────────────────────────────────────────────────────── */
+const POST_STANTON_STYLE = `
+<style>
+.post-stanton {
+  max-width: 720px; margin: 0 auto;
+  padding: 80px 24px 0;
+}
+.post-stanton .eyebrow { margin-bottom: 20px; }
+.post-stanton h1 {
+  font-size: 44px; font-weight: 600;
+  letter-spacing: -.03em; line-height: 1.15;
+  color: var(--color-text-heading);
+  margin: 0 0 24px;
+}
+.post-stanton-meta {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--color-border-subtle);
+  margin-bottom: 48px;
+}
+.post-stanton-meta strong { color: var(--color-text-heading); font-weight: 600; }
+
+.post-stanton-hero {
+  max-width: 1100px; margin: 0 auto 64px;
+  padding: 0 24px;
+}
+.post-stanton-hero img { width: 100%; aspect-ratio: 16/10; object-fit: cover; }
+.post-stanton-hero figcaption {
+  font-size: 12.5px;
+  color: var(--color-text-subtle);
+  margin-top: 12px;
+  text-align: center;
+  letter-spacing: -.005em;
+}
+
+.post-stanton-body {
+  max-width: 720px; margin: 0 auto;
+  padding: 0 24px;
+  font-size: 17px;
+  line-height: 1.8;
+  color: var(--color-text-default);
+}
+.post-stanton-body p { margin: 0 0 28px; }
+.post-stanton-body h2 {
+  font-size: 26px; font-weight: 600;
+  letter-spacing: -.02em; line-height: 1.3;
+  color: var(--color-text-heading);
+  margin: 56px 0 20px;
+}
+.post-stanton-body blockquote {
+  margin: 36px 0;
+  padding: 0 0 0 24px;
+  border-left: 2px solid var(--color-text-heading);
+  font-size: 19px;
+  color: var(--color-text-heading);
+  font-weight: 500;
+  letter-spacing: -.005em;
+  line-height: 1.6;
+  font-style: normal;
+}
+.post-stanton-body .inline-figure {
+  margin: 36px 0;
+}
+.post-stanton-body .inline-figure img {
+  width: 100%; aspect-ratio: 16/9; object-fit: cover;
+}
+.post-stanton-body .inline-figure figcaption {
+  font-size: 12.5px; color: var(--color-text-subtle);
+  margin-top: 10px;
+}
+.post-stanton-body code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: .9em;
+  background: var(--color-surface-subtle);
+  padding: 2px 6px;
+}
+
+.post-stanton-tags {
+  max-width: 720px; margin: 64px auto 0;
+  padding: 0 24px;
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+.post-tag {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border-strong);
+  padding: 6px 12px;
+  border-radius: 0;
+  letter-spacing: -.005em;
+}
+.post-tag:hover { color: var(--color-text-heading); border-color: var(--color-text-heading); }
+
+.post-stanton-nav {
+  max-width: 720px; margin: 56px auto 0;
+  padding: 32px 24px;
+  border-top: 1px solid var(--color-border-subtle);
+  border-bottom: 1px solid var(--color-border-subtle);
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+}
+.post-stanton-nav .nav-eyebrow {
+  font-size: 11px; color: var(--color-text-subtle);
+  letter-spacing: .14em; text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.post-stanton-nav .nav-title {
+  font-size: 15px; color: var(--color-text-heading);
+  font-weight: 600; letter-spacing: -.01em; line-height: 1.4;
+}
+.post-stanton-nav .nav-next { text-align: right; }
+
+.post-comments {
+  max-width: 720px; margin: 64px auto 80px;
+  padding: 0 24px;
+}
+.post-comments-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text-heading);
+  letter-spacing: -.01em;
+  margin: 0 0 28px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--color-border-default);
+}
+.comment-item {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+.comment-item:last-child { border-bottom: none; }
+.comment-meta { display: flex; gap: 10px; font-size: 12.5px; color: var(--color-text-subtle); margin-bottom: 8px; }
+.comment-meta strong { color: var(--color-text-heading); font-weight: 600; }
+.comment-body { font-size: 14px; color: var(--color-text-default); line-height: 1.65; }
+
+.comment-form {
+  margin-top: 32px;
+  background: var(--color-surface-subtle);
+  padding: 20px;
+}
+.comment-form textarea {
+  width: 100%; min-height: 96px;
+  background: var(--color-surface-card);
+  border: 1px solid var(--color-border-default);
+  padding: 12px; font-size: 13.5px; font-family: inherit;
+  resize: vertical; color: var(--color-text-default);
+}
+.comment-form textarea:focus { outline: none; border-color: var(--color-text-heading); }
+.comment-form-actions { display: flex; justify-content: flex-end; margin-top: 12px; }
+
+@media (max-width: 760px) {
+  .post-stanton { padding: 48px 20px 0; }
+  .post-stanton h1 { font-size: 32px; }
+  .post-stanton-body { font-size: 16px; }
+  .post-stanton-nav { grid-template-columns: 1fr; }
+  .post-stanton-nav .nav-next { text-align: left; }
+}
+</style>
+`;
+
+const POST_STANTON_BODY = `
+<article>
+  <header class="post-stanton">
+    <div class="eyebrow">Essay · 건축적 사고</div>
+    <h1>건축에 대한 깊은 사고 — 짓는 일이 아니라 묻는 일이다.</h1>
+    <div class="post-stanton-meta">
+      <span>2026. 4. 28.</span>
+      <span>·</span>
+      <span>by <strong>백희</strong></span>
+      <span>·</span>
+      <span>댓글 4</span>
+    </div>
+  </header>
+
+  <figure class="post-stanton-hero">
+    <img src="https://images.unsplash.com/photo-1776365412164-e3c5af42dd0b?w=2000&amp;h=1250&amp;fit=crop&amp;q=75&amp;auto=format" alt="높은 아치가 있는 대성당 내부, 천장에 매달린 모형의 배">
+    <figcaption>좋은 건축은 처음 본 사람의 시선을 어디에 둘지부터 결정합니다.</figcaption>
+  </figure>
+
+  <div class="post-stanton-body">
+    <p>건축을 처음 공부할 때 누구나 한 번쯤 듣는 이야기가 있습니다. "건축은 짓는 일이 아니라 묻는 일이다." 처음에는 이 문장이 좀 거창하게 느껴졌습니다. 짓지 않는 건축이 무슨 의미인가 싶었습니다. 그러나 시간이 지날수록, 이 문장이 다루고 있는 진짜 뜻이 조금씩 보였습니다.</p>
+
+    <p>건축가는 결국 결정자입니다. 어디에 창을 낼지, 천장의 높이를 얼마로 할지, 어떤 재료로 바닥을 마감할지 — 매일 수십 개의 결정을 내립니다. 이 결정들은 모두 어떤 질문에 대한 답입니다. <em>여기에 누가 머물 것인가. 그 사람의 하루는 어떻게 흐를 것인가. 이 공간에서 가장 자주 일어나는 행동은 무엇인가.</em> 질문이 정확하지 않으면 답도 흐려집니다.</p>
+
+    <h2>좋은 건축은 사용자를 한 발 먼저 안다</h2>
+
+    <p>좋은 카페에 들어서면, 우리는 별다른 안내 없이도 어디에 앉아야 할지 자연스럽게 알게 됩니다. 창가에 앉을지, 안쪽 구석에 앉을지, 바 자리에 설지. 누구도 우리에게 지시하지 않았지만, 공간이 이미 우리의 결정을 안내하고 있습니다. 빛의 위치, 천장의 높이, 의자의 종류 — 이 모든 것이 합쳐져 우리에게 작은 신호를 보내고 있습니다.</p>
+
+    <blockquote>"공간은 침묵하지 않습니다. 다만 말하는 방식이 우리에게 익숙하지 않을 뿐입니다." — Juhani Pallasmaa</blockquote>
+
+    <p>이 관찰의 끝에는 좀 더 무거운 질문이 있습니다. 누가 이 공간을 가장 자주 사용할까. 그 사람은 어떤 자세로 앉을까. 한 시간 머물까, 세 시간 머물까. 혼자 올까, 둘이 올까. 답은 평면 위에서 나오지 않습니다. 그 사람의 하루를 한 번이라도 따라가 본 사람만이 답할 수 있습니다.</p>
+
+    <h2>빛은 시간을, 비례는 몸을, 재료는 시간을 다룬다</h2>
+
+    <p>건축에서 다루는 가장 근본적인 재료는 세 가지뿐이라고 저는 종종 생각합니다. 빛, 비례, 재료. 이 셋은 각각 시간, 몸, 그리고 시간을 다룹니다.</p>
+
+    <p><strong>빛</strong>은 시간의 매개입니다. 같은 공간이 아침에 다른 표정을 짓고, 오후에 또 다른 표정을 짓는 이유는 빛이 시간을 운반하기 때문입니다. 좋은 건축가들은 창의 크기보다 창의 위치와 깊이에 더 오래 고민합니다. 빛이 들어오는 각도, 그늘이 떨어지는 방향, 하루의 시간대마다 달라지는 색온도 — 이 모든 것이 공간의 인상을 결정합니다.</p>
+
+    <figure class="inline-figure">
+      <img src="https://images.unsplash.com/photo-1752154023453-faba02f8a841?w=1600&amp;h=900&amp;fit=crop&amp;q=75&amp;auto=format" alt="따뜻한 빛이 새어 나오는 건물 창문">
+      <figcaption>창의 깊이 5cm 차이가 한 시간의 빛을 바꿉니다.</figcaption>
+    </figure>
+
+    <p><strong>비례</strong>는 우리의 몸이 본능적으로 알아봅니다. 천장 높이 2m 70cm와 2m 90cm는 숫자상 20cm 차이지만, 그 안에 서 있을 때 우리가 느끼는 감각은 완전히 다른 것입니다. 비례는 학습하지 않습니다. 가르치지 않아도 압니다. 그러나 만들기는 어렵습니다.</p>
+
+    <p><strong>재료</strong>는 시간을 기억합니다. 새 콘크리트와 30년 된 콘크리트는 다른 물성을 가집니다. 좋은 건축은 처음의 모습보다 시간이 흐른 뒤의 모습을 먼저 상상합니다. 어떻게 늙어갈 것인가. 그 질문이 결국 어떤 재료를 쓸 것인지를 결정합니다.</p>
+
+    <h2>그래서 건축은 묻는 일이다</h2>
+
+    <p>이 모든 결정의 출발점에는 단 하나의 질문이 있습니다. <em>누구를 위한 공간인가.</em> 이 질문에 대한 답이 명확할수록 다른 모든 결정은 따라옵니다. 답이 흐릿하면, 아무리 정성스럽게 만들어도 공간이 어딘가 어색해집니다. 정성보다 정확함이 먼저인 분야가 건축입니다.</p>
+
+    <p>저는 요즘 작은 책상 하나를 고치고 있습니다. 폭은 어떻게 할 것인가, 높이는 얼마로 할 것인가, 의자는 어떤 것을 둘 것인가. 이런 결정들 앞에서도 결국 같은 질문이 돌아옵니다. 누가 여기 앉을 것인가, 무엇을 하기 위해 앉을 것인가. 책상 하나가 이러니, 건물 하나에서는 얼마나 더 무거운 질문들이 쌓일까요.</p>
+
+    <p>건축은 짓는 일이 아니라 묻는 일이다 — 이제는 이 문장이 조금 다르게 들립니다.</p>
+  </div>
+
+  <div class="post-stanton-tags">
+    <a href="#" class="post-tag">#건축적사고</a>
+    <a href="#" class="post-tag">#공간</a>
+    <a href="#" class="post-tag">#디자인</a>
+    <a href="#" class="post-tag">#에세이</a>
+    <a href="#" class="post-tag">#노트</a>
+  </div>
+
+  <nav class="post-stanton-nav">
+    <a href="#" class="nav-prev">
+      <div class="nav-eyebrow">← Previous</div>
+      <div class="nav-title">좋은 계단은 발이 먼저 알아봅니다</div>
+    </a>
+    <a href="#" class="nav-next">
+      <div class="nav-eyebrow">Next →</div>
+      <div class="nav-title">빛은 가장 비싼 재료입니다 — 그러나 가장 공짜입니다</div>
+    </a>
+  </nav>
+
+  <section class="post-comments">
+    <h3 class="post-comments-title">댓글 4</h3>
+
+    <div class="comment-item">
+      <div class="comment-meta"><strong>도서관 사서</strong><span>·</span><span>2026. 4. 28.</span></div>
+      <div class="comment-body">"공간은 침묵하지 않습니다" 문장에서 한참 멈췄습니다. 평소에 자주 가는 도서관의 빛이 새삼 다르게 보이네요. 잘 읽었습니다.</div>
+    </div>
+    <div class="comment-item">
+      <div class="comment-meta"><strong>건축학생_2년차</strong><span>·</span><span>2026. 4. 29.</span></div>
+      <div class="comment-body">'어떻게 늙어갈 것인가'라는 질문이 정말 중요한데 학교에서는 잘 다루지 않습니다. 좋은 글 감사합니다.</div>
+    </div>
+    <div class="comment-item">
+      <div class="comment-meta"><strong>인테리어_지망생</strong><span>·</span><span>2026. 4. 30.</span></div>
+      <div class="comment-body">천장 높이 20cm 차이 부분이 와닿네요. 숫자로는 별 것 아닌데, 몸은 정확히 알아본다는 게.</div>
+    </div>
+    <div class="comment-item">
+      <div class="comment-meta"><strong>백희</strong><span>·</span><span>2026. 4. 30.</span></div>
+      <div class="comment-body">댓글 감사합니다. 다음 글에서는 '비례'에 대해 좀 더 구체적인 사례를 다뤄볼 생각입니다.</div>
+    </div>
+
+    <form class="comment-form" onsubmit="event.preventDefault();">
+      <textarea placeholder="댓글을 입력하세요…"></textarea>
+      <div class="comment-form-actions">
+        <button type="submit" class="btn-primary">댓글 등록</button>
+      </div>
+    </form>
+  </section>
+</article>
+`;
+
+/* ───────────────────────────────────────────────────────────
+   3) 게시글 — Clarkson 스타일 (캠페인 페이지)
+   ─────────────────────────────────────────────────────────── */
+const POST_CLARKSON_STYLE = `
+<style>
+.clp-hero {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  min-height: 560px;
+  overflow: hidden;
+  background: var(--color-text-heading);
+}
+.clp-hero img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: .92;
+}
+.clp-hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(31,29,24,0) 0%, rgba(31,29,24,.55) 100%);
+}
+.clp-hero-content {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 64px 40px;
+  max-width: 1280px; margin: 0 auto;
+  color: var(--raw-text-inv);
+}
+.clp-hero-content .eyebrow {
+  color: rgba(245,241,234,.8);
+  margin-bottom: 20px;
+}
+.clp-hero-content h1 {
+  font-size: 64px; font-weight: 600;
+  letter-spacing: -.035em; line-height: 1.05;
+  color: var(--raw-text-inv);
+  max-width: 920px;
+  margin: 0;
+}
+
+.clp-intro {
+  max-width: 1280px; margin: 0 auto;
+  padding: 96px 40px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  align-items: start;
+}
+.clp-intro .lead-eyebrow { margin-bottom: 16px; }
+.clp-intro h2 {
+  font-size: 36px; font-weight: 600;
+  letter-spacing: -.025em; line-height: 1.2;
+  color: var(--color-text-heading);
+  margin: 0;
+}
+.clp-intro p {
+  font-size: 16px;
+  color: var(--color-text-secondary);
+  line-height: 1.75;
+  max-width: 520px;
+}
+.clp-intro p + p { margin-top: 18px; }
+
+.clp-block {
+  max-width: 1280px; margin: 0 auto;
+  padding: 48px 40px 96px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  align-items: center;
+}
+.clp-block.reverse .clp-block-media { order: 2; }
+.clp-block.reverse .clp-block-text  { order: 1; }
+.clp-block-media img {
+  width: 100%; aspect-ratio: 4/5; object-fit: cover;
+}
+.clp-block-text .eyebrow { margin-bottom: 14px; }
+.clp-block-text h3 {
+  font-size: 30px; font-weight: 600;
+  letter-spacing: -.025em; line-height: 1.2;
+  color: var(--color-text-heading);
+  margin: 0 0 20px;
+}
+.clp-block-text p {
+  font-size: 15.5px;
+  color: var(--color-text-secondary);
+  line-height: 1.75;
+  margin: 0 0 16px;
+}
+
+.clp-pullquote {
+  background: var(--color-surface-subtle);
+  padding: 120px 40px;
+}
+.clp-pullquote-inner {
+  max-width: 1000px; margin: 0 auto;
+  text-align: center;
+}
+.clp-pullquote blockquote {
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -.025em;
+  line-height: 1.25;
+  color: var(--color-text-heading);
+  margin: 0 0 28px;
+}
+.clp-pullquote cite {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.clp-wide {
+  max-width: 1440px; margin: 0 auto;
+  padding: 96px 40px;
+}
+.clp-wide-image {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+.clp-wide-image img { width: 100%; height: 100%; object-fit: cover; }
+
+.clp-cta {
+  background: var(--color-text-heading);
+  color: var(--raw-text-inv);
+  padding: 120px 40px;
+}
+.clp-cta-inner {
+  max-width: 900px; margin: 0 auto;
+  text-align: center;
+}
+.clp-cta .eyebrow {
+  color: rgba(245,241,234,.6);
+  margin-bottom: 20px;
+}
+.clp-cta h2 {
+  font-size: 48px; font-weight: 600;
+  letter-spacing: -.03em; line-height: 1.15;
+  color: var(--raw-text-inv);
+  margin: 0 0 28px;
+}
+.clp-cta p {
+  font-size: 16px;
+  color: rgba(245,241,234,.75);
+  line-height: 1.7;
+  margin: 0 0 40px;
+  max-width: 580px; margin-left: auto; margin-right: auto;
+}
+.clp-cta-actions {
+  display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+}
+.clp-cta .btn-light {
+  display: inline-block;
+  background: var(--raw-text-inv);
+  color: var(--color-text-heading);
+  font-size: 13.5px; font-weight: 500;
+  letter-spacing: -.005em;
+  padding: 14px 28px;
+  border: none; text-decoration: none;
+  transition: opacity .15s ease;
+}
+.clp-cta .btn-light:hover { opacity: .9; }
+.clp-cta .btn-outline-light {
+  display: inline-block;
+  background: transparent;
+  color: var(--raw-text-inv);
+  font-size: 13.5px; font-weight: 500;
+  letter-spacing: -.005em;
+  padding: 13px 27px;
+  border: 1px solid rgba(245,241,234,.7);
+  text-decoration: none;
+  transition: all .15s ease;
+}
+.clp-cta .btn-outline-light:hover { background: var(--raw-text-inv); color: var(--color-text-heading); }
+
+.clp-meta {
+  max-width: 1280px; margin: 0 auto;
+  padding: 64px 40px 24px;
+  border-top: 1px solid var(--color-border-subtle);
+  display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between;
+  font-size: 13px; color: var(--color-text-secondary);
+}
+.clp-meta-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+
+@media (max-width: 900px) {
+  .clp-hero { height: 70vh; min-height: 440px; }
+  .clp-hero-content { padding: 32px 20px; }
+  .clp-hero-content h1 { font-size: 36px; }
+  .clp-intro { grid-template-columns: 1fr; gap: 24px; padding: 56px 20px; }
+  .clp-intro h2 { font-size: 26px; }
+  .clp-block { grid-template-columns: 1fr; gap: 32px; padding: 32px 20px 64px; }
+  .clp-block.reverse .clp-block-media { order: 0; }
+  .clp-block.reverse .clp-block-text { order: 0; }
+  .clp-block-text h3 { font-size: 22px; }
+  .clp-pullquote { padding: 72px 20px; }
+  .clp-pullquote blockquote { font-size: 24px; }
+  .clp-cta { padding: 72px 20px; }
+  .clp-cta h2 { font-size: 28px; }
+  .clp-wide { padding: 56px 20px; }
+}
+</style>
+`;
+
+const POST_CLARKSON_BODY = `
+<article>
+  <section class="clp-hero">
+    <img src="https://images.unsplash.com/photo-1776365412164-e3c5af42dd0b?w=2000&amp;h=1400&amp;fit=crop&amp;q=80&amp;auto=format" alt="높은 아치가 있는 대성당 내부">
+    <div class="clp-hero-overlay"></div>
+    <div class="clp-hero-content">
+      <div class="eyebrow">Essay · 건축적 사고 · 2026.04</div>
+      <h1>건축은 짓는 일이 아니라,<br>묻는 일이다.</h1>
+    </div>
+  </section>
+
+  <section class="clp-intro">
+    <div>
+      <div class="eyebrow lead-eyebrow">Long Read</div>
+      <h2>좋은 건축은 멋진 형태에서 시작하지 않습니다. 단 하나의 질문에서 시작합니다.</h2>
+    </div>
+    <div>
+      <p>건축가는 매일 수십 개의 결정을 내립니다. 어디에 창을 낼지, 천장의 높이를 얼마로 할지, 어떤 재료로 바닥을 마감할지. 이 결정들은 모두 어떤 질문에 대한 답입니다.</p>
+      <p>질문이 흐릿하면 답도 흐려집니다. 정성보다 정확함이 먼저인 분야가 건축입니다. 이 글은 그 정확함에 대한 노트입니다.</p>
+    </div>
+  </section>
+
+  <section class="clp-block">
+    <div class="clp-block-media">
+      <img src="https://images.unsplash.com/photo-1774050952646-a850ad28ad6f?w=900&amp;h=1120&amp;fit=crop&amp;q=80&amp;auto=format" alt="기하학적 패턴의 현대식 건물 내부">
+    </div>
+    <div class="clp-block-text">
+      <div class="eyebrow">01 · 질문이 먼저</div>
+      <h3>누가 이 공간에 머물 것인가.</h3>
+      <p>좋은 카페에 들어서면, 우리는 별다른 안내 없이도 어디에 앉아야 할지 알게 됩니다. 누구도 지시하지 않았지만, 공간이 이미 우리의 결정을 안내하고 있습니다.</p>
+      <p>그 안내가 만들어지기까지, 건축가는 그 사람의 하루를 따라가 봐야 합니다. 책상 앞에서 한 시간 머물 사람인지, 창가에서 세 시간 머물 사람인지. 답은 평면 위에서 나오지 않습니다.</p>
+    </div>
+  </section>
+
+  <section class="clp-pullquote">
+    <div class="clp-pullquote-inner">
+      <blockquote>"공간은 침묵하지 않습니다. 다만 말하는 방식이 우리에게 익숙하지 않을 뿐입니다."</blockquote>
+      <cite>— Juhani Pallasmaa</cite>
+    </div>
+  </section>
+
+  <section class="clp-block reverse">
+    <div class="clp-block-media">
+      <img src="https://images.unsplash.com/photo-1752154023453-faba02f8a841?w=900&amp;h=1120&amp;fit=crop&amp;q=80&amp;auto=format" alt="따뜻한 빛이 새어 나오는 건물 창문">
+    </div>
+    <div class="clp-block-text">
+      <div class="eyebrow">02 · 빛</div>
+      <h3>빛은 시간을 운반합니다.</h3>
+      <p>같은 공간이 아침과 저녁에 다른 표정을 짓는 이유는 빛이 시간을 운반하기 때문입니다. 빛은 마감재가 아닙니다. 빛은 시간의 매개입니다.</p>
+      <p>그래서 좋은 건축가들은 창의 크기보다 창의 위치와 깊이에 더 오래 고민합니다. 5cm의 깊이 차이가 한 시간의 빛을 바꿉니다.</p>
+    </div>
+  </section>
+
+  <section class="clp-wide">
+    <div class="clp-wide-image">
+      <img src="https://images.unsplash.com/photo-1770739505255-17ccc766db80?w=2000&amp;h=1125&amp;fit=crop&amp;q=80&amp;auto=format" alt="푸른 하늘을 배경으로 기하학적 외관을 가진 현대 마천루">
+    </div>
+  </section>
+
+  <section class="clp-block">
+    <div class="clp-block-media">
+      <img src="https://images.unsplash.com/photo-1769745918779-f255f567664c?w=900&amp;h=1120&amp;fit=crop&amp;q=80&amp;auto=format" alt="타일 백스플래시가 있는 빈티지 나무 주방 캐비닛">
+    </div>
+    <div class="clp-block-text">
+      <div class="eyebrow">03 · 재료</div>
+      <h3>재료는 시간을 기억합니다.</h3>
+      <p>새 콘크리트와 30년 된 콘크리트는 다른 물성을 가집니다. 좋은 건축은 처음의 모습보다 시간이 흐른 뒤의 모습을 먼저 상상합니다.</p>
+      <p>어떻게 늙어갈 것인가. 이 질문이 결국 어떤 재료를 쓸지 결정합니다. 시간을 통과해야만 알 수 있는 것들이 있습니다.</p>
+    </div>
+  </section>
+
+  <section class="clp-block reverse">
+    <div class="clp-block-media">
+      <img src="https://images.unsplash.com/photo-1777997288465-c435b4d03133?w=900&amp;h=1120&amp;fit=crop&amp;q=80&amp;auto=format" alt="목재 장식과 검은 난간이 있는 현대식 계단">
+    </div>
+    <div class="clp-block-text">
+      <div class="eyebrow">04 · 비례</div>
+      <h3>몸은 본능적으로 알아봅니다.</h3>
+      <p>천장 높이 2m 70cm와 2m 90cm는 숫자상 20cm 차이지만, 그 안에 서 있을 때 우리가 느끼는 감각은 완전히 다릅니다. 계단도 마찬가지입니다.</p>
+      <p>비례는 학습하지 않습니다. 가르치지 않아도 압니다. 그러나 만들기는 어렵습니다. 그 어려움이 곧 건축의 깊이입니다.</p>
+    </div>
+  </section>
+
+  <div class="clp-meta">
+    <div class="clp-meta-tags">
+      <a href="#" class="post-tag">#건축적사고</a>
+      <a href="#" class="post-tag">#공간</a>
+      <a href="#" class="post-tag">#디자인</a>
+      <a href="#" class="post-tag">#에세이</a>
+    </div>
+    <div>2026. 4. 28. · by 백희 · 댓글 4</div>
+  </div>
+</article>
+`;
+
+/* ───────────────────────────────────────────────────────────
+   템플릿 조립
+   ─────────────────────────────────────────────────────────── */
+function wrapDoc(extraStyle, body) {
+  return `<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+${BASE_STYLE}
+${extraStyle}
+</head>
+<body>
+${HEADER_HTML}
+<main>
+${body}
+</main>
+${FOOTER_HTML}
+<script>
+  // 빈 앵커(href="#")가 페이지 점프를 일으키지 않도록 차단
+  document.addEventListener('click', function(e) {
+    var a = e.target.closest('a');
+    if (!a) return;
+    var h = a.getAttribute('href');
+    if (h === '#' || h === '' || h === null) {
+      e.preventDefault();
+    }
+  });
+<\/script>
+</body>
+</html>`;
+}
+
+const TEMPLATES = {
+  'theme-base':     wrapDoc(THEME_STYLE,         THEME_BODY),
+  'theme-campaign': wrapDoc(POST_CLARKSON_STYLE, POST_CLARKSON_BODY),
+  'post':           wrapDoc(POST_STANTON_STYLE,  POST_STANTON_BODY),
+};
+
+/* ───────────────────────────────────────────────────────────
+   라우팅 + 인터랙션
+   라우트 ↔ 화면 매핑:
+     #theme           → 전체 테마, 기본형 (alias)
+     #theme-base      → 전체 테마, 기본형
+     #theme-campaign  → 전체 테마, 캠페인형
+     #post            → 게시글 상세 (블로그형)
+   ─────────────────────────────────────────────────────────── */
+const ROUTES = {
+  'theme':          { panel: 'theme', variant: 'base' },
+  'theme-base':     { panel: 'theme', variant: 'base' },
+  'theme-campaign': { panel: 'theme', variant: 'campaign' },
+  'post':           { panel: 'post',  variant: null },
+};
+const FILE_LABELS = {
+  'theme-base':     'clarkson_base_theme.html',
+  'theme-campaign': 'clarkson_campaign_theme.html',
+  'post':           'post_detail.html',
+};
+function parseHash() {
+  const raw = (location.hash || '').replace(/^#\/?/, '');
+  return ROUTES[raw] ? raw : 'theme-base';
+}
+function activateRoute(routeKey, opts) {
+  opts = opts || {};
+  const route = ROUTES[routeKey] || ROUTES['theme-base'];
+  const panel = route.panel, variant = route.variant;
+
+  // sidenav
+  document.querySelectorAll('.nav-item[data-tab]').forEach(function(b) {
+    b.classList.toggle('active', b.dataset.tab === panel);
+  });
+  // 패널
+  document.querySelectorAll('.panel').forEach(function(p) {
+    p.classList.toggle('active', p.dataset.panel === panel);
+  });
+  // variant 토글 + 파일 라벨 (theme 패널만)
+  if (panel === 'theme') {
+    document.querySelectorAll('.variant-btn[data-frame="theme"]').forEach(function(b) {
+      b.classList.toggle('active', b.dataset.variant === variant);
+    });
+    const key = 'theme-' + variant;
+    document.getElementById('frame-theme').srcdoc = TEMPLATES[key];
+    const fileEl = document.querySelector('[data-panel-file="theme"]');
+    if (fileEl) fileEl.textContent = FILE_LABELS[key];
+  } else if (panel === 'post') {
+    document.getElementById('frame-post').srcdoc = TEMPLATES['post'];
+  }
+  // btn-open href 동기화 — 현재 라우트의 정적 HTML 파일로 직접 연결
+  document.querySelectorAll('.btn-open').forEach(function(a) {
+    a.href = FILE_LABELS[routeKey] || 'clarkson_base_theme.html';
+  });
+  // URL 동기화
+  if (!opts.silent) {
+    const newHash = '#' + routeKey;
+    if (location.hash !== newHash) {
+      history.pushState(null, '', newHash);
+    }
+  }
+}
+
+// 좌측 패널 클릭 → 해당 패널의 디폴트 라우트로
+document.querySelectorAll('.nav-item[data-tab]').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    const tab = btn.dataset.tab;
+    activateRoute(tab === 'theme' ? 'theme-base' : 'post');
+  });
+});
+
+// theme 패널 내부 variant 토글
+document.querySelectorAll('.variant-btn[data-frame="theme"]').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    activateRoute('theme-' + btn.dataset.variant);
+  });
+});
+
+// 새 창에서 열기 — a 태그의 target="_blank" 자체로 동작 (href는 activateRoute에서 동기화)
+
+// 뒤로/앞으로 이동
+window.addEventListener('popstate', function() {
+  activateRoute(parseHash(), { silent: true });
+});
+
+// 초기 라우팅
+(function init() {
+  // preview 모드면 위에서 이미 document를 갈아치웠으므로 여기는 실행되지 않음
+  const routeKey = parseHash();
+  activateRoute(routeKey, { silent: true });
+  if (!location.hash) history.replaceState(null, '', '#theme-base');
+})();
+</script>
+</body>
+</html>

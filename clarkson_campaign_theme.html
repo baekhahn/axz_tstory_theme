@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root {
+  --raw-bg-base:    #F5F1EA;
+  --raw-bg-elev:    #FFFFFF;
+  --raw-bg-muted:   #EDE7DC;
+  --raw-bg-inv:     #1F1D18;
+  --raw-text-str:   #1F1D18;
+  --raw-text-pri:   #2A2722;
+  --raw-text-mut:   #6B6760;
+  --raw-text-sub:   #A09B91;
+  --raw-text-inv:   #F5F1EA;
+  --raw-accent-hi:  #1F1D18;
+  --raw-border-def: #DBD4C7;
+  --raw-border-str: #C5BCAB;
+  --raw-border-sub: #E8E2D6;
+
+  --color-surface-page:    var(--raw-bg-base);
+  --color-surface-card:    var(--raw-bg-elev);
+  --color-surface-subtle:  var(--raw-bg-muted);
+  --color-text-heading:    var(--raw-text-str);
+  --color-text-default:    var(--raw-text-pri);
+  --color-text-secondary:  var(--raw-text-mut);
+  --color-text-subtle:     var(--raw-text-sub);
+  --color-border-default:  var(--raw-border-def);
+  --color-border-strong:   var(--raw-border-str);
+  --color-border-subtle:   var(--raw-border-sub);
+  --color-accent-primary:  var(--raw-accent-hi);
+
+  --font-display: "Pretendard", -apple-system, "Apple SD Gothic Neo", sans-serif;
+  --font-body:    "Pretendard", -apple-system, "Apple SD Gothic Neo", sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { font-size: 16px; }
+body {
+  margin: 0; padding: 0;
+  font-family: var(--font-body);
+  background: var(--color-surface-page);
+  color: var(--color-text-default);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+ul, ol { margin: 0; padding: 0; list-style: none; }
+a { color: inherit; text-decoration: none; }
+p { margin: 0; }
+img { max-width: 100%; height: auto; vertical-align: middle; display: block; }
+button { font-family: inherit; cursor: pointer; }
+
+/* ── 공통 헤더 (Clarkson 톤) ── */
+.site-header {
+  background: var(--color-surface-page);
+  border-bottom: 1px solid var(--color-border-subtle);
+  position: sticky; top: 0; z-index: 100;
+}
+.site-header-inner {
+  max-width: 1280px; margin: 0 auto;
+  padding: 24px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 32px;
+}
+.site-brand {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-text-heading);
+  letter-spacing: -.02em;
+}
+.site-brand-sub {
+  font-size: 11px;
+  color: var(--color-text-subtle);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  margin-top: 3px;
+  font-weight: 500;
+}
+.site-nav {
+  display: flex; align-items: center; gap: 28px;
+}
+.site-nav a {
+  font-size: 14px;
+  color: var(--color-text-default);
+  font-weight: 500;
+  letter-spacing: -.005em;
+  padding: 4px 0;
+  border-bottom: 1px solid transparent;
+  transition: border-color .15s ease;
+}
+.site-nav a:hover { border-bottom-color: var(--color-text-heading); }
+.site-search {
+  border: 1px solid var(--color-border-strong);
+  padding: 6px 10px;
+  font-size: 13px;
+  background: transparent;
+  font-family: inherit;
+  color: var(--color-text-default);
+  width: 160px;
+  border-radius: 0;
+}
+.site-search::placeholder { color: var(--color-text-subtle); }
+
+/* ── 공통 푸터 (Clarkson 톤) ── */
+.site-footer {
+  background: var(--color-surface-page);
+  border-top: 1px solid var(--color-border-default);
+  padding: 64px 40px 32px;
+  margin-top: 80px;
+}
+.site-footer-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+.footer-brand-block .footer-brand {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text-heading);
+  letter-spacing: -.02em;
+  margin-bottom: 8px;
+}
+.footer-brand-block .footer-desc {
+  font-size: 13.5px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  max-width: 320px;
+}
+.footer-col-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-heading);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.footer-col ul li { margin-bottom: 10px; }
+.footer-col ul li a {
+  font-size: 13.5px;
+  color: var(--color-text-secondary);
+}
+.footer-col ul li a:hover { color: var(--color-text-heading); }
+.footer-meta {
+  max-width: 1280px; margin: 0 auto;
+  padding-top: 24px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px;
+  color: var(--color-text-subtle);
+  letter-spacing: -.005em;
+}
+.footer-meta a { color: var(--color-text-secondary); }
+.footer-meta a:hover { color: var(--color-text-heading); }
+@media (max-width: 900px) {
+  .site-footer-inner { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .site-footer-inner { grid-template-columns: 1fr; }
+  .footer-meta { flex-direction: column; gap: 8px; }
+}
+
+/* 공통: 큰 헤딩 시스템 (Clarkson 톤 — Light weight + 큰 사이즈 + tight) */
+.display-xl { font-size: 64px; font-weight: 600; letter-spacing: -.035em; line-height: 1.05; color: var(--color-text-heading); }
+.display-lg { font-size: 48px; font-weight: 600; letter-spacing: -.03em;  line-height: 1.1;  color: var(--color-text-heading); }
+.display-md { font-size: 36px; font-weight: 600; letter-spacing: -.025em; line-height: 1.15; color: var(--color-text-heading); }
+.display-sm { font-size: 28px; font-weight: 600; letter-spacing: -.02em;  line-height: 1.2;  color: var(--color-text-heading); }
+.eyebrow {
+  font-size: 11.5px; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+.btn-primary {
+  display: inline-block;
+  background: var(--raw-bg-inv);
+  color: var(--raw-text-inv);
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: -.005em;
+  padding: 14px 28px;
+  border: none;
+  text-decoration: none;
+  transition: opacity .15s ease;
+}
+.btn-primary:hover { opacity: .85; }
+.btn-ghost {
+  display: inline-block;
+  background: transparent;
+  color: var(--color-text-heading);
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: -.005em;
+  padding: 13px 27px;
+  border: 1px solid var(--color-text-heading);
+  text-decoration: none;
+  transition: all .15s ease;
+}
+.btn-ghost:hover { background: var(--color-text-heading); color: var(--raw-text-inv); }
+
+@media (max-width: 760px) {
+  .site-header-inner { padding: 16px 20px; flex-wrap: wrap; gap: 12px; }
+  .site-nav { gap: 18px; }
+  .site-search { display: none; }
+  .display-xl { font-size: 42px; }
+  .display-lg { font-size: 34px; }
+  .display-md { font-size: 28px; }
+  .display-sm { font-size: 22px; }
+}
+</style>
+
+
+<style>
+.clp-hero {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  min-height: 560px;
+  overflow: hidden;
+  background: var(--color-text-heading);
+}
+.clp-hero img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: .92;
+}
+.clp-hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(31,29,24,0) 0%, rgba(31,29,24,.55) 100%);
+}
+.clp-hero-content {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 64px 40px;
+  max-width: 1280px; margin: 0 auto;
+  color: var(--raw-text-inv);
+}
+.clp-hero-content .eyebrow {
+  color: rgba(245,241,234,.8);
+  margin-bottom: 20px;
+}
+.clp-hero-content h1 {
+  font-size: 64px; font-weight: 600;
+  letter-spacing: -.035em; line-height: 1.05;
+  color: var(--raw-text-inv);
+  max-width: 920px;
+  margin: 0;
+}
+
+.clp-intro {
+  max-width: 1280px; margin: 0 auto;
+  padding: 96px 40px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  align-items: start;
+}
+.clp-intro .lead-eyebrow { margin-bottom: 16px; }
+.clp-intro h2 {
+  font-size: 36px; font-weight: 600;
+  letter-spacing: -.025em; line-height: 1.2;
+  color: var(--color-text-heading);
+  margin: 0;
+}
+.clp-intro p {
+  font-size: 16px;
+  color: var(--color-text-secondary);
+  line-height: 1.75;
+  max-width: 520px;
+}
+.clp-intro p + p { margin-top: 18px; }
+
+.clp-block {
+  max-width: 1280px; margin: 0 auto;
+  padding: 48px 40px 96px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  align-items: center;
+}
+.clp-block.reverse .clp-block-media { order: 2; }
+.clp-block.reverse .clp-block-text  { order: 1; }
+.clp-block-media img {
+  width: 100%; aspect-ratio: 4/5; object-fit: cover;
+}
+.clp-block-text .eyebrow { margin-bottom: 14px; }
+.clp-block-text h3 {
+  font-size: 30px; font-weight: 600;
+  letter-spacing: -.025em; line-height: 1.2;
+  color: var(--color-text-heading);
+  margin: 0 0 20px;
+}
+.clp-block-text p {
+  font-size: 15.5px;
+  color: var(--color-text-secondary);
+  line-height: 1.75;
+  margin: 0 0 16px;
+}
+
+.clp-pullquote {
+  background: var(--color-surface-subtle);
+  padding: 120px 40px;
+}
+.clp-pullquote-inner {
+  max-width: 1000px; margin: 0 auto;
+  text-align: center;
+}
+.clp-pullquote blockquote {
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -.025em;
+  line-height: 1.25;
+  color: var(--color-text-heading);
+  margin: 0 0 28px;
+}
+.clp-pullquote cite {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.clp-wide {
+  max-width: 1440px; margin: 0 auto;
+  padding: 96px 40px;
+}
+.clp-wide-image {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+.clp-wide-image img { width: 100%; height: 100%; object-fit: cover; }
+
+.clp-cta {
+  background: var(--color-text-heading);
+  color: var(--raw-text-inv);
+  padding: 120px 40px;
+}
+.clp-cta-inner {
+  max-width: 900px; margin: 0 auto;
+  text-align: center;
+}
+.clp-cta .eyebrow {
+  color: rgba(245,241,234,.6);
+  margin-bottom: 20px;
+}
+.clp-cta h2 {
+  font-size: 48px; font-weight: 600;
+  letter-spacing: -.03em; line-height: 1.15;
+  color: var(--raw-text-inv);
+  margin: 0 0 28px;
+}
+.clp-cta p {
+  font-size: 16px;
+  color: rgba(245,241,234,.75);
+  line-height: 1.7;
+  margin: 0 0 40px;
+  max-width: 580px; margin-left: auto; margin-right: auto;
+}
+.clp-cta-actions {
+  display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+}
+.clp-cta .btn-light {
+  display: inline-block;
+  background: var(--raw-text-inv);
+  color: var(--color-text-heading);
+  font-size: 13.5px; font-weight: 500;
+  letter-spacing: -.005em;
+  padding: 14px 28px;
+  border: none; text-decoration: none;
+  transition: opacity .15s ease;
+}
+.clp-cta .btn-light:hover { opacity: .9; }
+.clp-cta .btn-outline-light {
+  display: inline-block;
+  background: transparent;
+  color: var(--raw-text-inv);
+  font-size: 13.5px; font-weight: 500;
+  letter-spacing: -.005em;
+  padding: 13px 27px;
+  border: 1px solid rgba(245,241,234,.7);
+  text-decoration: none;
+  transition: all .15s ease;
+}
+.clp-cta .btn-outline-light:hover { background: var(--raw-text-inv); color: var(--color-text-heading); }
+
+.clp-meta {
+  max-width: 1280px; margin: 0 auto;
+  padding: 64px 40px 24px;
+  border-top: 1px solid var(--color-border-subtle);
+  display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between;
+  font-size: 13px; color: var(--color-text-secondary);
+}
+.clp-meta-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+
+@media (max-width: 900px) {
+  .clp-hero { height: 70vh; min-height: 440px; }
+  .clp-hero-content { padding: 32px 20px; }
+  .clp-hero-content h1 { font-size: 36px; }
+  .clp-intro { grid-template-columns: 1fr; gap: 24px; padding: 56px 20px; }
+  .clp-intro h2 { font-size: 26px; }
+  .clp-block { grid-template-columns: 1fr; gap: 32px; padding: 32px 20px 64px; }
+  .clp-block.reverse .clp-block-media { order: 0; }
+  .clp-block.reverse .clp-block-text { order: 0; }
+  .clp-block-text h3 { font-size: 22px; }
+  .clp-pullquote { padding: 72px 20px; }
+  .clp-pullquote blockquote { font-size: 24px; }
+  .clp-cta { padding: 72px 20px; }
+  .clp-cta h2 { font-size: 28px; }
+  .clp-wide { padding: 56px 20px; }
+}
+</style>
+
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <div>
+      <div class="site-brand">공간노트</div>
+      <div class="site-brand-sub">Notes on Architecture &amp; Spaces</div>
+    </div>
+    <nav class="site-nav">
+      <a href="#">홈</a>
+      <a href="#">태그</a>
+      <a href="#">방명록</a>
+      <input class="site-search" type="text" placeholder="검색…">
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<article>
+  <section class="clp-hero">
+    <img src="https://images.unsplash.com/photo-1776365412164-e3c5af42dd0b?w=2000&amp;h=1400&amp;fit=crop&amp;q=80&amp;auto=format" alt="높은 아치가 있는 대성당 내부">
+    <div class="clp-hero-overlay"></div>
+    <div class="clp-hero-content">
+      <div class="eyebrow">Essay · 건축적 사고 · 2026.04</div>
+      <h1>건축은 짓는 일이 아니라,<br>묻는 일이다.</h1>
+    </div>
+  </section>
+
+  <section class="clp-intro">
+    <div>
+      <div class="eyebrow lead-eyebrow">Long Read</div>
+      <h2>좋은 건축은 멋진 형태에서 시작하지 않습니다. 단 하나의 질문에서 시작합니다.</h2>
+    </div>
+    <div>
+      <p>건축가는 매일 수십 개의 결정을 내립니다. 어디에 창을 낼지, 천장의 높이를 얼마로 할지, 어떤 재료로 바닥을 마감할지. 이 결정들은 모두 어떤 질문에 대한 답입니다.</p>
+      <p>질문이 흐릿하면 답도 흐려집니다. 정성보다 정확함이 먼저인 분야가 건축입니다. 이 글은 그 정확함에 대한 노트입니다.</p>
+    </div>
+  </section>
+
+  <section class="clp-block">
+    <div class="clp-block-media">
+      <img src="https://images.unsplash.com/photo-1774050952646-a850ad28ad6f?w=900&amp;h=1120&amp;fit=crop&amp;q=80&amp;auto=format" alt="기하학적 패턴의 현대식 건물 내부">
+    </div>
+    <div class="clp-block-text">
+      <div class="eyebrow">01 · 질문이 먼저</div>
+      <h3>누가 이 공간에 머물 것인가.</h3>
+      <p>좋은 카페에 들어서면, 우리는 별다른 안내 없이도 어디에 앉아야 할지 알게 됩니다. 누구도 지시하지 않았지만, 공간이 이미 우리의 결정을 안내하고 있습니다.</p>
+      <p>그 안내가 만들어지기까지, 건축가는 그 사람의 하루를 따라가 봐야 합니다. 책상 앞에서 한 시간 머물 사람인지, 창가에서 세 시간 머물 사람인지. 답은 평면 위에서 나오지 않습니다.</p>
+    </div>
+  </section>
+
+  <section class="clp-pullquote">
+    <div class="clp-pullquote-inner">
+      <blockquote>"공간은 침묵하지 않습니다. 다만 말하는 방식이 우리에게 익숙하지 않을 뿐입니다."</blockquote>
+      <cite>— Juhani Pallasmaa</cite>
+    </div>
+  </section>
+
+  <section class="clp-block reverse">
+    <div class="clp-block-media">
+      <img src="https://images.unsplash.com/photo-1752154023453-faba02f8a841?w=900&amp;h=1120&amp;fit=crop&amp;q=80&amp;auto=format" alt="따뜻한 빛이 새어 나오는 건물 창문">
+    </div>
+    <div class="clp-block-text">
+      <div class="eyebrow">02 · 빛</div>
+      <h3>빛은 시간을 운반합니다.</h3>
+      <p>같은 공간이 아침과 저녁에 다른 표정을 짓는 이유는 빛이 시간을 운반하기 때문입니다. 빛은 마감재가 아닙니다. 빛은 시간의 매개입니다.</p>
+      <p>그래서 좋은 건축가들은 창의 크기보다 창의 위치와 깊이에 더 오래 고민합니다. 5cm의 깊이 차이가 한 시간의 빛을 바꿉니다.</p>
+    </div>
+  </section>
+
+  <section class="clp-wide">
+    <div class="clp-wide-image">
+      <img src="https://images.unsplash.com/photo-1770739505255-17ccc766db80?w=2000&amp;h=1125&amp;fit=crop&amp;q=80&amp;auto=format" alt="푸른 하늘을 배경으로 기하학적 외관을 가진 현대 마천루">
+    </div>
+  </section>
+
+  <section class="clp-block">
+    <div class="clp-block-media">
+      <img src="https://images.unsplash.com/photo-1769745918779-f255f567664c?w=900&amp;h=1120&amp;fit=crop&amp;q=80&amp;auto=format" alt="타일 백스플래시가 있는 빈티지 나무 주방 캐비닛">
+    </div>
+    <div class="clp-block-text">
+      <div class="eyebrow">03 · 재료</div>
+      <h3>재료는 시간을 기억합니다.</h3>
+      <p>새 콘크리트와 30년 된 콘크리트는 다른 물성을 가집니다. 좋은 건축은 처음의 모습보다 시간이 흐른 뒤의 모습을 먼저 상상합니다.</p>
+      <p>어떻게 늙어갈 것인가. 이 질문이 결국 어떤 재료를 쓸지 결정합니다. 시간을 통과해야만 알 수 있는 것들이 있습니다.</p>
+    </div>
+  </section>
+
+  <section class="clp-block reverse">
+    <div class="clp-block-media">
+      <img src="https://images.unsplash.com/photo-1777997288465-c435b4d03133?w=900&amp;h=1120&amp;fit=crop&amp;q=80&amp;auto=format" alt="목재 장식과 검은 난간이 있는 현대식 계단">
+    </div>
+    <div class="clp-block-text">
+      <div class="eyebrow">04 · 비례</div>
+      <h3>몸은 본능적으로 알아봅니다.</h3>
+      <p>천장 높이 2m 70cm와 2m 90cm는 숫자상 20cm 차이지만, 그 안에 서 있을 때 우리가 느끼는 감각은 완전히 다릅니다. 계단도 마찬가지입니다.</p>
+      <p>비례는 학습하지 않습니다. 가르치지 않아도 압니다. 그러나 만들기는 어렵습니다. 그 어려움이 곧 건축의 깊이입니다.</p>
+    </div>
+  </section>
+
+  <div class="clp-meta">
+    <div class="clp-meta-tags">
+      <a href="#" class="post-tag">#건축적사고</a>
+      <a href="#" class="post-tag">#공간</a>
+      <a href="#" class="post-tag">#디자인</a>
+      <a href="#" class="post-tag">#에세이</a>
+    </div>
+    <div>2026. 4. 28. · by 백희 · 댓글 4</div>
+  </div>
+</article>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-meta">
+    <span>© 공간노트. All rights reserved.</span>
+    <span>Powered by <a href="#">Tistory</a> · Theme by <a href="#">Miterlab</a></span>
+  </div>
+</footer>
+
+<script>
+  // 빈 앵커(href="#")가 페이지 점프를 일으키지 않도록 차단
+  document.addEventListener('click', function(e) {
+    var a = e.target.closest('a');
+    if (!a) return;
+    var h = a.getAttribute('href');
+    if (h === '#' || h === '' || h === null) {
+      e.preventDefault();
+    }
+  });
+</script>
+</body>
+</html>
