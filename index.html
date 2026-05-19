@@ -3,25 +3,48 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Clarkson 베이스 티스토리 테마 — 통합 미리보기 (1차)</title>
+<title>Blog A 베이스 티스토리 테마 — 통합 미리보기 (1차)</title>
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
 :root {
-  /* ── Clarkson Primitives (셸 UI · iframe 양쪽에서 동일 사용) ── */
+  /* ── Blog A Primitives (셸 UI · iframe 양쪽에서 동일 사용) ──
+     값은 임시(무채색). 모듈 작업 완료 후 톤 단계에서 일괄 교체.
+     변수 슬롯은 카카오옐로우 레퍼런스와 호환되도록 동일 명명 유지. */
+
+  /* 배경 */
   --raw-bg-base:    #F5F1EA;
   --raw-bg-elev:    #FFFFFF;
   --raw-bg-muted:   #EDE7DC;
   --raw-bg-inv:     #1F1D18;
+
+  /* 텍스트 */
   --raw-text-str:   #1F1D18;
   --raw-text-pri:   #2A2722;
   --raw-text-mut:   #6B6760;
   --raw-text-sub:   #A09B91;
   --raw-text-inv:   #F5F1EA;
-  --raw-accent-hi:  #1F1D18;
+
+  /* 액센트 (값은 임시 무채색, 톤 단계에서 컬러로 교체) */
+  --raw-accent-hi:  #1F1D18;  /* 브랜드/포인트 (카카오옐로우: #FAE100) */
+  --raw-accent-nav: #1F1D18;  /* 네비·사이드바 active (카카오옐로우: #1F1A00) */
+  --raw-accent-lnk: #3A352E;  /* 링크·hover (카카오옐로우: #3D3318) */
+
+  /* 보더 */
   --raw-border-def: #DBD4C7;
   --raw-border-str: #C5BCAB;
   --raw-border-sub: #E8E2D6;
+
+  /* 폰트 사이즈 (8단계 스케일) */
+  --font-size-xs:   11px;     /* 작은 라벨·태그 */
+  --font-size-sm:   12.5px;   /* 메타·캡션 */
+  --font-size-base: 14px;     /* 본문 기본 */
+  --font-size-md:   16px;     /* 본문 large */
+  --font-size-lg:   18px;     /* 소제목 */
+  --font-size-xl:   22px;     /* h3·패널 타이틀 */
+  --font-size-2xl:  28px;     /* h2 */
+  --font-size-3xl:  36px;     /* h1 */
+  --font-size-display: 56px;  /* hero 디스플레이 (선택) */
 }
 
 * { box-sizing: border-box; }
@@ -50,21 +73,43 @@ button { font-family: inherit; cursor: pointer; }
   padding: 8px 12px 20px;
   border-bottom: 1px solid rgba(245,241,234,.12);
   margin-bottom: 12px;
+  display: flex; flex-direction: column; gap: 8px;
 }
-.sidenav-title {
-  font-size: 15.5px;
-  font-weight: 700;
+.sidenav-eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(245,241,234,.5);
+  margin: 0;
+}
+.theme-select {
+  appearance: none; -webkit-appearance: none;
+  background: rgba(245,241,234,.06) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F5F1EA' stroke-width='1.6'><path d='M7 10l5 5 5-5'/></svg>") no-repeat right 10px center / 14px;
+  border: 1px solid rgba(245,241,234,.18);
   color: var(--raw-text-inv);
-  letter-spacing: -.015em;
-  margin: 0 0 4px;
-  line-height: 1.35;
+  padding: 8px 30px 8px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  letter-spacing: -.01em;
+  cursor: pointer;
+  border-radius: 2px;
+  width: 100%;
+  transition: border-color .15s ease, background-color .15s ease;
 }
+.theme-select:hover  { border-color: rgba(245,241,234,.32); background-color: rgba(245,241,234,.1); }
+.theme-select:focus  { outline: none; border-color: rgba(245,241,234,.5); }
+.theme-select option { color: #1F1D18; background: #F5F1EA; }
+.theme-select option:disabled { color: #A09B91; }
 .sidenav-sub {
   font-size: 11.5px;
   color: var(--raw-text-sub);
   margin: 0;
   letter-spacing: -.005em;
 }
+/* legacy — 더 이상 사용 안 함 */
+.sidenav-title { display: none; }
 .sidenav-section {
   font-size: 10.5px;
   font-weight: 600;
@@ -148,26 +193,41 @@ button { font-family: inherit; cursor: pointer; }
 }
 .btn-open:hover { opacity: .85; }
 
-/* variant 토글 */
-.variant-toggle { display: flex; gap: 0; margin-top: 12px; }
-.variant-btn {
-  background: var(--raw-bg-elev);
-  border: 1px solid var(--raw-border-str);
+/* 슬롯 바 (드롭다운 셀렉터 그룹) */
+.slot-bar {
+  display: flex; flex-wrap: wrap;
+  gap: 16px 24px;
+  margin-top: 14px;
+}
+.slot-field {
+  display: flex; flex-direction: column; gap: 4px;
+  min-width: 180px;
+}
+.slot-label {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
   color: var(--raw-text-mut);
-  padding: 8px 18px;
+}
+.slot-select {
+  appearance: none; -webkit-appearance: none;
+  background: var(--raw-bg-elev) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231F1D18' stroke-width='1.6'><path d='M7 10l5 5 5-5'/></svg>") no-repeat right 10px center / 14px;
+  border: 1px solid var(--raw-border-str);
+  color: var(--raw-text-str);
+  padding: 8px 36px 8px 12px;
   font-size: 13px;
-  font-weight: 500;
-  letter-spacing: -.01em;
-  border-right: none;
-  transition: all .15s ease;
+  font-family: inherit;
+  letter-spacing: -.005em;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: border-color .15s ease;
 }
-.variant-btn:last-child { border-right: 1px solid var(--raw-border-str); }
-.variant-btn:hover { background: var(--raw-bg-muted); }
-.variant-btn.active {
-  background: var(--raw-bg-inv);
-  color: var(--raw-text-inv);
-  border-color: var(--raw-bg-inv);
-}
+.slot-select:hover  { border-color: var(--raw-text-mut); }
+.slot-select:focus  { outline: none; border-color: var(--raw-text-str); }
+
+/* (legacy) variant-toggle — 더 이상 사용 안 함, 안전상 호환만 유지 */
+.variant-toggle { display: none; }
 
 /* 프레임 */
 .frame-wrap { flex: 1; padding: 0; background: var(--raw-bg-muted); display: flex; }
@@ -200,40 +260,40 @@ button { font-family: inherit; cursor: pointer; }
   <!-- 좌측 네비 -->
   <nav class="sidenav">
     <div class="sidenav-brand">
-      <h1 class="sidenav-title">티스토리 테마 — Clarkson 베이스</h1>
+      <p class="sidenav-eyebrow">티스토리 테마</p>
+      <select class="theme-select" aria-label="테마 선택">
+        <option value="blog-a">Blog A</option>
+        <option value="blog-b" disabled>Blog B (예정)</option>
+        <option value="website-a" disabled>Website A (예정)</option>
+        <option value="website-b" disabled>Website B (예정)</option>
+      </select>
       <p class="sidenav-sub">마이터랩 · 1차 통합 미리보기</p>
     </div>
 
-    <div class="sidenav-section">완성본</div>
+    <div class="sidenav-section">화면 (조합 검수)</div>
     <button class="nav-item active" data-tab="theme">
       <span class="nav-label">전체 테마</span>
     </button>
-
-    <div class="sidenav-section">게시글 상세</div>
     <button class="nav-item" data-tab="post">
       <span class="nav-label">게시글 (블로그형)</span>
     </button>
 
-    <div class="sidenav-section">공통 영역 · 추후</div>
-    <button class="nav-item" disabled>
-      <span class="nav-label">헤더</span><span class="nav-tag">TODO</span>
+    <div class="sidenav-section">컴포넌트 (단독 검수)</div>
+    <button class="nav-item" data-tab="header">
+      <span class="nav-label">헤더</span>
     </button>
-    <button class="nav-item" disabled>
-      <span class="nav-label">푸터</span><span class="nav-tag">TODO</span>
+    <button class="nav-item" data-tab="footer">
+      <span class="nav-label">푸터</span>
     </button>
     <button class="nav-item" disabled>
       <span class="nav-label">사이드바</span><span class="nav-tag">TODO</span>
     </button>
-
-    <div class="sidenav-section">홈 화면 · 추후</div>
     <button class="nav-item" disabled>
       <span class="nav-label">홈 — 게시글 목록</span><span class="nav-tag">TODO</span>
     </button>
     <button class="nav-item" disabled>
-      <span class="nav-label">홈 — 페이지네이션</span><span class="nav-tag">TODO</span>
+      <span class="nav-label">페이지네이션</span><span class="nav-tag">TODO</span>
     </button>
-
-    <div class="sidenav-section">기타 · 추후</div>
     <button class="nav-item" disabled>
       <span class="nav-label">태그 / 방명록</span><span class="nav-tag">TODO</span>
     </button>
@@ -242,18 +302,39 @@ button { font-family: inherit; cursor: pointer; }
   <!-- 메인 -->
   <main class="main">
 
-    <!-- 완성본 -->
+    <!-- 화면 · 전체 테마 -->
     <section class="panel active" data-panel="theme">
       <header class="panel-header">
-        <h2 class="panel-title">전체 테마 — 두 가지 디자인</h2>
-        <p class="panel-desc">Clarkson 디자인 토큰 베이스의 홈 화면 — 기본형(카드 리스트) / 캠페인형(풀폭 알터네이트). 헤더 · 푸터 · 토큰은 공유, 본문 레이아웃만 분기.</p>
+        <h2 class="panel-title">전체 테마</h2>
+        <p class="panel-desc">Blog A 베이스 — 본문 레이아웃과 각 모듈(헤더 등)을 슬롯으로 선택해 조합 검수.</p>
         <div class="panel-meta">
-          <span class="panel-file" data-panel-file="theme">clarkson_base_theme.html</span>
-          <a class="btn-open" data-target="theme" target="_blank" rel="noopener" href="clarkson_base_theme.html">새 창에서 열기 ↗</a>
+          <span class="panel-file" data-panel-file="theme"></span>
         </div>
-        <div class="variant-toggle" role="tablist">
-          <button class="variant-btn active" data-frame="theme" data-variant="base">기본형 (카드 리스트)</button>
-          <button class="variant-btn" data-frame="theme" data-variant="campaign">캠페인형 (풀폭 알터네이트)</button>
+        <div class="slot-bar" data-panel="theme">
+          <label class="slot-field">
+            <span class="slot-label">본문 레이아웃</span>
+            <select class="slot-select" data-panel="theme" data-slot="body">
+              <option value="base">기본형 (카드 리스트)</option>
+              <option value="campaign">캠페인형 (풀폭 알터네이트)</option>
+            </select>
+          </label>
+          <label class="slot-field">
+            <span class="slot-label">헤더</span>
+            <select class="slot-select" data-panel="theme" data-slot="header">
+              <option value="left">좌측 정렬</option>
+              <option value="split">2단 분리형</option>
+              <option value="hero">히어로 배너형</option>
+            </select>
+          </label>
+          <label class="slot-field">
+            <span class="slot-label">푸터</span>
+            <select class="slot-select" data-panel="theme" data-slot="footer">
+              <option value="center">중앙 정렬</option>
+              <option value="split-h">좌우 분리형</option>
+              <option value="split-v">상하 분리형</option>
+              <option value="left">좌측 정렬 블록형</option>
+            </select>
+          </label>
         </div>
       </header>
       <div class="frame-wrap">
@@ -261,18 +342,85 @@ button { font-family: inherit; cursor: pointer; }
       </div>
     </section>
 
-    <!-- 게시글 (블로그형) -->
+    <!-- 화면 · 게시글 (블로그형) -->
     <section class="panel" data-panel="post">
       <header class="panel-header">
         <h2 class="panel-title">게시글 상세 — 블로그형</h2>
-        <p class="panel-desc">단일 컬럼 블로그 글 형식의 게시글 상세 화면 — 큰 히어로 이미지, 긴 본문, 인용, 태그, 이전/다음, 댓글 영역까지.</p>
+        <p class="panel-desc">단일 컬럼 블로그 글 형식의 게시글 상세. 각 모듈을 슬롯으로 갈아끼워 조합 검수.</p>
         <div class="panel-meta">
           <span class="panel-file">post_detail.html</span>
-          <a class="btn-open" data-target="post" target="_blank" rel="noopener" href="post_detail.html">새 창에서 열기 ↗</a>
+        </div>
+        <div class="slot-bar" data-panel="post">
+          <label class="slot-field">
+            <span class="slot-label">헤더</span>
+            <select class="slot-select" data-panel="post" data-slot="header">
+              <option value="left">좌측 정렬</option>
+              <option value="split">2단 분리형</option>
+              <option value="hero">히어로 배너형</option>
+            </select>
+          </label>
+          <label class="slot-field">
+            <span class="slot-label">푸터</span>
+            <select class="slot-select" data-panel="post" data-slot="footer">
+              <option value="center">중앙 정렬</option>
+              <option value="split-h">좌우 분리형</option>
+              <option value="split-v">상하 분리형</option>
+              <option value="left">좌측 정렬 블록형</option>
+            </select>
+          </label>
         </div>
       </header>
       <div class="frame-wrap">
         <iframe class="preview-frame" id="frame-post" title="게시글 상세"></iframe>
+      </div>
+    </section>
+
+    <!-- 컴포넌트 · 헤더 단독 검수 -->
+    <section class="panel" data-panel="header">
+      <header class="panel-header">
+        <h2 class="panel-title">컴포넌트 — 헤더</h2>
+        <p class="panel-desc">헤더 단독 검수. 본문·푸터는 placeholder. 화면(전체 테마/게시글) 에 적용된 모습은 좌측 sidenav 의 "화면" 섹션에서 확인.</p>
+        <div class="panel-meta">
+          <span class="panel-file" data-panel-file="header"></span>
+        </div>
+        <div class="slot-bar" data-panel="header">
+          <label class="slot-field">
+            <span class="slot-label">변형</span>
+            <select class="slot-select" data-panel="header" data-slot="variant">
+              <option value="left">좌측 정렬</option>
+              <option value="split">2단 분리형</option>
+              <option value="hero">히어로 배너형</option>
+            </select>
+          </label>
+        </div>
+      </header>
+      <div class="frame-wrap">
+        <iframe class="preview-frame" id="frame-header" title="헤더 미리보기"></iframe>
+      </div>
+    </section>
+
+    <!-- 컴포넌트 · 푸터 단독 검수 -->
+    <section class="panel" data-panel="footer">
+      <header class="panel-header">
+        <h2 class="panel-title">컴포넌트 — 푸터</h2>
+        <p class="panel-desc">푸터 단독 검수. 헤더·본문은 placeholder. 푸터 메뉴(홈/방명록/RSS/맨위로) · 카피라이트 · Powered by Tistory 공통.</p>
+        <div class="panel-meta">
+          <span class="panel-file" data-panel-file="footer"></span>
+        </div>
+        <div class="slot-bar" data-panel="footer">
+          <label class="slot-field">
+            <span class="slot-label">변형</span>
+            <select class="slot-select" data-panel="footer" data-slot="variant">
+              <option value="center">중앙 정렬</option>
+              <option value="split-h">좌우 분리형</option>
+              <option value="split-v">상하 분리형</option>
+              <option value="left">좌측 정렬 블록형</option>
+            </select>
+          </label>
+        </div>
+      </header>
+      <div class="frame-wrap">
+        <iframe class="preview-frame" id="frame-footer" title="푸터 미리보기"></iframe>
       </div>
     </section>
 
@@ -288,20 +436,41 @@ const BASE_STYLE = `
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
 :root {
+  /* 배경 */
   --raw-bg-base:    #F5F1EA;
   --raw-bg-elev:    #FFFFFF;
   --raw-bg-muted:   #EDE7DC;
   --raw-bg-inv:     #1F1D18;
+
+  /* 텍스트 */
   --raw-text-str:   #1F1D18;
   --raw-text-pri:   #2A2722;
   --raw-text-mut:   #6B6760;
   --raw-text-sub:   #A09B91;
   --raw-text-inv:   #F5F1EA;
+
+  /* 액센트 (값은 임시 무채색, 톤 단계에서 컬러로 교체) */
   --raw-accent-hi:  #1F1D18;
+  --raw-accent-nav: #1F1D18;
+  --raw-accent-lnk: #3A352E;
+
+  /* 보더 */
   --raw-border-def: #DBD4C7;
   --raw-border-str: #C5BCAB;
   --raw-border-sub: #E8E2D6;
 
+  /* 폰트 사이즈 (8단계 스케일) */
+  --font-size-xs:   11px;
+  --font-size-sm:   12.5px;
+  --font-size-base: 14px;
+  --font-size-md:   16px;
+  --font-size-lg:   18px;
+  --font-size-xl:   22px;
+  --font-size-2xl:  28px;
+  --font-size-3xl:  36px;
+  --font-size-display: 56px;
+
+  /* 시맨틱 색 매핑 */
   --color-surface-page:    var(--raw-bg-base);
   --color-surface-card:    var(--raw-bg-elev);
   --color-surface-subtle:  var(--raw-bg-muted);
@@ -313,7 +482,10 @@ const BASE_STYLE = `
   --color-border-strong:   var(--raw-border-str);
   --color-border-subtle:   var(--raw-border-sub);
   --color-accent-primary:  var(--raw-accent-hi);
+  --color-accent-nav:      var(--raw-accent-nav);
+  --color-accent-link:     var(--raw-accent-lnk);
 
+  /* 폰트 패밀리 */
   --font-display: "Pretendard", -apple-system, "Apple SD Gothic Neo", sans-serif;
   --font-body:    "Pretendard", -apple-system, "Apple SD Gothic Neo", sans-serif;
 }
@@ -334,7 +506,7 @@ p { margin: 0; }
 img { max-width: 100%; height: auto; vertical-align: middle; display: block; }
 button { font-family: inherit; cursor: pointer; }
 
-/* ── 공통 헤더 (Clarkson 톤) ── */
+/* ── 공통 헤더 (Blog A 톤) ── */
 .site-header {
   background: var(--color-surface-page);
   border-bottom: 1px solid var(--color-border-subtle);
@@ -385,7 +557,7 @@ button { font-family: inherit; cursor: pointer; }
 }
 .site-search::placeholder { color: var(--color-text-subtle); }
 
-/* ── 공통 푸터 (Clarkson 톤) ── */
+/* ── 공통 푸터 (Blog A 톤) ── */
 .site-footer {
   background: var(--color-surface-page);
   border-top: 1px solid var(--color-border-default);
@@ -445,7 +617,7 @@ button { font-family: inherit; cursor: pointer; }
   .footer-meta { flex-direction: column; gap: 8px; }
 }
 
-/* 공통: 큰 헤딩 시스템 (Clarkson 톤 — Light weight + 큰 사이즈 + tight) */
+/* 공통: 큰 헤딩 시스템 (Blog A 톤 — Light weight + 큰 사이즈 + tight) */
 .display-xl { font-size: 64px; font-weight: 600; letter-spacing: -.035em; line-height: 1.05; color: var(--color-text-heading); }
 .display-lg { font-size: 48px; font-weight: 600; letter-spacing: -.03em;  line-height: 1.1;  color: var(--color-text-heading); }
 .display-md { font-size: 36px; font-weight: 600; letter-spacing: -.025em; line-height: 1.15; color: var(--color-text-heading); }
@@ -518,13 +690,13 @@ const FOOTER_HTML = `
 <footer class="site-footer">
   <div class="footer-meta">
     <span>© 공간노트. All rights reserved.</span>
-    <span>Powered by <a href="#">Tistory</a> · Theme by <a href="#">Miterlab</a></span>
+    <span>Powered by <a href="#">Tistory</a></span>
   </div>
 </footer>
 `;
 
 /* ───────────────────────────────────────────────────────────
-   1) 완성본 — Clarkson 톤 홈
+   1) 완성본 — Blog A 톤 홈
    ─────────────────────────────────────────────────────────── */
 const THEME_STYLE = `
 <style>
@@ -532,7 +704,7 @@ const THEME_STYLE = `
   max-width: 1280px; margin: 0 auto;
   padding: 100px 40px 80px;
   display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
-  align-items: end;
+  align-items: center;
 }
 .theme-hero .eyebrow { margin-bottom: 16px; }
 .theme-hero p {
@@ -688,7 +860,7 @@ const THEME_BODY = `
       <div class="post-meta">
         <span>2026. 4. 28.</span>
         <span class="post-meta-sep">·</span>
-        <span>by 백희</span>
+        <span>by 예은</span>
       </div>
     </div>
   </article>
@@ -702,7 +874,7 @@ const THEME_BODY = `
       <div class="post-meta">
         <span>2026. 4. 14.</span>
         <span class="post-meta-sep">·</span>
-        <span>by 백희</span>
+        <span>by 예은</span>
       </div>
     </div>
   </article>
@@ -716,7 +888,7 @@ const THEME_BODY = `
       <div class="post-meta">
         <span>2026. 3. 30.</span>
         <span class="post-meta-sep">·</span>
-        <span>by 백희</span>
+        <span>by 예은</span>
       </div>
     </div>
   </article>
@@ -730,7 +902,7 @@ const THEME_BODY = `
       <div class="post-meta">
         <span>2026. 3. 18.</span>
         <span class="post-meta-sep">·</span>
-        <span>by 백희</span>
+        <span>by 예은</span>
       </div>
     </div>
   </article>
@@ -744,7 +916,7 @@ const THEME_BODY = `
       <div class="post-meta">
         <span>2026. 3. 5.</span>
         <span class="post-meta-sep">·</span>
-        <span>by 백희</span>
+        <span>by 예은</span>
       </div>
     </div>
   </article>
@@ -929,7 +1101,7 @@ const POST_STANTON_BODY = `
     <div class="post-stanton-meta">
       <span>2026. 4. 28.</span>
       <span>·</span>
-      <span>by <strong>백희</strong></span>
+      <span>by <strong>예은</strong></span>
       <span>·</span>
       <span>댓글 4</span>
     </div>
@@ -1012,7 +1184,7 @@ const POST_STANTON_BODY = `
       <div class="comment-body">천장 높이 20cm 차이 부분이 와닿네요. 숫자로는 별 것 아닌데, 몸은 정확히 알아본다는 게.</div>
     </div>
     <div class="comment-item">
-      <div class="comment-meta"><strong>백희</strong><span>·</span><span>2026. 4. 30.</span></div>
+      <div class="comment-meta"><strong>예은</strong><span>·</span><span>2026. 4. 30.</span></div>
       <div class="comment-body">댓글 감사합니다. 다음 글에서는 '비례'에 대해 좀 더 구체적인 사례를 다뤄볼 생각입니다.</div>
     </div>
 
@@ -1027,7 +1199,7 @@ const POST_STANTON_BODY = `
 `;
 
 /* ───────────────────────────────────────────────────────────
-   3) 게시글 — Clarkson 스타일 (캠페인 페이지)
+   3) 게시글 — Blog A 스타일 (캠페인 페이지)
    ─────────────────────────────────────────────────────────── */
 const POST_CLARKSON_STYLE = `
 <style>
@@ -1233,7 +1405,7 @@ const POST_CLARKSON_STYLE = `
 const POST_CLARKSON_BODY = `
 <article>
   <section class="clp-hero">
-    <img src="https://images.unsplash.com/photo-1776365412164-e3c5af42dd0b?w=2000&amp;h=1400&amp;fit=crop&amp;q=80&amp;auto=format" alt="높은 아치가 있는 대성당 내부">
+    <img src="https://images.unsplash.com/photo-1777734583715-04b11a672b99?w=2000&amp;h=1400&amp;fit=crop&amp;q=80&amp;auto=format" alt="발코니와 계단이 있는 현대적인 흰색 건물">
     <div class="clp-hero-overlay"></div>
     <div class="clp-hero-content">
       <div class="eyebrow">Essay · 건축적 사고 · 2026.04</div>
@@ -1320,29 +1492,44 @@ const POST_CLARKSON_BODY = `
       <a href="#" class="post-tag">#디자인</a>
       <a href="#" class="post-tag">#에세이</a>
     </div>
-    <div>2026. 4. 28. · by 백희 · 댓글 4</div>
+    <div>2026. 4. 28. · by 예은 · 댓글 4</div>
   </div>
 </article>
 `;
 
 /* ───────────────────────────────────────────────────────────
    템플릿 조립
+   - wrapDoc(extraStyle, body, opts):
+       opts.headerHtml     : 외부 주입할 헤더 HTML (기본 = HEADER_HTML)
+       opts.footerHtml     : 외부 주입할 푸터 HTML (기본 = FOOTER_HTML)
+       opts.extraHeaderCss : 헤더 컴포넌트 CSS 추가 주입
+       opts.suppressChrome : true 면 헤더/푸터 주입 안 함 + <main> 래퍼 없음
+                             (body 자체가 self-contained 인 헤더 단독 패널용)
+   - assembleScreen(screenKey, slots) :
+       SCREENS 의 본문 + 슬롯(헤더 등) 조합으로 풀 페이지 srcdoc 생성
    ─────────────────────────────────────────────────────────── */
-function wrapDoc(extraStyle, body) {
+function wrapDoc(extraStyle, body, opts) {
+  opts = opts || {};
+  const headerHtml    = opts.suppressChrome ? '' : (opts.headerHtml !== undefined ? opts.headerHtml : HEADER_HTML);
+  const footerHtml    = opts.suppressChrome ? '' : (opts.footerHtml !== undefined ? opts.footerHtml : FOOTER_HTML);
+  const extraHeaderCss = opts.extraHeaderCss || '';
+  const innerOpen     = opts.suppressChrome ? '' : '<main>';
+  const innerClose    = opts.suppressChrome ? '' : '</main>';
   return `<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 ${BASE_STYLE}
+${extraHeaderCss}
 ${extraStyle}
 </head>
 <body>
-${HEADER_HTML}
-<main>
+${headerHtml}
+${innerOpen}
 ${body}
-</main>
-${FOOTER_HTML}
+${innerClose}
+${footerHtml}
 <script>
   // 빈 앵커(href="#")가 페이지 점프를 일으키지 않도록 차단
   document.addEventListener('click', function(e) {
@@ -1358,101 +1545,756 @@ ${FOOTER_HTML}
 </html>`;
 }
 
-const TEMPLATES = {
-  'theme-base':     wrapDoc(THEME_STYLE,         THEME_BODY),
-  'theme-campaign': wrapDoc(POST_CLARKSON_STYLE, POST_CLARKSON_BODY),
-  'post':           wrapDoc(POST_STANTON_STYLE,  POST_STANTON_BODY),
+/* ───────────────────────────────────────────────────────────
+   공통 영역 · 헤더 (3종 변형) — 슬롯형 컴포넌트 라이브러리
+   - 카카오옐로우 레퍼런스의 구조 옵션을 Blog A 톤으로 재해석
+   - 컬러 토큰은 임시 무채색 (톤 단계에서 액센트로 교체)
+   - 화면(theme/post)에서 슬롯으로 갈아끼움
+   - 헤더 단독 검수 패널에서는 placeholder 본문과 함께 표시
+   ─────────────────────────────────────────────────────────── */
+
+/* (A) 헤더 컴포넌트 CSS — 모든 헤더 variants 가 공유. 화면 조립 시 함께 주입. */
+const HEADER_COMPONENT_STYLE = `
+<style>
+/* ============================================================
+   Variant A — 좌측 정렬 (모던 미니멀)
+   한 줄: [브랜드(2줄)] / [GNB] / [검색]
+   ============================================================ */
+.hd-left {
+  background: var(--color-surface-page);
+  border-bottom: 1px solid var(--color-border-subtle);
+  position: sticky; top: 0; z-index: 10;
+}
+.hd-left-inner {
+  max-width: 1280px; margin: 0 auto;
+  padding: 26px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 40px;
+}
+.hd-left-brand .hd-brand-title {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-text-heading);
+  letter-spacing: -.02em;
+  line-height: 1.15;
+}
+.hd-left-brand .hd-brand-sub {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-subtle);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  margin-top: 4px;
+  font-weight: 500;
+}
+.hd-left-right {
+  display: flex; align-items: center; gap: 36px;
+}
+.hd-gnb {
+  display: flex; align-items: center; gap: 28px;
+}
+.hd-gnb a {
+  font-size: var(--font-size-base);
+  color: var(--color-text-default);
+  font-weight: 500;
+  letter-spacing: -.005em;
+  padding: 4px 0;
+  border-bottom: 1px solid transparent;
+  transition: border-color .15s ease;
+}
+.hd-gnb a:hover { border-bottom-color: var(--color-text-heading); }
+.hd-search {
+  border: none;
+  border-bottom: 1px solid var(--color-border-strong);
+  padding: 4px 4px 6px 24px;
+  font-size: var(--font-size-sm);
+  background: transparent url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236B6760' stroke-width='1.8'><circle cx='11' cy='11' r='7'/><path d='m20 20-3.5-3.5'/></svg>") no-repeat left center / 16px;
+  width: 160px;
+  font-family: inherit;
+  color: var(--color-text-default);
+  outline: none;
+}
+.hd-search:focus { border-bottom-color: var(--color-text-heading); }
+
+/* ============================================================
+   Variant B — 2단 분리형 (잡지/매거진)
+   상: 가운데 브랜드, 우측 검색
+   하: 가운데 GNB
+   ============================================================ */
+.hd-split { background: var(--color-surface-page); border-bottom: 1px solid var(--color-border-subtle); }
+.hd-split-top {
+  position: relative;
+  text-align: center;
+  padding: 40px 40px 24px;
+}
+.hd-split-title {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--color-text-heading);
+  letter-spacing: -.025em;
+  line-height: 1.1;
+}
+.hd-split-sub {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-top: 8px;
+  letter-spacing: -.005em;
+}
+.hd-split-search {
+  position: absolute; right: 40px; top: 50%; transform: translateY(-50%);
+}
+.hd-split-bottom {
+  border-top: 1px solid var(--color-border-default);
+  border-bottom: 1px solid var(--color-border-default);
+}
+.hd-split-bottom .hd-gnb {
+  justify-content: center;
+  padding: 14px 40px;
+  gap: 56px;
+}
+.hd-split-bottom .hd-gnb a {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   Variant C — 히어로 배너형 (디스플레이 강조)
+   상: muted 배경 큰 가운데 디스플레이
+   하: 흰 nav bar [좌 GNB / 우 검색]
+   ============================================================ */
+.hd-hero { background: var(--color-surface-page); border-bottom: 1px solid var(--color-border-subtle); }
+.hd-hero-band {
+  position: relative;
+  background:
+    linear-gradient(rgba(31, 29, 24, 0.40), rgba(31, 29, 24, 0.62)),
+    url("https://images.unsplash.com/photo-1771057761600-0bfaa2646bd0?w=2000&h=900&fit=crop&q=80&auto=format") center / cover no-repeat;
+  text-align: center;
+  padding: 104px 40px 96px;
+}
+.hd-hero-eyebrow {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(245, 241, 234, .72);
+  margin-bottom: 18px;
+}
+.hd-hero-title {
+  font-size: var(--font-size-display);
+  font-weight: 600;
+  color: var(--raw-text-inv);
+  letter-spacing: -.035em;
+  line-height: 1.05;
+}
+.hd-hero-sub {
+  font-size: var(--font-size-md);
+  color: rgba(245, 241, 234, .85);
+  margin-top: 18px;
+  max-width: 520px;
+  margin-left: auto; margin-right: auto;
+  line-height: 1.55;
+}
+.hd-hero-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 40px;
+  border-top: 1px solid var(--color-border-subtle);
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* 반응형 — 헤더 컴포넌트 */
+@media (max-width: 760px) {
+  .hd-left-inner { padding: 18px 20px; flex-wrap: wrap; gap: 16px; }
+  .hd-left-right { gap: 20px; width: 100%; justify-content: space-between; }
+  .hd-gnb { gap: 18px; }
+  .hd-search { width: 120px; }
+  .hd-split-top { padding: 32px 20px 20px; }
+  .hd-split-title { font-size: var(--font-size-xl); }
+  .hd-split-search { display: none; }
+  .hd-split-bottom .hd-gnb { gap: 28px; padding: 12px 20px; }
+  .hd-hero-band { padding: 56px 20px 48px; }
+  .hd-hero-title { font-size: 36px; }
+  .hd-hero-bar { padding: 12px 20px; flex-wrap: wrap; gap: 12px; }
+}
+</style>
+`;
+
+/* (B) 헤더 단독 검수 패널의 미리보기 컨테이너 CSS — placeholder 본문 + 미니멀 푸터 */
+const PREVIEW_PLACEHOLDER_STYLE = `
+<style>
+.preview-page { min-height: 100vh; display: flex; flex-direction: column; background: var(--color-surface-page); }
+.preview-main { flex: 1; max-width: 1200px; margin: 0 auto; padding: 56px 40px; width: 100%; }
+.placeholder-block {
+  background: repeating-linear-gradient(
+    45deg,
+    var(--raw-bg-muted),
+    var(--raw-bg-muted) 8px,
+    var(--raw-bg-base) 8px,
+    var(--raw-bg-base) 16px
+  );
+  border: 1px dashed var(--color-border-strong);
+  color: var(--color-text-subtle);
+  text-align: center;
+  padding: 80px 24px;
+  font-size: var(--font-size-sm);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.placeholder-block + .placeholder-block { margin-top: 32px; }
+.preview-footer-min {
+  border-top: 1px solid var(--color-border-subtle);
+  padding: 28px 40px;
+  text-align: center;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-subtle);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.preview-header-min {
+  border-bottom: 1px solid var(--color-border-subtle);
+  padding: 22px 40px;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-mut);
+  letter-spacing: .04em;
+  font-weight: 600;
+}
+@media (max-width: 760px) {
+  .preview-main { padding: 32px 20px; }
+}
+</style>
+`;
+
+/* (C) 헤더 variants — HTML 만 (CSS 는 HEADER_COMPONENT_STYLE 에 통합) */
+const HEADER_VARIANTS_HTML = {
+  left: `
+<header class="hd-left">
+  <div class="hd-left-inner">
+    <div class="hd-left-brand">
+      <div class="hd-brand-title">공간노트</div>
+      <div class="hd-brand-sub">Notes on Architecture &amp; Spaces</div>
+    </div>
+    <div class="hd-left-right">
+      <nav class="hd-gnb">
+        <a href="#">홈</a>
+        <a href="#">태그</a>
+        <a href="#">방명록</a>
+      </nav>
+      <input class="hd-search" type="text" placeholder="검색">
+    </div>
+  </div>
+</header>`,
+  split: `
+<header class="hd-split">
+  <div class="hd-split-top">
+    <div class="hd-split-title">공간노트</div>
+    <div class="hd-split-sub">Notes on Architecture &amp; Spaces</div>
+    <div class="hd-split-search">
+      <input class="hd-search" type="text" placeholder="검색">
+    </div>
+  </div>
+  <div class="hd-split-bottom">
+    <nav class="hd-gnb">
+      <a href="#">홈</a>
+      <a href="#">태그</a>
+      <a href="#">방명록</a>
+    </nav>
+  </div>
+</header>`,
+  hero: `
+<header class="hd-hero">
+  <div class="hd-hero-band">
+    <div class="hd-hero-eyebrow">A Journal</div>
+    <h1 class="hd-hero-title">공간노트</h1>
+    <p class="hd-hero-sub">건축과 공간에 대해 천천히 적어 내려가는 노트. 짓는 일이 아니라 묻는 일에 대하여.</p>
+  </div>
+  <div class="hd-hero-bar">
+    <nav class="hd-gnb">
+      <a href="#">홈</a>
+      <a href="#">태그</a>
+      <a href="#">방명록</a>
+    </nav>
+    <input class="hd-search" type="text" placeholder="검색">
+  </div>
+</header>`,
 };
+
+/* (D) 헤더 단독 검수 패널 — 헤더 + placeholder 본문 + 미니멀 푸터 */
+function buildHeaderPreviewBody(variantKey) {
+  return `
+<div class="preview-page">
+  ${HEADER_VARIANTS_HTML[variantKey] || HEADER_VARIANTS_HTML.left}
+  <main class="preview-main">
+    <div class="placeholder-block">본문 영역 (검수 대상 외)</div>
+    <div class="placeholder-block">콘텐츠 placeholder</div>
+  </main>
+  <footer class="preview-footer-min">© 공간노트 · Powered by Tistory</footer>
+</div>`;
+}
 
 /* ───────────────────────────────────────────────────────────
-   라우팅 + 인터랙션
-   라우트 ↔ 화면 매핑:
-     #theme           → 전체 테마, 기본형 (alias)
-     #theme-base      → 전체 테마, 기본형
-     #theme-campaign  → 전체 테마, 캠페인형
-     #post            → 게시글 상세 (블로그형)
+   공통 영역 · 푸터 (4종 변형) — 슬롯형 컴포넌트 라이브러리
+   - 클라이언트 문서 9.2 푸터 옵션 매칭
+   - 공통: 푸터 메뉴(홈/방명록/RSS/맨위로) · 카피라이트 · Powered by Tistory
+   - 컬러 토큰 임시 무채색 (톤 단계에서 액센트로 교체)
    ─────────────────────────────────────────────────────────── */
-const ROUTES = {
-  'theme':          { panel: 'theme', variant: 'base' },
-  'theme-base':     { panel: 'theme', variant: 'base' },
-  'theme-campaign': { panel: 'theme', variant: 'campaign' },
-  'post':           { panel: 'post',  variant: null },
+const FOOTER_COMPONENT_STYLE = `
+<style>
+/* 푸터 공통 */
+.ft-center, .ft-split-h, .ft-split-v, .ft-left {
+  background: var(--color-surface-page);
+  margin-top: 80px;
+}
+.ft-center, .ft-split-h, .ft-split-v {
+  border-top: 1px solid var(--color-border-subtle);
+}
+.ft-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 40px 40px 32px;
+}
+.ft-menu {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+.ft-menu a {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-default);
+  font-weight: 500;
+  letter-spacing: -.005em;
+  padding: 4px 0;
+  border-bottom: 1px solid transparent;
+  transition: border-color .15s ease, color .15s ease;
+}
+.ft-menu a:hover {
+  border-bottom-color: var(--color-text-heading);
+}
+.ft-copy {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-subtle);
+  letter-spacing: .04em;
+}
+.ft-powered {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-subtle);
+  letter-spacing: .04em;
+}
+.ft-powered a { color: var(--color-text-secondary); }
+.ft-powered a:hover { color: var(--color-text-heading); }
+
+/* ① 중앙 정렬 — 세로 스택 가운데 */
+.ft-center .ft-inner {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 18px;
+  text-align: center;
+}
+
+/* ② 좌우 분리형 — 한 줄 */
+.ft-split-h .ft-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 40px;
+}
+.ft-split-h .ft-left {
+  display: flex; flex-direction: column; gap: 6px;
+}
+
+/* ③ 상하 분리형 — 위 메뉴 / 아래 카피 */
+.ft-split-v .ft-inner {
+  display: flex; flex-direction: column; gap: 0;
+  padding: 0 40px 32px;
+}
+.ft-split-v .ft-menu {
+  justify-content: center;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+.ft-split-v .ft-bottom {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 20px;
+  gap: 24px;
+}
+
+/* ④ 좌측 정렬 블록형 — 왼쪽 세로 스택 */
+.ft-left .ft-inner {
+  display: flex; flex-direction: column; align-items: flex-start;
+  gap: 14px;
+}
+
+/* 반응형 */
+@media (max-width: 760px) {
+  .ft-inner { padding: 28px 20px 24px; }
+  .ft-menu { gap: 18px; flex-wrap: wrap; }
+  .ft-split-h .ft-inner { flex-direction: column; align-items: flex-start; gap: 18px; }
+  .ft-split-v .ft-inner { padding: 0 20px 24px; }
+  .ft-split-v .ft-bottom { flex-direction: column; align-items: flex-start; gap: 8px; }
+}
+</style>
+`;
+
+const FOOTER_VARIANTS_HTML = {
+  center: `
+<footer class="ft-center">
+  <div class="ft-inner">
+    <nav class="ft-menu">
+      <a href="#">홈</a>
+      <a href="#">방명록</a>
+      <a href="#">RSS</a>
+      <a href="#">맨위로</a>
+    </nav>
+    <div class="ft-copy">© 공간노트. All rights reserved.</div>
+    <div class="ft-powered">Powered by <a href="#">Tistory</a></div>
+  </div>
+</footer>`,
+  'split-h': `
+<footer class="ft-split-h">
+  <div class="ft-inner">
+    <div class="ft-left">
+      <div class="ft-copy">© 공간노트. All rights reserved.</div>
+      <div class="ft-powered">Powered by <a href="#">Tistory</a></div>
+    </div>
+    <nav class="ft-menu">
+      <a href="#">홈</a>
+      <a href="#">방명록</a>
+      <a href="#">RSS</a>
+      <a href="#">맨위로</a>
+    </nav>
+  </div>
+</footer>`,
+  'split-v': `
+<footer class="ft-split-v">
+  <div class="ft-inner">
+    <nav class="ft-menu">
+      <a href="#">홈</a>
+      <a href="#">방명록</a>
+      <a href="#">RSS</a>
+      <a href="#">맨위로</a>
+    </nav>
+    <div class="ft-bottom">
+      <div class="ft-copy">© 공간노트. All rights reserved.</div>
+      <div class="ft-powered">Powered by <a href="#">Tistory</a></div>
+    </div>
+  </div>
+</footer>`,
+  left: `
+<footer class="ft-left">
+  <div class="ft-inner">
+    <nav class="ft-menu">
+      <a href="#">홈</a>
+      <a href="#">방명록</a>
+      <a href="#">RSS</a>
+      <a href="#">맨위로</a>
+    </nav>
+    <div class="ft-copy">© 공간노트. All rights reserved.</div>
+    <div class="ft-powered">Powered by <a href="#">Tistory</a></div>
+  </div>
+</footer>`,
 };
-const FILE_LABELS = {
-  'theme-base':     'clarkson_base_theme.html',
-  'theme-campaign': 'clarkson_campaign_theme.html',
-  'post':           'post_detail.html',
+
+/* 푸터 단독 검수 패널 — 미니멀 헤더 placeholder + 본문 placeholder + 검수 대상 푸터 */
+function buildFooterPreviewBody(variantKey) {
+  return `
+<div class="preview-page">
+  <header class="preview-header-min">공간노트</header>
+  <main class="preview-main">
+    <div class="placeholder-block">본문 영역 (검수 대상 외)</div>
+    <div class="placeholder-block">콘텐츠 placeholder</div>
+  </main>
+  ${FOOTER_VARIANTS_HTML[variantKey] || FOOTER_VARIANTS_HTML.center}
+</div>`;
+}
+
+/* ───────────────────────────────────────────────────────────
+   슬롯 시스템 — 화면(theme/post) 에서 갈아끼울 수 있는 모듈
+   - SLOT_DEFINITIONS : 슬롯 메타 (label + URL param + 옵션 라벨)
+   - SCREENS          : 화면별 본문 + 본문 CSS
+   - PANEL_CONFIG     : 화면(=패널) 별 사용 슬롯·디폴트
+   - 향후 푸터/사이드바/목록 추가 시 SLOT_DEFINITIONS 와
+     PANEL_CONFIG 만 확장하면 셀렉터·라우팅이 자동 등록됨
+   ─────────────────────────────────────────────────────────── */
+const SLOT_DEFINITIONS = {
+  body: {
+    label: '본문 레이아웃',
+    param: 'b',
+    options: [
+      { key: 'base',     label: '기본형 (카드 리스트)' },
+      { key: 'campaign', label: '캠페인형 (풀폭 알터네이트)' },
+    ],
+  },
+  header: {
+    label: '헤더',
+    param: 'h',
+    options: [
+      { key: 'left',  label: '좌측 정렬' },
+      { key: 'split', label: '2단 분리형' },
+      { key: 'hero',  label: '히어로 배너형' },
+    ],
+  },
+  footer: {
+    label: '푸터',
+    param: 'f',
+    options: [
+      { key: 'center',  label: '중앙 정렬' },
+      { key: 'split-h', label: '좌우 분리형' },
+      { key: 'split-v', label: '상하 분리형' },
+      { key: 'left',    label: '좌측 정렬 블록형' },
+    ],
+  },
+  // (앞으로 추가) sidebar / list ...
 };
+
+/* 화면별 본문 — body 슬롯이 가리키는 본문은 SCREENS_BODY 로 분리 */
+const SCREENS_BODY = {
+  // theme 패널의 body 슬롯
+  'theme:base':     { body: THEME_BODY,         style: THEME_STYLE },
+  'theme:campaign': { body: POST_CLARKSON_BODY, style: POST_CLARKSON_STYLE },
+  // post 패널의 본문은 단일
+  'post:default':   { body: POST_STANTON_BODY,  style: POST_STANTON_STYLE },
+};
+
+/* 화면(패널) 별 슬롯·디폴트 정의 */
+const PANEL_CONFIG = {
+  'theme': {
+    kind: 'screen',
+    frameId: 'frame-theme',
+    fileLabelSlot: 'theme',
+    slots: ['body', 'header', 'footer'],
+    defaults: { body: 'base', header: 'left', footer: 'center' },
+    bodySlot: 'body',                          // theme 의 본문 슬롯명
+    bodyScreenPrefix: 'theme:',                // SCREENS_BODY 조회 prefix
+  },
+  'post': {
+    kind: 'screen',
+    frameId: 'frame-post',
+    fileLabelSlot: null,
+    slots: ['header', 'footer'],
+    defaults: { header: 'left', footer: 'center' },
+    bodySlot: null,
+    bodyScreenKey: 'post:default',             // 본문 단일
+  },
+  'header': {
+    kind: 'component',                         // 컴포넌트 단독 검수
+    frameId: 'frame-header',
+    fileLabelSlot: 'header',
+    slots: ['variant'],                        // 단독 패널은 variant 만
+    defaults: { variant: 'left' },
+    componentSlot: 'header',                   // 어떤 컴포넌트인지
+  },
+  'footer': {
+    kind: 'component',
+    frameId: 'frame-footer',
+    fileLabelSlot: 'footer',
+    slots: ['variant'],
+    defaults: { variant: 'center' },
+    componentSlot: 'footer',
+  },
+};
+
+/* 슬롯 적용기 — 슬롯 키별로 wrapDoc opts/style 에 반영 */
+function applySlotsToScreen(panelKey, slotState) {
+  const cfg = PANEL_CONFIG[panelKey];
+  // 본문
+  let screenKey;
+  if (cfg.bodySlot) {
+    screenKey = cfg.bodyScreenPrefix + (slotState[cfg.bodySlot] || cfg.defaults[cfg.bodySlot]);
+  } else {
+    screenKey = cfg.bodyScreenKey;
+  }
+  const screen = SCREENS_BODY[screenKey] || SCREENS_BODY['theme:base'];
+
+  // 헤더
+  const headerKey = slotState.header || cfg.defaults.header || 'left';
+  const headerHtml = HEADER_VARIANTS_HTML[headerKey] || HEADER_VARIANTS_HTML.left;
+
+  // 푸터
+  const footerKey = slotState.footer || cfg.defaults.footer || 'center';
+  const footerHtml = FOOTER_VARIANTS_HTML[footerKey] || FOOTER_VARIANTS_HTML.center;
+
+  return wrapDoc(screen.style, screen.body, {
+    headerHtml: headerHtml,
+    footerHtml: footerHtml,
+    extraHeaderCss: HEADER_COMPONENT_STYLE + FOOTER_COMPONENT_STYLE,
+  });
+}
+
+/* 컴포넌트 단독 검수 패널 — placeholder + 검수 대상 컴포넌트 */
+function applyComponentPanel(panelKey, slotState) {
+  const cfg = PANEL_CONFIG[panelKey];
+  const variant = slotState.variant || cfg.defaults.variant;
+  if (cfg.componentSlot === 'header') {
+    return wrapDoc(PREVIEW_PLACEHOLDER_STYLE, buildHeaderPreviewBody(variant), {
+      suppressChrome: true,
+      extraHeaderCss: HEADER_COMPONENT_STYLE,
+    });
+  }
+  if (cfg.componentSlot === 'footer') {
+    return wrapDoc(PREVIEW_PLACEHOLDER_STYLE, buildFooterPreviewBody(variant), {
+      suppressChrome: true,
+      extraHeaderCss: FOOTER_COMPONENT_STYLE,
+    });
+  }
+  return '';
+}
+
+/* ───────────────────────────────────────────────────────────
+   라우팅 — URL 형식
+     #theme              → theme 패널 (디폴트 슬롯)
+     #theme?h=hero       → theme 패널 + 헤더 hero 로 override
+     #theme?b=campaign&h=split → 본문 캠페인 + 헤더 분리
+     #post?h=hero        → 게시글 + 헤더 hero
+     #header             → 헤더 단독 패널 (디폴트 left)
+     #header?v=hero      → 헤더 단독 패널 + hero 변형
+   ─────────────────────────────────────────────────────────── */
 function parseHash() {
   const raw = (location.hash || '').replace(/^#\/?/, '');
-  return ROUTES[raw] ? raw : 'theme-base';
+  if (!raw) return { panelKey: 'theme', query: {} };
+  const [panelPart, queryPart] = raw.split('?');
+  const panelKey = PANEL_CONFIG[panelPart] ? panelPart : 'theme';
+  const query = {};
+  if (queryPart) {
+    queryPart.split('&').forEach(function(kv) {
+      const [k, v] = kv.split('=');
+      if (k && v !== undefined) query[decodeURIComponent(k)] = decodeURIComponent(v);
+    });
+  }
+  return { panelKey: panelKey, query: query };
 }
-function activateRoute(routeKey, opts) {
-  opts = opts || {};
-  const route = ROUTES[routeKey] || ROUTES['theme-base'];
-  const panel = route.panel, variant = route.variant;
 
+/* 슬롯 state — 패널마다 현재 선택. 디폴트로 초기화 */
+const slotState = {};
+Object.keys(PANEL_CONFIG).forEach(function(k) {
+  slotState[k] = Object.assign({}, PANEL_CONFIG[k].defaults);
+});
+
+/* URL query → slotState 반영 (param 코드 → 슬롯 키) */
+function applyQueryToState(panelKey, query) {
+  const cfg = PANEL_CONFIG[panelKey];
+  if (!cfg) return;
+  cfg.slots.forEach(function(slotKey) {
+    // 컴포넌트 단독 패널의 variant 슬롯은 param 'v' 로 고정
+    if (cfg.kind === 'component' && slotKey === 'variant') {
+      if (query.v !== undefined) slotState[panelKey][slotKey] = query.v;
+      return;
+    }
+    const def = SLOT_DEFINITIONS[slotKey];
+    if (!def) return;
+    if (query[def.param] !== undefined) {
+      slotState[panelKey][slotKey] = query[def.param];
+    }
+  });
+}
+
+/* slotState → URL hash 생성 */
+function buildHash(panelKey) {
+  const cfg = PANEL_CONFIG[panelKey];
+  if (!cfg) return '#' + panelKey;
+  const state = slotState[panelKey] || {};
+  const parts = [];
+  cfg.slots.forEach(function(slotKey) {
+    const val = state[slotKey];
+    if (val === undefined) return;
+    if (val === cfg.defaults[slotKey]) return; // 디폴트는 URL 에서 생략
+    if (cfg.kind === 'component' && slotKey === 'variant') {
+      parts.push('v=' + encodeURIComponent(val));
+      return;
+    }
+    const def = SLOT_DEFINITIONS[slotKey];
+    if (!def) return;
+    parts.push(def.param + '=' + encodeURIComponent(val));
+  });
+  return '#' + panelKey + (parts.length ? '?' + parts.join('&') : '');
+}
+
+/* 현재 활성 패널 */
+let activePanel = 'theme';
+
+function renderPanel(panelKey) {
+  const cfg = PANEL_CONFIG[panelKey];
+  if (!cfg) return;
+  // iframe 콘텐츠 주입
+  const frame = document.getElementById(cfg.frameId);
+  if (frame) {
+    if (cfg.kind === 'screen') {
+      frame.srcdoc = applySlotsToScreen(panelKey, slotState[panelKey]);
+    } else {
+      frame.srcdoc = applyComponentPanel(panelKey, slotState[panelKey]);
+    }
+  }
+  // 슬롯 셀렉터 UI 동기화
+  cfg.slots.forEach(function(slotKey) {
+    const sel = document.querySelector('.slot-select[data-panel="' + panelKey + '"][data-slot="' + slotKey + '"]');
+    if (sel) sel.value = slotState[panelKey][slotKey];
+  });
+  // panel-file 라벨 (간단히 현재 헤더 variant 표시)
+  if (cfg.fileLabelSlot) {
+    const fileEl = document.querySelector('[data-panel-file="' + cfg.fileLabelSlot + '"]');
+    if (fileEl) {
+      const parts = [panelKey];
+      cfg.slots.forEach(function(s) { parts.push(s + ':' + slotState[panelKey][s]); });
+      fileEl.textContent = parts.join(' · ');
+    }
+  }
+}
+
+function activatePanel(panelKey, opts) {
+  opts = opts || {};
+  const cfg = PANEL_CONFIG[panelKey];
+  if (!cfg) return;
+  activePanel = panelKey;
   // sidenav
   document.querySelectorAll('.nav-item[data-tab]').forEach(function(b) {
-    b.classList.toggle('active', b.dataset.tab === panel);
+    b.classList.toggle('active', b.dataset.tab === panelKey);
   });
   // 패널
   document.querySelectorAll('.panel').forEach(function(p) {
-    p.classList.toggle('active', p.dataset.panel === panel);
+    p.classList.toggle('active', p.dataset.panel === panelKey);
   });
-  // variant 토글 + 파일 라벨 (theme 패널만)
-  if (panel === 'theme') {
-    document.querySelectorAll('.variant-btn[data-frame="theme"]').forEach(function(b) {
-      b.classList.toggle('active', b.dataset.variant === variant);
-    });
-    const key = 'theme-' + variant;
-    document.getElementById('frame-theme').srcdoc = TEMPLATES[key];
-    const fileEl = document.querySelector('[data-panel-file="theme"]');
-    if (fileEl) fileEl.textContent = FILE_LABELS[key];
-  } else if (panel === 'post') {
-    document.getElementById('frame-post').srcdoc = TEMPLATES['post'];
-  }
-  // btn-open href 동기화 — 현재 라우트의 정적 HTML 파일로 직접 연결
-  document.querySelectorAll('.btn-open').forEach(function(a) {
-    a.href = FILE_LABELS[routeKey] || 'clarkson_base_theme.html';
-  });
+  // 렌더
+  renderPanel(panelKey);
   // URL 동기화
   if (!opts.silent) {
-    const newHash = '#' + routeKey;
+    const newHash = buildHash(panelKey);
     if (location.hash !== newHash) {
       history.pushState(null, '', newHash);
     }
   }
 }
 
-// 좌측 패널 클릭 → 해당 패널의 디폴트 라우트로
+// 좌측 sidenav 패널 클릭
 document.querySelectorAll('.nav-item[data-tab]').forEach(function(btn) {
   btn.addEventListener('click', function() {
-    const tab = btn.dataset.tab;
-    activateRoute(tab === 'theme' ? 'theme-base' : 'post');
+    activatePanel(btn.dataset.tab);
   });
 });
 
-// theme 패널 내부 variant 토글
-document.querySelectorAll('.variant-btn[data-frame="theme"]').forEach(function(btn) {
-  btn.addEventListener('click', function() {
-    activateRoute('theme-' + btn.dataset.variant);
-  });
+// 슬롯 셀렉터 change → state 업데이트 + 재렌더 + URL 갱신
+document.addEventListener('change', function(e) {
+  const sel = e.target.closest('.slot-select');
+  if (!sel) return;
+  const panelKey = sel.dataset.panel;
+  const slotKey  = sel.dataset.slot;
+  if (!PANEL_CONFIG[panelKey]) return;
+  slotState[panelKey][slotKey] = sel.value;
+  renderPanel(panelKey);
+  const newHash = buildHash(panelKey);
+  if (location.hash !== newHash) {
+    history.pushState(null, '', newHash);
+  }
 });
 
-// 새 창에서 열기 — a 태그의 target="_blank" 자체로 동작 (href는 activateRoute에서 동기화)
-
-// 뒤로/앞으로 이동
+// 뒤로/앞으로 이동 — hash 다시 파싱해서 슬롯 state 재적용 + 패널 재활성
 window.addEventListener('popstate', function() {
-  activateRoute(parseHash(), { silent: true });
+  const parsed = parseHash();
+  applyQueryToState(parsed.panelKey, parsed.query);
+  activatePanel(parsed.panelKey, { silent: true });
 });
 
 // 초기 라우팅
 (function init() {
-  // preview 모드면 위에서 이미 document를 갈아치웠으므로 여기는 실행되지 않음
-  const routeKey = parseHash();
-  activateRoute(routeKey, { silent: true });
-  if (!location.hash) history.replaceState(null, '', '#theme-base');
+  const parsed = parseHash();
+  applyQueryToState(parsed.panelKey, parsed.query);
+  activatePanel(parsed.panelKey, { silent: true });
+  if (!location.hash) history.replaceState(null, '', '#theme');
 })();
 </script>
 </body>
