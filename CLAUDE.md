@@ -267,11 +267,16 @@ grep -c 'picsum' index.html
 
 `index.html` TEMPLATES 변경 시 풀스크린 파일도 재빌드. 잊지 말 것.
 
-### 커밋 정책
+### 커밋 정책 (2026-05-21 갱신)
 
-- 사용자가 "커밋해줘" / "푸시해줘" / "배포해" 라고 명시할 때만 진행
-- 한 commit = 한 의미 단위
-- 메시지는 의도 중심 ("왜"), 변경 범위 명시
+- **작업(파일 변경/생성)을 완료하면 즉시 `git add` + `git commit` + `git push origin main` 자동 진행** (사용자 영구 지시)
+- 사용자가 보고 있는 미리보기 — GitHub Pages https://baekhahn.github.io/axz_tstory_theme/ — 가 push 후 1~2분에 자동 반영되므로, 작업 → 푸시 사이에 사용자 확인 단계 두지 않음
+- 한 commit = 한 의미 단위 — 의미가 다른 변경은 묶지 말고 분리
+- 메시지는 의도 중심 ("왜"), 변경 범위 명시 (영어 또는 한글 일관)
+- 예외(여전히 명시 지시 필요):
+  - **운영 배포**: `fly deploy` 등 운영 인프라/서버 반영
+  - **파괴적 git 명령**: `push --force`, `reset --hard`, `branch -D` 등
+  - **시크릿 파일**: `.env`, credentials 류는 자동 add 금지 — 발견 시 보고만
 
 ### 로컬 미리보기
 
