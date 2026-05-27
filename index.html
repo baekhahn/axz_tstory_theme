@@ -304,6 +304,9 @@ body[data-blog="WB"] .panel.is-blog-wa { display: none !important; }
       <button class="nav-item active" data-tab="theme">
         <span class="nav-label">전체 테마</span>
       </button>
+      <button class="nav-item" data-tab="theme2">
+        <span class="nav-label">전체 테마 2 (타이트)</span>
+      </button>
       <button class="nav-item" data-tab="post">
         <span class="nav-label">게시글 (블로그형)</span>
       </button>
@@ -460,6 +463,47 @@ body[data-blog="WB"] .panel.is-blog-wa { display: none !important; }
       </header>
       <div class="frame-wrap">
         <iframe class="preview-frame" id="frame-theme" title="전체 테마"></iframe>
+      </div>
+    </section>
+
+    <!-- 화면 · 전체 테마 2 (타이트 리스트) -->
+    <section class="panel is-blog-a" data-panel="theme2">
+      <header class="panel-header">
+        <h2 class="panel-title">전체 테마 2 — 타이트 리스트</h2>
+        <p class="panel-desc">게시물 리스트를 타이트하게 + 썸네일 96×72 로 줄여 한 화면에 더 많이 노출. 헤더/푸터/사이드바는 슬롯으로 갈아끼움.</p>
+        <div class="panel-meta">
+          <span class="panel-file" data-panel-file="theme2"></span>
+        </div>
+        <div class="slot-bar" data-panel="theme2">
+          <label class="slot-field">
+            <span class="slot-label">헤더</span>
+            <select class="slot-select" data-panel="theme2" data-slot="header">
+              <option value="left">좌측 정렬</option>
+              <option value="split">2단 분리형</option>
+              <option value="hero">히어로 배너형</option>
+            </select>
+          </label>
+          <label class="slot-field">
+            <span class="slot-label">푸터</span>
+            <select class="slot-select" data-panel="theme2" data-slot="footer">
+              <option value="center">중앙 정렬</option>
+              <option value="split-h">좌우 분리형</option>
+              <option value="split-v">상하 분리형</option>
+              <option value="left">좌측 정렬 블록형</option>
+            </select>
+          </label>
+          <label class="slot-field">
+            <span class="slot-label">사이드바</span>
+            <select class="slot-select" data-panel="theme2" data-slot="sidebar">
+              <option value="right-fixed">고정영역 (디폴트)</option>
+              <option value="drawer-open">서랍형 — 열린</option>
+              <option value="drawer-closed">서랍형 — 닫힌</option>
+            </select>
+          </label>
+        </div>
+      </header>
+      <div class="frame-wrap">
+        <iframe class="preview-frame" id="frame-theme2" title="전체 테마 2"></iframe>
       </div>
     </section>
 
@@ -1175,6 +1219,252 @@ const THEME_BODY = `
   <span class="current">1</span>
   <a href="#">2</a>
   <a href="#">3</a>
+  <a href="#">Next →</a>
+</nav>
+`;
+
+/* ───────────────────────────────────────────────────────────
+   1-B) 전체 테마 2 — 타이트 리스트 (작은 썸네일)
+   ─────────────────────────────────────────────────────────── */
+const THEME_TIGHT_STYLE = `
+<style>
+.theme2-hero {
+  max-width: 1280px; margin: 0 auto;
+  padding: 80px 40px 40px;
+}
+.theme2-hero .eyebrow { margin-bottom: 14px; }
+.theme2-hero h1 {
+  font-size: 36px; font-weight: 600;
+  letter-spacing: -.025em; line-height: 1.18;
+  color: var(--color-text-heading);
+  margin: 0;
+}
+.theme2-hero p {
+  margin-top: 14px;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+  max-width: 560px;
+}
+
+.theme2-list {
+  max-width: 1280px; margin: 0 auto;
+  padding: 0 40px;
+  list-style: none;
+}
+.post-tight {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr) auto;
+  gap: 24px;
+  padding: 18px 0;
+  border-top: 1px solid var(--color-border-subtle);
+  align-items: center;
+  transition: background-color .15s ease;
+}
+.post-tight:last-child { border-bottom: 1px solid var(--color-border-subtle); }
+.post-tight:hover { background-color: var(--color-surface-subtle); }
+.post-tight-media {
+  width: 96px; height: 72px;
+  overflow: hidden;
+  background: var(--color-surface-subtle);
+  flex-shrink: 0;
+}
+.post-tight-media img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .4s ease;
+}
+.post-tight:hover .post-tight-media img { transform: scale(1.06); }
+.post-tight-body { min-width: 0; }
+.post-tight-eyebrow {
+  font-size: 11px;
+  color: var(--color-text-subtle);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+.post-tight-body h2 {
+  font-size: 17px; font-weight: 600;
+  letter-spacing: -.015em; line-height: 1.32;
+  color: var(--color-text-heading);
+  margin: 0;
+}
+.post-tight-body h2 a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.post-tight-meta {
+  font-size: 12px;
+  color: var(--color-text-subtle);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  display: flex; gap: 10px; align-items: center;
+}
+.post-tight-meta-sep { color: var(--color-border-strong); }
+
+.theme2-pagination {
+  max-width: 1280px; margin: 0 auto;
+  padding: 40px 40px 0;
+  display: flex; justify-content: center; align-items: center; gap: 8px;
+}
+.theme2-pagination a, .theme2-pagination span {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 32px; height: 32px;
+  font-size: 12.5px; color: var(--color-text-secondary);
+  padding: 0 10px;
+}
+.theme2-pagination a:hover { color: var(--color-text-heading); }
+.theme2-pagination .current {
+  color: var(--color-text-heading);
+  font-weight: 600;
+  border-bottom: 1px solid var(--color-text-heading);
+}
+.theme2-pagination .disabled { opacity: .3; pointer-events: none; }
+
+@media (max-width: 760px) {
+  .theme2-hero { padding: 56px 24px 28px; }
+  .theme2-hero h1 { font-size: 26px; }
+  .theme2-list { padding: 0 24px; }
+  .post-tight {
+    grid-template-columns: 72px minmax(0, 1fr);
+    gap: 14px; padding: 14px 0;
+  }
+  .post-tight-media { width: 72px; height: 54px; }
+  .post-tight-meta {
+    grid-column: 2;
+    margin-top: 6px;
+    font-size: 11px;
+  }
+  .post-tight-body h2 { font-size: 15px; }
+  .theme2-pagination { padding: 28px 24px 0; }
+}
+</style>
+`;
+
+const THEME_TIGHT_BODY = `
+<section class="theme2-hero">
+  <div class="eyebrow">Notebook · Since 2023</div>
+  <h1>건축에 대한, 천천히 적는 노트.</h1>
+  <p>전체 글 목록. 썸네일은 작고, 글의 제목을 빠르게 훑어볼 수 있도록 정리했습니다.</p>
+</section>
+
+<ul class="theme2-list">
+
+  <li class="post-tight">
+    <a class="post-tight-media" href="#"><img src="https://images.unsplash.com/photo-1774050952646-a850ad28ad6f?w=240&amp;h=180&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></a>
+    <div class="post-tight-body">
+      <div class="post-tight-eyebrow">Essay · 건축적 사고</div>
+      <h2><a href="#">건축에 대한 깊은 사고 — 짓는 일이 아니라 묻는 일이다</a></h2>
+    </div>
+    <div class="post-tight-meta">
+      <span>2026. 4. 28.</span><span class="post-tight-meta-sep">·</span><span>by 예은</span>
+    </div>
+  </li>
+
+  <li class="post-tight">
+    <a class="post-tight-media" href="#"><img src="https://images.unsplash.com/photo-1752154023453-faba02f8a841?w=240&amp;h=180&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></a>
+    <div class="post-tight-body">
+      <div class="post-tight-eyebrow">Material · 빛</div>
+      <h2><a href="#">빛은 가장 비싼 재료입니다 — 그러나 가장 공짜입니다</a></h2>
+    </div>
+    <div class="post-tight-meta">
+      <span>2026. 4. 14.</span><span class="post-tight-meta-sep">·</span><span>by 예은</span>
+    </div>
+  </li>
+
+  <li class="post-tight">
+    <a class="post-tight-media" href="#"><img src="https://images.unsplash.com/photo-1777997288465-c435b4d03133?w=240&amp;h=180&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></a>
+    <div class="post-tight-body">
+      <div class="post-tight-eyebrow">Detail · 디테일</div>
+      <h2><a href="#">좋은 계단은 발이 먼저 알아봅니다</a></h2>
+    </div>
+    <div class="post-tight-meta">
+      <span>2026. 3. 30.</span><span class="post-tight-meta-sep">·</span><span>by 예은</span>
+    </div>
+  </li>
+
+  <li class="post-tight">
+    <a class="post-tight-media" href="#"><img src="https://images.unsplash.com/photo-1768836180167-6d4a25c421b2?w=240&amp;h=180&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></a>
+    <div class="post-tight-body">
+      <div class="post-tight-eyebrow">Workplace · 사무공간</div>
+      <h2><a href="#">사무실은 왜 점점 거실을 닮아가는가</a></h2>
+    </div>
+    <div class="post-tight-meta">
+      <span>2026. 3. 18.</span><span class="post-tight-meta-sep">·</span><span>by 예은</span>
+    </div>
+  </li>
+
+  <li class="post-tight">
+    <a class="post-tight-media" href="#"><img src="https://images.unsplash.com/photo-1769745918779-f255f567664c?w=240&amp;h=180&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></a>
+    <div class="post-tight-body">
+      <div class="post-tight-eyebrow">Domestic · 주거</div>
+      <h2><a href="#">오래된 주방이 가르쳐주는 것</a></h2>
+    </div>
+    <div class="post-tight-meta">
+      <span>2026. 3. 5.</span><span class="post-tight-meta-sep">·</span><span>by 예은</span>
+    </div>
+  </li>
+
+  <li class="post-tight">
+    <a class="post-tight-media" href="#"><img src="https://images.unsplash.com/photo-1774050952646-a850ad28ad6f?w=240&amp;h=180&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></a>
+    <div class="post-tight-body">
+      <div class="post-tight-eyebrow">Memo · 단상</div>
+      <h2><a href="#">로비는 왜 가장 늦게 설계됩니까</a></h2>
+    </div>
+    <div class="post-tight-meta">
+      <span>2026. 2. 22.</span><span class="post-tight-meta-sep">·</span><span>by 예은</span>
+    </div>
+  </li>
+
+  <li class="post-tight">
+    <a class="post-tight-media" href="#"><img src="https://images.unsplash.com/photo-1752154023453-faba02f8a841?w=240&amp;h=180&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></a>
+    <div class="post-tight-body">
+      <div class="post-tight-eyebrow">Reading · 책에서</div>
+      <h2><a href="#">『도시는 무엇으로 사는가』 — 다섯 번째 읽고 적은 메모</a></h2>
+    </div>
+    <div class="post-tight-meta">
+      <span>2026. 2. 10.</span><span class="post-tight-meta-sep">·</span><span>by 예은</span>
+    </div>
+  </li>
+
+  <li class="post-tight">
+    <a class="post-tight-media" href="#"><img src="https://images.unsplash.com/photo-1777997288465-c435b4d03133?w=240&amp;h=180&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></a>
+    <div class="post-tight-body">
+      <div class="post-tight-eyebrow">Material · 콘크리트</div>
+      <h2><a href="#">노출 콘크리트는 정말 정직한 재료인가</a></h2>
+    </div>
+    <div class="post-tight-meta">
+      <span>2026. 1. 28.</span><span class="post-tight-meta-sep">·</span><span>by 예은</span>
+    </div>
+  </li>
+
+  <li class="post-tight">
+    <a class="post-tight-media" href="#"><img src="https://images.unsplash.com/photo-1768836180167-6d4a25c421b2?w=240&amp;h=180&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></a>
+    <div class="post-tight-body">
+      <div class="post-tight-eyebrow">Field · 답사</div>
+      <h2><a href="#">서소문 일대를 걸으며 — 작은 골목의 큰 디테일</a></h2>
+    </div>
+    <div class="post-tight-meta">
+      <span>2026. 1. 14.</span><span class="post-tight-meta-sep">·</span><span>by 예은</span>
+    </div>
+  </li>
+
+  <li class="post-tight">
+    <a class="post-tight-media" href="#"><img src="https://images.unsplash.com/photo-1769745918779-f255f567664c?w=240&amp;h=180&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></a>
+    <div class="post-tight-body">
+      <div class="post-tight-eyebrow">Domestic · 주거</div>
+      <h2><a href="#">현관은 집의 첫 문장입니다</a></h2>
+    </div>
+    <div class="post-tight-meta">
+      <span>2025. 12. 30.</span><span class="post-tight-meta-sep">·</span><span>by 예은</span>
+    </div>
+  </li>
+
+</ul>
+
+<nav class="theme2-pagination">
+  <a href="#" class="disabled">← Previous</a>
+  <span class="current">1</span>
+  <a href="#">2</a>
+  <a href="#">3</a>
+  <a href="#">4</a>
   <a href="#">Next →</a>
 </nav>
 `;
@@ -4898,6 +5188,7 @@ const SCREENS_BODY = {
   'theme:base':     { body: THEME_BODY,         style: THEME_STYLE },
   'theme:campaign': { body: POST_CLARKSON_BODY, style: POST_CLARKSON_STYLE },
   'post:default':   { body: POST_STANTON_BODY,  style: POST_STANTON_STYLE },
+  'theme2:default': { body: THEME_TIGHT_BODY,   style: THEME_TIGHT_STYLE },
   // ── Blog B (theme/post 는 이전 호환 유지) ──
   'B:theme:hero':      { body: THEME_BODY_B, style: THEME_STYLE_B },
   'B:theme:editorial': { body: THEME_BODY_B, style: THEME_STYLE_B },
@@ -5007,6 +5298,15 @@ const PANEL_CONFIG = {
     defaults: { header: 'left', footer: 'center', sidebar: 'right-fixed' },
     bodySlot: null,
     bodyScreenKey: 'post:default',
+  },
+  'theme2': {
+    kind: 'screen',
+    frameId: 'frame-theme2',
+    fileLabelSlot: null,
+    slots: ['header', 'footer', 'sidebar'],
+    defaults: { header: 'left', footer: 'center', sidebar: 'right-fixed' },
+    bodySlot: null,
+    bodyScreenKey: 'theme2:default',
   },
   'header': {
     kind: 'component',
@@ -5353,7 +5653,7 @@ function rebuildSlotSelectOptions() {
 
 /* Blog 별로 LNB 에 보이는 패널 키 목록 — 그룹 hide/show 와 일치 */
 const BLOG_AVAILABLE_PANELS = {
-  A: ['theme', 'post', 'header', 'footer', 'sidebar'],
+  A: ['theme', 'theme2', 'post', 'header', 'footer', 'sidebar'],
   B: ['home', 'districts', 'mission', 'stories', 'walking', 'header', 'footer'],
   WA: ['dodam-home', 'header', 'footer'],
   WB: ['ttocare-home'],
@@ -5399,6 +5699,7 @@ function setBlog(newBlog, opts) {
 const PANEL_LABELS = {
   A: {
     theme:   { title: '전체 테마',           desc: '본문 레이아웃과 각 모듈(헤더 등)을 슬롯으로 선택해 조합 검수.' },
+    theme2:  { title: '전체 테마 2 — 타이트 리스트', desc: '게시물 리스트를 타이트하게 + 썸네일 96×72 로 줄여 한 화면에 더 많이 노출. 헤더/푸터/사이드바는 슬롯으로 갈아끼움.' },
     post:    { title: '게시글 상세 — 블로그형', desc: '단일 컬럼 블로그 글 형식의 게시글 상세. 각 모듈을 슬롯으로 갈아끼워 조합 검수.' },
     header:  { title: '컴포넌트 — 헤더',     desc: '헤더 단독 검수. 본문·푸터는 placeholder. 화면(전체 테마/게시글) 에 적용된 모습은 좌측 sidenav 의 "화면" 섹션에서 확인.' },
     footer:  { title: '컴포넌트 — 푸터',     desc: '푸터 단독 검수. 헤더·본문은 placeholder. 푸터 메뉴(홈/방명록/RSS/맨위로) · 카피라이트 · Powered by Tistory 공통.' },
