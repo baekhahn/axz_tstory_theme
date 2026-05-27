@@ -1,2 +1,9 @@
 .DS_Store
 old/
+
+# hallmark skill (project-local, not part of source)
+.agents/
+skills-lock.json
+
+# claude code worktrees / cache
+.claude/

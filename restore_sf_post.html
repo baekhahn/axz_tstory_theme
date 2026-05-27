@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>On walking the bridge, twice. — SF Field Guide</title>
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root {
+  --raw-bg-base:    #FFFFFF;
+  --raw-bg-elev:    #FFFFFF;
+  --raw-bg-muted:   #F4F1ED;
+  --raw-bg-inv:     #1E1E1E;
+
+  --raw-text-str:   #1E1E1E;
+  --raw-text-pri:   #1E1E1E;
+  --raw-text-mut:   #6B6B6B;
+  --raw-text-sub:   #A0A0A0;
+  --raw-text-inv:   #FFFFFF;
+
+  --raw-border-def: #E5E5E5;
+  --raw-border-str: #1E1E1E;
+  --raw-border-sub: #F0F0F0;
+
+  --raw-accent:     #D94B27;
+
+  --color-surface-page:    var(--raw-bg-base);
+  --color-surface-card:    var(--raw-bg-elev);
+  --color-surface-subtle:  var(--raw-bg-muted);
+  --color-text-heading:    var(--raw-text-str);
+  --color-text-default:    var(--raw-text-pri);
+  --color-text-secondary:  var(--raw-text-mut);
+  --color-text-subtle:     var(--raw-text-sub);
+  --color-text-inv:        var(--raw-text-inv);
+  --color-border-default:  var(--raw-border-def);
+  --color-border-strong:   var(--raw-border-str);
+  --color-border-subtle:   var(--raw-border-sub);
+  --color-accent:          var(--raw-accent);
+
+  --font-display: "Pretendard", -apple-system, "Apple SD Gothic Neo", sans-serif;
+  --font-body:    "Pretendard", -apple-system, "Apple SD Gothic Neo", sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { font-size: 16px; }
+body {
+  margin: 0; padding: 0;
+  font-family: var(--font-body);
+  background: var(--color-surface-page);
+  color: var(--color-text-default);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+  letter-spacing: -.01em;
+}
+ul, ol { margin: 0; padding: 0; list-style: none; }
+a { color: inherit; text-decoration: none; }
+p { margin: 0; }
+img { max-width: 100%; height: auto; vertical-align: middle; display: block; }
+button { font-family: inherit; cursor: pointer; }
+
+/* ── 대형 타이포 (Re-Store 시그니처) ── */
+.massive {
+  font-family: var(--font-display);
+  font-size: clamp(72px, 11vw, 168px);
+  font-weight: 400;
+  letter-spacing: -.04em;
+  line-height: .95;
+  color: var(--color-text-heading);
+}
+.hero-display {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 6vw, 92px);
+  font-weight: 500;
+  letter-spacing: -.03em;
+  line-height: 1.0;
+  color: var(--color-text-heading);
+}
+.h1-display { font-size: clamp(36px, 4vw, 56px); font-weight: 500; letter-spacing: -.025em; line-height: 1.05; color: var(--color-text-heading); }
+.h2-display { font-size: clamp(24px, 2.4vw, 32px); font-weight: 500; letter-spacing: -.02em; line-height: 1.2; color: var(--color-text-heading); }
+.body-lg { font-size: 20px; font-weight: 500; letter-spacing: -.03em; line-height: 1.4; color: var(--color-text-default); }
+.body-md { font-size: 18px; font-weight: 400; letter-spacing: -.02em; line-height: 1.55; color: var(--color-text-default); }
+.body-sm { font-size: 16px; font-weight: 500; letter-spacing: -.025em; line-height: 1.4; color: var(--color-text-default); }
+.caption  { font-size: 13px; font-weight: 400; letter-spacing: 0;     line-height: 1.4; color: var(--color-text-secondary); }
+
+/* ── 헤더 (오버레이 / 일반 공통 셸) ── */
+.site-header {
+  position: absolute; top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 28px clamp(24px, 4vw, 64px);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 24px;
+}
+.site-header.is-light  { color: var(--color-text-inv); }
+.site-header.is-dark   { color: var(--color-text-heading); background: var(--color-surface-page); border-bottom: 1px solid var(--color-border-subtle); position: sticky; }
+.site-brand {
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -.025em;
+  color: inherit;
+}
+.site-nav {
+  display: flex; align-items: center; gap: 28px;
+}
+.site-nav a {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -.02em;
+  color: inherit;
+  transition: opacity .15s ease;
+}
+.site-nav a:hover { opacity: .65; }
+.site-lang {
+  display: flex; gap: 12px;
+  font-size: 14px; font-weight: 500;
+  letter-spacing: -.015em;
+  color: inherit;
+  opacity: .85;
+}
+.site-lang span.active { font-weight: 600; opacity: 1; }
+
+/* ── CTA pill 버튼 ── */
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 26px;
+  background: var(--color-text-heading);
+  color: var(--color-text-inv);
+  border-radius: 999px;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -.02em;
+  border: none;
+  transition: opacity .15s ease, transform .15s ease;
+  text-decoration: none;
+}
+.btn-pill:hover { opacity: .9; transform: translateY(-1px); }
+.btn-pill::before {
+  content: '';
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+/* ── 화살표 링크 (오렌지 원형 + 흰 화살표) ── */
+.arrow-link {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-text-inv);
+  font-size: 18px;
+  transition: transform .2s ease;
+}
+.arrow-link:hover { transform: translateX(4px); }
+.arrow-link svg { width: 18px; height: 18px; }
+
+/* ── 가로선 캡션 (좌하단 브랜드 캡션) ── */
+.hairline-caption {
+  display: flex; flex-direction: column;
+  gap: 4px;
+  color: inherit;
+}
+.hairline {
+  border: 0;
+  border-top: 1px solid currentColor;
+  width: 240px;
+  margin: 0 0 12px;
+  opacity: .8;
+}
+.hairline-caption .brand { font-size: 13px; font-weight: 500; letter-spacing: -.005em; }
+.hairline-caption .sub   { font-size: 13px; opacity: .85; }
+
+/* ── 푸터 ── */
+.site-footer {
+  border-top: 1px solid var(--color-border-default);
+  padding: 56px clamp(24px, 4vw, 64px) 32px;
+  margin-top: 80px;
+  display: flex; flex-direction: column; gap: 40px;
+}
+.site-footer-row {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 32px; flex-wrap: wrap;
+}
+.site-footer-row .footer-brand {
+  font-size: 22px; font-weight: 500; letter-spacing: -.025em;
+}
+.site-footer-row .footer-tagline {
+  font-size: 14px; color: var(--color-text-secondary);
+  margin-top: 4px;
+}
+.site-footer-nav {
+  display: flex; gap: 28px; flex-wrap: wrap;
+  font-size: 15px; font-weight: 500;
+  letter-spacing: -.015em;
+}
+.site-footer-nav a { color: var(--color-text-default); }
+.site-footer-nav a:hover { color: var(--color-accent); }
+.site-footer-meta {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 16px; flex-wrap: wrap;
+  font-size: 12.5px; color: var(--color-text-subtle);
+  letter-spacing: -.005em;
+}
+
+@media (max-width: 760px) {
+  .site-header { padding: 16px 20px; flex-wrap: wrap; gap: 14px; }
+  .site-nav { gap: 18px; }
+  .site-lang { display: none; }
+}
+</style>
+
+
+<style>
+.b-post {
+  padding-top: 120px;
+}
+.b-post-hero {
+  position: relative;
+  height: clamp(440px, 60vh, 680px);
+  overflow: hidden;
+  margin-bottom: clamp(60px, 8vh, 100px);
+  background: #1E1E1E;
+}
+.b-post-hero img {
+  width: 100%; height: 100%; object-fit: cover;
+  opacity: .82;
+}
+.b-post-eyebrow {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 20px;
+}
+.b-post-head {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 4vw, 64px) clamp(40px, 6vh, 64px);
+}
+.b-post-head h1 {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5.5vw, 84px);
+  font-weight: 500;
+  letter-spacing: -.03em;
+  line-height: 1.0;
+  color: var(--color-text-heading);
+  margin: 0 0 32px;
+}
+.b-post-meta {
+  display: flex; gap: 24px; flex-wrap: wrap;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  letter-spacing: -.01em;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-border-default);
+}
+.b-post-body {
+  max-width: 740px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 4vw, 64px) clamp(80px, 12vh, 140px);
+  display: flex; flex-direction: column; gap: 28px;
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1.65;
+  letter-spacing: -.015em;
+  color: var(--color-text-default);
+}
+.b-post-body .lede {
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -.025em;
+  line-height: 1.4;
+  color: var(--color-text-heading);
+}
+.b-post-body h2 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 500;
+  letter-spacing: -.025em;
+  line-height: 1.15;
+  color: var(--color-text-heading);
+  margin: 40px 0 0;
+}
+.b-post-body blockquote {
+  margin: 24px 0;
+  padding-left: 24px;
+  border-left: 2px solid var(--color-accent);
+  font-style: normal;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -.02em;
+  line-height: 1.4;
+  color: var(--color-text-heading);
+}
+.b-post-figure {
+  margin: 32px 0;
+}
+.b-post-figure img {
+  width: 100%; height: auto;
+}
+.b-post-figure figcaption {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  letter-spacing: -.005em;
+}
+.b-post-fullwidth {
+  margin: clamp(40px, 6vh, 80px) 0;
+  width: 100%;
+  max-width: none;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+.b-post-fullwidth img { width: 100%; height: 100%; object-fit: cover; }
+</style>
+
+</head>
+<body>
+
+<header class="site-header is-light">
+  <a class="site-brand" href="#">San Francisco</a>
+  <nav class="site-nav">
+    <a href="#">Districts</a>
+    <a href="#">Stories</a>
+    <a href="#">Food</a>
+    <a href="#">Events</a>
+  </nav>
+  <div class="site-lang">
+    <span class="active">EN</span>
+    <span>ES</span>
+    <span>JP</span>
+  </div>
+</header>
+
+<main>
+
+<article class="b-post">
+
+  <div class="b-post-hero">
+    <img src="https://images.unsplash.com/photo-1521747116042-5a810fda9664?w=2200&fit=crop&q=80&auto=format" alt="Golden Gate Bridge in fog">
+  </div>
+
+  <header class="b-post-head">
+    <div class="b-post-eyebrow">Field Notes — Geography</div>
+    <h1>On walking the bridge, twice.</h1>
+    <div class="b-post-meta">
+      <span>에디터스</span>
+      <span>2026. 3. 12.</span>
+      <span>14분 분량</span>
+    </div>
+  </header>
+
+  <div class="b-post-body">
+
+    <p class="lede">골든 게이트를 처음 걸을 때는 사진을 위해 걷는다. 두 번째로 걸을 때는 바람을 위해 걷는다. 두 가지 모두 이 도시의 일부지만, 마음에 남는 건 두 번째다.</p>
+
+    <p>다리는 대략 2.4 km 다. 맑은 오후에는 케이블이 뼛속까지 와 닿는 주파수로 진동한다. 차량과 그 아래 차가운 태평양이 만드는 낮고 끊임없는 떨림이다. 관광객은 처음 100 미터쯤 그 진동을 느끼다가, 다시 휴대전화를 들여다본다.</p>
+
+    <p>안개 칼(Karl) 에게는 편애가 있다. 칼은 남쪽 타워를 좋아하고 북쪽은 무시한다. 여름철 오후 3시면, 남쪽 타워에서 양털 코트를 입고 서 있는 사이, 400 미터 떨어진 마린 헤드랜드에서는 누군가 반팔로 걷고 있다.</p>
+
+    <h2>다리는 사람에게 무엇을 하는가.</h2>
+
+    <p>다리는 약속이다. 한 번 건너면 건넌 것이다. 골든 게이트는 긴 약속이다. 도보로 약 30분. 그리고 건축이 그 사실에 정직하다. 중간 지점이 있고, 도시는 뒤에 마린은 앞에 있는 순간이 온다. 어느 쪽도 당신을 차지할 만큼 가깝지는 않다.</p>
+
+    <blockquote>도시는 만 위로 400 미터쯤 나갔을 때 가장 명료하게 보인다. 거기서 보면 언덕이 거리를 잡고 있는 방식, 안개가 동네 단위로 줄을 지어 들어오는 방식이 보인다.</blockquote>
+
+    <figure class="b-post-figure">
+      <img src="https://images.unsplash.com/photo-1506146332389-18140dc7b2fb?w=1600&fit=crop&q=80&auto=format" alt="다리 중간에서 본 케이블">
+      <figcaption>다리 중간에서 뒤를 돌아본다. 타워는 수평선을 거의 수직으로 압축한다.</figcaption>
+    </figure>
+
+    <p>이때가 현지인들이 다리가 "말을 건다" 고 하는 순간이다. 물론 말을 거는 건 아니다. 25만 톤의 강철을 통과하는 바람과, 아래쪽 차량이 데크를 길고 느린 파도로 휘게 만드는 진동이다. 그러나 효과는 대화에 가깝다. 다리는 당신의 주의를 강하게 요구한다.</p>
+
+    <h2>두 번째 산책.</h2>
+
+    <p>두 번째에는 사진을 찍지 않는다. 8월에도 장갑을 낀다. 남쪽 주차장에서 오전 7시에 출발해, 관광버스가 도착하기 전에 북쪽 전망대에 도착한다. 노트북을 들고 가서 중간에 멈춰 선다. 들리는 건 케이블 소리뿐이다.</p>
+
+    <p>그때 다리가 사실은 통과해서 걸을 수 있는 건축물이라는 걸 깨닫는다. 지붕(케이블), 바닥(데크), 그리고 벽(타워) 이 있다. 온도 차도 있다. 도시의 열기가 올라오는 쪽은 따뜻하고, 태평양 바람이 통과하는 쪽은 차갑다. 시간을 들이지 않으면 보이지 않는 구조다.</p>
+
+  </div>
+
+  <div class="b-post-fullwidth">
+    <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=2400&fit=crop&q=80&auto=format" alt="해질녘 골든 게이트 항공 전경">
+  </div>
+
+  <div class="b-post-body">
+    <p>다리를 두 번 걸어보길 권한다. 한 번은 사진을 위해, 한 번은 바람을 위해. 두 번째 산책이 도시가 당신에게 시키고 싶었던 산책이다.</p>
+  </div>
+
+</article>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer-row">
+    <div>
+      <div class="footer-brand">San Francisco</div>
+      <div class="footer-tagline">A field guide by the bay</div>
+    </div>
+    <nav class="site-footer-nav">
+      <a href="#">Districts</a>
+      <a href="#">Stories</a>
+      <a href="#">Food</a>
+      <a href="#">Events</a>
+      <a href="#">Contact</a>
+    </nav>
+  </div>
+  <div class="site-footer-meta">
+    <span>© 2026 San Francisco Field Guide</span>
+    <span>Powered by <a href="#" style="color:inherit;border-bottom:1px solid currentColor">Tistory</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

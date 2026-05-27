@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission — San Francisco Districts</title>
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root {
+  --raw-bg-base:    #FFFFFF;
+  --raw-bg-elev:    #FFFFFF;
+  --raw-bg-muted:   #F4F1ED;
+  --raw-bg-inv:     #1E1E1E;
+
+  --raw-text-str:   #1E1E1E;
+  --raw-text-pri:   #1E1E1E;
+  --raw-text-mut:   #6B6B6B;
+  --raw-text-sub:   #A0A0A0;
+  --raw-text-inv:   #FFFFFF;
+
+  --raw-border-def: #E5E5E5;
+  --raw-border-str: #1E1E1E;
+  --raw-border-sub: #F0F0F0;
+
+  --raw-accent:     #D94B27;
+
+  --color-surface-page:    var(--raw-bg-base);
+  --color-surface-card:    var(--raw-bg-elev);
+  --color-surface-subtle:  var(--raw-bg-muted);
+  --color-text-heading:    var(--raw-text-str);
+  --color-text-default:    var(--raw-text-pri);
+  --color-text-secondary:  var(--raw-text-mut);
+  --color-text-subtle:     var(--raw-text-sub);
+  --color-text-inv:        var(--raw-text-inv);
+  --color-border-default:  var(--raw-border-def);
+  --color-border-strong:   var(--raw-border-str);
+  --color-border-subtle:   var(--raw-border-sub);
+  --color-accent:          var(--raw-accent);
+
+  --font-display: "Pretendard", -apple-system, "Apple SD Gothic Neo", sans-serif;
+  --font-body:    "Pretendard", -apple-system, "Apple SD Gothic Neo", sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { font-size: 16px; }
+body {
+  margin: 0; padding: 0;
+  font-family: var(--font-body);
+  background: var(--color-surface-page);
+  color: var(--color-text-default);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+  letter-spacing: -.01em;
+}
+ul, ol { margin: 0; padding: 0; list-style: none; }
+a { color: inherit; text-decoration: none; }
+p { margin: 0; }
+img { max-width: 100%; height: auto; vertical-align: middle; display: block; }
+button { font-family: inherit; cursor: pointer; }
+
+/* ── 대형 타이포 (Re-Store 시그니처) ── */
+.massive {
+  font-family: var(--font-display);
+  font-size: clamp(72px, 11vw, 168px);
+  font-weight: 400;
+  letter-spacing: -.04em;
+  line-height: .95;
+  color: var(--color-text-heading);
+}
+.hero-display {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 6vw, 92px);
+  font-weight: 500;
+  letter-spacing: -.03em;
+  line-height: 1.0;
+  color: var(--color-text-heading);
+}
+.h1-display { font-size: clamp(36px, 4vw, 56px); font-weight: 500; letter-spacing: -.025em; line-height: 1.05; color: var(--color-text-heading); }
+.h2-display { font-size: clamp(24px, 2.4vw, 32px); font-weight: 500; letter-spacing: -.02em; line-height: 1.2; color: var(--color-text-heading); }
+.body-lg { font-size: 20px; font-weight: 500; letter-spacing: -.03em; line-height: 1.4; color: var(--color-text-default); }
+.body-md { font-size: 18px; font-weight: 400; letter-spacing: -.02em; line-height: 1.55; color: var(--color-text-default); }
+.body-sm { font-size: 16px; font-weight: 500; letter-spacing: -.025em; line-height: 1.4; color: var(--color-text-default); }
+.caption  { font-size: 13px; font-weight: 400; letter-spacing: 0;     line-height: 1.4; color: var(--color-text-secondary); }
+
+/* ── 헤더 (오버레이 / 일반 공통 셸) ── */
+.site-header {
+  position: absolute; top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 28px clamp(24px, 4vw, 64px);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 24px;
+}
+.site-header.is-light  { color: var(--color-text-inv); }
+.site-header.is-dark   { color: var(--color-text-heading); background: var(--color-surface-page); border-bottom: 1px solid var(--color-border-subtle); position: sticky; }
+.site-brand {
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -.025em;
+  color: inherit;
+}
+.site-nav {
+  display: flex; align-items: center; gap: 28px;
+}
+.site-nav a {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -.02em;
+  color: inherit;
+  transition: opacity .15s ease;
+}
+.site-nav a:hover { opacity: .65; }
+.site-lang {
+  display: flex; gap: 12px;
+  font-size: 14px; font-weight: 500;
+  letter-spacing: -.015em;
+  color: inherit;
+  opacity: .85;
+}
+.site-lang span.active { font-weight: 600; opacity: 1; }
+
+/* ── CTA pill 버튼 ── */
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 26px;
+  background: var(--color-text-heading);
+  color: var(--color-text-inv);
+  border-radius: 999px;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -.02em;
+  border: none;
+  transition: opacity .15s ease, transform .15s ease;
+  text-decoration: none;
+}
+.btn-pill:hover { opacity: .9; transform: translateY(-1px); }
+.btn-pill::before {
+  content: '';
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+/* ── 화살표 링크 (오렌지 원형 + 흰 화살표) ── */
+.arrow-link {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-text-inv);
+  font-size: 18px;
+  transition: transform .2s ease;
+}
+.arrow-link:hover { transform: translateX(4px); }
+.arrow-link svg { width: 18px; height: 18px; }
+
+/* ── 가로선 캡션 (좌하단 브랜드 캡션) ── */
+.hairline-caption {
+  display: flex; flex-direction: column;
+  gap: 4px;
+  color: inherit;
+}
+.hairline {
+  border: 0;
+  border-top: 1px solid currentColor;
+  width: 240px;
+  margin: 0 0 12px;
+  opacity: .8;
+}
+.hairline-caption .brand { font-size: 13px; font-weight: 500; letter-spacing: -.005em; }
+.hairline-caption .sub   { font-size: 13px; opacity: .85; }
+
+/* ── 푸터 ── */
+.site-footer {
+  border-top: 1px solid var(--color-border-default);
+  padding: 56px clamp(24px, 4vw, 64px) 32px;
+  margin-top: 80px;
+  display: flex; flex-direction: column; gap: 40px;
+}
+.site-footer-row {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 32px; flex-wrap: wrap;
+}
+.site-footer-row .footer-brand {
+  font-size: 22px; font-weight: 500; letter-spacing: -.025em;
+}
+.site-footer-row .footer-tagline {
+  font-size: 14px; color: var(--color-text-secondary);
+  margin-top: 4px;
+}
+.site-footer-nav {
+  display: flex; gap: 28px; flex-wrap: wrap;
+  font-size: 15px; font-weight: 500;
+  letter-spacing: -.015em;
+}
+.site-footer-nav a { color: var(--color-text-default); }
+.site-footer-nav a:hover { color: var(--color-accent); }
+.site-footer-meta {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 16px; flex-wrap: wrap;
+  font-size: 12.5px; color: var(--color-text-subtle);
+  letter-spacing: -.005em;
+}
+
+@media (max-width: 760px) {
+  .site-header { padding: 16px 20px; flex-wrap: wrap; gap: 14px; }
+  .site-nav { gap: 18px; }
+  .site-lang { display: none; }
+}
+</style>
+
+
+<style>
+.b-district-page { padding-top: 0; }
+.b-district-hero {
+  position: relative;
+  height: clamp(420px, 60vh, 640px);
+  overflow: hidden;
+  background: #1E1E1E;
+}
+.b-district-hero img { width: 100%; height: 100%; object-fit: cover; opacity: .9; }
+.b-district-hero-cap {
+  position: absolute; left: clamp(24px, 4vw, 64px); bottom: 32px; color: #FFFFFF; z-index: 2;
+}
+
+.b-district-head {
+  max-width: 1280px; margin: 0 auto;
+  padding: clamp(60px, 8vh, 100px) clamp(24px, 4vw, 64px) clamp(40px, 6vh, 60px);
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: clamp(40px, 6vw, 120px);
+  align-items: end;
+  border-bottom: 1px solid var(--color-border-default);
+}
+.b-district-head .crumbs {
+  font-size: 13px; color: var(--color-text-secondary);
+  letter-spacing: -.005em;
+  margin-bottom: 16px;
+}
+.b-district-head .crumbs a { color: inherit; border-bottom: 1px solid transparent; }
+.b-district-head .crumbs a:hover { border-bottom-color: currentColor; }
+.b-district-head .massive { font-size: clamp(72px, 10vw, 156px); }
+.b-district-head .lede {
+  font-size: 22px;
+  line-height: 1.4;
+  letter-spacing: -.025em;
+  color: var(--color-text-default);
+  font-weight: 500;
+}
+
+.b-district-meta {
+  max-width: 1280px; margin: 0 auto;
+  padding: 32px clamp(24px, 4vw, 64px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  border-bottom: 1px solid var(--color-border-default);
+}
+.b-district-meta .cell .key {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin-bottom: 6px;
+}
+.b-district-meta .cell .val {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--color-text-heading);
+  letter-spacing: -.015em;
+}
+
+.b-district-body {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: clamp(60px, 8vh, 100px) clamp(24px, 4vw, 64px);
+  display: flex; flex-direction: column; gap: 28px;
+  font-size: 19px;
+  line-height: 1.65;
+  letter-spacing: -.015em;
+  color: var(--color-text-default);
+}
+.b-district-body h2 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 500;
+  letter-spacing: -.025em;
+  line-height: 1.15;
+  color: var(--color-text-heading);
+  margin: 32px 0 0;
+}
+
+.b-district-spots {
+  max-width: 1280px; margin: 0 auto;
+  padding: clamp(40px, 6vh, 80px) clamp(24px, 4vw, 64px) clamp(80px, 12vh, 140px);
+  border-top: 1px solid var(--color-border-default);
+}
+.b-district-spots-head {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: 32px; flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.b-district-spots-head .h2-display { max-width: 640px; }
+.b-spots-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.b-spot {
+  display: flex; flex-direction: column; gap: 12px;
+}
+.b-spot .img-wrap {
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background: var(--color-surface-subtle);
+}
+.b-spot img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.b-spot:hover img { transform: scale(1.04); }
+.b-spot .tag {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+.b-spot .name {
+  font-size: 19px; font-weight: 500;
+  letter-spacing: -.02em;
+  color: var(--color-text-heading);
+}
+.b-spot .addr {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  letter-spacing: -.005em;
+}
+
+@media (max-width: 900px) {
+  .b-district-head { grid-template-columns: 1fr; }
+  .b-district-meta { grid-template-columns: repeat(2, 1fr); }
+  .b-spots-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .b-spots-grid { grid-template-columns: 1fr; }
+}
+</style>
+
+</head>
+<body>
+
+<header class="site-header is-light">
+  <a class="site-brand" href="#">San Francisco</a>
+  <nav class="site-nav">
+    <a href="#">Districts</a>
+    <a href="#">Stories</a>
+    <a href="#">Food</a>
+    <a href="#">Events</a>
+  </nav>
+  <div class="site-lang">
+    <span class="active">EN</span>
+    <span>ES</span>
+    <span>JP</span>
+  </div>
+</header>
+
+<main>
+
+<article class="b-district-page">
+
+  <div class="b-district-hero">
+    <img src="https://images.unsplash.com/photo-1760264555138-6763053a65e9?w=2200&fit=crop&q=80&auto=format" alt="미션 지구의 거대한 벽화">
+    <div class="b-district-hero-cap">
+      <hr class="hairline" style="border-color:#FFFFFF;opacity:.7">
+      <div class="hairline-caption">
+        <span class="brand">District / Mission</span>
+        <span class="sub">A Latin heart in the middle of the fog city</span>
+      </div>
+    </div>
+  </div>
+
+  <header class="b-district-head">
+    <div>
+      <div class="crumbs"><a href="#">Districts</a> / Mission</div>
+      <span class="massive">Mission</span>
+    </div>
+    <p class="lede">시끄럽고, 따뜻하고, 햇빛이 가장 늦게까지 머무는 동네. 안개가 도시의 나머지를 덮어도 미션은 거의 항상 밝다. 라틴 음악, 벽화, 타케리아, 그리고 24번가의 어느 카페에서 누군가는 늘 무언가를 쓰고 있다.</p>
+  </header>
+
+  <section class="b-district-meta">
+    <div class="cell">
+      <div class="key">위치</div>
+      <div class="val">San Francisco 중남부</div>
+    </div>
+    <div class="cell">
+      <div class="key">분위기</div>
+      <div class="val">라틴 · 벽화 · 미식</div>
+    </div>
+    <div class="cell">
+      <div class="key">날씨</div>
+      <div class="val">안개 없는 햇빛</div>
+    </div>
+    <div class="cell">
+      <div class="key">추천 시간</div>
+      <div class="val">오후 4시 ~ 일몰</div>
+    </div>
+  </section>
+
+  <div class="b-district-body">
+
+    <p>미션은 1776년 스페인 선교사들이 미션 돌로레스를 세우면서 시작됐다. 그 후 두 세기 동안 동네는 여러 번 손바뀜을 겪었다. 아일랜드, 독일, 그리고 20세기 중반부터 멕시코와 중남미 이민자들이 자리잡으면서 지금의 라틴 정체성이 굳어졌다.</p>
+
+    <p>가장 미션다운 것은 골목마다 펼쳐진 벽화다. 발렌시아와 24번가 사이의 좁은 길 — 발미 골목, 클라리온 골목 — 은 도시 전체에서 가장 밀도 높은 야외 갤러리다. 어떤 벽화는 1970년대부터 있었고, 어떤 벽화는 이번 달에 새로 칠해졌다. 동네 사람들은 그게 자기 풍경이라는 듯 익숙하게 지나친다.</p>
+
+    <h2>왜 미션은 햇빛을 가지는가.</h2>
+
+    <p>도시 지형의 우연이다. 트윈 픽스가 서쪽에서 들어오는 안개를 막고, 미션은 그 그늘 안쪽에 자리잡았다. 선셋이 안개에 잠긴 오후에도 미션은 자주 20℃ 가 넘는다. 도시에서 가장 따뜻한 동네라는 사실이, 사람들이 거리에 오래 머무는 이유 중 하나다.</p>
+
+    <p>거리는 그 햇빛을 의식하면서 만들어졌다. 발코니가 길에 닿아 있고, 카페의 야외 테이블이 보도의 절반을 차지하고, 타케리아는 문을 열어두고 음악을 밖으로 내보낸다. 안개가 사라진 도시가 어떤 모습일 수 있는지를, 미션이 매일 보여준다.</p>
+
+    <h2>한 가지 더, 24번가.</h2>
+
+    <p>미션 가의 큰길이 아니라, 24번가가 동네의 진짜 척추다. 발렌시아와 만나는 지점부터 포트레로 힐 방향으로 다섯 블록. 그 안에 동네에서 가장 오래된 빵집, 가장 오래된 만남, 가장 늦게까지 열려있는 가게들이 모여 있다. 미션에 처음 와 본다면 24번가를 천천히 한 번 걷기를 권한다.</p>
+
+  </div>
+
+  <section class="b-district-spots">
+    <div class="b-district-spots-head">
+      <h2 class="h2-display">미션에서 자주 가는 곳.</h2>
+      <div style="font-size:13.5px;color:var(--color-text-secondary);">에디터스 추천 · 매월 갱신</div>
+    </div>
+    <div class="b-spots-grid">
+      <article class="b-spot">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?w=900&fit=crop&q=80&auto=format" alt="타케리아"></div>
+        <div class="tag">Taquería</div>
+        <div class="name">La Taquería</div>
+        <div class="addr">2889 Mission St · 1973년부터</div>
+      </article>
+      <article class="b-spot">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&fit=crop&q=80&auto=format" alt="카페"></div>
+        <div class="tag">Café</div>
+        <div class="name">Ritual Coffee, Valencia</div>
+        <div class="addr">1026 Valencia St · 로컬 로스터</div>
+      </article>
+      <article class="b-spot">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1481833761820-0509d3217039?w=900&fit=crop&q=80&auto=format" alt="벽화 골목"></div>
+        <div class="tag">Murals</div>
+        <div class="name">Balmy Alley</div>
+        <div class="addr">발미 골목 · 1971년 시작</div>
+      </article>
+    </div>
+  </section>
+
+</article>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer-row">
+    <div>
+      <div class="footer-brand">San Francisco</div>
+      <div class="footer-tagline">A field guide by the bay</div>
+    </div>
+    <nav class="site-footer-nav">
+      <a href="#">Districts</a>
+      <a href="#">Stories</a>
+      <a href="#">Food</a>
+      <a href="#">Events</a>
+      <a href="#">Contact</a>
+    </nav>
+  </div>
+  <div class="site-footer-meta">
+    <span>© 2026 San Francisco Field Guide</span>
+    <span>Powered by <a href="#" style="color:inherit;border-bottom:1px solid currentColor">Tistory</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

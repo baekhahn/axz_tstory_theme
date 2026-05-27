@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Districts — San Francisco</title>
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root {
+  --raw-bg-base:    #FFFFFF;
+  --raw-bg-elev:    #FFFFFF;
+  --raw-bg-muted:   #F4F1ED;
+  --raw-bg-inv:     #1E1E1E;
+
+  --raw-text-str:   #1E1E1E;
+  --raw-text-pri:   #1E1E1E;
+  --raw-text-mut:   #6B6B6B;
+  --raw-text-sub:   #A0A0A0;
+  --raw-text-inv:   #FFFFFF;
+
+  --raw-border-def: #E5E5E5;
+  --raw-border-str: #1E1E1E;
+  --raw-border-sub: #F0F0F0;
+
+  --raw-accent:     #D94B27;
+
+  --color-surface-page:    var(--raw-bg-base);
+  --color-surface-card:    var(--raw-bg-elev);
+  --color-surface-subtle:  var(--raw-bg-muted);
+  --color-text-heading:    var(--raw-text-str);
+  --color-text-default:    var(--raw-text-pri);
+  --color-text-secondary:  var(--raw-text-mut);
+  --color-text-subtle:     var(--raw-text-sub);
+  --color-text-inv:        var(--raw-text-inv);
+  --color-border-default:  var(--raw-border-def);
+  --color-border-strong:   var(--raw-border-str);
+  --color-border-subtle:   var(--raw-border-sub);
+  --color-accent:          var(--raw-accent);
+
+  --font-display: "Pretendard", -apple-system, "Apple SD Gothic Neo", sans-serif;
+  --font-body:    "Pretendard", -apple-system, "Apple SD Gothic Neo", sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { font-size: 16px; }
+body {
+  margin: 0; padding: 0;
+  font-family: var(--font-body);
+  background: var(--color-surface-page);
+  color: var(--color-text-default);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+  letter-spacing: -.01em;
+}
+ul, ol { margin: 0; padding: 0; list-style: none; }
+a { color: inherit; text-decoration: none; }
+p { margin: 0; }
+img { max-width: 100%; height: auto; vertical-align: middle; display: block; }
+button { font-family: inherit; cursor: pointer; }
+
+/* ── 대형 타이포 (Re-Store 시그니처) ── */
+.massive {
+  font-family: var(--font-display);
+  font-size: clamp(72px, 11vw, 168px);
+  font-weight: 400;
+  letter-spacing: -.04em;
+  line-height: .95;
+  color: var(--color-text-heading);
+}
+.hero-display {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 6vw, 92px);
+  font-weight: 500;
+  letter-spacing: -.03em;
+  line-height: 1.0;
+  color: var(--color-text-heading);
+}
+.h1-display { font-size: clamp(36px, 4vw, 56px); font-weight: 500; letter-spacing: -.025em; line-height: 1.05; color: var(--color-text-heading); }
+.h2-display { font-size: clamp(24px, 2.4vw, 32px); font-weight: 500; letter-spacing: -.02em; line-height: 1.2; color: var(--color-text-heading); }
+.body-lg { font-size: 20px; font-weight: 500; letter-spacing: -.03em; line-height: 1.4; color: var(--color-text-default); }
+.body-md { font-size: 18px; font-weight: 400; letter-spacing: -.02em; line-height: 1.55; color: var(--color-text-default); }
+.body-sm { font-size: 16px; font-weight: 500; letter-spacing: -.025em; line-height: 1.4; color: var(--color-text-default); }
+.caption  { font-size: 13px; font-weight: 400; letter-spacing: 0;     line-height: 1.4; color: var(--color-text-secondary); }
+
+/* ── 헤더 (오버레이 / 일반 공통 셸) ── */
+.site-header {
+  position: absolute; top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 28px clamp(24px, 4vw, 64px);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 24px;
+}
+.site-header.is-light  { color: var(--color-text-inv); }
+.site-header.is-dark   { color: var(--color-text-heading); background: var(--color-surface-page); border-bottom: 1px solid var(--color-border-subtle); position: sticky; }
+.site-brand {
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -.025em;
+  color: inherit;
+}
+.site-nav {
+  display: flex; align-items: center; gap: 28px;
+}
+.site-nav a {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -.02em;
+  color: inherit;
+  transition: opacity .15s ease;
+}
+.site-nav a:hover { opacity: .65; }
+.site-lang {
+  display: flex; gap: 12px;
+  font-size: 14px; font-weight: 500;
+  letter-spacing: -.015em;
+  color: inherit;
+  opacity: .85;
+}
+.site-lang span.active { font-weight: 600; opacity: 1; }
+
+/* ── CTA pill 버튼 ── */
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 26px;
+  background: var(--color-text-heading);
+  color: var(--color-text-inv);
+  border-radius: 999px;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -.02em;
+  border: none;
+  transition: opacity .15s ease, transform .15s ease;
+  text-decoration: none;
+}
+.btn-pill:hover { opacity: .9; transform: translateY(-1px); }
+.btn-pill::before {
+  content: '';
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+/* ── 화살표 링크 (오렌지 원형 + 흰 화살표) ── */
+.arrow-link {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-text-inv);
+  font-size: 18px;
+  transition: transform .2s ease;
+}
+.arrow-link:hover { transform: translateX(4px); }
+.arrow-link svg { width: 18px; height: 18px; }
+
+/* ── 가로선 캡션 (좌하단 브랜드 캡션) ── */
+.hairline-caption {
+  display: flex; flex-direction: column;
+  gap: 4px;
+  color: inherit;
+}
+.hairline {
+  border: 0;
+  border-top: 1px solid currentColor;
+  width: 240px;
+  margin: 0 0 12px;
+  opacity: .8;
+}
+.hairline-caption .brand { font-size: 13px; font-weight: 500; letter-spacing: -.005em; }
+.hairline-caption .sub   { font-size: 13px; opacity: .85; }
+
+/* ── 푸터 ── */
+.site-footer {
+  border-top: 1px solid var(--color-border-default);
+  padding: 56px clamp(24px, 4vw, 64px) 32px;
+  margin-top: 80px;
+  display: flex; flex-direction: column; gap: 40px;
+}
+.site-footer-row {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 32px; flex-wrap: wrap;
+}
+.site-footer-row .footer-brand {
+  font-size: 22px; font-weight: 500; letter-spacing: -.025em;
+}
+.site-footer-row .footer-tagline {
+  font-size: 14px; color: var(--color-text-secondary);
+  margin-top: 4px;
+}
+.site-footer-nav {
+  display: flex; gap: 28px; flex-wrap: wrap;
+  font-size: 15px; font-weight: 500;
+  letter-spacing: -.015em;
+}
+.site-footer-nav a { color: var(--color-text-default); }
+.site-footer-nav a:hover { color: var(--color-accent); }
+.site-footer-meta {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 16px; flex-wrap: wrap;
+  font-size: 12.5px; color: var(--color-text-subtle);
+  letter-spacing: -.005em;
+}
+
+@media (max-width: 760px) {
+  .site-header { padding: 16px 20px; flex-wrap: wrap; gap: 14px; }
+  .site-nav { gap: 18px; }
+  .site-lang { display: none; }
+}
+</style>
+
+
+<style>
+.b-list-page { padding-top: 120px; }
+.b-list-head {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: clamp(40px, 6vh, 80px) clamp(24px, 4vw, 64px) clamp(40px, 6vh, 60px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 4vw, 80px);
+  border-bottom: 1px solid var(--color-border-default);
+}
+.b-list-head .massive { font-size: clamp(64px, 9vw, 140px); }
+.b-list-head .lede {
+  font-size: 20px; line-height: 1.5;
+  color: var(--color-text-default);
+  letter-spacing: -.02em;
+  padding-top: 12px;
+}
+.b-list-head .lede strong { font-weight: 500; color: var(--color-text-heading); }
+.b-list-wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: clamp(40px, 6vh, 80px) clamp(24px, 4vw, 64px) clamp(80px, 12vh, 120px);
+}
+.b-list-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(40px, 6vh, 80px) clamp(40px, 5vw, 80px);
+}
+.b-list-item {
+  display: flex; flex-direction: column; gap: 20px;
+}
+.b-list-item .img-wrap {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--color-surface-subtle);
+}
+.b-list-item img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .6s ease;
+}
+.b-list-item:hover img { transform: scale(1.03); }
+.b-list-item .label {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 3.4vw, 44px);
+  font-weight: 500;
+  letter-spacing: -.025em;
+  line-height: 1.05;
+  color: var(--color-text-heading);
+}
+.b-list-item .copy {
+  font-size: 17px;
+  letter-spacing: -.015em;
+  line-height: 1.5;
+  color: var(--color-text-default);
+}
+.b-list-item .meta {
+  margin-top: 4px;
+  display: flex; gap: 14px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  letter-spacing: -.005em;
+}
+.b-list-item .meta-sep { color: var(--color-border-strong); }
+.b-list-item .more {
+  margin-top: 8px;
+  display: inline-flex; align-items: center; gap: 12px;
+  font-size: 15px; font-weight: 500;
+  color: var(--color-accent);
+  letter-spacing: -.015em;
+}
+.b-list-item .more svg { width: 18px; height: 18px; }
+
+@media (max-width: 760px) {
+  .b-list-head { grid-template-columns: 1fr; }
+  .b-list-grid { grid-template-columns: 1fr; }
+}
+</style>
+
+</head>
+<body>
+
+<header class="site-header is-light">
+  <a class="site-brand" href="#">San Francisco</a>
+  <nav class="site-nav">
+    <a href="#">Districts</a>
+    <a href="#">Stories</a>
+    <a href="#">Food</a>
+    <a href="#">Events</a>
+  </nav>
+  <div class="site-lang">
+    <span class="active">EN</span>
+    <span>ES</span>
+    <span>JP</span>
+  </div>
+</header>
+
+<main>
+
+<div class="b-list-page">
+
+  <header class="b-list-head">
+    <span class="massive">Districts</span>
+    <p class="lede"><strong>샌프란시스코는 42개의 작은 도시다.</strong> 안개, 언덕, 그리고 그 동네에 자리잡은 사람들이 각자의 문법을 만든다. 자주 가는 6개부터, 천천히 펼쳐 본다.</p>
+  </header>
+
+  <div class="b-list-wrap">
+    <div class="b-list-grid">
+
+      <article class="b-list-item">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1760264555138-6763053a65e9?w=1100&fit=crop&q=80&auto=format" alt="미션 지구의 벽화"></div>
+        <div class="label">Mission</div>
+        <div class="copy">라틴의 심장. 24번가의 타케리아, 발렌시아의 카페, 햇빛이 가장 늦게까지 머무는 동네. 도시에서 가장 시끄럽고 가장 따뜻한 거리.</div>
+        <div class="meta">
+          <span>9개 글</span><span class="meta-sep">·</span><span>20분 분량</span><span class="meta-sep">·</span><span>업데이트 2026.05</span>
+        </div>
+        <a class="more" href="#">자세히 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      </article>
+
+      <article class="b-list-item">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1569848707917-59e1485852e1?w=1100&fit=crop&q=80&auto=format" alt="카스트로 극장과 무지개 깃발"></div>
+        <div class="label">Castro</div>
+        <div class="copy">무지개가 시작된 곳. 카스트로 극장의 네온, 언덕 꼭대기의 18번가, 한 도시가 어떻게 자기 자신을 받아들이게 됐는지에 관한 짧은 역사.</div>
+        <div class="meta">
+          <span>6개 글</span><span class="meta-sep">·</span><span>15분 분량</span><span class="meta-sep">·</span><span>업데이트 2026.04</span>
+        </div>
+        <a class="more" href="#">자세히 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      </article>
+
+      <article class="b-list-item">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1614068214049-605cfb8af09d?w=1100&fit=crop&q=80&auto=format" alt="핑크빛 일몰의 오션 비치"></div>
+        <div class="label">Sunset</div>
+        <div class="copy">도시가 끝나고 태평양이 시작되는 곳. 평행한 거리, 끝없는 안개, 4 km 길이의 직선 해변. 가장 조용하고 가장 큰 동네.</div>
+        <div class="meta">
+          <span>5개 글</span><span class="meta-sep">·</span><span>12분 분량</span><span class="meta-sep">·</span><span>업데이트 2026.04</span>
+        </div>
+        <a class="more" href="#">자세히 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      </article>
+
+      <article class="b-list-item">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1568920946433-e5d3595eb4e1?w=1100&fit=crop&q=80&auto=format" alt="가파른 노스 비치 거리와 다운타운"></div>
+        <div class="label">North Beach</div>
+        <div class="copy">이탈리아 어부들이 만들고, 비트 시인들이 머물렀다. 콜럼버스 거리의 카페, 빅토리안 하우스, 자정의 에스프레소.</div>
+        <div class="meta">
+          <span>7개 글</span><span class="meta-sep">·</span><span>18분 분량</span><span class="meta-sep">·</span><span>업데이트 2026.05</span>
+        </div>
+        <a class="more" href="#">자세히 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      </article>
+
+      <article class="b-list-item">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1558417991-1dc2ed5b006b?w=1100&fit=crop&q=80&auto=format" alt="소마 위로 빛나는 세일즈포스 타워"></div>
+        <div class="label">SoMa</div>
+        <div class="copy">콘크리트와 코드. 세일즈포스 타워의 야경, 폴섬 거리의 갤러리, 서버팜과 공방이 같은 블록을 공유하는 도시의 작업 구역.</div>
+        <div class="meta">
+          <span>4개 글</span><span class="meta-sep">·</span><span>10분 분량</span><span class="meta-sep">·</span><span>업데이트 2026.04</span>
+        </div>
+        <a class="more" href="#">자세히 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      </article>
+
+      <article class="b-list-item">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1583263063453-84e8cb3afdcc?w=1100&fit=crop&q=80&auto=format" alt="랜즈 엔드 절벽과 태평양"></div>
+        <div class="label">Richmond</div>
+        <div class="copy">안개, 고요, 딤섬. 클레멘트 거리의 만두집, 랜즈 엔드의 절벽, 도시 안에 또 다른 도시를 가진 동네. 또 다른 모습의 샌프란시스코.</div>
+        <div class="meta">
+          <span>5개 글</span><span class="meta-sep">·</span><span>14분 분량</span><span class="meta-sep">·</span><span>업데이트 2026.05</span>
+        </div>
+        <a class="more" href="#">자세히 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      </article>
+
+    </div>
+  </div>
+
+</div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer-row">
+    <div>
+      <div class="footer-brand">San Francisco</div>
+      <div class="footer-tagline">A field guide by the bay</div>
+    </div>
+    <nav class="site-footer-nav">
+      <a href="#">Districts</a>
+      <a href="#">Stories</a>
+      <a href="#">Food</a>
+      <a href="#">Events</a>
+      <a href="#">Contact</a>
+    </nav>
+  </div>
+  <div class="site-footer-meta">
+    <span>© 2026 San Francisco Field Guide</span>
+    <span>Powered by <a href="#" style="color:inherit;border-bottom:1px solid currentColor">Tistory</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

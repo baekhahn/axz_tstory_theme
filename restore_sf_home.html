@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home — San Francisco</title>
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root {
+  --raw-bg-base:    #FFFFFF;
+  --raw-bg-elev:    #FFFFFF;
+  --raw-bg-muted:   #F4F1ED;
+  --raw-bg-inv:     #1E1E1E;
+
+  --raw-text-str:   #1E1E1E;
+  --raw-text-pri:   #1E1E1E;
+  --raw-text-mut:   #6B6B6B;
+  --raw-text-sub:   #A0A0A0;
+  --raw-text-inv:   #FFFFFF;
+
+  --raw-border-def: #E5E5E5;
+  --raw-border-str: #1E1E1E;
+  --raw-border-sub: #F0F0F0;
+
+  --raw-accent:     #D94B27;
+
+  --color-surface-page:    var(--raw-bg-base);
+  --color-surface-card:    var(--raw-bg-elev);
+  --color-surface-subtle:  var(--raw-bg-muted);
+  --color-text-heading:    var(--raw-text-str);
+  --color-text-default:    var(--raw-text-pri);
+  --color-text-secondary:  var(--raw-text-mut);
+  --color-text-subtle:     var(--raw-text-sub);
+  --color-text-inv:        var(--raw-text-inv);
+  --color-border-default:  var(--raw-border-def);
+  --color-border-strong:   var(--raw-border-str);
+  --color-border-subtle:   var(--raw-border-sub);
+  --color-accent:          var(--raw-accent);
+
+  --font-display: "Pretendard", -apple-system, "Apple SD Gothic Neo", sans-serif;
+  --font-body:    "Pretendard", -apple-system, "Apple SD Gothic Neo", sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { font-size: 16px; }
+body {
+  margin: 0; padding: 0;
+  font-family: var(--font-body);
+  background: var(--color-surface-page);
+  color: var(--color-text-default);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+  letter-spacing: -.01em;
+}
+ul, ol { margin: 0; padding: 0; list-style: none; }
+a { color: inherit; text-decoration: none; }
+p { margin: 0; }
+img { max-width: 100%; height: auto; vertical-align: middle; display: block; }
+button { font-family: inherit; cursor: pointer; }
+
+/* ── 대형 타이포 (Re-Store 시그니처) ── */
+.massive {
+  font-family: var(--font-display);
+  font-size: clamp(72px, 11vw, 168px);
+  font-weight: 400;
+  letter-spacing: -.04em;
+  line-height: .95;
+  color: var(--color-text-heading);
+}
+.hero-display {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 6vw, 92px);
+  font-weight: 500;
+  letter-spacing: -.03em;
+  line-height: 1.0;
+  color: var(--color-text-heading);
+}
+.h1-display { font-size: clamp(36px, 4vw, 56px); font-weight: 500; letter-spacing: -.025em; line-height: 1.05; color: var(--color-text-heading); }
+.h2-display { font-size: clamp(24px, 2.4vw, 32px); font-weight: 500; letter-spacing: -.02em; line-height: 1.2; color: var(--color-text-heading); }
+.body-lg { font-size: 20px; font-weight: 500; letter-spacing: -.03em; line-height: 1.4; color: var(--color-text-default); }
+.body-md { font-size: 18px; font-weight: 400; letter-spacing: -.02em; line-height: 1.55; color: var(--color-text-default); }
+.body-sm { font-size: 16px; font-weight: 500; letter-spacing: -.025em; line-height: 1.4; color: var(--color-text-default); }
+.caption  { font-size: 13px; font-weight: 400; letter-spacing: 0;     line-height: 1.4; color: var(--color-text-secondary); }
+
+/* ── 헤더 (오버레이 / 일반 공통 셸) ── */
+.site-header {
+  position: absolute; top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 28px clamp(24px, 4vw, 64px);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 24px;
+}
+.site-header.is-light  { color: var(--color-text-inv); }
+.site-header.is-dark   { color: var(--color-text-heading); background: var(--color-surface-page); border-bottom: 1px solid var(--color-border-subtle); position: sticky; }
+.site-brand {
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -.025em;
+  color: inherit;
+}
+.site-nav {
+  display: flex; align-items: center; gap: 28px;
+}
+.site-nav a {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -.02em;
+  color: inherit;
+  transition: opacity .15s ease;
+}
+.site-nav a:hover { opacity: .65; }
+.site-lang {
+  display: flex; gap: 12px;
+  font-size: 14px; font-weight: 500;
+  letter-spacing: -.015em;
+  color: inherit;
+  opacity: .85;
+}
+.site-lang span.active { font-weight: 600; opacity: 1; }
+
+/* ── CTA pill 버튼 ── */
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 26px;
+  background: var(--color-text-heading);
+  color: var(--color-text-inv);
+  border-radius: 999px;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -.02em;
+  border: none;
+  transition: opacity .15s ease, transform .15s ease;
+  text-decoration: none;
+}
+.btn-pill:hover { opacity: .9; transform: translateY(-1px); }
+.btn-pill::before {
+  content: '';
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+/* ── 화살표 링크 (오렌지 원형 + 흰 화살표) ── */
+.arrow-link {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-text-inv);
+  font-size: 18px;
+  transition: transform .2s ease;
+}
+.arrow-link:hover { transform: translateX(4px); }
+.arrow-link svg { width: 18px; height: 18px; }
+
+/* ── 가로선 캡션 (좌하단 브랜드 캡션) ── */
+.hairline-caption {
+  display: flex; flex-direction: column;
+  gap: 4px;
+  color: inherit;
+}
+.hairline {
+  border: 0;
+  border-top: 1px solid currentColor;
+  width: 240px;
+  margin: 0 0 12px;
+  opacity: .8;
+}
+.hairline-caption .brand { font-size: 13px; font-weight: 500; letter-spacing: -.005em; }
+.hairline-caption .sub   { font-size: 13px; opacity: .85; }
+
+/* ── 푸터 ── */
+.site-footer {
+  border-top: 1px solid var(--color-border-default);
+  padding: 56px clamp(24px, 4vw, 64px) 32px;
+  margin-top: 80px;
+  display: flex; flex-direction: column; gap: 40px;
+}
+.site-footer-row {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 32px; flex-wrap: wrap;
+}
+.site-footer-row .footer-brand {
+  font-size: 22px; font-weight: 500; letter-spacing: -.025em;
+}
+.site-footer-row .footer-tagline {
+  font-size: 14px; color: var(--color-text-secondary);
+  margin-top: 4px;
+}
+.site-footer-nav {
+  display: flex; gap: 28px; flex-wrap: wrap;
+  font-size: 15px; font-weight: 500;
+  letter-spacing: -.015em;
+}
+.site-footer-nav a { color: var(--color-text-default); }
+.site-footer-nav a:hover { color: var(--color-accent); }
+.site-footer-meta {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 16px; flex-wrap: wrap;
+  font-size: 12.5px; color: var(--color-text-subtle);
+  letter-spacing: -.005em;
+}
+
+@media (max-width: 760px) {
+  .site-header { padding: 16px 20px; flex-wrap: wrap; gap: 14px; }
+  .site-nav { gap: 18px; }
+  .site-lang { display: none; }
+}
+</style>
+
+
+<style>
+.b-page { position: relative; }
+
+/* Hero */
+.b-hero {
+  position: relative;
+  min-height: 92vh;
+  display: flex;
+  flex-direction: column; justify-content: flex-end;
+  padding: 160px clamp(24px, 4vw, 64px) 80px;
+  color: var(--color-text-inv);
+  overflow: hidden;
+  background: #1E1E1E;
+}
+.b-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: var(--hero-img);
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+.b-hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(30,30,30,.45) 0%, rgba(30,30,30,.15) 35%, rgba(30,30,30,.7) 100%);
+  z-index: 1;
+}
+.b-hero > * { position: relative; z-index: 2; }
+.b-hero-headline {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 8vw, 132px);
+  font-weight: 500;
+  letter-spacing: -.035em;
+  line-height: .98;
+  color: var(--color-text-inv);
+  max-width: 1280px;
+  margin-bottom: 36px;
+}
+.b-hero-cta { display: inline-flex; }
+.b-hero-cta .btn-pill {
+  background: var(--color-text-inv);
+  color: var(--color-text-heading);
+}
+.b-hero-caption {
+  position: absolute;
+  left: clamp(24px, 4vw, 64px);
+  bottom: 32px;
+  color: var(--color-text-inv);
+  z-index: 2;
+}
+
+/* 이단 섹션 (좌측 라벨 + 우측 본문) */
+.b-split {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: clamp(40px, 6vw, 120px);
+  padding: clamp(80px, 12vh, 160px) clamp(24px, 4vw, 64px);
+  align-items: start;
+  border-top: 1px solid var(--color-border-subtle);
+}
+.b-split:first-of-type { border-top: none; }
+.b-split-label .massive { display: block; }
+.b-split-body { display: flex; flex-direction: column; gap: 28px; max-width: 640px; }
+.b-split-body .lede { font-size: 22px; font-weight: 500; letter-spacing: -.025em; line-height: 1.35; }
+.b-split-body p     { font-size: 18px; font-weight: 400; letter-spacing: -.015em; line-height: 1.55; color: var(--color-text-default); }
+.b-split-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 32px; margin-top: 8px;
+}
+.b-split-grid p { font-size: 16px; }
+.b-split-arrow { margin-top: 16px; }
+
+/* District 그리드 */
+.b-districts {
+  padding: clamp(80px, 12vh, 160px) clamp(24px, 4vw, 64px);
+  border-top: 1px solid var(--color-border-subtle);
+}
+.b-districts-head {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: 32px; flex-wrap: wrap;
+  margin-bottom: 56px;
+}
+.b-districts-head .h1-display { max-width: 760px; }
+.b-districts-head .meta { font-size: 14px; color: var(--color-text-secondary); }
+.b-district-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px 32px;
+}
+.b-district {
+  display: flex; flex-direction: column; gap: 16px;
+}
+.b-district .img-wrap {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--color-surface-subtle);
+}
+.b-district img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .6s ease;
+}
+.b-district:hover img { transform: scale(1.04); }
+.b-district .label {
+  font-size: 22px; font-weight: 500; letter-spacing: -.025em;
+  color: var(--color-text-heading);
+}
+.b-district .copy {
+  font-size: 15px; color: var(--color-text-secondary);
+  letter-spacing: -.015em; line-height: 1.4;
+}
+
+@media (max-width: 900px) {
+  .b-split { grid-template-columns: 1fr; gap: 32px; }
+  .b-split-grid { grid-template-columns: 1fr; }
+  .b-district-list { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .b-district-list { grid-template-columns: 1fr; }
+  .b-hero { min-height: 76vh; padding: 120px 20px 80px; }
+}
+</style>
+
+</head>
+<body>
+
+<header class="site-header is-light">
+  <a class="site-brand" href="#">San Francisco</a>
+  <nav class="site-nav">
+    <a href="#">Districts</a>
+    <a href="#">Stories</a>
+    <a href="#">Food</a>
+    <a href="#">Events</a>
+  </nav>
+  <div class="site-lang">
+    <span class="active">EN</span>
+    <span>ES</span>
+    <span>JP</span>
+  </div>
+</header>
+
+<main>
+
+<div class="b-page">
+
+  <section class="b-hero" style="--hero-img: url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=2200&fit=crop&q=80&auto=format');">
+    <h1 class="b-hero-headline">Find a city that lives between fog and ocean.</h1>
+    <div class="b-hero-cta">
+      <a class="btn-pill" href="#">Explore San Francisco</a>
+    </div>
+    <div class="b-hero-caption">
+      <hr class="hairline" style="border-color:#FFFFFF;opacity:.7">
+      <div class="hairline-caption">
+        <span class="brand">San Francisco</span>
+        <span class="sub">A field guide by the bay</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="b-split">
+    <div class="b-split-label"><span class="massive">San<br>Francisco</span></div>
+    <div class="b-split-body">
+      <p class="lede">매일 오후 안개가 골든 게이트를 부드러운 회색으로 덮는다. 시원한 태평양 공기가 따뜻한 내륙 분지에 갇히면서, 캘리포니아가 불타도 도시는 서늘하다.</p>
+      <p>현지인들은 이 안개를 칼(Karl) 이라고 부른다. 헤드랜드를 넘어 와서 다리 중간을 통째로 삼키고, 미션 지구로 천천히 흘러든다. 아침이 되면 사라지고, 도시는 깨끗하고 환하게 씻겨 남는다.</p>
+      <div class="b-split-grid">
+        <p>트윈 픽스에 서면 안개의 진군이 보인다. 긴 흰 벽이 자기만의 일정으로, 어느 동네에 햇빛을 허락할지 자기만의 의견을 가지고 움직인다.</p>
+        <p>이곳의 마이크로클라이밋은 공격적이다. 선셋은 안개에 잠기고 미션은 더운다. 3 km 거리에 11℃ 차이가 난다.</p>
+      </div>
+      <a class="arrow-link" href="#" aria-label="지리 읽기">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <section class="b-split">
+    <div class="b-split-label"><span class="massive">Hill<br>Light</span></div>
+    <div class="b-split-body">
+      <p class="lede">42개의 언덕, 각자 자기 날씨를 가진다. 해질녘 러시안 힐을 걸으면 만은 두드린 구리처럼 변하고, 새벽에 걸으면 옅은 파랑과 연어색의 수채화가 된다.</p>
+      <p>사진가들은 이 도시가 사실 빛에 관한 도시라는 걸 안다. 흰 스투코는 빛을 튕겨내고, 안개는 빛을 흩뜨리고, 언덕은 어떤 건축가도 그리지 않은 각도로 건물을 기울인다.</p>
+      <div class="b-split-grid">
+        <p>랜즈 엔드의 빛은 돌로레스 파크의 빛과 다르다. 화요일의 빛은 일요일의 빛과 다르다.</p>
+        <p>블록마다 자기만의 공기를 가진다. 다른 온도, 다른 그림자, 같은 도시의 다른 버전.</p>
+      </div>
+      <a class="arrow-link" href="#" aria-label="빛 읽기">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <section class="b-split">
+    <div class="b-split-label"><span class="massive">People<br>First</span></div>
+    <div class="b-split-body">
+      <p class="lede">이민자와 발명가의 도시. 안개는 당신이 어디서 왔는지 신경 쓰지 않는다. 자기 블록을 찾고 자기 카페를 찾으면, 도시는 다른 모두를 안았던 방식으로 당신을 안는다.</p>
+      <p>이탈리아 어부들이 노스 비치를 세웠다. 중국 노동자들은 철도를 깔고 그대로 남았다. 멕시코 가족들이 미션을 라틴의 심장으로 바꿨다. 카스트로는 퀴어 해방의 전선을 지켰다. 어느 것도 깔끔하지 않았다. 모든 게 그대로 남았다.</p>
+      <div class="b-split-grid">
+        <p>샌프란시스코로 오는 건 적응하기 위해서가 아니다. 도시가 받아들이려 하는 자신의 버전을 찾기 위해서다.</p>
+        <p>어떤 도시는 야망에 관한 곳이다. 샌프란시스코는 재발명에 관한 곳이다. 멀리서 보면 둘은 비슷해 보인다.</p>
+      </div>
+      <a class="arrow-link" href="#" aria-label="사람 읽기">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <section class="b-districts">
+    <div class="b-districts-head">
+      <h2 class="h1-display">도시의 표정을 만드는 여섯 동네.</h2>
+      <div class="meta">매주 업데이트 · 42개 중 6개</div>
+    </div>
+    <div class="b-district-list">
+      <article class="b-district">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1760264555138-6763053a65e9?w=900&fit=crop&q=75&auto=format" alt="미션 지구의 벽화"></div>
+        <div class="label">Mission</div>
+        <div class="copy">라틴의 심장. 벽화, 타케리아, 안개 없는 오후.</div>
+      </article>
+      <article class="b-district">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1569848707917-59e1485852e1?w=900&fit=crop&q=75&auto=format" alt="카스트로 극장 간판과 무지개 깃발"></div>
+        <div class="label">Castro</div>
+        <div class="copy">무지개가 시작된 곳. 영화 궁전, 언덕, 역사.</div>
+      </article>
+      <article class="b-district">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1614068214049-605cfb8af09d?w=900&fit=crop&q=75&auto=format" alt="핑크빛 일몰의 오션 비치"></div>
+        <div class="label">Sunset</div>
+        <div class="copy">도시가 끝나고 태평양이 시작되는 곳.</div>
+      </article>
+      <article class="b-district">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1568920946433-e5d3595eb4e1?w=900&fit=crop&q=75&auto=format" alt="다운타운을 향한 노스 비치의 가파른 거리"></div>
+        <div class="label">North Beach</div>
+        <div class="copy">이탈리아, 비트 시인, 밤새도록. 자정의 에스프레소.</div>
+      </article>
+      <article class="b-district">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1558417991-1dc2ed5b006b?w=900&fit=crop&q=75&auto=format" alt="소마 위로 빛나는 야간 세일즈포스 타워"></div>
+        <div class="label">SoMa</div>
+        <div class="copy">콘크리트와 코드. 서버팜 사이의 갤러리.</div>
+      </article>
+      <article class="b-district">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1583263063453-84e8cb3afdcc?w=900&fit=crop&q=75&auto=format" alt="리치먼드 끝자락 랜즈 엔드의 절벽과 태평양"></div>
+        <div class="label">Richmond</div>
+        <div class="copy">안개, 고요, 딤섬. 또 다른 모습의 샌프란시스코.</div>
+      </article>
+    </div>
+  </section>
+
+</div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer-row">
+    <div>
+      <div class="footer-brand">San Francisco</div>
+      <div class="footer-tagline">A field guide by the bay</div>
+    </div>
+    <nav class="site-footer-nav">
+      <a href="#">Districts</a>
+      <a href="#">Stories</a>
+      <a href="#">Food</a>
+      <a href="#">Events</a>
+      <a href="#">Contact</a>
+    </nav>
+  </div>
+  <div class="site-footer-meta">
+    <span>© 2026 San Francisco Field Guide</span>
+    <span>Powered by <a href="#" style="color:inherit;border-bottom:1px solid currentColor">Tistory</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
