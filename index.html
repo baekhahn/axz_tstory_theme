@@ -419,19 +419,19 @@ body[data-blog="WB"] .panel.is-blog-wa { display: none !important; }
     <section class="panel active is-blog-a" data-panel="theme">
       <header class="panel-header">
         <h2 class="panel-title">전체 테마</h2>
-        <p class="panel-desc">본문 레이아웃과 각 모듈(헤더 등)을 슬롯으로 선택해 조합 검수.</p>
+        <p class="panel-desc">레이아웃과 각 모듈(헤더 등)을 슬롯으로 선택해 조합 검수.</p>
         <div class="panel-meta">
           <span class="panel-file" data-panel-file="theme"></span>
         </div>
         <div class="slot-bar" data-panel="theme">
           <label class="slot-field">
-            <span class="slot-label">본문 레이아웃</span>
+            <span class="slot-label">레이아웃</span>
             <select class="slot-select" data-panel="theme" data-slot="body">
-              <option value="base">전체 테마 (기본 — 카드 리스트)</option>
-              <option value="campaign">전체 테마 (캠페인 — 풀폭 알터네이트)</option>
-              <option value="tight1">전체 테마 1-1 (간격 살짝 타이트)</option>
-              <option value="tight">전체 테마 2 (타이트 리스트 · 작은 썸)</option>
-              <option value="grid">전체 테마 3 (4 컬럼 · 세로 썸)</option>
+              <option value="base">기본 — 카드 리스트</option>
+              <option value="tight1">간격 살짝 타이트</option>
+              <option value="tight">타이트 리스트 · 작은 썸</option>
+              <option value="grid">4 컬럼 · 세로 썸</option>
+              <option value="campaign">캠페인 — 풀폭 알터네이트</option>
             </select>
           </label>
           <label class="slot-field">
@@ -5366,14 +5366,14 @@ function isBlogB() { return currentBlog === 'B'; }
 
 const SLOT_DEFINITIONS = {
   body: {
-    label: '본문 레이아웃',
+    label: '레이아웃',
     param: 'b',
     options: [
-      { key: 'base',     label: '전체 테마 (기본 — 카드 리스트)' },
-      { key: 'campaign', label: '전체 테마 (캠페인 — 풀폭 알터네이트)' },
-      { key: 'tight1',   label: '전체 테마 1-1 (간격 살짝 타이트)' },
-      { key: 'tight',    label: '전체 테마 2 (타이트 리스트 · 작은 썸)' },
-      { key: 'grid',     label: '전체 테마 3 (4 컬럼 · 세로 썸)' },
+      { key: 'base',     label: '기본 — 카드 리스트' },
+      { key: 'tight1',   label: '간격 살짝 타이트' },
+      { key: 'tight',    label: '타이트 리스트 · 작은 썸' },
+      { key: 'grid',     label: '4 컬럼 · 세로 썸' },
+      { key: 'campaign', label: '캠페인 — 풀폭 알터네이트' },
     ],
   },
   header: {
@@ -5435,11 +5435,11 @@ const SCREENS_BODY = {
 const BLOG_SLOT_OPTIONS = {
   A: {
     body: [
-      { key: 'base',     label: '전체 테마 (기본 — 카드 리스트)' },
-      { key: 'campaign', label: '전체 테마 (캠페인 — 풀폭 알터네이트)' },
-      { key: 'tight1',   label: '전체 테마 1-1 (간격 살짝 타이트)' },
-      { key: 'tight',    label: '전체 테마 2 (타이트 리스트 · 작은 썸)' },
-      { key: 'grid',     label: '전체 테마 3 (4 컬럼 · 세로 썸)' },
+      { key: 'base',     label: '기본 — 카드 리스트' },
+      { key: 'tight1',   label: '간격 살짝 타이트' },
+      { key: 'tight',    label: '타이트 리스트 · 작은 썸' },
+      { key: 'grid',     label: '4 컬럼 · 세로 썸' },
+      { key: 'campaign', label: '캠페인 — 풀폭 알터네이트' },
     ],
     header: [
       { key: 'left',  label: '좌측 정렬' },
@@ -5920,7 +5920,7 @@ function setBlog(newBlog, opts) {
 /* 패널 헤더의 제목·설명 라벨을 현재 blog 톤에 맞게 교체 */
 const PANEL_LABELS = {
   A: {
-    theme:   { title: '전체 테마',           desc: '본문 레이아웃(기본 · 캠페인 · 1-1 · 2 · 3) + 헤더/푸터/사이드바를 슬롯으로 선택해 조합 검수.' },
+    theme:   { title: '전체 테마',           desc: '레이아웃(기본 · 1-1 · 2 · 3 · 캠페인) + 헤더/푸터/사이드바를 슬롯으로 선택해 조합 검수.' },
     post:    { title: '게시글 상세 — 블로그형', desc: '단일 컬럼 블로그 글 형식의 게시글 상세. 각 모듈을 슬롯으로 갈아끼워 조합 검수.' },
     header:  { title: '컴포넌트 — 헤더',     desc: '헤더 단독 검수. 본문·푸터는 placeholder. 화면(전체 테마/게시글) 에 적용된 모습은 좌측 sidenav 의 "화면" 섹션에서 확인.' },
     footer:  { title: '컴포넌트 — 푸터',     desc: '푸터 단독 검수. 헤더·본문은 placeholder. 푸터 메뉴(홈/방명록/RSS/맨위로) · 카피라이트 · Powered by Tistory 공통.' },
