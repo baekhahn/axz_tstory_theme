@@ -304,15 +304,6 @@ body[data-blog="WB"] .panel.is-blog-wa { display: none !important; }
       <button class="nav-item active" data-tab="theme">
         <span class="nav-label">전체 테마</span>
       </button>
-      <button class="nav-item" data-tab="theme1_1">
-        <span class="nav-label">전체 테마 1-1</span>
-      </button>
-      <button class="nav-item" data-tab="theme2">
-        <span class="nav-label">전체 테마 2</span>
-      </button>
-      <button class="nav-item" data-tab="theme3">
-        <span class="nav-label">전체 테마 3</span>
-      </button>
       <button class="nav-item" data-tab="post">
         <span class="nav-label">게시글 (블로그형)</span>
       </button>
@@ -436,8 +427,11 @@ body[data-blog="WB"] .panel.is-blog-wa { display: none !important; }
           <label class="slot-field">
             <span class="slot-label">본문 레이아웃</span>
             <select class="slot-select" data-panel="theme" data-slot="body">
-              <option value="base">기본형 (카드 리스트)</option>
-              <option value="campaign">캠페인형 (풀폭 알터네이트)</option>
+              <option value="base">전체 테마 (기본 — 카드 리스트)</option>
+              <option value="campaign">전체 테마 (캠페인 — 풀폭 알터네이트)</option>
+              <option value="tight1">전체 테마 1-1 (간격 살짝 타이트)</option>
+              <option value="tight">전체 테마 2 (타이트 리스트 · 작은 썸)</option>
+              <option value="grid">전체 테마 3 (4 컬럼 · 세로 썸)</option>
             </select>
           </label>
           <label class="slot-field">
@@ -469,129 +463,6 @@ body[data-blog="WB"] .panel.is-blog-wa { display: none !important; }
       </header>
       <div class="frame-wrap">
         <iframe class="preview-frame" id="frame-theme" title="전체 테마"></iframe>
-      </div>
-    </section>
-
-    <!-- 화면 · 전체 테마 1-1 (간격만 살짝 타이트) -->
-    <section class="panel is-blog-a" data-panel="theme1_1">
-      <header class="panel-header">
-        <h2 class="panel-title">전체 테마 1-1</h2>
-        <p class="panel-desc">"전체 테마" 와 동일한 레이아웃·콘텐츠. 게시물 행 padding 만 64px → 44px, gap 64px → 48px 로 살짝 타이트하게.</p>
-        <div class="panel-meta">
-          <span class="panel-file" data-panel-file="theme1_1"></span>
-        </div>
-        <div class="slot-bar" data-panel="theme1_1">
-          <label class="slot-field">
-            <span class="slot-label">헤더</span>
-            <select class="slot-select" data-panel="theme1_1" data-slot="header">
-              <option value="left">좌측 정렬</option>
-              <option value="split">2단 분리형</option>
-              <option value="hero">히어로 배너형</option>
-            </select>
-          </label>
-          <label class="slot-field">
-            <span class="slot-label">푸터</span>
-            <select class="slot-select" data-panel="theme1_1" data-slot="footer">
-              <option value="center">중앙 정렬</option>
-              <option value="split-h">좌우 분리형</option>
-              <option value="split-v">상하 분리형</option>
-              <option value="left">좌측 정렬 블록형</option>
-            </select>
-          </label>
-          <label class="slot-field">
-            <span class="slot-label">사이드바</span>
-            <select class="slot-select" data-panel="theme1_1" data-slot="sidebar">
-              <option value="right-fixed">고정영역 (디폴트)</option>
-              <option value="drawer-open">서랍형 — 열린</option>
-              <option value="drawer-closed">서랍형 — 닫힌</option>
-            </select>
-          </label>
-        </div>
-      </header>
-      <div class="frame-wrap">
-        <iframe class="preview-frame" id="frame-theme1_1" title="전체 테마 1-1"></iframe>
-      </div>
-    </section>
-
-    <!-- 화면 · 전체 테마 2 (타이트 리스트) -->
-    <section class="panel is-blog-a" data-panel="theme2">
-      <header class="panel-header">
-        <h2 class="panel-title">전체 테마 2</h2>
-        <p class="panel-desc">게시물 리스트를 타이트하게 + 썸네일 96×72 로 줄여 한 화면에 더 많이 노출. 헤더/푸터/사이드바는 슬롯으로 갈아끼움.</p>
-        <div class="panel-meta">
-          <span class="panel-file" data-panel-file="theme2"></span>
-        </div>
-        <div class="slot-bar" data-panel="theme2">
-          <label class="slot-field">
-            <span class="slot-label">헤더</span>
-            <select class="slot-select" data-panel="theme2" data-slot="header">
-              <option value="left">좌측 정렬</option>
-              <option value="split">2단 분리형</option>
-              <option value="hero">히어로 배너형</option>
-            </select>
-          </label>
-          <label class="slot-field">
-            <span class="slot-label">푸터</span>
-            <select class="slot-select" data-panel="theme2" data-slot="footer">
-              <option value="center">중앙 정렬</option>
-              <option value="split-h">좌우 분리형</option>
-              <option value="split-v">상하 분리형</option>
-              <option value="left">좌측 정렬 블록형</option>
-            </select>
-          </label>
-          <label class="slot-field">
-            <span class="slot-label">사이드바</span>
-            <select class="slot-select" data-panel="theme2" data-slot="sidebar">
-              <option value="right-fixed">고정영역 (디폴트)</option>
-              <option value="drawer-open">서랍형 — 열린</option>
-              <option value="drawer-closed">서랍형 — 닫힌</option>
-            </select>
-          </label>
-        </div>
-      </header>
-      <div class="frame-wrap">
-        <iframe class="preview-frame" id="frame-theme2" title="전체 테마 2"></iframe>
-      </div>
-    </section>
-
-    <!-- 화면 · 전체 테마 3 (4 컬럼 그리드 + 세로 썸네일) -->
-    <section class="panel is-blog-a" data-panel="theme3">
-      <header class="panel-header">
-        <h2 class="panel-title">전체 테마 3</h2>
-        <p class="panel-desc">4 컬럼 그리드 + 세로로 긴 (3:4) 썸네일. 포트레이트 카드 카탈로그 톤. 헤더/푸터/사이드바는 슬롯으로 갈아끼움.</p>
-        <div class="panel-meta">
-          <span class="panel-file" data-panel-file="theme3"></span>
-        </div>
-        <div class="slot-bar" data-panel="theme3">
-          <label class="slot-field">
-            <span class="slot-label">헤더</span>
-            <select class="slot-select" data-panel="theme3" data-slot="header">
-              <option value="left">좌측 정렬</option>
-              <option value="split">2단 분리형</option>
-              <option value="hero">히어로 배너형</option>
-            </select>
-          </label>
-          <label class="slot-field">
-            <span class="slot-label">푸터</span>
-            <select class="slot-select" data-panel="theme3" data-slot="footer">
-              <option value="center">중앙 정렬</option>
-              <option value="split-h">좌우 분리형</option>
-              <option value="split-v">상하 분리형</option>
-              <option value="left">좌측 정렬 블록형</option>
-            </select>
-          </label>
-          <label class="slot-field">
-            <span class="slot-label">사이드바</span>
-            <select class="slot-select" data-panel="theme3" data-slot="sidebar">
-              <option value="right-fixed">고정영역 (디폴트)</option>
-              <option value="drawer-open">서랍형 — 열린</option>
-              <option value="drawer-closed">서랍형 — 닫힌</option>
-            </select>
-          </label>
-        </div>
-      </header>
-      <div class="frame-wrap">
-        <iframe class="preview-frame" id="frame-theme3" title="전체 테마 3"></iframe>
       </div>
     </section>
 
@@ -5498,8 +5369,11 @@ const SLOT_DEFINITIONS = {
     label: '본문 레이아웃',
     param: 'b',
     options: [
-      { key: 'base',     label: '기본형 (카드 리스트)' },
-      { key: 'campaign', label: '캠페인형 (풀폭 알터네이트)' },
+      { key: 'base',     label: '전체 테마 (기본 — 카드 리스트)' },
+      { key: 'campaign', label: '전체 테마 (캠페인 — 풀폭 알터네이트)' },
+      { key: 'tight1',   label: '전체 테마 1-1 (간격 살짝 타이트)' },
+      { key: 'tight',    label: '전체 테마 2 (타이트 리스트 · 작은 썸)' },
+      { key: 'grid',     label: '전체 테마 3 (4 컬럼 · 세로 썸)' },
     ],
   },
   header: {
@@ -5539,10 +5413,10 @@ const SCREENS_BODY = {
   // ── Blog A ──
   'theme:base':     { body: THEME_BODY,         style: THEME_STYLE },
   'theme:campaign': { body: POST_CLARKSON_BODY, style: POST_CLARKSON_STYLE },
+  'theme:tight1':   { body: THEME_BODY,         style: THEME_TIGHT1_STYLE },
+  'theme:tight':    { body: THEME_TIGHT_BODY,   style: THEME_TIGHT_STYLE },
+  'theme:grid':     { body: THEME_GRID_BODY,    style: THEME_GRID_STYLE },
   'post:default':   { body: POST_STANTON_BODY,  style: POST_STANTON_STYLE },
-  'theme1_1:default': { body: THEME_BODY,         style: THEME_TIGHT1_STYLE },
-  'theme2:default':   { body: THEME_TIGHT_BODY,   style: THEME_TIGHT_STYLE },
-  'theme3:default':   { body: THEME_GRID_BODY,    style: THEME_GRID_STYLE },
   // ── Blog B (theme/post 는 이전 호환 유지) ──
   'B:theme:hero':      { body: THEME_BODY_B, style: THEME_STYLE_B },
   'B:theme:editorial': { body: THEME_BODY_B, style: THEME_STYLE_B },
@@ -5561,8 +5435,11 @@ const SCREENS_BODY = {
 const BLOG_SLOT_OPTIONS = {
   A: {
     body: [
-      { key: 'base',     label: '기본형 (카드 리스트)' },
-      { key: 'campaign', label: '캠페인형 (풀폭 알터네이트)' },
+      { key: 'base',     label: '전체 테마 (기본 — 카드 리스트)' },
+      { key: 'campaign', label: '전체 테마 (캠페인 — 풀폭 알터네이트)' },
+      { key: 'tight1',   label: '전체 테마 1-1 (간격 살짝 타이트)' },
+      { key: 'tight',    label: '전체 테마 2 (타이트 리스트 · 작은 썸)' },
+      { key: 'grid',     label: '전체 테마 3 (4 컬럼 · 세로 썸)' },
     ],
     header: [
       { key: 'left',  label: '좌측 정렬' },
@@ -5652,33 +5529,6 @@ const PANEL_CONFIG = {
     defaults: { header: 'left', footer: 'center', sidebar: 'right-fixed' },
     bodySlot: null,
     bodyScreenKey: 'post:default',
-  },
-  'theme1_1': {
-    kind: 'screen',
-    frameId: 'frame-theme1_1',
-    fileLabelSlot: null,
-    slots: ['header', 'footer', 'sidebar'],
-    defaults: { header: 'left', footer: 'center', sidebar: 'right-fixed' },
-    bodySlot: null,
-    bodyScreenKey: 'theme1_1:default',
-  },
-  'theme2': {
-    kind: 'screen',
-    frameId: 'frame-theme2',
-    fileLabelSlot: null,
-    slots: ['header', 'footer', 'sidebar'],
-    defaults: { header: 'left', footer: 'center', sidebar: 'right-fixed' },
-    bodySlot: null,
-    bodyScreenKey: 'theme2:default',
-  },
-  'theme3': {
-    kind: 'screen',
-    frameId: 'frame-theme3',
-    fileLabelSlot: null,
-    slots: ['header', 'footer', 'sidebar'],
-    defaults: { header: 'left', footer: 'center', sidebar: 'right-fixed' },
-    bodySlot: null,
-    bodyScreenKey: 'theme3:default',
   },
   'header': {
     kind: 'component',
@@ -6025,7 +5875,7 @@ function rebuildSlotSelectOptions() {
 
 /* Blog 별로 LNB 에 보이는 패널 키 목록 — 그룹 hide/show 와 일치 */
 const BLOG_AVAILABLE_PANELS = {
-  A: ['theme', 'theme1_1', 'theme2', 'theme3', 'post', 'header', 'footer', 'sidebar'],
+  A: ['theme', 'post', 'header', 'footer', 'sidebar'],
   B: ['home', 'districts', 'mission', 'stories', 'walking', 'header', 'footer'],
   WA: ['dodam-home', 'header', 'footer'],
   WB: ['ttocare-home'],
@@ -6070,10 +5920,7 @@ function setBlog(newBlog, opts) {
 /* 패널 헤더의 제목·설명 라벨을 현재 blog 톤에 맞게 교체 */
 const PANEL_LABELS = {
   A: {
-    theme:   { title: '전체 테마',           desc: '본문 레이아웃과 각 모듈(헤더 등)을 슬롯으로 선택해 조합 검수.' },
-    theme1_1:{ title: '전체 테마 1-1', desc: '"전체 테마" 와 동일한 레이아웃·콘텐츠. 게시물 행 padding 만 64px → 44px, gap 64px → 48px 로 살짝 타이트하게.' },
-    theme2:  { title: '전체 테마 2', desc: '게시물 리스트를 타이트하게 + 썸네일 96×72 로 줄여 한 화면에 더 많이 노출. 헤더/푸터/사이드바는 슬롯으로 갈아끼움.' },
-    theme3:  { title: '전체 테마 3', desc: '4 컬럼 그리드 + 세로로 긴 (3:4) 썸네일. 포트레이트 카드 카탈로그 톤. 헤더/푸터/사이드바는 슬롯으로 갈아끼움.' },
+    theme:   { title: '전체 테마',           desc: '본문 레이아웃(기본 · 캠페인 · 1-1 · 2 · 3) + 헤더/푸터/사이드바를 슬롯으로 선택해 조합 검수.' },
     post:    { title: '게시글 상세 — 블로그형', desc: '단일 컬럼 블로그 글 형식의 게시글 상세. 각 모듈을 슬롯으로 갈아끼워 조합 검수.' },
     header:  { title: '컴포넌트 — 헤더',     desc: '헤더 단독 검수. 본문·푸터는 placeholder. 화면(전체 테마/게시글) 에 적용된 모습은 좌측 sidenav 의 "화면" 섹션에서 확인.' },
     footer:  { title: '컴포넌트 — 푸터',     desc: '푸터 단독 검수. 헤더·본문은 placeholder. 푸터 메뉴(홈/방명록/RSS/맨위로) · 카피라이트 · Powered by Tistory 공통.' },
