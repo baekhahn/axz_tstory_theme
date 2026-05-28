@@ -113,23 +113,23 @@ a{color:inherit;text-decoration:none}
 .cap__en{color:var(--sv-text-mut);font-size:12px;letter-spacing:.04em;display:block;margin-top:2px;text-transform:uppercase}
 .cap__price{color:var(--sv-text-str);white-space:nowrap}
 
-/* ── 찾아오는 곳 ── */
-.visit{display:grid;grid-template-columns:1fr;border-bottom:1px solid var(--sv-line)}
+/* ── 찾아오는 곳 (배경 웜 베이지로 통일) ── */
+.visit{display:grid;grid-template-columns:1fr;background:var(--sv-bg-band)}
 @media(min-width:860px){.visit{grid-template-columns:1fr 1fr}}
-.visit__info{padding:40px 26px;display:flex;flex-direction:column;gap:18px;justify-content:center}
-.visit__info h3{margin:0;font-weight:400;font-size:clamp(28px,4vw,44px);line-height:1.05}
-.visit__row{font-size:15px;line-height:1.6}
-.visit__row .lbl{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--sv-text-mut);margin-bottom:3px}
-.map-wrap{position:relative;min-height:360px;background:var(--sv-bg-cell);border-left:1px solid var(--sv-line)}
-@media(max-width:859px){.map-wrap{border-left:none;border-top:1px solid var(--sv-line);height:340px}}
+.visit__info{padding:48px 26px;display:flex;flex-direction:column;gap:18px;justify-content:center}
+.visit__info h3{margin:0;font-weight:400;font-size:clamp(28px,4vw,44px);line-height:1.05;color:var(--sv-text-str)}
+.visit__row{font-size:15px;line-height:1.6;color:#3a352d}
+.visit__row .lbl{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#7a7264;margin-bottom:3px}
+.map-wrap{position:relative;min-height:340px;border-left:1px solid rgba(34,34,34,.12)}
+@media(max-width:859px){.map-wrap{border-left:none;border-top:1px solid rgba(34,34,34,.12);height:300px}}
 #kakaoMap{position:absolute;inset:0;width:100%;height:100%}
 .map-fallback{
   position:absolute;inset:0;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px;
-  background:linear-gradient(135deg,#cdc4b8,#b9ad9e);color:#2c2820;
+  align-items:center;justify-content:center;gap:12px;color:#6a6255;
 }
-.map-fallback .pin{font-size:13px;letter-spacing:.12em;text-transform:uppercase}
-.map-fallback h4{margin:0;font-weight:500;font-size:22px}
+.map-pin{width:13px;height:13px;border-radius:50%;border:2px solid #6a6255;position:relative}
+.map-pin::after{content:"";position:absolute;left:50%;top:50%;width:3px;height:3px;border-radius:50%;background:#6a6255;transform:translate(-50%,-50%)}
+.map-hint{font-size:12px;letter-spacing:.14em;text-transform:uppercase}
 
 /* ── About ── */
 .about{display:grid;grid-template-columns:1fr;border-bottom:1px solid var(--sv-line)}
@@ -148,12 +148,13 @@ a{color:inherit;text-decoration:none}
 }
 .btn:hover{background:var(--sv-text-str);color:#fff}
 
-/* ── 푸터 ── */
-.foot{padding:44px 26px;display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:flex-end;font-size:14px;color:var(--sv-text-mut)}
-.foot__brand{font-size:18px;letter-spacing:.22em;text-transform:uppercase;color:var(--sv-text-str);font-weight:500}
+/* ── 푸터 (블랙 배경 · 무게감) ── */
+.foot{padding:60px 26px 40px;display:flex;flex-wrap:wrap;gap:28px;justify-content:space-between;align-items:flex-end;font-size:14px;color:rgba(255,255,255,.6);background:#141210}
+.foot__brand{font-size:19px;letter-spacing:.22em;text-transform:uppercase;color:#fff;font-weight:500}
 .foot__cols{display:flex;gap:48px;flex-wrap:wrap}
 .foot__cols div{line-height:1.8}
-.foot__copy{width:100%;border-top:1px solid var(--sv-line);padding-top:18px;font-size:12.5px}
+.foot__cols a:hover{color:#fff}
+.foot__copy{width:100%;border-top:1px solid rgba(255,255,255,.16);padding-top:20px;font-size:12.5px;color:rgba(255,255,255,.46)}
 </style>
 </head>
 <body>
@@ -201,7 +202,7 @@ a{color:inherit;text-decoration:none}
     <div class="cap"><span class="cap__name">에스프레소<span class="cap__en">Espresso</span></span><span class="cap__price">₩6,500</span></div>
   </div>
   <div class="cell">
-    <img src="https://images.unsplash.com/photo-1586792106950-8f02ebb373c1?w=520&h=650&fit=crop&q=75&auto=format" alt="카페 알롱제">
+    <img src="https://images.unsplash.com/photo-1705672763732-538d9a515ec1?w=520&h=650&fit=crop&q=78&auto=format" alt="카페 알롱제">
     <div class="cap"><span class="cap__name">카페 알롱제<span class="cap__en">Café Allongé</span></span><span class="cap__price">₩7,000</span></div>
   </div>
   <div class="cell">
@@ -213,11 +214,11 @@ a{color:inherit;text-decoration:none}
     <div class="cap"><span class="cap__name">카푸치노<span class="cap__en">Cappuccino</span></span><span class="cap__price">₩7,000</span></div>
   </div>
   <div class="cell">
-    <img src="https://images.unsplash.com/photo-1608552265232-3a1e3feb0271?w=520&h=650&fit=crop&q=75&auto=format" alt="카페 라떼">
+    <img src="https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?w=520&h=650&fit=crop&q=78&auto=format" alt="카페 라떼">
     <div class="cap"><span class="cap__name">카페 라떼<span class="cap__en">Café Latte</span></span><span class="cap__price">₩7,500</span></div>
   </div>
   <div class="cell">
-    <img src="https://images.unsplash.com/photo-1586848384751-aa8f7ee302c7?w=520&h=650&fit=crop&q=75&auto=format" alt="필터 커피">
+    <img src="https://images.unsplash.com/photo-1650097364104-eef0e54af0da?w=520&h=650&fit=crop&q=78&auto=format" alt="필터 커피">
     <div class="cap"><span class="cap__name">필터 커피<span class="cap__en">Filter</span></span><span class="cap__price">₩7,500</span></div>
   </div>
   <div class="cell">
@@ -225,7 +226,7 @@ a{color:inherit;text-decoration:none}
     <div class="cap"><span class="cap__name">콜드 브루<span class="cap__en">Cold Brew</span></span><span class="cap__price">₩7,800</span></div>
   </div>
   <div class="cell">
-    <img src="https://images.unsplash.com/photo-1622088910062-91b0190513a5?w=520&h=650&fit=crop&q=75&auto=format" alt="핸드드립 싱글 오리진">
+    <img src="https://images.unsplash.com/photo-1489866492941-15d60bdaa7e0?w=520&h=650&fit=crop&q=78&auto=format" alt="핸드드립 싱글 오리진">
     <div class="cap"><span class="cap__name">핸드드립 싱글 오리진<span class="cap__en">Single Origin</span></span><span class="cap__price">₩8,500</span></div>
   </div>
 </div>
@@ -236,15 +237,15 @@ a{color:inherit;text-decoration:none}
   <p>오래된 나무와 부드러운 빛, 라탄과 리넨. 파리의 작은 살롱을 닮은 자리에서 머무는 시간.</p>
 </section>
 <div class="grid gallery-grid">
-  <div class="cell"><img src="https://images.unsplash.com/photo-1565650839149-2c48a094196c?w=560&h=700&fit=crop&q=75&auto=format" alt="우드 슬랫 벽과 가죽 벤치"></div>
-  <div class="cell"><img src="https://images.unsplash.com/photo-1612192527395-06b72da6b35a?w=560&h=700&fit=crop&q=75&auto=format" alt="책장과 라탄 의자"></div>
-  <div class="cell"><img src="https://images.unsplash.com/photo-1613274554329-70f997f5789f?w=560&h=700&fit=crop&q=75&auto=format" alt="흰 벽과 라탄 펜던트 조명"></div>
-  <div class="cell"><img src="https://images.unsplash.com/photo-1601065700897-d9fa1c093f3e?w=560&h=700&fit=crop&q=75&auto=format" alt="아치 창과 자연광"></div>
-  <div class="cell"><img src="https://images.unsplash.com/photo-1482350325005-eda5e677279b?w=560&h=700&fit=crop&q=75&auto=format" alt="펜던트 조명 디테일"></div>
-  <div class="cell"><img src="https://images.unsplash.com/photo-1538333581680-29dd4752ddf2?w=560&h=700&fit=crop&q=75&auto=format" alt="패턴 타일 바닥과 바"></div>
-  <div class="cell"><img src="https://images.unsplash.com/photo-1494346480775-936a9f0d0877?w=560&h=700&fit=crop&q=75&auto=format" alt="벽돌 벽과 구리 조명"></div>
-  <div class="cell"><img src="https://images.unsplash.com/photo-1511081692775-05d0f180a065?w=560&h=700&fit=crop&q=75&auto=format" alt="원목 테이블과 에디슨 전구"></div>
-  <div class="cell"><img src="https://images.unsplash.com/photo-1583354608715-177553a4035e?w=560&h=700&fit=crop&q=75&auto=format" alt="콘크리트 벽과 벤치 좌석"></div>
+  <div class="cell"><img src="https://images.unsplash.com/photo-1689037676470-b72230d5236e?w=560&h=700&fit=crop&q=78&auto=format" alt="페이스트리 카운터와 벤트우드 의자"></div>
+  <div class="cell"><img src="https://images.unsplash.com/photo-1585261450021-b8b6c798b093?w=560&h=700&fit=crop&q=78&auto=format" alt="라탄 조명과 식물, 아치 선반"></div>
+  <div class="cell"><img src="https://images.unsplash.com/photo-1601065700897-d9fa1c093f3e?w=560&h=700&fit=crop&q=78&auto=format" alt="아치 창과 자연광"></div>
+  <div class="cell"><img src="https://images.unsplash.com/photo-1621343607959-5d11ff0f1e39?w=560&h=700&fit=crop&q=78&auto=format" alt="공용 원목 테이블과 펜던트 조명"></div>
+  <div class="cell"><img src="https://images.unsplash.com/photo-1638778527450-31e8587f62aa?w=560&h=700&fit=crop&q=78&auto=format" alt="밝은 우드 플로어와 라운드 체어"></div>
+  <div class="cell"><img src="https://images.unsplash.com/photo-1588253137728-1e4dd0fe9a93?w=560&h=700&fit=crop&q=78&auto=format" alt="흰 벽과 늘어진 식물"></div>
+  <div class="cell"><img src="https://images.unsplash.com/photo-1469631423273-6995642a6a40?w=560&h=700&fit=crop&q=78&auto=format" alt="곡선 카운터와 타일"></div>
+  <div class="cell"><img src="https://images.unsplash.com/photo-1612192527395-06b72da6b35a?w=560&h=700&fit=crop&q=78&auto=format" alt="책장과 라탄 의자"></div>
+  <div class="cell"><img src="https://images.unsplash.com/photo-1566939937483-6eabe6f79e15?w=560&h=700&fit=crop&q=78&auto=format" alt="밝은 카운터와 식물 벽화"></div>
 </div>
 
 <!-- ── VISIT / 찾아오는 곳 ── -->
@@ -263,17 +264,15 @@ a{color:inherit;text-decoration:none}
   <div class="map-wrap">
     <div id="kakaoMap"></div>
     <div class="map-fallback" id="mapFallback">
-      <span class="pin">Maison Lumière</span>
-      <h4>서울특별시청</h4>
-      <div style="font-size:14px">세종대로 110, 중구, 서울</div>
-      <a class="btn" href="https://map.kakao.com/link/search/서울특별시청" target="_blank" rel="noopener" style="border-color:#2c2820;color:#2c2820">카카오맵 열기 <span aria-hidden="true">&#8594;</span></a>
+      <span class="map-pin"></span>
+      <span class="map-hint">Maison Lumière</span>
     </div>
   </div>
 </div>
 
 <!-- ── ABOUT ── -->
 <section class="about">
-  <div class="about__img"><img src="https://images.unsplash.com/photo-1648462908676-8305f0eff8e0?w=900&h=1100&fit=crop&q=80&auto=format" alt="식물과 창이 있는 카페 공간"></div>
+  <div class="about__img"><img src="https://images.unsplash.com/photo-1565650839149-2c48a094196c?w=900&h=1100&fit=crop&q=80&auto=format" alt="우드 슬랫 벽과 가죽 벤치가 있는 카페 좌석"></div>
   <div class="about__txt">
     <h2>천천히, 빛을 따라</h2>
     <p>Maison Lumière 는 '빛의 집' 이라는 이름 그대로, 하루의 빛이 가장 아름답게 머무는 자리에 자리잡았습니다. 우리는 매일 아침 작은 로스터로 원두를 볶고, 한 잔의 커피가 완성되기까지의 시간을 서두르지 않습니다.</p>
@@ -285,9 +284,9 @@ a{color:inherit;text-decoration:none}
 <footer class="foot">
   <div class="foot__brand">Maison Lumière</div>
   <div class="foot__cols">
-    <div><strong style="color:var(--sv-text-str);font-weight:500">Hours</strong><br>Mon – Sun<br>08:00 – 22:00</div>
-    <div><strong style="color:var(--sv-text-str);font-weight:500">Visit</strong><br>세종대로 110<br>중구, 서울</div>
-    <div><strong style="color:var(--sv-text-str);font-weight:500">Follow</strong><br><a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a><br>hello@maisonlumiere.kr</div>
+    <div><strong style="color:#fff;font-weight:500">Hours</strong><br>Mon – Sun<br>08:00 – 22:00</div>
+    <div><strong style="color:#fff;font-weight:500">Visit</strong><br>세종대로 110<br>중구, 서울</div>
+    <div><strong style="color:#fff;font-weight:500">Follow</strong><br><a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a><br>hello@maisonlumiere.kr</div>
   </div>
   <div class="foot__copy">© Maison Lumière · Powered by Tistory · Theme by Miterlab</div>
 </footer>
