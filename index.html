@@ -304,6 +304,9 @@ body[data-blog="WB"] .panel.is-blog-wa { display: none !important; }
       <button class="nav-item active" data-tab="theme">
         <span class="nav-label">전체 테마</span>
       </button>
+      <button class="nav-item" data-tab="theme1_1">
+        <span class="nav-label">전체 테마 1-1</span>
+      </button>
       <button class="nav-item" data-tab="theme2">
         <span class="nav-label">전체 테마 2</span>
       </button>
@@ -466,6 +469,47 @@ body[data-blog="WB"] .panel.is-blog-wa { display: none !important; }
       </header>
       <div class="frame-wrap">
         <iframe class="preview-frame" id="frame-theme" title="전체 테마"></iframe>
+      </div>
+    </section>
+
+    <!-- 화면 · 전체 테마 1-1 (간격만 살짝 타이트) -->
+    <section class="panel is-blog-a" data-panel="theme1_1">
+      <header class="panel-header">
+        <h2 class="panel-title">전체 테마 1-1</h2>
+        <p class="panel-desc">"전체 테마" 와 동일한 레이아웃·콘텐츠. 게시물 행 padding 만 64px → 44px, gap 64px → 48px 로 살짝 타이트하게.</p>
+        <div class="panel-meta">
+          <span class="panel-file" data-panel-file="theme1_1"></span>
+        </div>
+        <div class="slot-bar" data-panel="theme1_1">
+          <label class="slot-field">
+            <span class="slot-label">헤더</span>
+            <select class="slot-select" data-panel="theme1_1" data-slot="header">
+              <option value="left">좌측 정렬</option>
+              <option value="split">2단 분리형</option>
+              <option value="hero">히어로 배너형</option>
+            </select>
+          </label>
+          <label class="slot-field">
+            <span class="slot-label">푸터</span>
+            <select class="slot-select" data-panel="theme1_1" data-slot="footer">
+              <option value="center">중앙 정렬</option>
+              <option value="split-h">좌우 분리형</option>
+              <option value="split-v">상하 분리형</option>
+              <option value="left">좌측 정렬 블록형</option>
+            </select>
+          </label>
+          <label class="slot-field">
+            <span class="slot-label">사이드바</span>
+            <select class="slot-select" data-panel="theme1_1" data-slot="sidebar">
+              <option value="right-fixed">고정영역 (디폴트)</option>
+              <option value="drawer-open">서랍형 — 열린</option>
+              <option value="drawer-closed">서랍형 — 닫힌</option>
+            </select>
+          </label>
+        </div>
+      </header>
+      <div class="frame-wrap">
+        <iframe class="preview-frame" id="frame-theme1_1" title="전체 테마 1-1"></iframe>
       </div>
     </section>
 
@@ -1265,6 +1309,22 @@ const THEME_BODY = `
   <a href="#">3</a>
   <a href="#">Next →</a>
 </nav>
+`;
+
+/* ───────────────────────────────────────────────────────────
+   1-A2) 전체 테마 1-1 — 기본형과 동일하되 위아래 간격만 살짝 타이트
+   ─ body 재사용 (THEME_BODY) · style 만 padding override
+   ─────────────────────────────────────────────────────────── */
+const THEME_TIGHT1_STYLE = THEME_STYLE + `
+<style>
+/* 전체 테마 1-1 override — hero/list 간격만 살짝 타이트 */
+.theme-hero { padding: 72px 40px 56px; }
+.post-row   { padding: 44px 0; gap: 48px; }
+@media (max-width: 900px) {
+  .theme-hero { padding: 48px 24px 28px; }
+  .post-row   { padding: 32px 0; gap: 24px; }
+}
+</style>
 `;
 
 /* ───────────────────────────────────────────────────────────
@@ -5480,8 +5540,9 @@ const SCREENS_BODY = {
   'theme:base':     { body: THEME_BODY,         style: THEME_STYLE },
   'theme:campaign': { body: POST_CLARKSON_BODY, style: POST_CLARKSON_STYLE },
   'post:default':   { body: POST_STANTON_BODY,  style: POST_STANTON_STYLE },
-  'theme2:default': { body: THEME_TIGHT_BODY,   style: THEME_TIGHT_STYLE },
-  'theme3:default': { body: THEME_GRID_BODY,    style: THEME_GRID_STYLE },
+  'theme1_1:default': { body: THEME_BODY,         style: THEME_TIGHT1_STYLE },
+  'theme2:default':   { body: THEME_TIGHT_BODY,   style: THEME_TIGHT_STYLE },
+  'theme3:default':   { body: THEME_GRID_BODY,    style: THEME_GRID_STYLE },
   // ── Blog B (theme/post 는 이전 호환 유지) ──
   'B:theme:hero':      { body: THEME_BODY_B, style: THEME_STYLE_B },
   'B:theme:editorial': { body: THEME_BODY_B, style: THEME_STYLE_B },
@@ -5591,6 +5652,15 @@ const PANEL_CONFIG = {
     defaults: { header: 'left', footer: 'center', sidebar: 'right-fixed' },
     bodySlot: null,
     bodyScreenKey: 'post:default',
+  },
+  'theme1_1': {
+    kind: 'screen',
+    frameId: 'frame-theme1_1',
+    fileLabelSlot: null,
+    slots: ['header', 'footer', 'sidebar'],
+    defaults: { header: 'left', footer: 'center', sidebar: 'right-fixed' },
+    bodySlot: null,
+    bodyScreenKey: 'theme1_1:default',
   },
   'theme2': {
     kind: 'screen',
@@ -5955,7 +6025,7 @@ function rebuildSlotSelectOptions() {
 
 /* Blog 별로 LNB 에 보이는 패널 키 목록 — 그룹 hide/show 와 일치 */
 const BLOG_AVAILABLE_PANELS = {
-  A: ['theme', 'theme2', 'theme3', 'post', 'header', 'footer', 'sidebar'],
+  A: ['theme', 'theme1_1', 'theme2', 'theme3', 'post', 'header', 'footer', 'sidebar'],
   B: ['home', 'districts', 'mission', 'stories', 'walking', 'header', 'footer'],
   WA: ['dodam-home', 'header', 'footer'],
   WB: ['ttocare-home'],
@@ -6001,6 +6071,7 @@ function setBlog(newBlog, opts) {
 const PANEL_LABELS = {
   A: {
     theme:   { title: '전체 테마',           desc: '본문 레이아웃과 각 모듈(헤더 등)을 슬롯으로 선택해 조합 검수.' },
+    theme1_1:{ title: '전체 테마 1-1', desc: '"전체 테마" 와 동일한 레이아웃·콘텐츠. 게시물 행 padding 만 64px → 44px, gap 64px → 48px 로 살짝 타이트하게.' },
     theme2:  { title: '전체 테마 2', desc: '게시물 리스트를 타이트하게 + 썸네일 96×72 로 줄여 한 화면에 더 많이 노출. 헤더/푸터/사이드바는 슬롯으로 갈아끼움.' },
     theme3:  { title: '전체 테마 3', desc: '4 컬럼 그리드 + 세로로 긴 (3:4) 썸네일. 포트레이트 카드 카탈로그 톤. 헤더/푸터/사이드바는 슬롯으로 갈아끼움.' },
     post:    { title: '게시글 상세 — 블로그형', desc: '단일 컬럼 블로그 글 형식의 게시글 상세. 각 모듈을 슬롯으로 갈아끼워 조합 검수.' },
