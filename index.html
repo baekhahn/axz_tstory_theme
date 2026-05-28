@@ -142,18 +142,27 @@ button { font-family: inherit; cursor: pointer; }
 /* Blog 그룹 토글 — body[data-blog] 따라 한 그룹만 표시 */
 .lnb-group-b  { display: none; }
 .lnb-group-wc { display: none; }
+.lnb-group-ml { display: none; }
 body[data-blog="B"]  .lnb-group-a  { display: none; }
 body[data-blog="B"]  .lnb-group-b  { display: contents; }
 body[data-blog="WC"] .lnb-group-a  { display: none; }
 body[data-blog="WC"] .lnb-group-wc { display: contents; }
+body[data-blog="ML"] .lnb-group-a  { display: none; }
+body[data-blog="ML"] .lnb-group-ml { display: contents; }
 
 /* Blog 패널 hide/show (PANEL_CONFIG 와 함께 작동) */
 body[data-blog="A"]  .panel.is-blog-b,
-body[data-blog="A"]  .panel.is-blog-wc { display: none !important; }
+body[data-blog="A"]  .panel.is-blog-wc,
+body[data-blog="A"]  .panel.is-blog-ml { display: none !important; }
 body[data-blog="B"]  .panel.is-blog-a,
-body[data-blog="B"]  .panel.is-blog-wc { display: none !important; }
+body[data-blog="B"]  .panel.is-blog-wc,
+body[data-blog="B"]  .panel.is-blog-ml { display: none !important; }
 body[data-blog="WC"] .panel.is-blog-a,
-body[data-blog="WC"] .panel.is-blog-b { display: none !important; }
+body[data-blog="WC"] .panel.is-blog-b,
+body[data-blog="WC"] .panel.is-blog-ml { display: none !important; }
+body[data-blog="ML"] .panel.is-blog-a,
+body[data-blog="ML"] .panel.is-blog-b,
+body[data-blog="ML"] .panel.is-blog-wc { display: none !important; }
 .nav-label { display: block; }
 .nav-tag {
   display: inline-block;
@@ -284,6 +293,7 @@ body[data-blog="WC"] .panel.is-blog-b { display: none !important; }
         <option value="A">Blog A — 공간노트</option>
         <option value="B">Blog B — San Francisco</option>
         <option value="WC">Website — 결 Gyeol (카페)</option>
+        <option value="ML">Website — Maison Lumière (프렌치 카페)</option>
       </select>
       <p class="sidenav-sub">마이터랩 · 1차 통합 미리보기</p>
     </div>
@@ -381,6 +391,14 @@ body[data-blog="WC"] .panel.is-blog-b { display: none !important; }
     <div class="lnb-group lnb-group-wc">
       <div class="sidenav-section">화면 (사이트 페이지)</div>
       <button class="nav-item" data-tab="pension-home">
+        <span class="nav-label">Home — 원페이지</span>
+      </button>
+    </div>
+
+    <!-- Website LNB — Maison Lumière 프렌치 카페 -->
+    <div class="lnb-group lnb-group-ml">
+      <div class="sidenav-section">화면 (사이트 페이지)</div>
+      <button class="nav-item" data-tab="cafe-home">
         <span class="nav-label">Home — 원페이지</span>
       </button>
     </div>
@@ -632,6 +650,20 @@ body[data-blog="WC"] .panel.is-blog-b { display: none !important; }
       </header>
       <div class="frame-wrap">
         <iframe class="preview-frame" id="frame-pension-home" title="결 Gyeol Home" src="cafe_landing.html"></iframe>
+      </div>
+    </section>
+
+    <!-- ─── Website 패널 (Maison Lumière · 프렌치 스페셜티 카페) ─── -->
+    <section class="panel is-blog-ml" data-panel="cafe-home">
+      <header class="panel-header">
+        <h2 class="panel-title">Maison Lumière — Home (원페이지)</h2>
+        <p class="panel-desc">Softer Volumes 톤 프렌치 카페 랜딩. Inter+Pretendard · 화이트 베이스 + 웜 베이지 밴드 · 1px 헤어라인 타이트 그리드 메뉴 + 인테리어 갤러리 + 다음지도.</p>
+        <div class="panel-meta">
+          <span class="panel-file">maison_lumiere_cafe.html</span>
+        </div>
+      </header>
+      <div class="frame-wrap">
+        <iframe class="preview-frame" id="frame-cafe-home" title="Maison Lumière Home" src="maison_lumiere_cafe.html"></iframe>
       </div>
     </section>
 
@@ -4538,6 +4570,12 @@ const PANEL_CONFIG = {
     slots: [], defaults: {},
     src: 'cafe_landing.html',
   },
+  // ─── Website 페이지 (Maison Lumière 프렌치 카페 · 외부 단독 파일) ───
+  'cafe-home': {
+    kind: 'external', frameId: 'frame-cafe-home', fileLabelSlot: null,
+    slots: [], defaults: {},
+    src: 'maison_lumiere_cafe.html',
+  },
 };
 
 /* Blog 컨텍스트에 따라 BASE 스타일/헤더/푸터 본문 키 등을 분기 */
@@ -4790,6 +4828,7 @@ const BLOG_AVAILABLE_PANELS = {
   A: ['theme', 'post', 'header', 'footer', 'sidebar'],
   B: ['home', 'districts', 'mission', 'stories', 'walking', 'header', 'footer'],
   WC: ['pension-home'],
+  ML: ['cafe-home'],
 };
 function isPanelInBlog(panelKey, blog) {
   return (BLOG_AVAILABLE_PANELS[blog] || []).indexOf(panelKey) !== -1;
@@ -4801,7 +4840,7 @@ function firstPanelOf(blog) {
 /* Blog 전환 — body 속성·sidenav 라벨·슬롯 옵션·state 재초기화·재렌더 */
 function setBlog(newBlog, opts) {
   opts = opts || {};
-  if (newBlog !== 'A' && newBlog !== 'B' && newBlog !== 'WC') return;
+  if (newBlog !== 'A' && newBlog !== 'B' && newBlog !== 'WC' && newBlog !== 'ML') return;
   currentBlog = newBlog;
   document.body.setAttribute('data-blog', newBlog);
   // 드롭다운 동기화
@@ -4852,6 +4891,9 @@ const PANEL_LABELS = {
   },
   WC: {
     'pension-home': { title: '결 Gyeol — Home (원페이지)', desc: '성수동 컨셉 다크 커피 카페 소개 원페이지. Aesop 톤 — 절제된 sans 타이포 · 좌우 비대칭 split 레이아웃 · 깊은 에스프레소 다크 · 큐레이션 다크 카페 사진.' },
+  },
+  ML: {
+    'cafe-home': { title: 'Maison Lumière — Home (원페이지)', desc: 'Softer Volumes 톤 프렌치 스페셜티 카페 랜딩. Inter+Pretendard · 화이트 베이스 + 웜 베이지 밴드 · 1px 헤어라인 타이트 그리드 메뉴 + 인테리어 갤러리 + 다음지도.' },
   },
 };
 function updatePanelLabels() {
@@ -4937,7 +4979,7 @@ const blogSelectEl = document.getElementById('blog-select');
 if (blogSelectEl) {
   blogSelectEl.addEventListener('change', function(e) {
     const v = e.target.value;
-    if (v === 'A' || v === 'B' || v === 'WC') setBlog(v);
+    if (v === 'A' || v === 'B' || v === 'WC' || v === 'ML') setBlog(v);
   });
 }
 
@@ -4959,7 +5001,7 @@ document.addEventListener('change', function(e) {
 // 뒤로/앞으로 이동 — hash 다시 파싱해서 blog · 슬롯 state 재적용 + 패널 재활성
 window.addEventListener('popstate', function() {
   const parsed = parseHash();
-  const blogFromUrl = (parsed.query.blog === 'B') ? 'B' : (parsed.query.blog === 'WC') ? 'WC' : 'A';
+  const blogFromUrl = (parsed.query.blog === 'B') ? 'B' : (parsed.query.blog === 'WC') ? 'WC' : (parsed.query.blog === 'ML') ? 'ML' : 'A';
   if (blogFromUrl !== currentBlog) {
     setBlog(blogFromUrl, { silent: true });
   }
@@ -4971,7 +5013,7 @@ window.addEventListener('popstate', function() {
 (function init() {
   const parsed = parseHash();
   // 1) Blog 결정 (URL 우선)
-  const blogFromUrl = (parsed.query.blog === 'B') ? 'B' : (parsed.query.blog === 'WC') ? 'WC' : 'A';
+  const blogFromUrl = (parsed.query.blog === 'B') ? 'B' : (parsed.query.blog === 'WC') ? 'WC' : (parsed.query.blog === 'ML') ? 'ML' : 'A';
   if (blogFromUrl !== currentBlog) {
     setBlog(blogFromUrl, { silent: true });
   } else {

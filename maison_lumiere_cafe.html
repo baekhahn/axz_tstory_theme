@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maison Lumière — 빛이 머무는 카페</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sv-bg-base:#FFFFFF;
+  --sv-bg-band:#D9D1C5;
+  --sv-bg-cell:#C8BEB4;
+  --sv-text-str:#222222;
+  --sv-text-pri:#222222;
+  --sv-text-mut:#6B6B6B;
+  --sv-line:#E5E7EB;
+  --sv-line-str:#222222;
+  --sv-font:'Inter','Pretendard',sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--sv-font);
+  font-weight:400;
+  font-size:17px;
+  line-height:1.5;
+  color:var(--sv-text-pri);
+  background:var(--sv-bg-base);
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+/* ── 마퀴 티커 ── */
+.ticker{
+  border-bottom:1px solid var(--sv-line);
+  overflow:hidden;white-space:nowrap;
+  font-size:13px;letter-spacing:.02em;color:var(--sv-text-str);
+  padding:9px 0;
+}
+.ticker__track{display:inline-block;animation:tick 32s linear infinite}
+.ticker__track span{margin:0 28px}
+.ticker__track b{font-weight:500}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── 내비 ── */
+.nav{
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  padding:18px 26px;border-bottom:1px solid var(--sv-line);
+  position:sticky;top:0;background:var(--sv-bg-base);z-index:20;
+}
+.nav__links{display:flex;gap:26px;font-size:15px}
+.nav__links a:hover{color:var(--sv-text-mut)}
+.nav__brand{
+  text-align:center;font-size:18px;letter-spacing:.22em;font-weight:500;
+  text-transform:uppercase;
+}
+.nav__util{display:flex;gap:22px;justify-content:flex-end;font-size:15px}
+.nav__util a:hover{color:var(--sv-text-mut)}
+
+/* ── Hero ── */
+.hero{position:relative}
+.hero img{width:100%;height:78vh;min-height:480px;object-fit:cover}
+.hero::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:55%;
+  background:linear-gradient(to top,rgba(18,14,8,.78),rgba(18,14,8,.12) 60%,rgba(18,14,8,0));
+  pointer-events:none;
+}
+.hero__cap{
+  position:absolute;left:26px;bottom:26px;color:#fff;z-index:1;
+  text-shadow:0 1px 24px rgba(0,0,0,.35);
+}
+.hero__cap h1{
+  margin:0;font-weight:400;line-height:1.02;letter-spacing:-.01em;
+  font-size:clamp(40px,7vw,84px);
+}
+.hero__cap p{margin:10px 0 0;font-size:16px;opacity:.92;max-width:32ch}
+
+/* ── 섹션 타이틀 밴드 ── */
+.band{background:var(--sv-bg-band);padding:34px 26px}
+.band h2{
+  margin:0;font-weight:400;letter-spacing:-.01em;line-height:1;
+  font-size:clamp(34px,5.5vw,64px);color:var(--sv-text-str);
+}
+.band p{margin:12px 0 0;font-size:15px;color:#5a534a;max-width:54ch}
+
+/* ── 타이트 그리드 ── */
+.grid{
+  display:grid;gap:1px;background:var(--sv-line);
+  border-bottom:1px solid var(--sv-line);
+}
+.menu-grid{grid-template-columns:repeat(2,1fr)}
+.gallery-grid{grid-template-columns:repeat(2,1fr)}
+@media(min-width:760px){
+  .menu-grid{grid-template-columns:repeat(4,1fr)}
+  .gallery-grid{grid-template-columns:repeat(3,1fr)}
+}
+.cell{background:var(--sv-bg-base);position:relative}
+.cell img{width:100%;aspect-ratio:4/5;object-fit:cover;transition:opacity .5s}
+.cell--wide{grid-column:span 2}
+.cell--wide img{aspect-ratio:auto;height:100%}
+
+/* 메뉴 캡션 바 */
+.cap{
+  display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+  padding:13px 14px;border-top:1px solid var(--sv-line);font-size:15px;
+}
+.cap__name{color:var(--sv-text-str)}
+.cap__en{color:var(--sv-text-mut);font-size:12px;letter-spacing:.04em;display:block;margin-top:2px;text-transform:uppercase}
+.cap__price{color:var(--sv-text-str);white-space:nowrap}
+
+/* ── 찾아오는 곳 ── */
+.visit{display:grid;grid-template-columns:1fr;border-bottom:1px solid var(--sv-line)}
+@media(min-width:860px){.visit{grid-template-columns:1fr 1fr}}
+.visit__info{padding:40px 26px;display:flex;flex-direction:column;gap:18px;justify-content:center}
+.visit__info h3{margin:0;font-weight:400;font-size:clamp(28px,4vw,44px);line-height:1.05}
+.visit__row{font-size:15px;line-height:1.6}
+.visit__row .lbl{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--sv-text-mut);margin-bottom:3px}
+.map-wrap{position:relative;min-height:360px;background:var(--sv-bg-cell);border-left:1px solid var(--sv-line)}
+@media(max-width:859px){.map-wrap{border-left:none;border-top:1px solid var(--sv-line);height:340px}}
+#kakaoMap{position:absolute;inset:0;width:100%;height:100%}
+.map-fallback{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px;
+  background:linear-gradient(135deg,#cdc4b8,#b9ad9e);color:#2c2820;
+}
+.map-fallback .pin{font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+.map-fallback h4{margin:0;font-weight:500;font-size:22px}
+
+/* ── About ── */
+.about{display:grid;grid-template-columns:1fr;border-bottom:1px solid var(--sv-line)}
+@media(min-width:860px){.about{grid-template-columns:1.1fr .9fr}}
+.about__img img{width:100%;height:100%;min-height:340px;object-fit:cover}
+.about__txt{padding:48px 26px;display:flex;flex-direction:column;gap:18px;justify-content:center;max-width:60ch}
+.about__txt h2{margin:0;font-weight:400;font-size:clamp(30px,4.5vw,52px);line-height:1.05;letter-spacing:-.01em}
+.about__txt p{margin:0;color:#3a3630;line-height:1.7}
+
+/* ── 버튼 ── */
+.btn{
+  display:inline-flex;align-items:center;gap:.55em;
+  padding:14px 28px;border:1px solid var(--sv-line-str);border-radius:9999px;
+  background:transparent;color:var(--sv-text-str);font:500 16px var(--sv-font);
+  cursor:pointer;transition:background .2s,color .2s;width:fit-content;
+}
+.btn:hover{background:var(--sv-text-str);color:#fff}
+
+/* ── 푸터 ── */
+.foot{padding:44px 26px;display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:flex-end;font-size:14px;color:var(--sv-text-mut)}
+.foot__brand{font-size:18px;letter-spacing:.22em;text-transform:uppercase;color:var(--sv-text-str);font-weight:500}
+.foot__cols{display:flex;gap:48px;flex-wrap:wrap}
+.foot__cols div{line-height:1.8}
+.foot__copy{width:100%;border-top:1px solid var(--sv-line);padding-top:18px;font-size:12.5px}
+</style>
+</head>
+<body>
+
+<div class="ticker">
+  <div class="ticker__track">
+    <span><b>Maison Lumière</b> — 매일 08:00 – 22:00 영업</span>
+    <span>이번 주 싱글 오리진: Ethiopia Guji Natural</span>
+    <span>오후의 빛이 가장 좋은 시간, 15:00 – 17:00</span>
+    <span><b>Maison Lumière</b> — 매일 08:00 – 22:00 영업</span>
+    <span>이번 주 싱글 오리진: Ethiopia Guji Natural</span>
+    <span>오후의 빛이 가장 좋은 시간, 15:00 – 17:00</span>
+  </div>
+</div>
+
+<nav class="nav">
+  <div class="nav__links">
+    <a href="#menu">Menu</a>
+    <a href="#space">Space</a>
+    <a href="#visit">Visit</a>
+  </div>
+  <a href="#top" class="nav__brand">Maison Lumière</a>
+  <div class="nav__util">
+    <a href="#visit">오시는 길</a>
+    <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <img src="https://images.unsplash.com/photo-1567880905822-56f8e06fe630?w=1800&h=1100&fit=crop&q=80&auto=format" alt="햇빛이 드는 Maison Lumière 카페 내부">
+  <div class="hero__cap">
+    <h1>빛이 머무는<br>프렌치 카페</h1>
+    <p>아침의 첫 잔부터 늦은 오후의 한 잔까지, 천천히 흐르는 시간을 위한 공간.</p>
+  </div>
+</header>
+
+<!-- ── MENU ── -->
+<section class="band" id="menu">
+  <h2>Menu</h2>
+  <p>매일 직접 볶은 원두로 내리는 스페셜티 커피. 모든 음료는 매장과 테이크아웃 동일한 가격입니다.</p>
+</section>
+<div class="grid menu-grid">
+  <div class="cell">
+    <img src="https://images.unsplash.com/photo-1609050471053-8636409f9f5b?w=520&h=650&fit=crop&q=75&auto=format" alt="에스프레소">
+    <div class="cap"><span class="cap__name">에스프레소<span class="cap__en">Espresso</span></span><span class="cap__price">₩6,500</span></div>
+  </div>
+  <div class="cell">
+    <img src="https://images.unsplash.com/photo-1586792106950-8f02ebb373c1?w=520&h=650&fit=crop&q=75&auto=format" alt="카페 알롱제">
+    <div class="cap"><span class="cap__name">카페 알롱제<span class="cap__en">Café Allongé</span></span><span class="cap__price">₩7,000</span></div>
+  </div>
+  <div class="cell">
+    <img src="https://images.unsplash.com/photo-1680381792123-676305af82d8?w=520&h=650&fit=crop&q=75&auto=format" alt="플랫 화이트">
+    <div class="cap"><span class="cap__name">플랫 화이트<span class="cap__en">Flat White</span></span><span class="cap__price">₩7,000</span></div>
+  </div>
+  <div class="cell">
+    <img src="https://images.unsplash.com/photo-1735132619395-a8f675a2dc66?w=520&h=650&fit=crop&q=75&auto=format" alt="카푸치노">
+    <div class="cap"><span class="cap__name">카푸치노<span class="cap__en">Cappuccino</span></span><span class="cap__price">₩7,000</span></div>
+  </div>
+  <div class="cell">
+    <img src="https://images.unsplash.com/photo-1608552265232-3a1e3feb0271?w=520&h=650&fit=crop&q=75&auto=format" alt="카페 라떼">
+    <div class="cap"><span class="cap__name">카페 라떼<span class="cap__en">Café Latte</span></span><span class="cap__price">₩7,500</span></div>
+  </div>
+  <div class="cell">
+    <img src="https://images.unsplash.com/photo-1586848384751-aa8f7ee302c7?w=520&h=650&fit=crop&q=75&auto=format" alt="필터 커피">
+    <div class="cap"><span class="cap__name">필터 커피<span class="cap__en">Filter</span></span><span class="cap__price">₩7,500</span></div>
+  </div>
+  <div class="cell">
+    <img src="https://images.unsplash.com/photo-1648081596668-beccca435ddd?w=520&h=650&fit=crop&q=75&auto=format" alt="콜드 브루">
+    <div class="cap"><span class="cap__name">콜드 브루<span class="cap__en">Cold Brew</span></span><span class="cap__price">₩7,800</span></div>
+  </div>
+  <div class="cell">
+    <img src="https://images.unsplash.com/photo-1622088910062-91b0190513a5?w=520&h=650&fit=crop&q=75&auto=format" alt="핸드드립 싱글 오리진">
+    <div class="cap"><span class="cap__name">핸드드립 싱글 오리진<span class="cap__en">Single Origin</span></span><span class="cap__price">₩8,500</span></div>
+  </div>
+</div>
+
+<!-- ── SPACE / 인테리어 갤러리 ── -->
+<section class="band" id="space">
+  <h2>Our Space</h2>
+  <p>오래된 나무와 부드러운 빛, 라탄과 리넨. 파리의 작은 살롱을 닮은 자리에서 머무는 시간.</p>
+</section>
+<div class="grid gallery-grid">
+  <div class="cell"><img src="https://images.unsplash.com/photo-1565650839149-2c48a094196c?w=560&h=700&fit=crop&q=75&auto=format" alt="우드 슬랫 벽과 가죽 벤치"></div>
+  <div class="cell"><img src="https://images.unsplash.com/photo-1612192527395-06b72da6b35a?w=560&h=700&fit=crop&q=75&auto=format" alt="책장과 라탄 의자"></div>
+  <div class="cell"><img src="https://images.unsplash.com/photo-1613274554329-70f997f5789f?w=560&h=700&fit=crop&q=75&auto=format" alt="흰 벽과 라탄 펜던트 조명"></div>
+  <div class="cell"><img src="https://images.unsplash.com/photo-1601065700897-d9fa1c093f3e?w=560&h=700&fit=crop&q=75&auto=format" alt="아치 창과 자연광"></div>
+  <div class="cell"><img src="https://images.unsplash.com/photo-1482350325005-eda5e677279b?w=560&h=700&fit=crop&q=75&auto=format" alt="펜던트 조명 디테일"></div>
+  <div class="cell"><img src="https://images.unsplash.com/photo-1538333581680-29dd4752ddf2?w=560&h=700&fit=crop&q=75&auto=format" alt="패턴 타일 바닥과 바"></div>
+  <div class="cell"><img src="https://images.unsplash.com/photo-1494346480775-936a9f0d0877?w=560&h=700&fit=crop&q=75&auto=format" alt="벽돌 벽과 구리 조명"></div>
+  <div class="cell"><img src="https://images.unsplash.com/photo-1511081692775-05d0f180a065?w=560&h=700&fit=crop&q=75&auto=format" alt="원목 테이블과 에디슨 전구"></div>
+  <div class="cell"><img src="https://images.unsplash.com/photo-1583354608715-177553a4035e?w=560&h=700&fit=crop&q=75&auto=format" alt="콘크리트 벽과 벤치 좌석"></div>
+</div>
+
+<!-- ── VISIT / 찾아오는 곳 ── -->
+<section class="band" id="visit">
+  <h2>Visit</h2>
+  <p>찾아오시는 길과 영업시간을 안내합니다.</p>
+</section>
+<div class="visit">
+  <div class="visit__info">
+    <h3>Maison Lumière</h3>
+    <div class="visit__row"><span class="lbl">Address</span>서울특별시 중구 세종대로 110 (서울시청)</div>
+    <div class="visit__row"><span class="lbl">Hours</span>매일 08:00 – 22:00 (연중무휴)</div>
+    <div class="visit__row"><span class="lbl">Contact</span>02-0000-0000 · hello@maisonlumiere.kr</div>
+    <a class="btn" href="https://map.kakao.com/link/search/서울특별시청" target="_blank" rel="noopener">카카오맵에서 길찾기 <span aria-hidden="true">&#8594;</span></a>
+  </div>
+  <div class="map-wrap">
+    <div id="kakaoMap"></div>
+    <div class="map-fallback" id="mapFallback">
+      <span class="pin">Maison Lumière</span>
+      <h4>서울특별시청</h4>
+      <div style="font-size:14px">세종대로 110, 중구, 서울</div>
+      <a class="btn" href="https://map.kakao.com/link/search/서울특별시청" target="_blank" rel="noopener" style="border-color:#2c2820;color:#2c2820">카카오맵 열기 <span aria-hidden="true">&#8594;</span></a>
+    </div>
+  </div>
+</div>
+
+<!-- ── ABOUT ── -->
+<section class="about">
+  <div class="about__img"><img src="https://images.unsplash.com/photo-1648462908676-8305f0eff8e0?w=900&h=1100&fit=crop&q=80&auto=format" alt="식물과 창이 있는 카페 공간"></div>
+  <div class="about__txt">
+    <h2>천천히, 빛을 따라</h2>
+    <p>Maison Lumière 는 '빛의 집' 이라는 이름 그대로, 하루의 빛이 가장 아름답게 머무는 자리에 자리잡았습니다. 우리는 매일 아침 작은 로스터로 원두를 볶고, 한 잔의 커피가 완성되기까지의 시간을 서두르지 않습니다.</p>
+    <p>프랑스의 동네 카페가 그렇듯, 이곳은 빠르게 마시고 떠나는 곳이 아니라 잠시 머무는 곳입니다. 좋은 빛과 좋은 커피, 그리고 조용한 대화를 위한 자리를 마련해 두었습니다.</p>
+    <a class="btn" href="#menu">메뉴 보기 <span aria-hidden="true">&#8594;</span></a>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="foot__brand">Maison Lumière</div>
+  <div class="foot__cols">
+    <div><strong style="color:var(--sv-text-str);font-weight:500">Hours</strong><br>Mon – Sun<br>08:00 – 22:00</div>
+    <div><strong style="color:var(--sv-text-str);font-weight:500">Visit</strong><br>세종대로 110<br>중구, 서울</div>
+    <div><strong style="color:var(--sv-text-str);font-weight:500">Follow</strong><br><a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a><br>hello@maisonlumiere.kr</div>
+  </div>
+  <div class="foot__copy">© Maison Lumière · Powered by Tistory · Theme by Miterlab</div>
+</footer>
+
+<script>
+/* 빈 앵커 점프 차단 (#top, #menu 등 실제 섹션은 통과) */
+document.addEventListener('click',function(e){
+  var a=e.target.closest('a');
+  if(a&&a.getAttribute('href')==='#'){e.preventDefault();}
+});
+
+/*
+  카카오(다음)지도 — 실제 표시하려면 아래 KAKAO_JS_KEY 를 발급받아 교체하세요.
+  1) developers.kakao.com 에서 앱 생성 → JavaScript 키 발급
+  2) [플랫폼 > Web] 에 사이트 도메인 등록 (예: https://baekhahn.github.io)
+  3) 아래 KAKAO_JS_KEY 값 교체
+  키가 없으면 주소 안내 카드(fallback)가 그대로 표시됩니다.
+*/
+var KAKAO_JS_KEY='';
+(function(){
+  if(!KAKAO_JS_KEY){return;}
+  var s=document.createElement('script');
+  s.src='https://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey='+KAKAO_JS_KEY;
+  s.onload=function(){
+    kakao.maps.load(function(){
+      var pos=new kakao.maps.LatLng(37.566826,126.978656); /* 서울시청 */
+      var map=new kakao.maps.Map(document.getElementById('kakaoMap'),{center:pos,level:3});
+      new kakao.maps.Marker({position:pos,map:map});
+      var fb=document.getElementById('mapFallback');
+      if(fb){fb.style.display='none';}
+    });
+  };
+  document.head.appendChild(s);
+})();
+</script>
+</body>
+</html>
