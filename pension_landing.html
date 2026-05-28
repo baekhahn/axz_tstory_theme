@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>물결재 — 바다 곁에서 머무는 하루</title>
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&display=swap">
+<link rel="stylesheet" href="./pension_tokens.css">
+
+<style>
+/* Hallmark · pre-emit critique: P5 H4 E5 S5 R5 V5
+ * genre: editorial · macrostructure: Photographic (08)
+ * theme: studied-DNA (source: url https://shop.softervolumes.com/)
+ * paper oklch(97% 0.008 78) · accent oklch(52% 0.10 75) gold · display Fraunces · body Pretendard
+ * nav: N9 Edge-aligned · footer: Ft6 Letter close · enrichment: real photography (unsplash hotlink, verified)
+ * studied: yes · DNA-source: url · observed: minimal-luxury · off-white+gold · full-bleed photographic
+ * contrast: pass (46–50) · slop: pass (51–55) · mobile: pass (36, 59, 61–69)
+ */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: clip; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  line-height: var(--lh-body);
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; overflow-wrap: anywhere; min-width: 0; }
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+/* EN accent type — Fraunces */
+.en { font-family: var(--font-display); font-weight: 400; letter-spacing: 0.01em; }
+.en-it { font-family: var(--font-display); font-style: italic; font-weight: 400; }
+
+/* ── NAV · N9 Edge-aligned minimal ── */
+.nav {
+  position: sticky; top: 0; z-index: var(--z-nav);
+  display: flex; align-items: center; justify-content: space-between;
+  height: var(--banner-height);
+  padding: 0 var(--page-gutter);
+  background: color-mix(in oklch, var(--color-paper) 86%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-rule);
+}
+.nav__mark {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--text-md);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.nav__mark sup { font-size: 0.55em; font-weight: 400; letter-spacing: 0.12em; color: var(--color-muted); }
+.nav__cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: var(--text-sm);
+  letter-spacing: 0.04em;
+  color: var(--color-ink);
+  padding: 9px 16px;
+  border: 1px solid var(--color-ink);
+  border-radius: 999px;
+  white-space: nowrap;
+  line-height: 1;
+  transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+.nav__cta:hover { background: var(--color-ink); color: var(--color-paper); }
+
+/* ── Full-bleed photo fold ── */
+.photo {
+  position: relative;
+  width: 100%;
+  height: 88svh;
+  min-height: 460px;
+  overflow: hidden;
+}
+.photo--tall { height: 96svh; }
+.photo--mid  { height: 72svh; min-height: 420px; }
+.photo__img { width: 100%; height: 100%; object-fit: cover; }
+.photo__caption {
+  position: absolute;
+  bottom: var(--space-lg); left: var(--page-gutter);
+  color: var(--color-accent-ink);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  letter-spacing: 0.06em;
+  text-shadow: 0 1px 14px var(--color-cap-shadow);
+}
+.photo__caption--right { left: auto; right: var(--page-gutter); text-align: right; }
+
+/* Hero overlay headline */
+.hero__overlay {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 0 var(--page-gutter) clamp(48px, 9vh, 110px);
+  background: linear-gradient(180deg, transparent 40%, var(--color-hero-veil) 100%);
+}
+.hero__eyebrow {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-md);
+  color: var(--color-accent-ink);
+  margin-bottom: var(--space-sm);
+  text-shadow: 0 1px 14px var(--color-cap-shadow);
+}
+.hero__title {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: var(--text-display);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.02em;
+  color: var(--color-accent-ink);
+  max-width: 18ch;
+  text-shadow: 0 2px 24px var(--color-title-shadow);
+}
+
+/* ── Text fold ── */
+.text {
+  padding: clamp(72px, 12vh, 150px) var(--page-gutter);
+  max-width: calc(var(--measure) + 2 * var(--page-gutter));
+  margin-inline: auto;
+}
+.text--wide { max-width: 1100px; }
+.text__kicker {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-md);
+}
+.text__lede {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+  line-height: 1.45;
+  letter-spacing: -0.015em;
+  color: var(--color-ink);
+}
+.text__body {
+  margin-top: var(--space-lg);
+  font-size: var(--text-md);
+  line-height: var(--lh-body);
+  color: var(--color-muted);
+  max-width: var(--measure);
+}
+.text__body p + p { margin-top: var(--space-md); }
+.text__sign {
+  margin-top: var(--space-lg);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-md);
+  color: var(--color-ink);
+}
+
+/* ── Two-up text + small facts (hairlines, asymmetric) ── */
+.facts {
+  padding: clamp(64px, 10vh, 120px) var(--page-gutter);
+  max-width: 1100px; margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(32px, 6vw, 96px);
+}
+.facts__head {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: var(--text-2xl);
+  line-height: var(--lh-snug);
+  letter-spacing: -0.02em;
+}
+.facts__list { display: grid; gap: 0; }
+.facts__row {
+  display: grid;
+  grid-template-columns: minmax(0, 0.4fr) minmax(0, 1fr);
+  gap: var(--space-md);
+  padding: var(--space-md) 0;
+  border-top: 1px solid var(--color-rule);
+  align-items: baseline;
+}
+.facts__row:last-child { border-bottom: 1px solid var(--color-rule); }
+.facts__term {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+.facts__def { font-size: var(--text-base); color: var(--color-ink); line-height: 1.55; }
+
+/* ── Gallery — full-bleed triptych ── */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+}
+.gallery__cell { position: relative; aspect-ratio: 3 / 4; overflow: hidden; }
+.gallery__cell img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--dur-slow) var(--ease-out); }
+.gallery__cell:hover img { transform: scale(1.03); }
+
+/* ── Reservation CTA over photo ── */
+.cta {
+  position: relative;
+  min-height: 70svh;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+.cta__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.cta__veil { position: absolute; inset: 0; background: var(--color-cta-veil); }
+.cta__inner { position: relative; padding: var(--space-2xl) var(--page-gutter); color: var(--color-accent-ink); }
+.cta__title {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.02em;
+  max-width: 20ch; margin-inline: auto;
+}
+.cta__sub { margin-top: var(--space-md); font-size: var(--text-md); color: var(--color-accent-ink-soft); }
+.cta__btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: var(--space-xl);
+  padding: 16px 32px;
+  background: var(--color-accent-ink);
+  color: var(--color-ink);
+  font-size: var(--text-base);
+  letter-spacing: 0.02em;
+  border-radius: 999px;
+  white-space: nowrap; line-height: 1;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.cta__btn:hover { transform: translateY(-2px); }
+
+/* ── Footer · Ft6 Letter close ── */
+.foot {
+  padding: clamp(72px, 12vh, 140px) var(--page-gutter) var(--space-2xl);
+  max-width: 64ch; margin-inline: auto;
+}
+.foot__close {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: var(--text-xl);
+  line-height: 1.5;
+  color: var(--color-ink);
+}
+.foot__sign { font-style: normal; font-weight: 500; }
+.foot__ps {
+  margin-top: var(--space-lg);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  line-height: 1.7;
+}
+.foot__ps a { border-bottom: 1px solid var(--color-rule); }
+.foot__ps a:hover { border-color: var(--color-ink); }
+.foot__meta {
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-rule);
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--space-sm);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  color: var(--color-soft);
+}
+
+/* ── Scroll reveal (single, quiet) ── */
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out); }
+.reveal.is-in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0.001ms !important; animation-duration: 0.001ms !important; }
+  .reveal { opacity: 1; transform: none; }
+  .gallery__cell:hover img { transform: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* ── Responsive ── */
+@media (max-width: 760px) {
+  .facts { grid-template-columns: 1fr; gap: var(--space-xl); }
+  .facts__row { grid-template-columns: 1fr; gap: 4px; }
+  .gallery { grid-template-columns: 1fr; }
+  .gallery__cell { aspect-ratio: 4 / 3; }
+  .hero__title { font-size: clamp(2.25rem, 9vw, 3.25rem); }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV · N9 ── -->
+<header class="nav" role="banner">
+  <a class="nav__mark" href="#top">물결재 <sup>MULGYEOL</sup></a>
+  <a class="nav__cta" href="#reserve">예약 문의 →</a>
+</header>
+
+<!-- ── HERO · H6 Photographic Fold ── -->
+<section class="photo photo--tall" id="top">
+  <img class="photo__img"
+       src="https://images.unsplash.com/photo-1779561594199-f54f3bbbd4df?w=2400&q=72&auto=format&fit=crop"
+       alt="야자수와 맑은 바닷물이 보이는 해변의 펜션 전경"
+       fetchpriority="high" decoding="async" width="2400" height="1600">
+  <div class="hero__overlay">
+    <p class="hero__eyebrow">East Sea · Late Summer</p>
+    <h1 class="hero__title">바다 곁에서<br>머무는 하루.</h1>
+  </div>
+</section>
+
+<!-- ── 오너 인트로 (text fold) ── -->
+<section class="text reveal">
+  <p class="text__kicker">From the owner</p>
+  <p class="text__lede">파도 소리로 아침을 열고, 노을로 하루를 닫는 집. 제가 십 년을 살며 가장 아끼던 자리를, 이제 당신의 며칠과 나눕니다.</p>
+  <div class="text__body">
+    <p>물결재는 객실이 네 곳뿐인 작은 펜션입니다. 많은 손님을 받기보다, 한 분 한 분이 바다를 온전히 누리시길 바랐습니다. 모든 방의 창은 수평선을 향해 나 있고, 테라스에 서면 발 끝까지 바람이 닿습니다.</p>
+    <p>군더더기를 덜어낸 공간에, 정말 필요한 것만 남겼습니다. 좋은 침구와 따뜻한 물, 그리고 충분한 고요함.</p>
+  </div>
+  <p class="text__sign en-it">— 물결재 지기 드림</p>
+</section>
+
+<!-- ── 객실 풀블리드 ── -->
+<section class="photo photo--mid">
+  <img class="photo__img"
+       src="https://images.unsplash.com/photo-1680555324397-4e78bee184fe?w=2000&q=70&auto=format&fit=crop"
+       alt="바다가 보이는 밝은 객실" loading="lazy" decoding="async" width="2000" height="1333">
+  <p class="photo__caption">No. 01 · 수평선 객실</p>
+</section>
+
+<!-- ── 공간 텍스트 ── -->
+<section class="text reveal">
+  <p class="text__kicker">The rooms</p>
+  <p class="text__lede">네 개의 방, 네 개의 바다.</p>
+  <div class="text__body">
+    <p>각 객실은 서로 다른 높이와 각도에서 바다를 바라봅니다. 1층은 모래밭과 눈높이가 같고, 다락방에서는 멀리 등대가 보입니다. 침대에 누운 채로 파도의 결을 셀 수 있는 자리를, 오래 고민해 골랐습니다.</p>
+  </div>
+</section>
+
+<!-- ── 테라스 / 오션뷰 풀블리드 ── -->
+<section class="photo photo--mid">
+  <img class="photo__img"
+       src="https://images.unsplash.com/photo-1722719448637-8a13bad401ff?w=2000&q=70&auto=format&fit=crop"
+       alt="노을이 지는 바다와 테라스" loading="lazy" decoding="async" width="2000" height="1333">
+  <p class="photo__caption photo__caption--right">Terrace · 해 질 무렵</p>
+</section>
+
+<!-- ── 갤러리 triptych ── -->
+<section class="gallery reveal" aria-label="공간 갤러리">
+  <figure class="gallery__cell">
+    <img src="https://images.unsplash.com/photo-1765639729115-0d0e9216705e?w=1000&q=68&auto=format&fit=crop" alt="펜션의 한 장면" loading="lazy" decoding="async" width="1000" height="1333">
+  </figure>
+  <figure class="gallery__cell">
+    <img src="https://images.unsplash.com/photo-1656716870747-acd9a2709983?w=1000&q=68&auto=format&fit=crop" alt="펜션의 한 장면" loading="lazy" decoding="async" width="1000" height="1333">
+  </figure>
+  <figure class="gallery__cell">
+    <img src="https://images.unsplash.com/photo-1763238638501-26e12ba0fc74?w=1000&q=68&auto=format&fit=crop" alt="펜션의 한 장면" loading="lazy" decoding="async" width="1000" height="1333">
+  </figure>
+</section>
+
+<!-- ── 편의 / 디테일 (facts) ── -->
+<section class="facts reveal">
+  <h2 class="facts__head">머무는 동안<br>필요한 것들.</h2>
+  <dl class="facts__list">
+    <div class="facts__row">
+      <dt class="facts__term">Stay</dt>
+      <dd class="facts__def">객실 4실 · 최대 2~4인 · 전 객실 오션뷰 · 입실 15시 / 퇴실 11시</dd>
+    </div>
+    <div class="facts__row">
+      <dt class="facts__term">Comfort</dt>
+      <dd class="facts__def">호텔급 침구 · 빔프로젝터 · 미니 주방 · 개별 테라스 · 무료 주차</dd>
+    </div>
+    <div class="facts__row">
+      <dt class="facts__term">Morning</dt>
+      <dd class="facts__def">제철 식재료로 차린 조식 (예약 시) · 직접 내린 드립 커피</dd>
+    </div>
+    <div class="facts__row">
+      <dt class="facts__term">Around</dt>
+      <dd class="facts__def">도보 2분 해변 · 차로 8분 수산시장 · 차로 15분 등대 산책로</dd>
+    </div>
+  </dl>
+</section>
+
+<!-- ── 위치 / 주변 ── -->
+<section class="photo photo--mid">
+  <img class="photo__img"
+       src="https://images.unsplash.com/photo-1777994404844-a7da5d98a58d?w=2000&q=70&auto=format&fit=crop"
+       alt="보트와 산이 있는 해안 마을 풍경" loading="lazy" decoding="async" width="2000" height="1333">
+  <p class="photo__caption">동네 한 바퀴 · 작은 항구 마을</p>
+</section>
+
+<!-- ── 예약 CTA ── -->
+<section class="cta" id="reserve">
+  <img class="cta__img"
+       src="https://images.unsplash.com/photo-1772286090747-537be4e2eb84?w=2200&q=70&auto=format&fit=crop"
+       alt="" aria-hidden="true" loading="lazy" decoding="async" width="2200" height="1466">
+  <div class="cta__veil" aria-hidden="true"></div>
+  <div class="cta__inner">
+    <h2 class="cta__title">올여름, 바다가 가장 가까운 방을 비워두었습니다.</h2>
+    <p class="cta__sub">날짜를 알려주시면 가능한 객실을 안내해 드립니다.</p>
+    <a class="cta__btn" href="mailto:stay@mulgyeoljae.kr">예약 문의하기 →</a>
+  </div>
+</section>
+
+<!-- ── FOOTER · Ft6 Letter close ── -->
+<footer class="foot">
+  <p class="foot__close en-it">
+    오시는 길에 마음도 함께 가벼워지시길.<br>
+    <span class="foot__sign">— 물결재 지기 드림.</span>
+  </p>
+  <p class="foot__ps">P.S. — 궁금한 점은 언제든 <a href="mailto:stay@mulgyeoljae.kr">stay@mulgyeoljae.kr</a> 로. 반려동물 동반·장기 투숙 문의도 환영합니다.</p>
+  <div class="foot__meta">
+    <span>물결재 · 강원 동해안 어딘가</span>
+    <span class="en">© 2026 MULGYEOLJAE</span>
+  </div>
+</footer>
+
+<script>
+  // 단일 스크롤 reveal (IntersectionObserver) — reduced-motion 시 CSS 가 무력화
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window) || !els.length) {
+      els.forEach(function (el) { el.classList.add('is-in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+    els.forEach(function (el) { io.observe(el); });
+  })();
+</script>
+
+</body>
+</html>
