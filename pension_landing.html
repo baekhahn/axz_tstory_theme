@@ -6,20 +6,27 @@
 <title>渚 나기사 — Seaside Ryokan</title>
 
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&display=swap">
 
 <style>
 :root {
-  --paper:   #FBFAF7;
-  --ink:     #1A1815;
-  --line:    #E4DFD6;
-  --muted:   #8A8275;
-  --on-img:  #FFFFFF;
-  --veil:    rgba(26, 22, 16, 0.18);
+  /* 다크 커피 / 에스프레소 — 따뜻한 어스 (Aesop) */
+  --bg:       #1F1812;
+  --bg-2:     #241C15;
+  --line:     rgba(231, 221, 206, 0.14);
+  --ink:      #E8DFD2;
+  --muted:    #A99B86;
+  --soft:     #7C7060;
+  --accent:   #C2A06B;            /* warm tan/amber */
+  --veil:     rgba(20, 15, 10, 0.30);
 
-  --font: 'Pretendard', -apple-system, 'Apple SD Gothic Neo', "Helvetica Neue", Arial, sans-serif;
-  --gutter: clamp(16px, 3vw, 40px);
+  --font-display: 'Fraunces', 'Pretendard', ui-serif, Georgia, serif;
+  --font-body:    'Pretendard', -apple-system, 'Apple SD Gothic Neo', sans-serif;
+  --gutter: clamp(18px, 4vw, 56px);
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
@@ -28,221 +35,208 @@ html, body { overflow-x: clip; }
 html { font-size: 16px; scroll-behavior: smooth; }
 body {
   margin: 0;
-  font-family: var(--font);
-  background: var(--paper);
+  font-family: var(--font-body);
+  background: var(--bg);
   color: var(--ink);
-  line-height: 1.5;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  /* 균일·작은 타이포 — softervolumes 톤 */
-  font-size: 14px;
-  letter-spacing: 0.01em;
+  font-size: 15px;
 }
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 p { margin: 0; }
-h1, h2, h3 { margin: 0; font-weight: 500; overflow-wrap: anywhere; min-width: 0; }
-:focus-visible { outline: 1.5px solid var(--ink); outline-offset: 2px; }
+h1, h2, h3 { margin: 0; overflow-wrap: anywhere; min-width: 0; }
+:focus-visible { outline: 1.5px solid var(--accent); outline-offset: 3px; }
 
-/* ── 프로모 바 ── */
+/* ── 프로모 ── */
 .promo {
-  text-align: center;
-  font-size: 12px; letter-spacing: 0.04em;
-  padding: 9px var(--gutter);
-  background: var(--ink); color: var(--paper);
+  text-align: center; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 10px var(--gutter); color: var(--muted);
+  border-bottom: 1px solid var(--line);
 }
-.promo a { text-decoration: underline; text-underline-offset: 2px; }
+.promo a { color: var(--accent); }
 
-/* ── NAV — small, uniform ── */
+/* ── NAV ── */
 .nav {
   position: sticky; top: 0; z-index: 50;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 14px var(--gutter);
-  background: color-mix(in srgb, var(--paper) 92%, transparent);
-  backdrop-filter: blur(6px);
+  padding: 16px var(--gutter);
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--line);
-  font-size: 13px;
+  font-size: 13px; letter-spacing: 0.04em;
 }
-.nav__mark { font-weight: 600; letter-spacing: 0.06em; white-space: nowrap; }
-.nav__links { display: flex; gap: clamp(14px, 2.4vw, 30px); }
+.nav__mark { font-family: var(--font-display); font-weight: 400; font-size: 18px; letter-spacing: 0.08em; white-space: nowrap; }
+.nav__links { display: flex; gap: clamp(16px, 2.6vw, 34px); }
 .nav__links a { color: var(--muted); white-space: nowrap; transition: color .15s var(--ease); }
 .nav__links a:hover { color: var(--ink); }
-.nav__cta { font-weight: 600; white-space: nowrap; }
-@media (max-width: 640px) { .nav__links { display: none; } }
+.nav__cta { color: var(--accent); white-space: nowrap; letter-spacing: 0.1em; text-transform: uppercase; font-size: 12px; }
+@media (max-width: 680px) { .nav__links { display: none; } }
 
-/* ── HERO — image dominant, tiny caption (no big headline) ── */
-.hero { position: relative; width: 100%; height: 78svh; min-height: 420px; overflow: hidden; }
+/* ── HERO — full-bleed dark image, large serif title overlaid ── */
+.hero { position: relative; width: 100%; height: 96svh; min-height: 520px; overflow: hidden; }
 .hero img { width: 100%; height: 100%; object-fit: cover; }
-.hero__bar {
-  position: absolute; left: 0; right: 0; bottom: 0;
-  display: flex; align-items: flex-end; justify-content: space-between; gap: 16px;
-  padding: var(--gutter);
-  background: linear-gradient(180deg, transparent, var(--veil));
-  color: var(--on-img);
+.hero__veil { position: absolute; inset: 0; background: linear-gradient(180deg, var(--veil) 0%, transparent 30%, transparent 55%, rgba(20,15,10,0.6) 100%); }
+.hero__inner {
+  position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 0 var(--gutter) clamp(40px, 8vh, 92px);
 }
-.hero__label { font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; }
-.hero__where { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.9; }
+.hero__eyebrow { font-family: var(--font-display); font-style: italic; font-weight: 300; font-size: clamp(1rem, 2vw, 1.45rem); color: var(--accent); margin-bottom: clamp(12px, 2vh, 22px); }
+.hero__title {
+  font-family: var(--font-display); font-weight: 300;
+  font-size: clamp(3rem, 9vw, 8rem); line-height: 0.98; letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.hero__meta { position: absolute; top: clamp(20px, 4vh, 40px); right: var(--gutter); font-family: var(--font-display); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink); opacity: 0.85; }
 
-/* ── SECTION head — tiny label row, no big heading, no centered paragraph ── */
-.sec { padding: clamp(40px, 6vw, 72px) var(--gutter) 0; }
+/* ── SECTION — LARGE title, hairline, no big paragraph ── */
 .sec__head {
-  display: flex; align-items: baseline; justify-content: space-between;
-  gap: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--line);
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
+  padding: clamp(56px, 9vw, 130px) var(--gutter) clamp(24px, 4vw, 48px);
 }
-.sec__title { font-size: 14px; font-weight: 600; letter-spacing: 0.06em; }
-.sec__title .jp { color: var(--muted); margin-right: 8px; font-weight: 500; }
-.sec__note { font-size: 12px; color: var(--muted); letter-spacing: 0.04em; }
+.sec__title {
+  font-family: var(--font-display); font-weight: 300;
+  font-size: clamp(2.5rem, 6vw, 5.5rem); line-height: 1.0; letter-spacing: -0.015em;
+}
+.sec__title .jp { display: block; font-size: 0.32em; letter-spacing: 0.3em; color: var(--accent); margin-bottom: 0.5em; text-transform: uppercase; }
+.sec__note { font-size: 12.5px; color: var(--muted); letter-spacing: 0.04em; white-space: nowrap; padding-bottom: 6px; }
 
-/* ── PRODUCT-STYLE CARD GRID (rooms) ── */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(8px, 1.4vw, 18px) clamp(8px, 1.2vw, 14px);
-  padding-top: clamp(18px, 2.5vw, 28px);
+/* ── GRID — NO gaps, full-bleed edge to edge ── */
+.grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; }
+.cell { position: relative; overflow: hidden; }
+.cell__media { aspect-ratio: 3 / 4; overflow: hidden; background: var(--bg-2); }
+.cell__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.1s var(--ease); filter: brightness(0.92); }
+.cell:hover .cell__media img { transform: scale(1.04); filter: brightness(1); }
+.cell__cap {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 10px;
+  padding: 18px;
+  background: linear-gradient(180deg, transparent, rgba(20,15,10,0.72));
+  color: var(--ink);
 }
-.card { display: flex; flex-direction: column; }
-.card__media { aspect-ratio: 3 / 4; overflow: hidden; background: var(--line); }
-.card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s var(--ease); }
-.card:hover .card__media img { transform: scale(1.03); }
-.card__row {
-  display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
-  padding-top: 10px;
-}
-.card__name { font-size: 13px; font-weight: 500; }
-.card__name .jp { color: var(--muted); margin-right: 6px; }
-.card__price { font-size: 12px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
-.card__sub { font-size: 11.5px; color: var(--muted); padding-top: 3px; letter-spacing: 0.02em; }
+.cell__name { font-size: 13px; letter-spacing: 0.02em; }
+.cell__name .jp { font-family: var(--font-display); font-size: 17px; display: block; margin-bottom: 3px; }
+.cell__price { font-size: 12px; color: var(--accent); white-space: nowrap; font-variant-numeric: tabular-nums; letter-spacing: 0.03em; }
 
-/* ── WIDE pair (onsen / dining) — bigger image cells, same tiny labels ── */
-.duo {
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(8px, 1.2vw, 14px);
-  padding-top: clamp(18px, 2.5vw, 28px);
-}
-.duo .card__media { aspect-ratio: 4 / 3; }
+/* ── DUO — two big cells, no gap ── */
+.duo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; }
+.duo .cell__media { aspect-ratio: 4 / 3; }
 
-/* ── INFO — compact uniform rows (NOT a big centered text block) ── */
-.info { padding: clamp(40px, 6vw, 72px) var(--gutter); }
-.info__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(16px, 3vw, 40px); border-top: 1px solid var(--line); padding-top: 22px; }
-.info__col h3 { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-.info__col p { font-size: 13px; line-height: 1.65; }
+/* ── INFO — large title + compact uniform columns ── */
+.info__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(20px, 4vw, 48px); padding: clamp(20px, 3vw, 36px) var(--gutter) clamp(64px, 9vw, 120px); }
+.info__col h3 { font-family: var(--font-display); font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+.info__col p { font-size: 14px; line-height: 1.75; color: var(--ink); }
 .info__col .jp { color: var(--muted); }
-@media (max-width: 760px) { .info__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; } }
+@media (max-width: 760px) { .info__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; } }
 
-/* ── FOOTER — softervolumes-style: newsletter + small link columns ── */
-.foot { padding: clamp(40px, 6vw, 72px) var(--gutter) 28px; border-top: 1px solid var(--line); }
-.foot__top { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: clamp(20px, 4vw, 56px); }
-.foot__news h3 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
-.foot__news p { font-size: 12.5px; color: var(--muted); margin-bottom: 14px; max-width: 36ch; }
-.foot__form { display: flex; max-width: 360px; border-bottom: 1px solid var(--ink); }
-.foot__form input { flex: 1; border: 0; background: transparent; padding: 8px 2px; font: inherit; font-size: 13px; color: var(--ink); }
-.foot__form input::placeholder { color: var(--muted); }
-.foot__form button { border: 0; background: transparent; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; padding: 8px 4px; }
-.foot__col h4 { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
-.foot__col a { display: block; font-size: 13px; padding: 4px 0; color: var(--ink); }
-.foot__col a:hover { color: var(--muted); }
-.foot__base { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-top: clamp(28px, 5vw, 56px); padding-top: 16px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--muted); letter-spacing: 0.04em; }
-@media (max-width: 760px) { .foot__top { grid-template-columns: 1fr; gap: 28px; } }
+/* ── FOOTER ── */
+.foot { padding: clamp(56px, 8vw, 110px) var(--gutter) 32px; border-top: 1px solid var(--line); background: var(--bg-2); }
+.foot__top { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: clamp(24px, 5vw, 72px); align-items: start; }
+.foot__news h3 { font-family: var(--font-display); font-weight: 300; font-size: clamp(1.5rem, 3vw, 2.4rem); line-height: 1.1; margin-bottom: 14px; }
+.foot__news p { font-size: 13px; color: var(--muted); margin-bottom: 18px; max-width: 36ch; }
+.foot__form { display: flex; max-width: 380px; border-bottom: 1px solid var(--ink); }
+.foot__form input { flex: 1; border: 0; background: transparent; padding: 9px 2px; font: inherit; font-size: 14px; color: var(--ink); }
+.foot__form input::placeholder { color: var(--soft); }
+.foot__form button { border: 0; background: transparent; font: inherit; font-size: 13px; color: var(--accent); cursor: pointer; padding: 9px 4px; letter-spacing: 0.06em; }
+.foot__col h4 { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--soft); margin-bottom: 12px; }
+.foot__col a { display: block; font-size: 14px; padding: 5px 0; color: var(--ink); }
+.foot__col a:hover { color: var(--accent); }
+.foot__base { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-top: clamp(40px, 6vw, 72px); padding-top: 18px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--soft); letter-spacing: 0.06em; }
+@media (max-width: 760px) { .foot__top { grid-template-columns: 1fr; gap: 32px; } }
 
 @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 640px) {
-  .hero { height: 64svh; }
-  .duo { grid-template-columns: 1fr; }
-}
+@media (max-width: 560px) { .hero { height: 80svh; } .duo { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: 0.001ms !important; }
+  .cell:hover .cell__media img { transform: none; }
   html { scroll-behavior: auto; }
 }
 </style>
 </head>
 <body>
 
-<!-- 프로모 -->
-<div class="promo">新規 · 바다를 바라보는 노천온천 개장 — <a href="#onsen">海の湯 보기</a></div>
+<div class="promo">新規 · 바다를 바라보는 노천온천 개장 — <a href="#onsen">海の湯</a></div>
 
-<!-- NAV -->
 <header class="nav" role="banner">
   <a class="nav__mark" href="#top">渚 나기사</a>
   <nav class="nav__links" aria-label="주요">
-    <a href="#rooms">客室 Rooms</a>
-    <a href="#onsen">温泉 Onsen</a>
-    <a href="#info">案内 Info</a>
+    <a href="#rooms">Rooms</a>
+    <a href="#onsen">Onsen</a>
+    <a href="#info">Info</a>
   </nav>
-  <a class="nav__cta" href="#reserve">予約 →</a>
+  <a class="nav__cta" href="#reserve">予約 · Reserve</a>
 </header>
 
-<!-- HERO — image, tiny caption only -->
+<!-- HERO — full-bleed dark, large serif -->
 <section class="hero" id="top">
-  <img src="https://images.unsplash.com/photo-1764209576556-4c02747e1b60?w=2800&q=82&auto=format&fit=crop"
-       alt="후지산이 보이는 일본 해안" fetchpriority="high" decoding="async" width="2800" height="1866">
-  <div class="hero__bar">
-    <span class="hero__label">渚 · 나기사 · Seaside Ryokan</span>
-    <span class="hero__where">East Sea, Japan</span>
+  <img src="https://images.unsplash.com/photo-1733653023417-92ffcab24969?w=2400&q=80&auto=format&fit=crop"
+       alt="해 질 무렵 빛이 드는 어두운 다다미 방" fetchpriority="high" decoding="async" width="2400" height="3000">
+  <div class="hero__veil" aria-hidden="true"></div>
+  <p class="hero__meta">Seaside Ryokan · Japan</p>
+  <div class="hero__inner">
+    <p class="hero__eyebrow">바다 곁, 어둑한 다다미 위의 하루.</p>
+    <h1 class="hero__title">渚<br>나기사</h1>
   </div>
 </section>
 
-<!-- 客室 ROOMS — product-style catalog grid -->
-<section class="sec" id="rooms">
+<!-- 客室 ROOMS — gap-0 catalog grid, LARGE title -->
+<section id="rooms">
   <div class="sec__head">
-    <h2 class="sec__title"><span class="jp">客室</span>Rooms</h2>
-    <span class="sec__note">전 객실 다다미 · 정원/바다뷰 · 4칸</span>
+    <h2 class="sec__title"><span class="jp">客室 · Rooms</span>네 칸의 방</h2>
+    <span class="sec__note">전 객실 다다미 · 정원/바다뷰</span>
   </div>
   <div class="grid">
-    <article class="card">
-      <a class="card__media" href="#reserve"><img src="https://images.unsplash.com/photo-1496113329550-ce8886d06d54?w=900&q=82&auto=format&fit=crop" alt="다다미 큰 객실과 쇼지" loading="lazy" decoding="async" width="900" height="1200"></a>
-      <div class="card__row"><span class="card__name"><span class="jp">一の間</span>다다미 큰 객실</span><span class="card__price">1泊 ¥48,000~</span></div>
-      <p class="card__sub">8첩 · 2~3인 · 정원뷰</p>
+    <article class="cell">
+      <a class="cell__media" href="#reserve"><img src="https://images.unsplash.com/photo-1719360569951-2caa64e6df34?w=900&q=80&auto=format&fit=crop" alt="따뜻한 조명의 선반이 있는 어두운 다다미 라운지" loading="lazy" decoding="async" width="900" height="1200"></a>
+      <div class="cell__cap"><span class="cell__name"><span class="jp">一の間</span>다다미 큰 객실</span><span class="cell__price">¥48,000~</span></div>
     </article>
-    <article class="card">
-      <a class="card__media" href="#reserve"><img src="https://images.unsplash.com/photo-1614301246509-d1fc7d78b6b6?w=900&q=82&auto=format&fit=crop" alt="좌식 테이블의 다다미 다실" loading="lazy" decoding="async" width="900" height="1200"></a>
-      <div class="card__row"><span class="card__name"><span class="jp">茶寮</span>좌식 다실</span><span class="card__price">1泊 ¥42,000~</span></div>
-      <p class="card__sub">6첩 · 2인 · 차 세트 포함</p>
+    <article class="cell">
+      <a class="cell__media" href="#reserve"><img src="https://images.unsplash.com/photo-1722229808540-054073c5665b?w=900&q=80&auto=format&fit=crop" alt="붉은 의자와 창 너머 정원의 어두운 객실" loading="lazy" decoding="async" width="900" height="1200"></a>
+      <div class="cell__cap"><span class="cell__name"><span class="jp">縁</span>엔가와 객실</span><span class="cell__price">¥52,000~</span></div>
     </article>
-    <article class="card">
-      <a class="card__media" href="#reserve"><img src="https://images.unsplash.com/photo-1603333201076-4edbe9d24f95?w=900&q=82&auto=format&fit=crop" alt="정원을 마주한 툇마루" loading="lazy" decoding="async" width="900" height="1200"></a>
-      <div class="card__row"><span class="card__name"><span class="jp">縁</span>엔가와 객실</span><span class="card__price">1泊 ¥52,000~</span></div>
-      <p class="card__sub">10첩 · 2~4인 · 툇마루</p>
+    <article class="cell">
+      <a class="cell__media" href="#reserve"><img src="https://images.unsplash.com/photo-1682787283049-d37de81646b4?w=900&q=80&auto=format&fit=crop" alt="격자창으로 빛이 드는 좌식 다실" loading="lazy" decoding="async" width="900" height="1200"></a>
+      <div class="cell__cap"><span class="cell__name"><span class="jp">茶寮</span>좌식 다실</span><span class="cell__price">¥42,000~</span></div>
     </article>
-    <article class="card">
-      <a class="card__media" href="#reserve"><img src="https://images.unsplash.com/photo-1603504166222-1543890de8ba?w=900&q=82&auto=format&fit=crop" alt="해 질 무렵 빛이 드는 객실" loading="lazy" decoding="async" width="900" height="1200"></a>
-      <div class="card__row"><span class="card__name"><span class="jp">夕凪</span>노을 객실</span><span class="card__price">1泊 ¥45,000~</span></div>
-      <p class="card__sub">8첩 · 2인 · 산·바다뷰</p>
+    <article class="cell">
+      <a class="cell__media" href="#reserve"><img src="https://images.unsplash.com/photo-1595880275563-f9a6e74b0a8c?w=900&q=80&auto=format&fit=crop" alt="족자가 걸린 어두운 다실" loading="lazy" decoding="async" width="900" height="1200"></a>
+      <div class="cell__cap"><span class="cell__name"><span class="jp">夕凪</span>노을 객실</span><span class="cell__price">¥45,000~</span></div>
     </article>
   </div>
 </section>
 
-<!-- 温泉・渚 ONSEN — wide pair -->
-<section class="sec" id="onsen">
+<!-- 温泉・渚 ONSEN — gap-0 duo, LARGE title -->
+<section id="onsen">
   <div class="sec__head">
-    <h2 class="sec__title"><span class="jp">温泉</span>Onsen &amp; Shore</h2>
+    <h2 class="sec__title"><span class="jp">温泉 · Onsen</span>해 지는 물가</h2>
     <span class="sec__note">노천온천 24시 · 전세탕 예약제</span>
   </div>
   <div class="duo">
-    <article class="card">
-      <a class="card__media" href="#reserve"><img src="https://images.unsplash.com/photo-1729914942332-c79e8d843027?w=1600&q=82&auto=format&fit=crop" alt="노을 지는 바다" loading="lazy" decoding="async" width="1600" height="1067"></a>
-      <div class="card__row"><span class="card__name"><span class="jp">海の湯</span>바다 노천온천</span><span class="card__price">숙박객 무료</span></div>
+    <article class="cell">
+      <a class="cell__media" href="#reserve"><img src="https://images.unsplash.com/photo-1769345808116-7eee6dfad421?w=1600&q=80&auto=format&fit=crop" alt="밤에 불을 밝힌 전통 료칸" loading="lazy" decoding="async" width="1600" height="1200"></a>
+      <div class="cell__cap"><span class="cell__name"><span class="jp">夜の宿</span>밤의 료칸</span><span class="cell__price">숙박객 전용</span></div>
     </article>
-    <article class="card">
-      <a class="card__media" href="#reserve"><img src="https://images.unsplash.com/photo-1523684188-42cd612d5bca?w=1600&q=82&auto=format&fit=crop" alt="잔잔한 파도가 닿는 모래밭" loading="lazy" decoding="async" width="1600" height="1067"></a>
-      <div class="card__row"><span class="card__name"><span class="jp">渚の朝</span>아침 해변 산책</span><span class="card__price">도보 3분</span></div>
+    <article class="cell">
+      <a class="cell__media" href="#reserve"><img src="https://images.unsplash.com/photo-1557563202-7c5cd702286c?w=1600&q=80&auto=format&fit=crop" alt="안개 낀 잔잔한 바다와 곶" loading="lazy" decoding="async" width="1600" height="1200"></a>
+      <div class="cell__cap"><span class="cell__name"><span class="jp">海の湯</span>바다 노천온천</span><span class="cell__price">도보 1분</span></div>
     </article>
   </div>
 </section>
 
-<!-- 案内 INFO — compact uniform columns (no big paragraph) -->
-<section class="info" id="info">
+<!-- 案内 INFO — large title + compact columns -->
+<section id="info">
   <div class="sec__head">
-    <h2 class="sec__title"><span class="jp">案内</span>Info</h2>
-    <span class="sec__note">渚 · 일본 해안의 작은 료칸</span>
+    <h2 class="sec__title"><span class="jp">案内 · Info</span>머무는 동안</h2>
   </div>
   <div class="info__grid">
-    <div class="info__col"><h3>滞在 Stay</h3><p>입실 15:00 / 퇴실 11:00<br>다다미 4칸 · 최대 4인</p></div>
-    <div class="info__col"><h3>温泉 Bath</h3><p>바다 노천온천 24시<br>가족 전세탕 · 객실 히노키 욕조</p></div>
-    <div class="info__col"><h3>食事 Meal</h3><p>제철 해산물 가이세키 석식<br>다다미 일식 조식</p></div>
-    <div class="info__col"><h3>交通 Access</h3><p>해변 도보 3분 · 어항 차 8분<br>해안 신사 차 15분</p></div>
+    <div class="info__col"><h3>滞在</h3><p>입실 15:00 / 퇴실 11:00<br>다다미 4칸 · 최대 4인</p></div>
+    <div class="info__col"><h3>温泉</h3><p>바다 노천온천 24시<br>가족 전세탕 · 히노키 욕조</p></div>
+    <div class="info__col"><h3>食事</h3><p>제철 해산물 가이세키 석식<br>다다미 일식 조식</p></div>
+    <div class="info__col"><h3>交通</h3><p>해변 도보 3분 · 어항 차 8분<br>해안 신사 차 15분</p></div>
   </div>
 </section>
 
-<!-- FOOTER — newsletter + link columns (softervolumes style) -->
+<!-- FOOTER -->
 <footer class="foot" id="reserve">
   <div class="foot__top">
     <div class="foot__news">
@@ -261,7 +255,7 @@ h1, h2, h3 { margin: 0; font-weight: 500; overflow-wrap: anywhere; min-width: 0;
     </nav>
     <nav class="foot__col" aria-label="안내">
       <h4>안내</h4>
-      <a href="mailto:stay@nagisa-ryokan.jp">予約 · stay@nagisa-ryokan.jp</a>
+      <a href="mailto:stay@nagisa-ryokan.jp">stay@nagisa-ryokan.jp</a>
       <a href="#">취소 규정</a>
       <a href="#">오시는 길</a>
     </nav>
