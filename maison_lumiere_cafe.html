@@ -124,13 +124,8 @@ a{color:inherit;text-decoration:none}
   .visit__info{padding:30px 18px;gap:13px}
   .map-wrap{min-height:240px}
 }
+.map-wrap{background:var(--sv-bg-cell)}
 .map-wrap .gmap{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;z-index:1;filter:grayscale(1) contrast(1.05)}
-.map-fallback{
-  position:absolute;inset:0;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:18px;color:#6f5b44;
-}
-.map-illust{width:min(76%,340px);height:auto;display:block}
-.map-hint{font-size:12px;letter-spacing:.14em;text-transform:uppercase}
 
 /* ── About ── */
 .about{display:grid;grid-template-columns:1fr;border-bottom:1px solid var(--sv-line)}
@@ -268,54 +263,6 @@ a{color:inherit;text-decoration:none}
     <iframe class="gmap" title="Maison Lumière 위치 — 서울시청"
       src="https://maps.google.com/maps?q=37.566295,126.977945&z=16&hl=ko&output=embed"
       loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    <div class="map-fallback" id="mapFallback">
-      <svg class="map-illust" viewBox="0 0 300 230" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- 건물 구획(블록) -->
-        <g fill="currentColor" opacity="0.12">
-          <rect x="17" y="17" width="38" height="34" rx="2.5"/>
-          <rect x="65" y="17" width="46" height="34" rx="2.5"/>
-          <rect x="121" y="17" width="46" height="34" rx="2.5"/>
-          <rect x="177" y="17" width="46" height="34" rx="2.5"/>
-          <rect x="233" y="17" width="50" height="34" rx="2.5"/>
-          <rect x="17" y="61" width="38" height="38" rx="2.5"/>
-          <rect x="65" y="61" width="46" height="38" rx="2.5"/>
-          <rect x="177" y="61" width="46" height="38" rx="2.5"/>
-          <rect x="233" y="61" width="50" height="38" rx="2.5"/>
-          <rect x="17" y="109" width="38" height="38" rx="2.5"/>
-          <rect x="65" y="109" width="46" height="38" rx="2.5"/>
-          <rect x="177" y="109" width="46" height="38" rx="2.5"/>
-          <rect x="233" y="109" width="50" height="38" rx="2.5"/>
-          <rect x="65" y="157" width="46" height="56" rx="2.5"/>
-          <rect x="121" y="157" width="46" height="56" rx="2.5"/>
-          <rect x="177" y="157" width="46" height="56" rx="2.5"/>
-          <rect x="233" y="157" width="50" height="56" rx="2.5"/>
-        </g>
-        <!-- 공원 -->
-        <circle cx="36" cy="185" r="19" fill="currentColor" opacity="0.18"/>
-        <!-- 도로망 -->
-        <g stroke="currentColor" opacity="0.3" stroke-width="1.2" stroke-linecap="round">
-          <path d="M60 10 V220"/>
-          <path d="M116 10 V220"/>
-          <path d="M172 10 V220"/>
-          <path d="M228 10 V220"/>
-          <path d="M10 56 H290"/>
-          <path d="M10 104 H290"/>
-          <path d="M10 152 H290"/>
-        </g>
-        <!-- 보조 골목 -->
-        <g stroke="currentColor" opacity="0.18" stroke-width="0.9" stroke-linecap="round">
-          <path d="M88 56 V152"/>
-          <path d="M200 10 V104"/>
-          <path d="M116 80 H228"/>
-        </g>
-        <!-- 대로(사선) -->
-        <path d="M10 208 C90 174 122 152 150 120 C178 88 240 58 290 42" stroke="currentColor" opacity="0.5" stroke-width="2.4" stroke-linecap="round"/>
-        <!-- 위치 핀 (작게) -->
-        <path d="M150 64 a18 18 0 0 1 18 18 c0 13 -8 24 -18 34 c-10 -10 -18 -21 -18 -34 a18 18 0 0 1 18 -18 z" fill="currentColor"/>
-        <circle cx="150" cy="82" r="6" fill="#D9D1C5"/>
-      </svg>
-      <span class="map-hint">Maison Lumière</span>
-    </div>
   </div>
 </div>
 
