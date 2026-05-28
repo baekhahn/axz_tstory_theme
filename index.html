@@ -283,7 +283,7 @@ body[data-blog="WC"] .panel.is-blog-b { display: none !important; }
       <select class="theme-select" id="blog-select" aria-label="블로그 선택">
         <option value="A">Blog A — 공간노트</option>
         <option value="B">Blog B — San Francisco</option>
-        <option value="WC">Website — 물결재 (펜션)</option>
+        <option value="WC">Website — 나기사 (료칸)</option>
       </select>
       <p class="sidenav-sub">마이터랩 · 1차 통합 미리보기</p>
     </div>
@@ -377,7 +377,7 @@ body[data-blog="WC"] .panel.is-blog-b { display: none !important; }
       </button>
     </div>
 
-    <!-- Website LNB — 물결재 펜션 원페이지 -->
+    <!-- Website LNB — 나기사 료칸 원페이지 -->
     <div class="lnb-group lnb-group-wc">
       <div class="sidenav-section">화면 (사이트 페이지)</div>
       <button class="nav-item" data-tab="pension-home">
@@ -621,17 +621,17 @@ body[data-blog="WC"] .panel.is-blog-b { display: none !important; }
       </div>
     </section>
 
-    <!-- ─── Website 패널 (물결재 펜션 · Portfolio Grid) ─── -->
+    <!-- ─── Website 패널 (나기사 료칸 · 일본 해변 료칸) ─── -->
     <section class="panel is-blog-wc" data-panel="pension-home">
       <header class="panel-header">
-        <h2 class="panel-title">물결재 — Home (원페이지)</h2>
+        <h2 class="panel-title">나기사 渚 — Home (원페이지)</h2>
         <p class="panel-desc">softervolumes 톤 타이트 이미지 그리드 펜션 랜딩. Portfolio Grid · Fraunces+Pretendard · 풀블리드 hero + 2열 그리드(gap 2px).</p>
         <div class="panel-meta">
           <span class="panel-file">pension_landing.html</span>
         </div>
       </header>
       <div class="frame-wrap">
-        <iframe class="preview-frame" id="frame-pension-home" title="물결재 Home" src="pension_landing.html"></iframe>
+        <iframe class="preview-frame" id="frame-pension-home" title="나기사 Home" src="pension_landing.html"></iframe>
       </div>
     </section>
 
@@ -4532,7 +4532,7 @@ const PANEL_CONFIG = {
     slots: [], defaults: {},
     bodySlot: null, bodyScreenKey: 'walking:default',
   },
-  // ─── Website 페이지 (물결재 펜션 · 외부 단독 파일) ───
+  // ─── Website 페이지 (나기사 료칸 · 외부 단독 파일) ───
   'pension-home': {
     kind: 'external', frameId: 'frame-pension-home', fileLabelSlot: null,
     slots: [], defaults: {},
@@ -4851,7 +4851,7 @@ const PANEL_LABELS = {
     walking:   { title: 'On walking the bridge, twice. — 에세이', desc: 'Stories 의 첫 에세이 상세. Hero + 장문 + blockquote + 풀폭 이미지.' },
   },
   WC: {
-    'pension-home': { title: '물결재 — Home (원페이지)', desc: 'softervolumes 톤 타이트 이미지 그리드 펜션 랜딩. Portfolio Grid · Fraunces+Pretendard · 풀블리드 hero + 2열 그리드(gap 2px).' },
+    'pension-home': { title: '나기사 渚 — Home (원페이지)', desc: '일본 해변 료칸 컨셉 랜딩. 다다미·쇼지·노천온천 + 일본 해안 큐레이션 사진. Fraunces+Pretendard · 풀블리드 hero + 큰 이미지 밴드.' },
   },
 };
 function updatePanelLabels() {
