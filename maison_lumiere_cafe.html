@@ -125,10 +125,9 @@ a{color:inherit;text-decoration:none}
 #kakaoMap{position:absolute;inset:0;width:100%;height:100%}
 .map-fallback{
   position:absolute;inset:0;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:12px;color:#6a6255;
+  align-items:center;justify-content:center;gap:18px;color:#6f5b44;
 }
-.map-pin{width:13px;height:13px;border-radius:50%;border:2px solid #6a6255;position:relative}
-.map-pin::after{content:"";position:absolute;left:50%;top:50%;width:3px;height:3px;border-radius:50%;background:#6a6255;transform:translate(-50%,-50%)}
+.map-illust{width:min(64%,280px);height:auto;display:block}
 .map-hint{font-size:12px;letter-spacing:.14em;text-transform:uppercase}
 
 /* ── About ── */
@@ -266,7 +265,17 @@ a{color:inherit;text-decoration:none}
   <div class="map-wrap">
     <div id="kakaoMap"></div>
     <div class="map-fallback" id="mapFallback">
-      <span class="map-pin"></span>
+      <svg class="map-illust" viewBox="0 0 280 210" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g stroke="currentColor" stroke-width="1.4" opacity="0.42" stroke-linecap="round">
+          <path d="M10 62 H270"/>
+          <path d="M10 150 H270"/>
+          <path d="M84 8 V202"/>
+          <path d="M198 8 V202"/>
+          <path d="M10 188 C68 164 116 146 146 116 C176 86 232 58 270 44"/>
+        </g>
+        <path d="M140 64 a30 30 0 0 1 30 30 c0 22 -13 38 -30 54 c-17 -16 -30 -32 -30 -54 a30 30 0 0 1 30 -30 z" fill="currentColor"/>
+        <circle cx="140" cy="94" r="10" fill="#D9D1C5"/>
+      </svg>
       <span class="map-hint">Maison Lumière</span>
     </div>
   </div>
