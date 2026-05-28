@@ -215,7 +215,8 @@ fs.writeFileSync('post_detail.html', wrap('post', '게시글 상세'));
 ### 이 프로젝트 추가 규칙
 
 - **이모지 금지** (UI/문서/콘텐츠 어디에도)
-- **이미지는 Unsplash architecture-interior 카테고리만**
+- **한글 italic 절대 금지** (2026-05-21) — 한글 텍스트에는 `font-style: italic` 을 어떤 경우에도 쓰지 않는다. 한글 폰트는 italic 글리프가 없어 인위적 기울임(synthetic oblique)이 되어 가독성·품질이 떨어진다. italic 은 라틴 문자(영문)에만 허용. 큐레이션·강조는 weight·자간·컬러로 처리.
+- **이미지는 Unsplash 에서 직접 다운로드해 육안 확인 후 큐레이션** — URL ID 만 추출해 박지 않는다. 톤 일관성·고화질·맥락 적합성을 눈으로 검증한 컷만 사용 (저화질·맥락 불일치 컷은 신뢰를 떨어뜨림).
 - **최소 변경점 원칙** — 작업 범위 밖 코드는 건드리지 않음 (dead CSS 도 그대로)
 - **빌드는 단일 source of truth (`index.html`)** → 풀스크린 파일은 재생성
 
