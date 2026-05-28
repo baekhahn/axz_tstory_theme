@@ -141,12 +141,19 @@ button { font-family: inherit; cursor: pointer; }
 
 /* Blog 그룹 토글 — body[data-blog] 따라 한 그룹만 표시 */
 .lnb-group-b  { display: none; }
+.lnb-group-wc { display: none; }
 body[data-blog="B"]  .lnb-group-a  { display: none; }
 body[data-blog="B"]  .lnb-group-b  { display: contents; }
+body[data-blog="WC"] .lnb-group-a  { display: none; }
+body[data-blog="WC"] .lnb-group-wc { display: contents; }
 
 /* Blog 패널 hide/show (PANEL_CONFIG 와 함께 작동) */
-body[data-blog="A"]  .panel.is-blog-b { display: none !important; }
-body[data-blog="B"]  .panel.is-blog-a { display: none !important; }
+body[data-blog="A"]  .panel.is-blog-b,
+body[data-blog="A"]  .panel.is-blog-wc { display: none !important; }
+body[data-blog="B"]  .panel.is-blog-a,
+body[data-blog="B"]  .panel.is-blog-wc { display: none !important; }
+body[data-blog="WC"] .panel.is-blog-a,
+body[data-blog="WC"] .panel.is-blog-b { display: none !important; }
 .nav-label { display: block; }
 .nav-tag {
   display: inline-block;
@@ -276,6 +283,7 @@ body[data-blog="B"]  .panel.is-blog-a { display: none !important; }
       <select class="theme-select" id="blog-select" aria-label="블로그 선택">
         <option value="A">Blog A — 공간노트</option>
         <option value="B">Blog B — San Francisco</option>
+        <option value="WC">Website — 물결재 (펜션)</option>
       </select>
       <p class="sidenav-sub">마이터랩 · 1차 통합 미리보기</p>
     </div>
@@ -366,6 +374,14 @@ body[data-blog="B"]  .panel.is-blog-a { display: none !important; }
       </button>
       <button class="nav-item" data-tab="footer">
         <span class="nav-label">푸터 (Minimal)</span>
+      </button>
+    </div>
+
+    <!-- Website LNB — 물결재 펜션 원페이지 -->
+    <div class="lnb-group lnb-group-wc">
+      <div class="sidenav-section">화면 (사이트 페이지)</div>
+      <button class="nav-item" data-tab="pension-home">
+        <span class="nav-label">Home — 원페이지</span>
       </button>
     </div>
 
@@ -602,6 +618,20 @@ body[data-blog="B"]  .panel.is-blog-a { display: none !important; }
       </header>
       <div class="frame-wrap">
         <iframe class="preview-frame" id="frame-sidebar" title="사이드바 미리보기"></iframe>
+      </div>
+    </section>
+
+    <!-- ─── Website 패널 (물결재 펜션 · Portfolio Grid) ─── -->
+    <section class="panel is-blog-wc" data-panel="pension-home">
+      <header class="panel-header">
+        <h2 class="panel-title">물결재 — Home (원페이지)</h2>
+        <p class="panel-desc">softervolumes 톤 타이트 이미지 그리드 펜션 랜딩. Portfolio Grid · Fraunces+Pretendard · 풀블리드 hero + 2열 그리드(gap 2px).</p>
+        <div class="panel-meta">
+          <span class="panel-file">pension_landing.html</span>
+        </div>
+      </header>
+      <div class="frame-wrap">
+        <iframe class="preview-frame" id="frame-pension-home" title="물결재 Home" src="pension_landing.html"></iframe>
       </div>
     </section>
 
@@ -4502,6 +4532,12 @@ const PANEL_CONFIG = {
     slots: [], defaults: {},
     bodySlot: null, bodyScreenKey: 'walking:default',
   },
+  // ─── Website 페이지 (물결재 펜션 · 외부 단독 파일) ───
+  'pension-home': {
+    kind: 'external', frameId: 'frame-pension-home', fileLabelSlot: null,
+    slots: [], defaults: {},
+    src: 'pension_landing.html',
+  },
 };
 
 /* Blog 컨텍스트에 따라 BASE 스타일/헤더/푸터 본문 키 등을 분기 */
@@ -4753,6 +4789,7 @@ function rebuildSlotSelectOptions() {
 const BLOG_AVAILABLE_PANELS = {
   A: ['theme', 'post', 'header', 'footer', 'sidebar'],
   B: ['home', 'districts', 'mission', 'stories', 'walking', 'header', 'footer'],
+  WC: ['pension-home'],
 };
 function isPanelInBlog(panelKey, blog) {
   return (BLOG_AVAILABLE_PANELS[blog] || []).indexOf(panelKey) !== -1;
@@ -4764,7 +4801,7 @@ function firstPanelOf(blog) {
 /* Blog 전환 — body 속성·sidenav 라벨·슬롯 옵션·state 재초기화·재렌더 */
 function setBlog(newBlog, opts) {
   opts = opts || {};
-  if (newBlog !== 'A' && newBlog !== 'B') return;
+  if (newBlog !== 'A' && newBlog !== 'B' && newBlog !== 'WC') return;
   currentBlog = newBlog;
   document.body.setAttribute('data-blog', newBlog);
   // 드롭다운 동기화
@@ -4812,6 +4849,9 @@ const PANEL_LABELS = {
     mission:   { title: 'Mission — 동네 상세',   desc: 'District 상세 페이지 (예: Mission). Hero + 본문 + 추천 스팟 그리드.' },
     stories:   { title: 'Stories — 에세이 목록', desc: 'Field Notes 에세이 목록. 이미지 좌우 알터네이트 카드 리스트.' },
     walking:   { title: 'On walking the bridge, twice. — 에세이', desc: 'Stories 의 첫 에세이 상세. Hero + 장문 + blockquote + 풀폭 이미지.' },
+  },
+  WC: {
+    'pension-home': { title: '물결재 — Home (원페이지)', desc: 'softervolumes 톤 타이트 이미지 그리드 펜션 랜딩. Portfolio Grid · Fraunces+Pretendard · 풀블리드 hero + 2열 그리드(gap 2px).' },
   },
 };
 function updatePanelLabels() {
@@ -4897,7 +4937,7 @@ const blogSelectEl = document.getElementById('blog-select');
 if (blogSelectEl) {
   blogSelectEl.addEventListener('change', function(e) {
     const v = e.target.value;
-    if (v === 'A' || v === 'B') setBlog(v);
+    if (v === 'A' || v === 'B' || v === 'WC') setBlog(v);
   });
 }
 
@@ -4919,7 +4959,7 @@ document.addEventListener('change', function(e) {
 // 뒤로/앞으로 이동 — hash 다시 파싱해서 blog · 슬롯 state 재적용 + 패널 재활성
 window.addEventListener('popstate', function() {
   const parsed = parseHash();
-  const blogFromUrl = (parsed.query.blog === 'B') ? 'B' : 'A';
+  const blogFromUrl = (parsed.query.blog === 'B') ? 'B' : (parsed.query.blog === 'WC') ? 'WC' : 'A';
   if (blogFromUrl !== currentBlog) {
     setBlog(blogFromUrl, { silent: true });
   }
@@ -4931,7 +4971,7 @@ window.addEventListener('popstate', function() {
 (function init() {
   const parsed = parseHash();
   // 1) Blog 결정 (URL 우선)
-  const blogFromUrl = (parsed.query.blog === 'B') ? 'B' : 'A';
+  const blogFromUrl = (parsed.query.blog === 'B') ? 'B' : (parsed.query.blog === 'WC') ? 'WC' : 'A';
   if (blogFromUrl !== currentBlog) {
     setBlog(blogFromUrl, { silent: true });
   } else {
