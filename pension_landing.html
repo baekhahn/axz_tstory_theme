@@ -11,239 +11,244 @@
 <link rel="preconnect" href="https://images.unsplash.com">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&display=swap">
-<link rel="stylesheet" href="./pension_tokens.css">
 
 <style>
-/* Hallmark · pre-emit critique: P5 H4 E5 S5 R5 V5 (rev2 — tight portfolio grid)
- * genre: editorial · macrostructure: Portfolio Grid (18)
- * theme: studied-DNA (source: url https://shop.softervolumes.com/)
- * paper oklch(97% 0.008 78) · accent oklch(52% 0.10 75) gold · display Fraunces · body Pretendard
- * nav: N9 Edge-aligned · footer: Ft6 Letter close
- * enrichment: real photography (unsplash hotlink, verified) — tight 2-col grid, gap 2px
- * rev2: dropped Photographic full-bleed alternating bands (read too close to Blog B / SF);
- *       now dense edge-to-edge portrait grid per softervolumes density
- * studied: yes · DNA-source: url · observed: minimal-luxury · off-white+gold · tight image grid
- * contrast: pass (46–50) · slop: pass (51–55) · mobile: pass (36, 59, 61–69)
- */
+:root {
+  --paper:      #F6F2EC;
+  --paper-2:    #EEE8DE;
+  --rule:       #DDD4C6;
+  --ink:        #211E19;
+  --muted:      #6B6358;
+  --soft:       #968C7E;
+  --on-dark:    #FBF8F2;
+  --on-dark-soft: rgba(251, 248, 242, 0.82);
+  --accent:     #8A7449;          /* muted gold — labels/links */
+  --veil:       rgba(28, 24, 18, 0.42);
+  --cap-shadow: rgba(20, 16, 10, 0.5);
 
-*, *::before, *::after { box-sizing: border-box; }
+  --font-display: 'Fraunces', 'Pretendard', ui-serif, Georgia, serif;
+  --font-body:    'Pretendard', -apple-system, 'Apple SD Gothic Neo', sans-serif;
+
+  --gutter:   clamp(20px, 5vw, 72px);
+  --nav-h:    68px;
+  --ease:     cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+* , *::before, *::after { box-sizing: border-box; }
 html, body { overflow-x: clip; }
 html { font-size: 16px; scroll-behavior: smooth; }
 body {
   margin: 0;
   font-family: var(--font-body);
-  background: var(--color-paper);
-  color: var(--color-ink);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
-  line-height: var(--lh-body);
 }
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 p { margin: 0; }
 h1, h2, h3 { margin: 0; overflow-wrap: anywhere; min-width: 0; }
-:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
-.en { font-family: var(--font-display); font-weight: 400; letter-spacing: 0.01em; }
+.en    { font-family: var(--font-display); font-weight: 400; letter-spacing: 0.01em; }
 .en-it { font-family: var(--font-display); font-style: italic; font-weight: 400; }
 
-/* ── NAV · N9 Edge-aligned minimal ── */
+/* ── NAV ── */
 .nav {
-  position: sticky; top: 0; z-index: var(--z-nav);
+  position: sticky; top: 0; z-index: 50;
   display: flex; align-items: center; justify-content: space-between;
-  height: var(--banner-height);
-  padding: 0 var(--page-gutter);
-  background: color-mix(in oklch, var(--color-paper) 88%, transparent);
+  height: var(--nav-h);
+  padding: 0 var(--gutter);
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
   backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--color-rule);
+  border-bottom: 1px solid var(--rule);
 }
-.nav__mark { font-family: var(--font-display); font-weight: 500; font-size: var(--text-md); letter-spacing: 0.02em; white-space: nowrap; }
-.nav__mark sup { font-size: 0.55em; font-weight: 400; letter-spacing: 0.12em; color: var(--color-muted); }
+.nav__mark { font-family: var(--font-display); font-weight: 500; font-size: 1.25rem; letter-spacing: 0.02em; white-space: nowrap; }
+.nav__mark sup { font-size: 0.5em; font-weight: 400; letter-spacing: 0.18em; color: var(--muted); }
 .nav__cta {
   display: inline-flex; align-items: center; gap: 6px;
-  font-size: var(--text-sm); letter-spacing: 0.04em;
-  padding: 9px 16px; border: 1px solid var(--color-ink); border-radius: 999px;
+  font-size: 0.8125rem; letter-spacing: 0.06em;
+  padding: 10px 18px; border: 1px solid var(--ink); border-radius: 999px;
   white-space: nowrap; line-height: 1;
-  transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+  transition: background-color .2s var(--ease), color .2s var(--ease);
 }
-.nav__cta:hover { background: var(--color-ink); color: var(--color-paper); }
+.nav__cta:hover { background: var(--ink); color: var(--paper); }
 
-/* ── HERO — single full-bleed, small corner caption (no big display) ── */
-.hero { position: relative; width: 100%; height: 82svh; min-height: 440px; overflow: hidden; }
+/* ── HERO ── */
+.hero { position: relative; width: 100%; height: 90svh; min-height: 480px; overflow: hidden; }
 .hero__img { width: 100%; height: 100%; object-fit: cover; }
+.hero__veil { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,16,10,0.10) 0%, transparent 32%, transparent 64%, rgba(20,16,10,0.34) 100%); }
 .hero__cap {
-  position: absolute; left: var(--page-gutter); bottom: var(--space-lg);
-  color: var(--color-accent-ink);
-  font-family: var(--font-display);
-  font-size: var(--text-sm); letter-spacing: 0.08em;
-  text-shadow: 0 1px 14px var(--color-cap-shadow);
+  position: absolute; left: var(--gutter); bottom: clamp(36px, 7vh, 72px);
+  color: var(--on-dark);
+  text-shadow: 0 1px 18px var(--cap-shadow);
 }
-.hero__cap b { display:block; font-weight: 400; font-size: var(--text-lg); letter-spacing: 0.02em; margin-bottom: 4px; }
+.hero__name { font-family: var(--font-display); font-weight: 400; font-size: clamp(2.75rem, 7vw, 5.5rem); line-height: 1.0; letter-spacing: -0.01em; }
+.hero__tag  { margin-top: 14px; font-family: var(--font-display); font-style: italic; font-size: clamp(1rem, 2vw, 1.4rem); letter-spacing: 0.02em; }
+.hero__meta { position: absolute; right: var(--gutter); bottom: clamp(36px, 7vh, 72px); color: var(--on-dark); font-family: var(--font-display); font-size: 0.8125rem; letter-spacing: 0.14em; text-transform: uppercase; text-shadow: 0 1px 18px var(--cap-shadow); }
 
-/* ── Intro — short tagline, narrow, tight ── */
+/* ── INTRO ── */
 .intro {
-  padding: clamp(40px, 7vh, 72px) var(--page-gutter);
-  max-width: 64ch; margin-inline: auto;
-  display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-sm);
+  max-width: 760px; margin-inline: auto;
+  padding: clamp(64px, 12vh, 140px) var(--gutter);
+  text-align: center;
 }
-.intro__tag {
-  font-family: var(--font-display); font-size: var(--text-sm);
-  letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-accent);
-}
+.intro__kicker { font-family: var(--font-display); font-size: 0.8125rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
 .intro__line {
-  font-weight: 300; font-size: clamp(1.25rem, 2vw, 1.7rem);
-  line-height: 1.5; letter-spacing: -0.01em; color: var(--color-ink);
+  margin-top: 28px;
+  font-weight: 300; font-size: clamp(1.5rem, 3vw, 2.4rem);
+  line-height: 1.5; letter-spacing: -0.015em; color: var(--ink);
 }
-.intro__sign { font-family: var(--font-display); font-style: italic; font-size: var(--text-md); color: var(--color-muted); }
+.intro__sign { margin-top: 28px; font-family: var(--font-display); font-style: italic; font-size: 1.15rem; color: var(--muted); }
 
-/* ── TIGHT GRID — 2 col portrait, gap 2px, edge to edge ── */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 2px;
-  background: var(--color-rule);   /* gap shows as hairline */
+/* ── EDITORIAL IMAGE BANDS — large, high-res, tight rhythm ── */
+.band { width: 100%; }
+.band__img { width: 100%; height: clamp(420px, 78svh, 880px); object-fit: cover; }
+.band--duo {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; background: var(--rule);
 }
-.tile { position: relative; background: var(--color-paper); overflow: hidden; }
-.tile__media { aspect-ratio: 3 / 4; overflow: hidden; }
-.tile__media img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--dur-slow) var(--ease-out); }
-.tile:hover .tile__media img { transform: scale(1.03); }
-.tile__cap {
-  display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-sm);
-  padding: var(--space-sm) var(--space-md) var(--space-lg);
+.band--duo .band__cell { position: relative; overflow: hidden; }
+.band--duo .band__img { height: clamp(380px, 64svh, 720px); }
+.cap {
+  position: absolute; left: 22px; bottom: 22px;
+  color: var(--on-dark);
+  font-family: var(--font-display);
+  font-size: 0.875rem; letter-spacing: 0.06em;
+  text-shadow: 0 1px 14px var(--cap-shadow);
 }
-.tile__name { font-size: var(--text-sm); color: var(--color-ink); letter-spacing: -0.005em; }
-.tile__meta { font-family: var(--font-display); font-size: var(--text-xs); letter-spacing: 0.04em; color: var(--color-muted); white-space: nowrap; }
-/* wide tile spanning 2 cols (occasional rhythm break) */
-.tile--wide { grid-column: 1 / -1; }
-.tile--wide .tile__media { aspect-ratio: 16 / 9; }
+.cap b { display: block; font-weight: 400; font-size: 1.0625rem; margin-bottom: 3px; letter-spacing: 0.01em; }
+.band__cell { position: relative; }
 
-/* ── Facts — tight hairline rows ── */
-.facts {
-  padding: clamp(48px, 8vh, 88px) var(--page-gutter);
-  max-width: 880px; margin-inline: auto;
-}
-.facts__head { font-weight: 300; font-size: var(--text-xl); letter-spacing: -0.02em; margin-bottom: var(--space-md); }
+/* hover — slow scale on figure */
+.band__cell .band__img, .band--full .band__img { transition: transform 1s var(--ease); }
+.band__cell:hover .band__img { transform: scale(1.025); }
+
+/* ── FACTS ── */
+.facts { max-width: 900px; margin-inline: auto; padding: clamp(72px, 12vh, 150px) var(--gutter); }
+.facts__head { font-weight: 300; font-size: clamp(1.75rem, 3vw, 2.6rem); letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 40px; }
 .facts__row {
-  display: grid; grid-template-columns: minmax(0, 0.32fr) minmax(0, 1fr);
-  gap: var(--space-md); padding: var(--space-sm) 0;
-  border-top: 1px solid var(--color-rule); align-items: baseline;
+  display: grid; grid-template-columns: minmax(0, 0.3fr) minmax(0, 1fr); gap: clamp(16px, 4vw, 56px);
+  padding: 22px 0; border-top: 1px solid var(--rule); align-items: baseline;
 }
-.facts__row:last-child { border-bottom: 1px solid var(--color-rule); }
-.facts__term { font-family: var(--font-display); font-size: var(--text-xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); }
-.facts__def { font-size: var(--text-base); color: var(--color-ink); line-height: 1.55; }
+.facts__row:last-child { border-bottom: 1px solid var(--rule); }
+.facts__term { font-family: var(--font-display); font-size: 0.8125rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+.facts__def { font-size: 1.0625rem; color: var(--ink); line-height: 1.6; }
 
-/* ── CTA — compact band over photo ── */
-.cta { position: relative; min-height: 56svh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
+/* ── CTA ── */
+.cta { position: relative; min-height: 76svh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
 .cta__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.cta__veil { position: absolute; inset: 0; background: var(--color-cta-veil); }
-.cta__inner { position: relative; padding: var(--space-2xl) var(--page-gutter); color: var(--color-accent-ink); }
-.cta__title { font-weight: 300; font-size: clamp(1.625rem, 3vw, 2.6rem); line-height: var(--lh-tight); letter-spacing: -0.02em; max-width: 20ch; margin-inline: auto; }
-.cta__sub { margin-top: var(--space-sm); font-size: var(--text-sm); color: var(--color-accent-ink-soft); }
+.cta__veil { position: absolute; inset: 0; background: var(--veil); }
+.cta__inner { position: relative; padding: clamp(56px, 10vh, 120px) var(--gutter); color: var(--on-dark); }
+.cta__title { font-family: var(--font-display); font-weight: 300; font-size: clamp(2rem, 4.4vw, 3.6rem); line-height: 1.12; letter-spacing: -0.02em; max-width: 18ch; margin-inline: auto; }
+.cta__sub { margin-top: 18px; font-size: 1rem; color: var(--on-dark-soft); }
 .cta__btn {
-  display: inline-flex; align-items: center; gap: 8px; margin-top: var(--space-lg);
-  padding: 14px 28px; background: var(--color-accent-ink); color: var(--color-ink);
-  font-size: var(--text-sm); letter-spacing: 0.02em; border-radius: 999px; white-space: nowrap; line-height: 1;
-  transition: transform var(--dur-fast) var(--ease-out);
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 36px;
+  padding: 16px 34px; background: var(--on-dark); color: var(--ink);
+  font-size: 0.9375rem; letter-spacing: 0.03em; border-radius: 999px; white-space: nowrap; line-height: 1;
+  transition: transform .2s var(--ease);
 }
 .cta__btn:hover { transform: translateY(-2px); }
 
-/* ── FOOTER · Ft6 Letter close ── */
-.foot { padding: clamp(56px, 9vh, 100px) var(--page-gutter) var(--space-2xl); max-width: 60ch; margin-inline: auto; }
-.foot__close { font-family: var(--font-display); font-style: italic; font-size: var(--text-lg); line-height: 1.5; color: var(--color-ink); }
+/* ── FOOTER ── */
+.foot { max-width: 60ch; margin-inline: auto; padding: clamp(64px, 10vh, 120px) var(--gutter) clamp(48px, 8vh, 80px); }
+.foot__close { font-family: var(--font-display); font-style: italic; font-size: 1.5rem; line-height: 1.5; color: var(--ink); }
 .foot__sign { font-style: normal; font-weight: 500; }
-.foot__ps { margin-top: var(--space-md); font-size: var(--text-sm); color: var(--color-muted); line-height: 1.7; }
-.foot__ps a { border-bottom: 1px solid var(--color-rule); }
-.foot__ps a:hover { border-color: var(--color-ink); }
+.foot__ps { margin-top: 28px; font-size: 0.9375rem; color: var(--muted); line-height: 1.75; }
+.foot__ps a { border-bottom: 1px solid var(--rule); }
+.foot__ps a:hover { border-color: var(--ink); }
 .foot__meta {
-  margin-top: var(--space-xl); padding-top: var(--space-md); border-top: 1px solid var(--color-rule);
-  display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--space-sm);
-  font-size: var(--text-xs); letter-spacing: 0.04em; color: var(--color-soft);
+  margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--rule);
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  font-size: 0.75rem; letter-spacing: 0.06em; color: var(--soft);
 }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: 0.001ms !important; }
-  .tile:hover .tile__media img { transform: none; }
+  .band__cell:hover .band__img { transform: none; }
   html { scroll-behavior: auto; }
 }
 
-@media (max-width: 600px) {
-  .hero { height: 70svh; }
-  .facts__row { grid-template-columns: 1fr; gap: 4px; }
-  /* grid stays 2-col on mobile — softervolumes keeps the dense pair; tiles shrink */
-  .tile__cap { padding: var(--space-2xs) var(--space-sm) var(--space-md); flex-direction: column; gap: 2px; }
-  .tile__meta { white-space: normal; }
+@media (max-width: 680px) {
+  .hero { height: 78svh; }
+  .band--duo { grid-template-columns: 1fr; }
+  .band--duo .band__img { height: clamp(360px, 56svh, 560px); }
+  .facts__row { grid-template-columns: 1fr; gap: 6px; }
 }
 </style>
 </head>
 <body>
 
-<!-- ── NAV · N9 ── -->
+<!-- ── NAV ── -->
 <header class="nav" role="banner">
   <a class="nav__mark" href="#top">물결재 <sup>MULGYEOL</sup></a>
   <a class="nav__cta" href="#reserve">예약 문의 →</a>
 </header>
 
-<!-- ── HERO — single full-bleed ── -->
+<!-- ── HERO ── -->
 <section class="hero" id="top">
   <img class="hero__img"
-       src="https://images.unsplash.com/photo-1779561594199-f54f3bbbd4df?w=2400&q=72&auto=format&fit=crop"
-       alt="야자수와 맑은 바닷물이 보이는 해변의 펜션 전경"
-       fetchpriority="high" decoding="async" width="2400" height="1500">
-  <p class="hero__cap"><b>물결재</b>East Sea · 바다 곁에서 머무는 하루</p>
+       src="https://images.unsplash.com/photo-1779561594199-f54f3bbbd4df?w=2800&q=82&auto=format&fit=crop"
+       alt="야자수 숲과 에메랄드빛 바다가 내려다보이는 해변"
+       fetchpriority="high" decoding="async" width="2800" height="1575">
+  <div class="hero__veil" aria-hidden="true"></div>
+  <div class="hero__cap">
+    <h1 class="hero__name">물결재</h1>
+    <p class="hero__tag">바다 곁에서 머무는 하루.</p>
+  </div>
+  <p class="hero__meta">East Sea · Korea</p>
 </section>
 
-<!-- ── INTRO — short, tight ── -->
+<!-- ── INTRO ── -->
 <section class="intro">
-  <p class="intro__tag">From the owner</p>
+  <p class="intro__kicker">From the owner</p>
   <p class="intro__line">객실은 네 곳뿐입니다. 많은 손님을 받기보다, 한 분이 바다를 온전히 누리시길 바랐습니다. 모든 창은 수평선을 향해 나 있습니다.</p>
-  <p class="intro__sign">— 물결재 지기 드림</p>
+  <p class="intro__sign en-it">— 물결재 지기 드림</p>
 </section>
 
-<!-- ── TIGHT GRID — gap 2px, 2-col portrait ── -->
-<section class="grid" aria-label="공간">
-
-  <figure class="tile">
-    <div class="tile__media"><img src="https://images.unsplash.com/photo-1680555324397-4e78bee184fe?w=1000&q=68&auto=format&fit=crop" alt="수평선이 보이는 객실" loading="lazy" decoding="async" width="1000" height="1333"></div>
-    <figcaption class="tile__cap"><span class="tile__name">No. 01 · 수평선 객실</span><span class="tile__meta">2인 · 오션뷰</span></figcaption>
+<!-- ── 객실 — wide full band ── -->
+<section class="band band--full">
+  <figure class="band__cell">
+    <img class="band__img"
+         src="https://images.unsplash.com/photo-1609602126247-4ab7188b4aa1?w=2400&q=82&auto=format&fit=crop"
+         alt="바다로 활짝 열린 객실과 데크" loading="lazy" decoding="async" width="2400" height="1350">
+    <figcaption class="cap"><b>No. 01 · 수평선 스위트</b>바다로 열리는 프라이빗 데크</figcaption>
   </figure>
-
-  <figure class="tile">
-    <div class="tile__media"><img src="https://images.unsplash.com/photo-1722719448637-8a13bad401ff?w=1000&q=68&auto=format&fit=crop" alt="노을이 드는 테라스" loading="lazy" decoding="async" width="1000" height="1333"></div>
-    <figcaption class="tile__cap"><span class="tile__name">테라스 · 해 질 무렵</span><span class="tile__meta">전 객실</span></figcaption>
-  </figure>
-
-  <figure class="tile tile--wide">
-    <div class="tile__media"><img src="https://images.unsplash.com/photo-1772286090747-537be4e2eb84?w=2000&q=70&auto=format&fit=crop" alt="펜션 앞 해변 전경" loading="lazy" decoding="async" width="2000" height="1125"></div>
-    <figcaption class="tile__cap"><span class="tile__name">도보 2분, 발 끝의 바다</span><span class="tile__meta">Private beach</span></figcaption>
-  </figure>
-
-  <figure class="tile">
-    <div class="tile__media"><img src="https://images.unsplash.com/photo-1765639729115-0d0e9216705e?w=1000&q=68&auto=format&fit=crop" alt="다락 객실" loading="lazy" decoding="async" width="1000" height="1333"></div>
-    <figcaption class="tile__cap"><span class="tile__name">No. 02 · 다락 객실</span><span class="tile__meta">2~3인 · 등대뷰</span></figcaption>
-  </figure>
-
-  <figure class="tile">
-    <div class="tile__media"><img src="https://images.unsplash.com/photo-1656716870747-acd9a2709983?w=1000&q=68&auto=format&fit=crop" alt="아침 식사 공간" loading="lazy" decoding="async" width="1000" height="1333"></div>
-    <figcaption class="tile__cap"><span class="tile__name">조식 · 제철의 아침</span><span class="tile__meta">예약 시</span></figcaption>
-  </figure>
-
-  <figure class="tile">
-    <div class="tile__media"><img src="https://images.unsplash.com/photo-1763238638501-26e12ba0fc74?w=1000&q=68&auto=format&fit=crop" alt="객실 디테일" loading="lazy" decoding="async" width="1000" height="1333"></div>
-    <figcaption class="tile__cap"><span class="tile__name">고요한 욕실</span><span class="tile__meta">전 객실</span></figcaption>
-  </figure>
-
-  <figure class="tile">
-    <div class="tile__media"><img src="https://images.unsplash.com/photo-1774355620749-ec0df0d560a8?w=1000&q=68&auto=format&fit=crop" alt="마당과 풍경" loading="lazy" decoding="async" width="1000" height="1333"></div>
-    <figcaption class="tile__cap"><span class="tile__name">바다로 열린 마당</span><span class="tile__meta">공용</span></figcaption>
-  </figure>
-
-  <figure class="tile tile--wide">
-    <div class="tile__media"><img src="https://images.unsplash.com/photo-1777994404844-a7da5d98a58d?w=2000&q=70&auto=format&fit=crop" alt="보트와 산이 있는 항구 마을" loading="lazy" decoding="async" width="2000" height="1125"></div>
-    <figcaption class="tile__cap"><span class="tile__name">동네 한 바퀴 · 작은 항구 마을</span><span class="tile__meta">차로 8분</span></figcaption>
-  </figure>
-
 </section>
 
-<!-- ── FACTS — tight ── -->
+<!-- ── 객실 디테일 — duo ── -->
+<section class="band band--duo">
+  <figure class="band__cell">
+    <img class="band__img"
+         src="https://images.unsplash.com/photo-1776876648949-63ccabf63b10?w=1400&q=82&auto=format&fit=crop"
+         alt="발코니 너머 바다가 보이는 우아한 객실" loading="lazy" decoding="async" width="1400" height="1750">
+    <figcaption class="cap"><b>No. 02 · 발코니 룸</b>아침의 첫 햇살</figcaption>
+  </figure>
+  <figure class="band__cell">
+    <img class="band__img"
+         src="https://images.unsplash.com/photo-1775566081059-6e35805e4edd?w=1400&q=82&auto=format&fit=crop"
+         alt="바다를 마주한 창가의 테이블과 의자" loading="lazy" decoding="async" width="1400" height="1750">
+    <figcaption class="cap"><b>라운지</b>창가에서 보내는 오후</figcaption>
+  </figure>
+</section>
+
+<!-- ── 디테일 + 객실 — duo ── -->
+<section class="band band--duo">
+  <figure class="band__cell">
+    <img class="band__img"
+         src="https://images.unsplash.com/photo-1668277155881-9d3bccb1683a?w=1400&q=82&auto=format&fit=crop"
+         alt="큰 창으로 노을이 드는 침실" loading="lazy" decoding="async" width="1400" height="1750">
+    <figcaption class="cap"><b>No. 03 · 다락 스위트</b>해 질 무렵, 등대가 보이는 방</figcaption>
+  </figure>
+  <figure class="band__cell">
+    <img class="band__img"
+         src="https://images.unsplash.com/photo-1708920326697-b219695c89ba?w=1400&q=82&auto=format&fit=crop"
+         alt="얇은 커튼 너머 푸른 바다" loading="lazy" decoding="async" width="1400" height="1750">
+    <figcaption class="cap"><b>고요</b>커튼 사이로 드는 바다</figcaption>
+  </figure>
+</section>
+
+<!-- ── FACTS ── -->
 <section class="facts">
   <h2 class="facts__head">머무는 동안 필요한 것들.</h2>
   <div class="facts__row"><span class="facts__term">Stay</span><span class="facts__def">객실 4실 · 최대 2~4인 · 전 객실 오션뷰 · 입실 15시 / 퇴실 11시</span></div>
@@ -252,9 +257,11 @@ h1, h2, h3 { margin: 0; overflow-wrap: anywhere; min-width: 0; }
   <div class="facts__row"><span class="facts__term">Around</span><span class="facts__def">도보 2분 해변 · 차로 8분 수산시장 · 차로 15분 등대 산책로</span></div>
 </section>
 
-<!-- ── CTA ── -->
+<!-- ── CTA — 노을 ── -->
 <section class="cta" id="reserve">
-  <img class="cta__img" src="https://images.unsplash.com/photo-1763236606481-5ec2b74b46f7?w=2200&q=70&auto=format&fit=crop" alt="" aria-hidden="true" loading="lazy" decoding="async" width="2200" height="1238">
+  <img class="cta__img"
+       src="https://images.unsplash.com/photo-1774423864869-702b21c2490a?w=2600&q=82&auto=format&fit=crop"
+       alt="" aria-hidden="true" loading="lazy" decoding="async" width="2600" height="1463">
   <div class="cta__veil" aria-hidden="true"></div>
   <div class="cta__inner">
     <h2 class="cta__title">올여름, 바다가 가장 가까운 방을 비워두었습니다.</h2>
@@ -263,7 +270,7 @@ h1, h2, h3 { margin: 0; overflow-wrap: anywhere; min-width: 0; }
   </div>
 </section>
 
-<!-- ── FOOTER · Ft6 ── -->
+<!-- ── FOOTER ── -->
 <footer class="foot">
   <p class="foot__close en-it">오시는 길에 마음도 함께 가벼워지시길.<br><span class="foot__sign">— 물결재 지기 드림.</span></p>
   <p class="foot__ps">P.S. — 궁금한 점은 언제든 <a href="mailto:stay@mulgyeoljae.kr">stay@mulgyeoljae.kr</a> 로. 반려동물 동반·장기 투숙 문의도 환영합니다.</p>
