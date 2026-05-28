@@ -3,278 +3,273 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>나기사 渚 — 바다 곁, 다다미 위의 하루</title>
+<title>渚 나기사 — Seaside Ryokan</title>
 
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&display=swap">
 
 <style>
 :root {
-  --paper:      #F6F2EC;
-  --paper-2:    #EEE8DE;
-  --rule:       #DDD4C6;
-  --ink:        #211E19;
-  --muted:      #6B6358;
-  --soft:       #968C7E;
-  --on-dark:    #FBF8F2;
-  --on-dark-soft: rgba(251, 248, 242, 0.82);
-  --accent:     #8A7449;          /* muted gold — labels/links */
-  --veil:       rgba(28, 24, 18, 0.42);
-  --cap-shadow: rgba(20, 16, 10, 0.5);
+  --paper:   #FBFAF7;
+  --ink:     #1A1815;
+  --line:    #E4DFD6;
+  --muted:   #8A8275;
+  --on-img:  #FFFFFF;
+  --veil:    rgba(26, 22, 16, 0.18);
 
-  --font-display: 'Fraunces', 'Pretendard', ui-serif, Georgia, serif;
-  --font-body:    'Pretendard', -apple-system, 'Apple SD Gothic Neo', sans-serif;
-
-  --gutter:   clamp(20px, 5vw, 72px);
-  --nav-h:    68px;
-  --ease:     cubic-bezier(0.22, 0.61, 0.36, 1);
+  --font: 'Pretendard', -apple-system, 'Apple SD Gothic Neo', "Helvetica Neue", Arial, sans-serif;
+  --gutter: clamp(16px, 3vw, 40px);
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-* , *::before, *::after { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: border-box; }
 html, body { overflow-x: clip; }
 html { font-size: 16px; scroll-behavior: smooth; }
 body {
   margin: 0;
-  font-family: var(--font-body);
+  font-family: var(--font);
   background: var(--paper);
   color: var(--ink);
-  line-height: 1.7;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  /* 균일·작은 타이포 — softervolumes 톤 */
+  font-size: 14px;
+  letter-spacing: 0.01em;
 }
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 p { margin: 0; }
-h1, h2, h3 { margin: 0; overflow-wrap: anywhere; min-width: 0; }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+h1, h2, h3 { margin: 0; font-weight: 500; overflow-wrap: anywhere; min-width: 0; }
+:focus-visible { outline: 1.5px solid var(--ink); outline-offset: 2px; }
 
-.en    { font-family: var(--font-display); font-weight: 400; letter-spacing: 0.01em; }
-.en-it { font-family: var(--font-display); font-style: italic; font-weight: 400; }
+/* ── 프로모 바 ── */
+.promo {
+  text-align: center;
+  font-size: 12px; letter-spacing: 0.04em;
+  padding: 9px var(--gutter);
+  background: var(--ink); color: var(--paper);
+}
+.promo a { text-decoration: underline; text-underline-offset: 2px; }
 
-/* ── NAV ── */
+/* ── NAV — small, uniform ── */
 .nav {
   position: sticky; top: 0; z-index: 50;
   display: flex; align-items: center; justify-content: space-between;
-  height: var(--nav-h);
-  padding: 0 var(--gutter);
-  background: color-mix(in srgb, var(--paper) 88%, transparent);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--rule);
+  padding: 14px var(--gutter);
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
 }
-.nav__mark { font-family: var(--font-display); font-weight: 500; font-size: 1.25rem; letter-spacing: 0.02em; white-space: nowrap; }
-.nav__mark sup { font-size: 0.5em; font-weight: 400; letter-spacing: 0.18em; color: var(--muted); }
-.nav__cta {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: 0.8125rem; letter-spacing: 0.06em;
-  padding: 10px 18px; border: 1px solid var(--ink); border-radius: 999px;
-  white-space: nowrap; line-height: 1;
-  transition: background-color .2s var(--ease), color .2s var(--ease);
-}
-.nav__cta:hover { background: var(--ink); color: var(--paper); }
+.nav__mark { font-weight: 600; letter-spacing: 0.06em; white-space: nowrap; }
+.nav__links { display: flex; gap: clamp(14px, 2.4vw, 30px); }
+.nav__links a { color: var(--muted); white-space: nowrap; transition: color .15s var(--ease); }
+.nav__links a:hover { color: var(--ink); }
+.nav__cta { font-weight: 600; white-space: nowrap; }
+@media (max-width: 640px) { .nav__links { display: none; } }
 
-/* ── HERO ── */
-.hero { position: relative; width: 100%; height: 90svh; min-height: 480px; overflow: hidden; }
-.hero__img { width: 100%; height: 100%; object-fit: cover; }
-.hero__veil { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,16,10,0.10) 0%, transparent 32%, transparent 64%, rgba(20,16,10,0.34) 100%); }
-.hero__cap {
-  position: absolute; left: var(--gutter); bottom: clamp(36px, 7vh, 72px);
-  color: var(--on-dark);
-  text-shadow: 0 1px 18px var(--cap-shadow);
+/* ── HERO — image dominant, tiny caption (no big headline) ── */
+.hero { position: relative; width: 100%; height: 78svh; min-height: 420px; overflow: hidden; }
+.hero img { width: 100%; height: 100%; object-fit: cover; }
+.hero__bar {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 16px;
+  padding: var(--gutter);
+  background: linear-gradient(180deg, transparent, var(--veil));
+  color: var(--on-img);
 }
-.hero__name { font-family: var(--font-display); font-weight: 400; font-size: clamp(2.75rem, 7vw, 5.5rem); line-height: 1.0; letter-spacing: -0.01em; }
-.hero__tag  { margin-top: 14px; font-family: var(--font-display); font-style: italic; font-size: clamp(1rem, 2vw, 1.4rem); letter-spacing: 0.02em; }
-.hero__meta { position: absolute; right: var(--gutter); bottom: clamp(36px, 7vh, 72px); color: var(--on-dark); font-family: var(--font-display); font-size: 0.8125rem; letter-spacing: 0.14em; text-transform: uppercase; text-shadow: 0 1px 18px var(--cap-shadow); }
+.hero__label { font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; }
+.hero__where { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.9; }
 
-/* ── INTRO ── */
-.intro {
-  max-width: 760px; margin-inline: auto;
-  padding: clamp(64px, 12vh, 140px) var(--gutter);
-  text-align: center;
+/* ── SECTION head — tiny label row, no big heading, no centered paragraph ── */
+.sec { padding: clamp(40px, 6vw, 72px) var(--gutter) 0; }
+.sec__head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--line);
 }
-.intro__kicker { font-family: var(--font-display); font-size: 0.8125rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
-.intro__line {
-  margin-top: 28px;
-  font-weight: 300; font-size: clamp(1.5rem, 3vw, 2.4rem);
-  line-height: 1.5; letter-spacing: -0.015em; color: var(--ink);
-}
-.intro__sign { margin-top: 28px; font-family: var(--font-display); font-style: italic; font-size: 1.15rem; color: var(--muted); }
+.sec__title { font-size: 14px; font-weight: 600; letter-spacing: 0.06em; }
+.sec__title .jp { color: var(--muted); margin-right: 8px; font-weight: 500; }
+.sec__note { font-size: 12px; color: var(--muted); letter-spacing: 0.04em; }
 
-/* ── EDITORIAL IMAGE BANDS — large, high-res, tight rhythm ── */
-.band { width: 100%; }
-.band__img { width: 100%; height: clamp(420px, 78svh, 880px); object-fit: cover; }
-.band--duo {
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; background: var(--rule);
+/* ── PRODUCT-STYLE CARD GRID (rooms) ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(8px, 1.4vw, 18px) clamp(8px, 1.2vw, 14px);
+  padding-top: clamp(18px, 2.5vw, 28px);
 }
-.band--duo .band__cell { position: relative; overflow: hidden; }
-.band--duo .band__img { height: clamp(380px, 64svh, 720px); }
-.cap {
-  position: absolute; left: 22px; bottom: 22px;
-  color: var(--on-dark);
-  font-family: var(--font-display);
-  font-size: 0.875rem; letter-spacing: 0.06em;
-  text-shadow: 0 1px 14px var(--cap-shadow);
+.card { display: flex; flex-direction: column; }
+.card__media { aspect-ratio: 3 / 4; overflow: hidden; background: var(--line); }
+.card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s var(--ease); }
+.card:hover .card__media img { transform: scale(1.03); }
+.card__row {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
+  padding-top: 10px;
 }
-.cap b { display: block; font-weight: 400; font-size: 1.0625rem; margin-bottom: 3px; letter-spacing: 0.01em; }
-.band__cell { position: relative; }
+.card__name { font-size: 13px; font-weight: 500; }
+.card__name .jp { color: var(--muted); margin-right: 6px; }
+.card__price { font-size: 12px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.card__sub { font-size: 11.5px; color: var(--muted); padding-top: 3px; letter-spacing: 0.02em; }
 
-/* hover — slow scale on figure */
-.band__cell .band__img, .band--full .band__img { transition: transform 1s var(--ease); }
-.band__cell:hover .band__img { transform: scale(1.025); }
-
-/* ── FACTS ── */
-.facts { max-width: 900px; margin-inline: auto; padding: clamp(72px, 12vh, 150px) var(--gutter); }
-.facts__head { font-weight: 300; font-size: clamp(1.75rem, 3vw, 2.6rem); letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 40px; }
-.facts__row {
-  display: grid; grid-template-columns: minmax(0, 0.3fr) minmax(0, 1fr); gap: clamp(16px, 4vw, 56px);
-  padding: 22px 0; border-top: 1px solid var(--rule); align-items: baseline;
+/* ── WIDE pair (onsen / dining) — bigger image cells, same tiny labels ── */
+.duo {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(8px, 1.2vw, 14px);
+  padding-top: clamp(18px, 2.5vw, 28px);
 }
-.facts__row:last-child { border-bottom: 1px solid var(--rule); }
-.facts__term { font-family: var(--font-display); font-size: 0.8125rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
-.facts__def { font-size: 1.0625rem; color: var(--ink); line-height: 1.6; }
+.duo .card__media { aspect-ratio: 4 / 3; }
 
-/* ── CTA ── */
-.cta { position: relative; min-height: 76svh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
-.cta__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.cta__veil { position: absolute; inset: 0; background: var(--veil); }
-.cta__inner { position: relative; padding: clamp(56px, 10vh, 120px) var(--gutter); color: var(--on-dark); }
-.cta__title { font-family: var(--font-display); font-weight: 300; font-size: clamp(2rem, 4.4vw, 3.6rem); line-height: 1.12; letter-spacing: -0.02em; max-width: 18ch; margin-inline: auto; }
-.cta__sub { margin-top: 18px; font-size: 1rem; color: var(--on-dark-soft); }
-.cta__btn {
-  display: inline-flex; align-items: center; gap: 8px; margin-top: 36px;
-  padding: 16px 34px; background: var(--on-dark); color: var(--ink);
-  font-size: 0.9375rem; letter-spacing: 0.03em; border-radius: 999px; white-space: nowrap; line-height: 1;
-  transition: transform .2s var(--ease);
+/* ── INFO — compact uniform rows (NOT a big centered text block) ── */
+.info { padding: clamp(40px, 6vw, 72px) var(--gutter); }
+.info__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(16px, 3vw, 40px); border-top: 1px solid var(--line); padding-top: 22px; }
+.info__col h3 { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.info__col p { font-size: 13px; line-height: 1.65; }
+.info__col .jp { color: var(--muted); }
+@media (max-width: 760px) { .info__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; } }
+
+/* ── FOOTER — softervolumes-style: newsletter + small link columns ── */
+.foot { padding: clamp(40px, 6vw, 72px) var(--gutter) 28px; border-top: 1px solid var(--line); }
+.foot__top { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: clamp(20px, 4vw, 56px); }
+.foot__news h3 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+.foot__news p { font-size: 12.5px; color: var(--muted); margin-bottom: 14px; max-width: 36ch; }
+.foot__form { display: flex; max-width: 360px; border-bottom: 1px solid var(--ink); }
+.foot__form input { flex: 1; border: 0; background: transparent; padding: 8px 2px; font: inherit; font-size: 13px; color: var(--ink); }
+.foot__form input::placeholder { color: var(--muted); }
+.foot__form button { border: 0; background: transparent; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; padding: 8px 4px; }
+.foot__col h4 { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.foot__col a { display: block; font-size: 13px; padding: 4px 0; color: var(--ink); }
+.foot__col a:hover { color: var(--muted); }
+.foot__base { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-top: clamp(28px, 5vw, 56px); padding-top: 16px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--muted); letter-spacing: 0.04em; }
+@media (max-width: 760px) { .foot__top { grid-template-columns: 1fr; gap: 28px; } }
+
+@media (max-width: 900px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) {
+  .hero { height: 64svh; }
+  .duo { grid-template-columns: 1fr; }
 }
-.cta__btn:hover { transform: translateY(-2px); }
-
-/* ── FOOTER ── */
-.foot { max-width: 60ch; margin-inline: auto; padding: clamp(64px, 10vh, 120px) var(--gutter) clamp(48px, 8vh, 80px); }
-.foot__close { font-family: var(--font-display); font-style: italic; font-size: 1.5rem; line-height: 1.5; color: var(--ink); }
-.foot__sign { font-style: normal; font-weight: 500; }
-.foot__ps { margin-top: 28px; font-size: 0.9375rem; color: var(--muted); line-height: 1.75; }
-.foot__ps a { border-bottom: 1px solid var(--rule); }
-.foot__ps a:hover { border-color: var(--ink); }
-.foot__meta {
-  margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--rule);
-  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
-  font-size: 0.75rem; letter-spacing: 0.06em; color: var(--soft);
-}
-
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: 0.001ms !important; }
-  .band__cell:hover .band__img { transform: none; }
   html { scroll-behavior: auto; }
-}
-
-@media (max-width: 680px) {
-  .hero { height: 78svh; }
-  .band--duo { grid-template-columns: 1fr; }
-  .band--duo .band__img { height: clamp(360px, 56svh, 560px); }
-  .facts__row { grid-template-columns: 1fr; gap: 6px; }
 }
 </style>
 </head>
 <body>
 
-<!-- ── NAV ── -->
+<!-- 프로모 -->
+<div class="promo">新規 · 바다를 바라보는 노천온천 개장 — <a href="#onsen">海の湯 보기</a></div>
+
+<!-- NAV -->
 <header class="nav" role="banner">
-  <a class="nav__mark" href="#top">渚 나기사 <sup>NAGISA</sup></a>
-  <a class="nav__cta" href="#reserve">예약 문의 →</a>
+  <a class="nav__mark" href="#top">渚 나기사</a>
+  <nav class="nav__links" aria-label="주요">
+    <a href="#rooms">客室 Rooms</a>
+    <a href="#onsen">温泉 Onsen</a>
+    <a href="#info">案内 Info</a>
+  </nav>
+  <a class="nav__cta" href="#reserve">予約 →</a>
 </header>
 
-<!-- ── HERO ── -->
+<!-- HERO — image, tiny caption only -->
 <section class="hero" id="top">
-  <img class="hero__img"
-       src="https://images.unsplash.com/photo-1764209576556-4c02747e1b60?w=2800&q=82&auto=format&fit=crop"
-       alt="후지산이 보이는 일본 해안 마을의 바다"
-       fetchpriority="high" decoding="async" width="2800" height="1866">
-  <div class="hero__veil" aria-hidden="true"></div>
-  <div class="hero__cap">
-    <h1 class="hero__name">渚 나기사</h1>
-    <p class="hero__tag">바다 곁, 다다미 위의 하루.</p>
-  </div>
-  <p class="hero__meta">Seaside Ryokan · Japan</p>
-</section>
-
-<!-- ── INTRO ── -->
-<section class="intro">
-  <p class="intro__kicker">主人より · From the owner</p>
-  <p class="intro__line">객실은 네 칸뿐입니다. 다다미에 앉아 파도 소리를 듣는 시간을, 한 분께 온전히 내어드립니다. 모든 방의 쇼지 너머에는 정원과 바다가 있습니다.</p>
-  <p class="intro__sign en-it">— 나기사 주인 드림</p>
-</section>
-
-<!-- ── 다다미 객실 — wide full band ── -->
-<section class="band band--full">
-  <figure class="band__cell">
-    <img class="band__img"
-         src="https://images.unsplash.com/photo-1496113329550-ce8886d06d54?w=2400&q=82&auto=format&fit=crop"
-         alt="다다미가 깔린 큰 방과 쇼지 창" loading="lazy" decoding="async" width="2400" height="1600">
-    <figcaption class="cap"><b>一の間 · 다다미 큰 객실</b>쇼지 너머로 드는 아침 빛</figcaption>
-  </figure>
-</section>
-
-<!-- ── 객실 디테일 — duo ── -->
-<section class="band band--duo">
-  <figure class="band__cell">
-    <img class="band__img"
-         src="https://images.unsplash.com/photo-1614301246509-d1fc7d78b6b6?w=1400&q=82&auto=format&fit=crop"
-         alt="낮은 좌식 테이블이 놓인 다다미 다실" loading="lazy" decoding="async" width="1400" height="1750">
-    <figcaption class="cap"><b>茶の間 · 좌식 다실</b>낮은 자리에서의 차 한 잔</figcaption>
-  </figure>
-  <figure class="band__cell">
-    <img class="band__img"
-         src="https://images.unsplash.com/photo-1603333201076-4edbe9d24f95?w=1400&q=82&auto=format&fit=crop"
-         alt="정원을 마주한 툇마루와 단풍" loading="lazy" decoding="async" width="1400" height="1750">
-    <figcaption class="cap"><b>縁側 · 엔가와</b>정원을 마주한 툇마루</figcaption>
-  </figure>
-</section>
-
-<!-- ── 객실 + 바다 — duo ── -->
-<section class="band band--duo">
-  <figure class="band__cell">
-    <img class="band__img"
-         src="https://images.unsplash.com/photo-1603504166222-1543890de8ba?w=1400&q=82&auto=format&fit=crop"
-         alt="해 질 무렵 빛이 드는 다다미 객실" loading="lazy" decoding="async" width="1400" height="1750">
-    <figcaption class="cap"><b>夕の間 · 노을 객실</b>해 질 무렵, 산과 바다</figcaption>
-  </figure>
-  <figure class="band__cell">
-    <img class="band__img"
-         src="https://images.unsplash.com/photo-1523684188-42cd612d5bca?w=1400&q=82&auto=format&fit=crop"
-         alt="잔잔한 파도가 닿는 모래밭" loading="lazy" decoding="async" width="1400" height="1750">
-    <figcaption class="cap"><b>渚 · 물가</b>아침의 결</figcaption>
-  </figure>
-</section>
-
-<!-- ── FACTS ── -->
-<section class="facts">
-  <h2 class="facts__head">머무는 동안 필요한 것들.</h2>
-  <div class="facts__row"><span class="facts__term">客室 · Stay</span><span class="facts__def">다다미 객실 4칸 · 최대 2~4인 · 전 객실 정원/바다뷰 · 입실 15시 / 퇴실 11시</span></div>
-  <div class="facts__row"><span class="facts__term">温泉 · Bath</span><span class="facts__def">바다를 바라보는 노천 온천(로텐부로) · 가족 전세탕 · 객실 내 히노키 욕조</span></div>
-  <div class="facts__row"><span class="facts__term">食事 · Meal</span><span class="facts__def">제철 해산물 가이세키 석식 · 다다미에서 차리는 일식 조식</span></div>
-  <div class="facts__row"><span class="facts__term">周辺 · Around</span><span class="facts__def">도보 3분 해변 · 차로 8분 어항(漁港) · 차로 15분 해안 신사</span></div>
-</section>
-
-<!-- ── CTA — 노을 ── -->
-<section class="cta" id="reserve">
-  <img class="cta__img"
-       src="https://images.unsplash.com/photo-1729914942332-c79e8d843027?w=2600&q=82&auto=format&fit=crop"
-       alt="" aria-hidden="true" loading="lazy" decoding="async" width="2600" height="1733">
-  <div class="cta__veil" aria-hidden="true"></div>
-  <div class="cta__inner">
-    <h2 class="cta__title">노을이 드는 시간, 다다미 한 칸을 비워두었습니다.</h2>
-    <p class="cta__sub">날짜를 알려주시면 가능한 객실과 식사를 안내해 드립니다.</p>
-    <a class="cta__btn" href="mailto:stay@nagisa-ryokan.jp">예약 문의하기 →</a>
+  <img src="https://images.unsplash.com/photo-1764209576556-4c02747e1b60?w=2800&q=82&auto=format&fit=crop"
+       alt="후지산이 보이는 일본 해안" fetchpriority="high" decoding="async" width="2800" height="1866">
+  <div class="hero__bar">
+    <span class="hero__label">渚 · 나기사 · Seaside Ryokan</span>
+    <span class="hero__where">East Sea, Japan</span>
   </div>
 </section>
 
-<!-- ── FOOTER ── -->
-<footer class="foot">
-  <p class="foot__close en-it">오시는 길에 마음도 함께 가벼워지시길.<br><span class="foot__sign">— 나기사 주인 드림.</span></p>
-  <p class="foot__ps">P.S. — 궁금한 점은 언제든 <a href="mailto:stay@nagisa-ryokan.jp">stay@nagisa-ryokan.jp</a> 로. 장기 투숙·가이세키 식사 문의도 환영합니다.</p>
-  <div class="foot__meta"><span>渚 나기사 · 일본 해안의 작은 료칸</span><span class="en">© 2026 NAGISA RYOKAN</span></div>
+<!-- 客室 ROOMS — product-style catalog grid -->
+<section class="sec" id="rooms">
+  <div class="sec__head">
+    <h2 class="sec__title"><span class="jp">客室</span>Rooms</h2>
+    <span class="sec__note">전 객실 다다미 · 정원/바다뷰 · 4칸</span>
+  </div>
+  <div class="grid">
+    <article class="card">
+      <a class="card__media" href="#reserve"><img src="https://images.unsplash.com/photo-1496113329550-ce8886d06d54?w=900&q=82&auto=format&fit=crop" alt="다다미 큰 객실과 쇼지" loading="lazy" decoding="async" width="900" height="1200"></a>
+      <div class="card__row"><span class="card__name"><span class="jp">一の間</span>다다미 큰 객실</span><span class="card__price">1泊 ¥48,000~</span></div>
+      <p class="card__sub">8첩 · 2~3인 · 정원뷰</p>
+    </article>
+    <article class="card">
+      <a class="card__media" href="#reserve"><img src="https://images.unsplash.com/photo-1614301246509-d1fc7d78b6b6?w=900&q=82&auto=format&fit=crop" alt="좌식 테이블의 다다미 다실" loading="lazy" decoding="async" width="900" height="1200"></a>
+      <div class="card__row"><span class="card__name"><span class="jp">茶寮</span>좌식 다실</span><span class="card__price">1泊 ¥42,000~</span></div>
+      <p class="card__sub">6첩 · 2인 · 차 세트 포함</p>
+    </article>
+    <article class="card">
+      <a class="card__media" href="#reserve"><img src="https://images.unsplash.com/photo-1603333201076-4edbe9d24f95?w=900&q=82&auto=format&fit=crop" alt="정원을 마주한 툇마루" loading="lazy" decoding="async" width="900" height="1200"></a>
+      <div class="card__row"><span class="card__name"><span class="jp">縁</span>엔가와 객실</span><span class="card__price">1泊 ¥52,000~</span></div>
+      <p class="card__sub">10첩 · 2~4인 · 툇마루</p>
+    </article>
+    <article class="card">
+      <a class="card__media" href="#reserve"><img src="https://images.unsplash.com/photo-1603504166222-1543890de8ba?w=900&q=82&auto=format&fit=crop" alt="해 질 무렵 빛이 드는 객실" loading="lazy" decoding="async" width="900" height="1200"></a>
+      <div class="card__row"><span class="card__name"><span class="jp">夕凪</span>노을 객실</span><span class="card__price">1泊 ¥45,000~</span></div>
+      <p class="card__sub">8첩 · 2인 · 산·바다뷰</p>
+    </article>
+  </div>
+</section>
+
+<!-- 温泉・渚 ONSEN — wide pair -->
+<section class="sec" id="onsen">
+  <div class="sec__head">
+    <h2 class="sec__title"><span class="jp">温泉</span>Onsen &amp; Shore</h2>
+    <span class="sec__note">노천온천 24시 · 전세탕 예약제</span>
+  </div>
+  <div class="duo">
+    <article class="card">
+      <a class="card__media" href="#reserve"><img src="https://images.unsplash.com/photo-1729914942332-c79e8d843027?w=1600&q=82&auto=format&fit=crop" alt="노을 지는 바다" loading="lazy" decoding="async" width="1600" height="1067"></a>
+      <div class="card__row"><span class="card__name"><span class="jp">海の湯</span>바다 노천온천</span><span class="card__price">숙박객 무료</span></div>
+    </article>
+    <article class="card">
+      <a class="card__media" href="#reserve"><img src="https://images.unsplash.com/photo-1523684188-42cd612d5bca?w=1600&q=82&auto=format&fit=crop" alt="잔잔한 파도가 닿는 모래밭" loading="lazy" decoding="async" width="1600" height="1067"></a>
+      <div class="card__row"><span class="card__name"><span class="jp">渚の朝</span>아침 해변 산책</span><span class="card__price">도보 3분</span></div>
+    </article>
+  </div>
+</section>
+
+<!-- 案内 INFO — compact uniform columns (no big paragraph) -->
+<section class="info" id="info">
+  <div class="sec__head">
+    <h2 class="sec__title"><span class="jp">案内</span>Info</h2>
+    <span class="sec__note">渚 · 일본 해안의 작은 료칸</span>
+  </div>
+  <div class="info__grid">
+    <div class="info__col"><h3>滞在 Stay</h3><p>입실 15:00 / 퇴실 11:00<br>다다미 4칸 · 최대 4인</p></div>
+    <div class="info__col"><h3>温泉 Bath</h3><p>바다 노천온천 24시<br>가족 전세탕 · 객실 히노키 욕조</p></div>
+    <div class="info__col"><h3>食事 Meal</h3><p>제철 해산물 가이세키 석식<br>다다미 일식 조식</p></div>
+    <div class="info__col"><h3>交通 Access</h3><p>해변 도보 3분 · 어항 차 8분<br>해안 신사 차 15분</p></div>
+  </div>
+</section>
+
+<!-- FOOTER — newsletter + link columns (softervolumes style) -->
+<footer class="foot" id="reserve">
+  <div class="foot__top">
+    <div class="foot__news">
+      <h3>予約 · 예약 문의</h3>
+      <p>머무실 날짜를 보내주시면 가능한 객실과 식사를 안내해 드립니다.</p>
+      <form class="foot__form" onsubmit="return false;">
+        <input type="email" placeholder="이메일 주소" aria-label="이메일 주소">
+        <button type="submit">문의 →</button>
+      </form>
+    </div>
+    <nav class="foot__col" aria-label="둘러보기">
+      <h4>둘러보기</h4>
+      <a href="#rooms">客室 Rooms</a>
+      <a href="#onsen">温泉 Onsen</a>
+      <a href="#info">案内 Info</a>
+    </nav>
+    <nav class="foot__col" aria-label="안내">
+      <h4>안내</h4>
+      <a href="mailto:stay@nagisa-ryokan.jp">予約 · stay@nagisa-ryokan.jp</a>
+      <a href="#">취소 규정</a>
+      <a href="#">오시는 길</a>
+    </nav>
+  </div>
+  <div class="foot__base">
+    <span>渚 나기사 · 일본 해안의 작은 료칸</span>
+    <span>© 2026 NAGISA RYOKAN</span>
+  </div>
 </footer>
 
 </body>
