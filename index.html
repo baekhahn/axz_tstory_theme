@@ -2330,8 +2330,8 @@ const HEADER_COMPONENT_STYLE = `
   display: flex; align-items: center; justify-content: space-between;
   gap: 40px;
 }
-/* 서랍형 햄버거(fixed 좌상단)와 브랜드 겹침 방지 — 들여쓰기 */
-body.has-drawer .hd-left-inner { padding-left: 72px; }
+/* 서랍형 햄버거(fixed 우상단)와 우측 메뉴 겹침 방지 — 우측 들여쓰기 */
+body.has-drawer .hd-left-inner { padding-right: 72px; }
 .hd-left-brand .hd-brand-title {
   font-size: var(--font-size-xl);
   font-weight: 700;
@@ -2985,15 +2985,15 @@ body.has-right-sidebar > .preview-page > footer { padding-right: 280px; }
 /* ── 변형 ② 서랍형 (열린) ── */
 .sb-drawer {
   position: fixed;
-  top: 0; left: 0;
+  top: 0; right: 0;
   width: 280px;
   height: 100vh;
   overflow-y: auto;
   background: var(--color-surface-page);
-  border-right: 1px solid var(--color-border-default);
+  border-left: 1px solid var(--color-border-default);
   padding: 16px 24px 32px;
   z-index: 20;
-  box-shadow: 4px 0 24px rgba(31, 29, 24, .12);
+  box-shadow: -4px 0 24px rgba(31, 29, 24, .12);
 }
 .sb-drawer-header {
   display: flex; align-items: center; justify-content: space-between;
@@ -3020,7 +3020,7 @@ body.has-right-sidebar > .preview-page > footer { padding-right: 280px; }
 .sb-drawer-close:hover { color: var(--color-text-heading); }
 .sb-drawer-dim {
   position: fixed;
-  top: 0; bottom: 0; left: 280px; right: 0;
+  top: 0; bottom: 0; left: 0; right: 280px;
   background: rgba(31, 29, 24, .42);
   z-index: 19;
   pointer-events: none;
@@ -3029,7 +3029,7 @@ body.has-right-sidebar > .preview-page > footer { padding-right: 280px; }
 /* ── 변형 ③ 서랍형 (닫힌) — 햄버거만 ── */
 .sb-hamburger {
   position: fixed;
-  top: 18px; left: 18px;
+  top: 18px; right: 18px;
   z-index: 30;
   width: 40px; height: 40px;
   display: flex; flex-direction: column; justify-content: center; align-items: center;
