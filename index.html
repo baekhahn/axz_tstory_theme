@@ -4994,7 +4994,7 @@ document.addEventListener('change', function(e) {
 // 뒤로/앞으로 이동 — hash 다시 파싱해서 blog · 슬롯 state 재적용 + 패널 재활성
 window.addEventListener('popstate', function() {
   const parsed = parseHash();
-  const blogFromUrl = (parsed.query.blog === 'B') ? 'B' : (parsed.query.blog === 'WC') ? 'WC' : (parsed.query.blog === 'ML') ? 'ML' : 'A';
+  const blogFromUrl = (parsed.query.blog === 'B') ? 'B' : (parsed.query.blog === 'WC') ? 'WC' : (parsed.query.blog === 'ML' && !LITE) ? 'ML' : 'A';
   if (blogFromUrl !== currentBlog) {
     setBlog(blogFromUrl, { silent: true });
   }
@@ -5002,11 +5002,18 @@ window.addEventListener('popstate', function() {
   activatePanel(parsed.panelKey, { silent: true });
 });
 
+// 라이트 모드 — cafe(ML) 옵션 숨김:  index.html?nocafe
+const LITE = /[?&]nocafe\b/.test(location.search);
+if (LITE) {
+  const _mlOpt = document.querySelector('#blog-select option[value="ML"]');
+  if (_mlOpt) _mlOpt.remove();
+}
+
 // 초기 라우팅
 (function init() {
   const parsed = parseHash();
   // 1) Blog 결정 (URL 우선)
-  const blogFromUrl = (parsed.query.blog === 'B') ? 'B' : (parsed.query.blog === 'WC') ? 'WC' : (parsed.query.blog === 'ML') ? 'ML' : 'A';
+  const blogFromUrl = (parsed.query.blog === 'B') ? 'B' : (parsed.query.blog === 'WC') ? 'WC' : (parsed.query.blog === 'ML' && !LITE) ? 'ML' : 'A';
   if (blogFromUrl !== currentBlog) {
     setBlog(blogFromUrl, { silent: true });
   } else {
