@@ -2330,6 +2330,8 @@ const HEADER_COMPONENT_STYLE = `
   display: flex; align-items: center; justify-content: space-between;
   gap: 40px;
 }
+/* 서랍형 햄버거(fixed 좌상단)와 브랜드 겹침 방지 — 들여쓰기 */
+body.has-drawer .hd-left-inner { padding-left: 72px; }
 .hd-left-brand .hd-brand-title {
   font-size: var(--font-size-xl);
   font-weight: 700;
@@ -4625,7 +4627,7 @@ function applySlotsToScreen(panelKey, slotState) {
   let sidebarBodyClass = '';
   if (currentBlog === 'A') {
     sidebarHtml = SIDEBAR_VARIANTS_HTML[sidebarKey] || '';
-    sidebarBodyClass = sidebarKey === 'right-fixed' ? 'has-right-sidebar' : '';
+    sidebarBodyClass = sidebarKey === 'right-fixed' ? 'has-right-sidebar' : (sidebarKey === 'drawer-open' || sidebarKey === 'drawer-closed') ? 'has-drawer' : '';
   }
 
   return wrapDoc(screen.style, screen.body, {
