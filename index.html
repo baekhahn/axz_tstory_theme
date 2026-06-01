@@ -50,6 +50,7 @@
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; height: 100%; }
 body {
+  word-break: keep-all; overflow-wrap: break-word;
   font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
   background: var(--raw-bg-base);
   color: var(--raw-text-pri);
@@ -736,6 +737,7 @@ const BASE_STYLE = `
 *, *::before, *::after { box-sizing: border-box; }
 html { font-size: 16px; }
 body {
+  word-break: keep-all; overflow-wrap: break-word;
   margin: 0; padding: 0;
   font-family: var(--font-body);
   background: var(--color-surface-page);
@@ -3210,6 +3212,7 @@ const BASE_STYLE_B = `
 *, *::before, *::after { box-sizing: border-box; }
 html { font-size: 16px; }
 body {
+  word-break: keep-all; overflow-wrap: break-word;
   margin: 0; padding: 0;
   font-family: var(--font-body);
   background: var(--color-surface-page);
