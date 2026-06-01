@@ -4654,11 +4654,16 @@ function applyComponentPanel(panelKey, slotState) {
   // Blog B: 헤더/푸터 디자인은 B 본연 유지, 본문은 Blog A placeholder-block 으로 통일
   // 각 컴포넌트 패널은 해당 컴포넌트만 보여줌 — 헤더 패널엔 푸터 없음, 푸터 패널엔 헤더 없음.
   if (isBlogB() && cfg.componentSlot === 'header') {
-    // 홈 그대로 — Blog B 홈의 .b-hero 구조에 site-header(absolute) 가 자연 오버레이
+    // 홈 그대로 — .b-hero(이미지+헤드라인+CTA) + site-header(absolute) 오버레이
     const body = `
 <div class="preview-page">
   ${HEADER_HTML_B}
-  <section class="b-hero" style="--hero-img: url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=2200&fit=crop&q=80&auto=format');"></section>
+  <section class="b-hero" style="--hero-img: url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=2200&fit=crop&q=80&auto=format');">
+    <h1 class="b-hero-headline">Find a city that lives between fog and ocean.</h1>
+    <div class="b-hero-cta">
+      <a class="btn-pill" href="#">Explore San Francisco</a>
+    </div>
+  </section>
   <main class="preview-main">
     <div class="placeholder-block">placeholder</div>
   </main>
