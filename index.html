@@ -2588,8 +2588,7 @@ function buildHeaderPreviewBody(variantKey) {
 <div class="preview-page">
   ${HEADER_VARIANTS_HTML[variantKey] || HEADER_VARIANTS_HTML.left}
   <main class="preview-main">
-    <div class="placeholder-block">본문 영역 (검수 대상 외)</div>
-    <div class="placeholder-block">콘텐츠 placeholder</div>
+    <div class="placeholder-block">placeholder</div>
   </main>
 </div>`;
 }
@@ -2758,8 +2757,7 @@ function buildFooterPreviewBody(variantKey) {
   return `
 <div class="preview-page">
   <main class="preview-main">
-    <div class="placeholder-block">본문 영역 (검수 대상 외)</div>
-    <div class="placeholder-block">콘텐츠 placeholder</div>
+    <div class="placeholder-block">placeholder</div>
   </main>
   ${FOOTER_VARIANTS_HTML[variantKey] || FOOTER_VARIANTS_HTML.center}
 </div>`;
@@ -3146,8 +3144,7 @@ function buildSidebarPreviewBody(variantKey) {
 <div class="preview-page">
   <header class="preview-header-min">공간노트</header>
   <main class="preview-main">
-    <div class="placeholder-block">본문 영역 (검수 대상 외)</div>
-    <div class="placeholder-block">콘텐츠 placeholder</div>
+    <div class="placeholder-block">placeholder</div>
   </main>
   <footer class="preview-footer-min">© 공간노트 · Powered by Tistory</footer>
   ${sidebarHtml}
@@ -4663,8 +4660,7 @@ function applyComponentPanel(panelKey, slotState) {
     ${HEADER_HTML_B}
   </section>
   <main class="preview-main">
-    <div class="placeholder-block">본문 영역 (검수 대상 외)</div>
-    <div class="placeholder-block">콘텐츠 placeholder</div>
+    <div class="placeholder-block">placeholder</div>
   </main>
 </div>`;
     return wrapDoc(PREVIEW_PLACEHOLDER_STYLE, body, { suppressChrome: true, baseStyleOverride: BASE_STYLE_B });
@@ -4673,8 +4669,7 @@ function applyComponentPanel(panelKey, slotState) {
     const body = `
 <div class="preview-page">
   <main class="preview-main">
-    <div class="placeholder-block">본문 영역 (검수 대상 외)</div>
-    <div class="placeholder-block">콘텐츠 placeholder</div>
+    <div class="placeholder-block">placeholder</div>
   </main>
   ${FOOTER_HTML_B}
 </div>`;
@@ -4684,8 +4679,7 @@ function applyComponentPanel(panelKey, slotState) {
     const body = `
 <div class="preview-page">
   <main class="preview-main">
-    <div class="placeholder-block">본문 영역 (검수 대상 외)</div>
-    <div class="placeholder-block">콘텐츠 placeholder · Blog B 는 사이드바 미사용</div>
+    <div class="placeholder-block">placeholder · Blog B 는 사이드바 미사용</div>
   </main>
 </div>`;
     return wrapDoc(PREVIEW_PLACEHOLDER_STYLE, body, { suppressChrome: true, baseStyleOverride: BASE_STYLE_B });
