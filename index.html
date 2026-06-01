@@ -2591,7 +2591,6 @@ function buildHeaderPreviewBody(variantKey) {
     <div class="placeholder-block">본문 영역 (검수 대상 외)</div>
     <div class="placeholder-block">콘텐츠 placeholder</div>
   </main>
-  <footer class="preview-footer-min">© 공간노트 · Powered by Tistory</footer>
 </div>`;
 }
 
@@ -2758,7 +2757,6 @@ const FOOTER_VARIANTS_HTML = {
 function buildFooterPreviewBody(variantKey) {
   return `
 <div class="preview-page">
-  <header class="preview-header-min">공간노트</header>
   <main class="preview-main">
     <div class="placeholder-block">본문 영역 (검수 대상 외)</div>
     <div class="placeholder-block">콘텐츠 placeholder</div>
@@ -4622,8 +4620,12 @@ function applySlotsToScreen(panelKey, slotState) {
   const footerKey  = slotState.footer  || defaults.footer  || 'center';
   const sidebarKey = slotState.sidebar || defaults.sidebar || 'right-fixed';
 
-  const headerHtml = ctx.headerVariants[headerKey] || ctx.headerHtmlDefault;
+  let headerHtml = ctx.headerVariants[headerKey] || ctx.headerHtmlDefault;
   const footerHtml = ctx.footerVariants[footerKey] || ctx.footerHtmlDefault;
+  // Blog B 상세 페이지(walking/mission/stories/districts/post)는 hero 가 없으므로 is-light 헤더가 흰 배경에 안 보임 → is-dark 로 전환
+  if (currentBlog === 'B' && /^B:(walking|mission|stories|districts|post)(:|$)/.test(screenKey)) {
+    headerHtml = headerHtml.replace('site-header is-light', 'site-header is-dark');
+  }
 
   // Blog B / Website A 는 사이드바 미사용. Blog A 만 기존 사이드바 주입.
   let sidebarHtml = '';
@@ -4652,9 +4654,9 @@ function applyComponentPanel(panelKey, slotState) {
   const variant = slotState.variant || defaults.variant;
   const ctx = getBlogCtx();
 
-  // Blog B: 헤더/푸터 디자인은 B 본연 유지(hero overlay + minimal footer), 본문은 Blog A placeholder-block 으로 통일
-  if (isBlogB() && (cfg.componentSlot === 'header' || cfg.componentSlot === 'footer' || cfg.componentSlot === 'sidebar')) {
-    const note = cfg.componentSlot === 'sidebar' ? ' · Blog B 는 사이드바 미사용' : '';
+  // Blog B: 헤더/푸터 디자인은 B 본연 유지, 본문은 Blog A placeholder-block 으로 통일
+  // 각 컴포넌트 패널은 해당 컴포넌트만 보여줌 — 헤더 패널엔 푸터 없음, 푸터 패널엔 헤더 없음.
+  if (isBlogB() && cfg.componentSlot === 'header') {
     const body = `
 <div class="preview-page">
   <section style="position:relative;min-height:280px;background:#1E1E1E url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=2000&fit=crop&q=80&auto=format') center/cover;color:#fff;padding:24px clamp(24px,4vw,64px) 80px;display:flex;flex-direction:column;">
@@ -4662,14 +4664,31 @@ function applyComponentPanel(panelKey, slotState) {
   </section>
   <main class="preview-main">
     <div class="placeholder-block">본문 영역 (검수 대상 외)</div>
-    <div class="placeholder-block">콘텐츠 placeholder${note}</div>
+    <div class="placeholder-block">콘텐츠 placeholder</div>
+  </main>
+</div>`;
+    return wrapDoc(PREVIEW_PLACEHOLDER_STYLE, body, { suppressChrome: true, baseStyleOverride: BASE_STYLE_B });
+  }
+  if (isBlogB() && cfg.componentSlot === 'footer') {
+    const body = `
+<div class="preview-page">
+  <main class="preview-main">
+    <div class="placeholder-block">본문 영역 (검수 대상 외)</div>
+    <div class="placeholder-block">콘텐츠 placeholder</div>
   </main>
   ${FOOTER_HTML_B}
 </div>`;
-    return wrapDoc(PREVIEW_PLACEHOLDER_STYLE, body, {
-      suppressChrome: true,
-      baseStyleOverride: BASE_STYLE_B,
-    });
+    return wrapDoc(PREVIEW_PLACEHOLDER_STYLE, body, { suppressChrome: true, baseStyleOverride: BASE_STYLE_B });
+  }
+  if (isBlogB() && cfg.componentSlot === 'sidebar') {
+    const body = `
+<div class="preview-page">
+  <main class="preview-main">
+    <div class="placeholder-block">본문 영역 (검수 대상 외)</div>
+    <div class="placeholder-block">콘텐츠 placeholder · Blog B 는 사이드바 미사용</div>
+  </main>
+</div>`;
+    return wrapDoc(PREVIEW_PLACEHOLDER_STYLE, body, { suppressChrome: true, baseStyleOverride: BASE_STYLE_B });
   }
   if (cfg.componentSlot === 'header') {
     return wrapDoc(PREVIEW_PLACEHOLDER_STYLE, buildHeaderPreviewBody(variant), {
