@@ -4654,9 +4654,10 @@ function applyComponentPanel(panelKey, slotState) {
   // Blog B: 헤더/푸터 디자인은 B 본연 유지, 본문은 Blog A placeholder-block 으로 통일
   // 각 컴포넌트 패널은 해당 컴포넌트만 보여줌 — 헤더 패널엔 푸터 없음, 푸터 패널엔 헤더 없음.
   if (isBlogB() && cfg.componentSlot === 'header') {
+    // 홈 가이드처럼 — 헤더가 슬림 밴드로 hero 상단에 오버레이된 모습만 보여줌
     const body = `
 <div class="preview-page">
-  <section style="position:relative;min-height:280px;background:#1E1E1E url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=2000&fit=crop&q=80&auto=format') center/cover;color:#fff;padding:24px clamp(24px,4vw,64px) 80px;display:flex;flex-direction:column;">
+  <section style="position:relative;min-height:120px;background:#1E1E1E url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=2000&fit=crop&q=80&auto=format') center/cover;color:#fff;">
     ${HEADER_HTML_B}
   </section>
   <main class="preview-main">
