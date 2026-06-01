@@ -4652,6 +4652,25 @@ function applyComponentPanel(panelKey, slotState) {
   const variant = slotState.variant || defaults.variant;
   const ctx = getBlogCtx();
 
+  // Blog B: 헤더/푸터 디자인은 B 본연 유지(hero overlay + minimal footer), 본문은 Blog A placeholder-block 으로 통일
+  if (isBlogB() && (cfg.componentSlot === 'header' || cfg.componentSlot === 'footer' || cfg.componentSlot === 'sidebar')) {
+    const note = cfg.componentSlot === 'sidebar' ? ' · Blog B 는 사이드바 미사용' : '';
+    const body = `
+<div class="preview-page">
+  <section style="position:relative;min-height:280px;background:#1E1E1E url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=2000&fit=crop&q=80&auto=format') center/cover;color:#fff;padding:24px clamp(24px,4vw,64px) 80px;display:flex;flex-direction:column;">
+    ${HEADER_HTML_B}
+  </section>
+  <main class="preview-main">
+    <div class="placeholder-block">본문 영역 (검수 대상 외)</div>
+    <div class="placeholder-block">콘텐츠 placeholder${note}</div>
+  </main>
+  ${FOOTER_HTML_B}
+</div>`;
+    return wrapDoc(PREVIEW_PLACEHOLDER_STYLE, body, {
+      suppressChrome: true,
+      baseStyleOverride: BASE_STYLE_B,
+    });
+  }
   if (cfg.componentSlot === 'header') {
     return wrapDoc(PREVIEW_PLACEHOLDER_STYLE, buildHeaderPreviewBody(variant), {
       suppressChrome: true,
