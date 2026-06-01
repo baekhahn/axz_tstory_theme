@@ -644,7 +644,7 @@ body[data-blog="ML"] .panel.is-blog-wc { display: none !important; }
     <section class="panel is-blog-wc" data-panel="pension-home">
       <header class="panel-header">
         <h2 class="panel-title">Nagi 凪 — Home (원페이지)</h2>
-        <p class="panel-desc">softervolumes 톤 타이트 이미지 그리드 펜션 랜딩. Portfolio Grid · Fraunces+Pretendard · 풀블리드 hero + 2열 그리드(gap 2px).</p>
+        <p class="panel-desc">타이트 이미지 그리드 료칸 원페이지. 풀블리드 hero + 2열 그리드(gap 2px).</p>
         <div class="panel-meta">
           <span class="panel-file">pension_landing.html</span>
         </div>
@@ -658,7 +658,7 @@ body[data-blog="ML"] .panel.is-blog-wc { display: none !important; }
     <section class="panel is-blog-ml" data-panel="cafe-home">
       <header class="panel-header">
         <h2 class="panel-title">Maison Lumière — Home (원페이지)</h2>
-        <p class="panel-desc">Softer Volumes 톤 프렌치 카페 랜딩. Inter+Pretendard · 화이트 베이스 + 웜 베이지 밴드 · 1px 헤어라인 타이트 그리드 메뉴 + 인테리어 갤러리 + 다음지도.</p>
+        <p class="panel-desc">프렌치 카페 원페이지. 화이트 베이스 + 웜 베이지 밴드 · 1px 헤어라인 타이트 그리드 메뉴 + 인테리어 갤러리 + 다음지도.</p>
         <div class="panel-meta">
           <span class="panel-file">maison_lumiere_cafe.html</span>
         </div>
@@ -4653,52 +4653,18 @@ function applyComponentPanel(panelKey, slotState) {
   const ctx = getBlogCtx();
 
   if (cfg.componentSlot === 'header') {
-    if (isBlogB()) {
-      const body = `
-        <section style="position:relative;min-height:520px;background:#1E1E1E url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=2000&fit=crop&q=80&auto=format') center/cover;color:#fff;padding:120px clamp(24px,4vw,64px);display:flex;flex-direction:column;justify-content:flex-end;">
-          ${HEADER_HTML_B}
-          <h1 class="hero-display" style="color:#fff;max-width:900px;">Header — Hero overlay</h1>
-          <p class="caption" style="color:rgba(255,255,255,.75);margin-top:16px;">단독 검수용 placeholder · 본문은 실제 페이지에서 채워집니다.</p>
-        </section>
-      `;
-      return wrapDoc('', body, { suppressChrome: true, baseStyleOverride: BASE_STYLE_B });
-    }
     return wrapDoc(PREVIEW_PLACEHOLDER_STYLE, buildHeaderPreviewBody(variant), {
       suppressChrome: true,
       extraHeaderCss: HEADER_COMPONENT_STYLE,
     });
   }
   if (cfg.componentSlot === 'footer') {
-    if (isBlogB()) {
-      const body = `
-        <section style="padding:120px clamp(24px,4vw,64px);min-height:300px;background:#FFFFFF;color:#1E1E1E;display:flex;align-items:center;">
-          <div>
-            <p class="caption">단독 검수용 placeholder</p>
-            <h1 class="hero-display" style="margin-top:16px;">Footer — minimal</h1>
-          </div>
-        </section>
-        ${FOOTER_HTML_B}
-      `;
-      return wrapDoc('', body, { suppressChrome: true, baseStyleOverride: BASE_STYLE_B });
-    }
     return wrapDoc(PREVIEW_PLACEHOLDER_STYLE, buildFooterPreviewBody(variant), {
       suppressChrome: true,
       extraHeaderCss: FOOTER_COMPONENT_STYLE,
     });
   }
   if (cfg.componentSlot === 'sidebar') {
-    if (isBlogB()) {
-      const body = `
-        <section style="padding:120px clamp(24px,4vw,64px);min-height:60vh;display:flex;align-items:center;justify-content:center;text-align:center;">
-          <div>
-            <p class="caption">Blog B — Sidebar</p>
-            <h1 class="hero-display" style="margin-top:16px;">Not used.</h1>
-            <p class="body-md" style="margin-top:16px;max-width:520px;color:var(--color-text-secondary);">Re-Store 톤은 사이드바 없는 풀폭 캠페인 레이아웃입니다. Blog A 에서 검수하세요.</p>
-          </div>
-        </section>
-      `;
-      return wrapDoc('', body, { suppressChrome: true, baseStyleOverride: BASE_STYLE_B });
-    }
     return wrapDoc(PREVIEW_PLACEHOLDER_STYLE, buildSidebarPreviewBody(variant), {
       suppressChrome: true,
       extraHeaderCss: SIDEBAR_COMPONENT_STYLE,
@@ -4875,11 +4841,11 @@ const PANEL_LABELS = {
     sidebar: { title: '컴포넌트 — 사이드바', desc: '위젯 6종(프로필 · 최근/인기글 · 최근 댓글 · 카테고리 · 방문자 · 태그) 라이브러리. 변형 3종 — 고정영역(디폴트) / 서랍형 열린 / 서랍형 닫힌.' },
   },
   B: {
-    theme:   { title: '전체 테마 — San Francisco', desc: 'Re-Store 톤 캠페인 홈. 풀스크린 hero + 이단 섹션 + District 그리드.' },
+    theme:   { title: '전체 테마 — San Francisco', desc: 'Blog B 캠페인 홈. 풀스크린 hero + 이단 섹션 + District 그리드.' },
     post:    { title: '게시글 상세 — Long-form',   desc: 'SF Field Guide 장문 에세이 포맷. Hero 이미지 + 큰 H1 + 본문 + 풀폭 이미지.' },
     header:  { title: '컴포넌트 — 헤더 (Hero overlay)', desc: '이미지 hero 위에 오버레이되는 흰 텍스트 헤더. Blog B 는 단일 variant 만 사용.' },
     footer:  { title: '컴포넌트 — 푸터 (Minimal)',     desc: '브랜드 마크 + 메뉴 + 메타 한 줄. 다단 그리드 없음.' },
-    sidebar: { title: '컴포넌트 — 사이드바',            desc: 'Re-Store 톤은 사이드바를 쓰지 않습니다. Blog A 에서만 검수.' },
+    sidebar: { title: '컴포넌트 — 사이드바',            desc: 'Blog B 는 사이드바를 쓰지 않습니다. Blog A 에서 검수.' },
     // Blog B 사이트 페이지
     home:      { title: 'Home — San Francisco',  desc: '사이트 홈. 풀스크린 hero + 이단 섹션 + Districts 그리드.' },
     districts: { title: 'Districts — 동네 목록', desc: '6개 동네 카드 그리드. 카테고리 `/category/districts` 매핑.' },
@@ -4888,10 +4854,10 @@ const PANEL_LABELS = {
     walking:   { title: 'On walking the bridge, twice. — 에세이', desc: 'Stories 의 첫 에세이 상세. Hero + 장문 + blockquote + 풀폭 이미지.' },
   },
   WC: {
-    'pension-home': { title: 'Nagi 凪 — Home (원페이지)', desc: '다크 커피 배경 · Aesop 톤. 어두운 료칸 이미지 full-bleed(gap 0) 그리드 + 큰 serif 섹션 타이틀. 객실 카탈로그형 · Fraunces 헤드라인 + Pretendard.' },
+    'pension-home': { title: 'Nagi 凪 — Home (원페이지)', desc: '다크 톤 료칸 원페이지. 어두운 이미지 full-bleed(gap 0) 그리드 + 큰 serif 섹션 타이틀. 객실 카탈로그형.' },
   },
   ML: {
-    'cafe-home': { title: 'Maison Lumière — Home (원페이지)', desc: 'Softer Volumes 톤 프렌치 스페셜티 카페 랜딩. Inter+Pretendard · 화이트 베이스 + 웜 베이지 밴드 · 1px 헤어라인 타이트 그리드 메뉴 + 인테리어 갤러리 + 다음지도.' },
+    'cafe-home': { title: 'Maison Lumière — Home (원페이지)', desc: '프렌치 스페셜티 카페 원페이지. 화이트 베이스 + 웜 베이지 밴드 · 1px 헤어라인 타이트 그리드 메뉴 + 인테리어 갤러리 + 다음지도.' },
   },
 };
 function updatePanelLabels() {
