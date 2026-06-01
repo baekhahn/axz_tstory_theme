@@ -114,7 +114,7 @@ a{color:inherit;text-decoration:none}
 .cap__price{color:var(--sv-text-str);white-space:nowrap}
 
 /* ── 찾아오는 곳 (배경 웜 베이지로 통일) ── */
-.visit{display:grid;grid-template-columns:1.1fr .9fr;background:var(--sv-bg-band)}
+.visit{display:grid;grid-template-columns:1fr 1fr;background:var(--sv-bg-band)}
 .visit__info{padding:48px 26px;display:flex;flex-direction:column;gap:18px;justify-content:center}
 .visit__info h3{margin:0;font-weight:400;font-size:clamp(28px,4vw,44px);line-height:1.05;color:var(--sv-text-str)}
 .visit__row{font-size:15px;line-height:1.6;color:#3a352d}
@@ -128,8 +128,8 @@ a{color:inherit;text-decoration:none}
 .map-wrap .gmap{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;z-index:1;filter:grayscale(1) contrast(1.05)}
 
 /* ── About ── */
-.about{display:grid;grid-template-columns:1fr;border-bottom:1px solid var(--sv-line)}
-@media(min-width:860px){.about{grid-template-columns:1.1fr .9fr}}
+.about{display:grid;grid-template-columns:1fr}
+@media(min-width:860px){.about{grid-template-columns:1fr 1fr}}
 .about__img img{width:100%;height:100%;min-height:340px;object-fit:cover}
 .about__txt{padding:48px 26px;display:flex;flex-direction:column;gap:18px;justify-content:center;max-width:60ch}
 .about__txt h2{margin:0;font-weight:400;font-size:clamp(30px,4.5vw,52px);line-height:1.05;letter-spacing:-.01em}
