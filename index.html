@@ -292,9 +292,9 @@ body[data-blog="ML"] .panel.is-blog-wc { display: none !important; }
       <p class="sidenav-eyebrow">티스토리 테마</p>
       <select class="theme-select" id="blog-select" aria-label="블로그 선택">
         <option value="A">Blog A — 공간노트</option>
-        <option value="B">Blog B — San Francisco</option>
-        <option value="WC">Website — Nagi (료칸)</option>
-        <option value="ML">Website — Maison Lumière (프렌치 카페)</option>
+        <option value="B" hidden>Blog B — San Francisco</option>
+        <option value="WC" hidden>Website — Nagi (료칸)</option>
+        <option value="ML" hidden>Website — Maison Lumière (프렌치 카페)</option>
       </select>
       <p class="sidenav-sub">1차 통합 미리보기</p>
     </div>
@@ -319,14 +319,20 @@ body[data-blog="ML"] .panel.is-blog-wc { display: none !important; }
       <button class="nav-item" data-tab="sidebar">
         <span class="nav-label">사이드바</span>
       </button>
-      <button class="nav-item" disabled>
-        <span class="nav-label">홈 — 게시글 목록</span><span class="nav-tag">TODO</span>
+      <button class="nav-item" data-tab="home-layout-a">
+        <span class="nav-label">홈 레이아웃</span>
       </button>
-      <button class="nav-item" disabled>
-        <span class="nav-label">페이지네이션</span><span class="nav-tag">TODO</span>
+      <button class="nav-item" data-tab="home-a">
+        <span class="nav-label">홈 — 게시글 목록</span>
       </button>
-      <button class="nav-item" disabled>
-        <span class="nav-label">태그 / 방명록</span><span class="nav-tag">TODO</span>
+      <button class="nav-item" data-tab="post-top-a">
+        <span class="nav-label">게시글 — 상단</span>
+      </button>
+      <button class="nav-item" data-tab="pagination-a">
+        <span class="nav-label">페이지네이션</span>
+      </button>
+      <button class="nav-item" data-tab="tag-guest-a">
+        <span class="nav-label">태그 / 방명록</span>
       </button>
     </div>
 
@@ -421,11 +427,14 @@ body[data-blog="ML"] .panel.is-blog-wc { display: none !important; }
           <label class="slot-field">
             <span class="slot-label">레이아웃</span>
             <select class="slot-select" data-panel="theme" data-slot="body">
-              <option value="base">기본 — 카드 리스트</option>
-              <option value="tight1">간격 살짝 타이트</option>
-              <option value="tight">타이트 리스트 · 작은 썸</option>
-              <option value="grid">4 컬럼 · 세로 썸</option>
-              <option value="campaign">캠페인 — 풀폭 알터네이트</option>
+              <option value="tight1">기본 — 블로그홈</option>
+              <option value="tight">게시글 목록 — 작은 썸</option>
+              <option value="tight-big">게시글 목록 — 큰 썸</option>
+              <option value="grid">게시글 목록 — 세로 썸</option>
+              <option value="magazine-1">게시글 목록 — 매거진1</option>
+              <option value="magazine-2">게시글 목록 — 매거진2</option>
+              <option value="pinterest">게시글 목록 — 핀터레스트</option>
+              <option value="campaign">캠페인 — 웹사이트형</option>
             </select>
           </label>
           <label class="slot-field">
@@ -498,6 +507,106 @@ body[data-blog="ML"] .panel.is-blog-wc { display: none !important; }
       </header>
       <div class="frame-wrap">
         <iframe class="preview-frame" id="frame-post" title="게시글 상세"></iframe>
+      </div>
+    </section>
+
+    <!-- 화면 · 홈 레이아웃 (기본 블로그홈 / 캠페인) -->
+    <section class="panel is-blog-a" data-panel="home-layout-a">
+      <header class="panel-header">
+        <h2 class="panel-title">홈 레이아웃</h2>
+        <p class="panel-desc">블로그 홈의 두 가지 레이아웃 (기본 블로그홈 / 캠페인 웹사이트형) 비교.</p>
+        <div class="panel-meta">
+          <span class="panel-file" data-panel-file="home-layout-a"></span>
+        </div>
+        <div class="slot-bar" data-panel="home-layout-a">
+          <label class="slot-field">
+            <span class="slot-label">레이아웃</span>
+            <select class="slot-select" data-panel="home-layout-a" data-slot="layout"></select>
+          </label>
+        </div>
+      </header>
+      <div class="frame-wrap">
+        <iframe class="preview-frame" id="frame-home-layout-a" title="홈 레이아웃"></iframe>
+      </div>
+    </section>
+
+    <!-- 화면 · 홈 (게시글 목록) -->
+    <section class="panel is-blog-a" data-panel="home-a">
+      <header class="panel-header">
+        <h2 class="panel-title">홈 — 게시글 목록</h2>
+        <p class="panel-desc">블로그 홈(게시글 목록) 단독 검수. 게시글 목록 변형만 골라서 비교.</p>
+        <div class="panel-meta">
+          <span class="panel-file" data-panel-file="home-a"></span>
+        </div>
+        <div class="slot-bar" data-panel="home-a">
+          <label class="slot-field">
+            <span class="slot-label">레이아웃</span>
+            <select class="slot-select" data-panel="home-a" data-slot="list-body"></select>
+          </label>
+        </div>
+      </header>
+      <div class="frame-wrap">
+        <iframe class="preview-frame" id="frame-home-a" title="홈 — 게시글 목록"></iframe>
+      </div>
+    </section>
+
+    <!-- 기타 화면 · 태그 / 방명록 -->
+    <section class="panel is-blog-a" data-panel="tag-guest-a">
+      <header class="panel-header">
+        <h2 class="panel-title">태그 / 방명록</h2>
+        <p class="panel-desc">기타 화면 — 태그 클라우드와 방명록(리스트 + 입력 폼) 단독 검수. 헤더/푸터는 placeholder.</p>
+        <div class="panel-meta">
+          <span class="panel-file" data-panel-file="tag-guest-a"></span>
+        </div>
+        <div class="slot-bar" data-panel="tag-guest-a">
+          <label class="slot-field">
+            <span class="slot-label">화면</span>
+            <select class="slot-select" data-panel="tag-guest-a" data-slot="misc"></select>
+          </label>
+        </div>
+      </header>
+      <div class="frame-wrap">
+        <iframe class="preview-frame" id="frame-tag-guest-a" title="태그 / 방명록"></iframe>
+      </div>
+    </section>
+
+    <!-- 게시글 · 상단 (헤더 영역 변형) -->
+    <section class="panel is-blog-a" data-panel="post-top-a">
+      <header class="panel-header">
+        <h2 class="panel-title">게시글 — 상단</h2>
+        <p class="panel-desc">게시글 상세 화면 상단부 변형 검수 — ① 커버 없음 / ② 썸네일 커버 / ③ 단색 fallback 커버. 본문/사이트 헤더·푸터는 placeholder.</p>
+        <div class="panel-meta">
+          <span class="panel-file" data-panel-file="post-top-a"></span>
+        </div>
+        <div class="slot-bar" data-panel="post-top-a">
+          <label class="slot-field">
+            <span class="slot-label">상단 유형</span>
+            <select class="slot-select" data-panel="post-top-a" data-slot="post-top"></select>
+          </label>
+        </div>
+      </header>
+      <div class="frame-wrap">
+        <iframe class="preview-frame" id="frame-post-top-a" title="게시글 — 상단"></iframe>
+      </div>
+    </section>
+
+    <!-- 컴포넌트 · 페이지네이션 단독 -->
+    <section class="panel is-blog-a" data-panel="pagination-a">
+      <header class="panel-header">
+        <h2 class="panel-title">페이지네이션</h2>
+        <p class="panel-desc">페이지네이션 단독 검수. 본문/헤더/푸터는 placeholder. 본문 변형에 따라 .theme-/.theme2-/.theme3-pagination 이 적용됨.</p>
+        <div class="panel-meta">
+          <span class="panel-file" data-panel-file="pagination-a"></span>
+        </div>
+        <div class="slot-bar" data-panel="pagination-a">
+          <label class="slot-field">
+            <span class="slot-label">유형</span>
+            <select class="slot-select" data-panel="pagination-a" data-slot="pagination"></select>
+          </label>
+        </div>
+      </header>
+      <div class="frame-wrap">
+        <iframe class="preview-frame" id="frame-pagination-a" title="페이지네이션"></iframe>
       </div>
     </section>
 
@@ -843,7 +952,7 @@ button { font-family: inherit; cursor: pointer; }
   font-size: 13.5px;
   color: var(--color-text-secondary);
 }
-.footer-col ul li a:hover { color: var(--color-text-heading); }
+.footer-col ul li a:hover { color: var(--color-text-heading); font-weight: 600; }
 .footer-meta {
   max-width: 1280px; margin: 0 auto;
   padding-top: 24px;
@@ -853,7 +962,7 @@ button { font-family: inherit; cursor: pointer; }
   letter-spacing: -.005em;
 }
 .footer-meta a { color: var(--color-text-secondary); }
-.footer-meta a:hover { color: var(--color-text-heading); }
+.footer-meta a:hover { color: var(--color-text-heading); font-weight: 600; }
 @media (max-width: 900px) {
   .site-footer-inner { grid-template-columns: 1fr 1fr; }
 }
@@ -991,6 +1100,8 @@ const THEME_STYLE = `
   color: var(--color-text-heading);
   margin: 0 0 18px;
 }
+.post-row-body h2 a { transition: opacity .15s ease; }
+.post-row-body h2 a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .post-row-body p {
   font-size: 15px;
   color: var(--color-text-secondary);
@@ -999,12 +1110,14 @@ const THEME_STYLE = `
   max-width: 480px;
 }
 .post-meta {
-  display: flex; gap: 14px;
+  display: flex; gap: 3px;
   font-size: 12px;
   color: var(--color-text-subtle);
   letter-spacing: -.005em;
 }
 .post-meta-sep { color: var(--color-border-strong); }
+.post-meta-link { color: inherit; transition: color .15s ease; }
+.post-meta-link:hover { color: var(--color-text-heading); font-weight: 600; }
 
 .theme-pagination {
   max-width: 1280px; margin: 0 auto;
@@ -1017,7 +1130,7 @@ const THEME_STYLE = `
   font-size: 13px; color: var(--color-text-secondary);
   padding: 0 12px;
 }
-.theme-pagination a:hover { color: var(--color-text-heading); }
+.theme-pagination a:hover { color: var(--color-text-heading); font-weight: 600; }
 .theme-pagination .current {
   color: var(--color-text-heading);
   font-weight: 600;
@@ -1105,7 +1218,9 @@ const THEME_BODY = `
       <div class="post-meta">
         <span>2026. 4. 28.</span>
         <span class="post-meta-sep">·</span>
-        <span>by 예은</span>
+        <a href="#" class="post-meta-link">by 예은</a>
+        <span class="post-meta-sep">·</span>
+        <a href="#" class="post-meta-link">댓글 4</a>
       </div>
     </div>
   </article>
@@ -1119,7 +1234,9 @@ const THEME_BODY = `
       <div class="post-meta">
         <span>2026. 4. 14.</span>
         <span class="post-meta-sep">·</span>
-        <span>by 예은</span>
+        <a href="#" class="post-meta-link">by 예은</a>
+        <span class="post-meta-sep">·</span>
+        <a href="#" class="post-meta-link">댓글 2</a>
       </div>
     </div>
   </article>
@@ -1133,7 +1250,9 @@ const THEME_BODY = `
       <div class="post-meta">
         <span>2026. 3. 30.</span>
         <span class="post-meta-sep">·</span>
-        <span>by 예은</span>
+        <a href="#" class="post-meta-link">by 예은</a>
+        <span class="post-meta-sep">·</span>
+        <a href="#" class="post-meta-link">댓글 1</a>
       </div>
     </div>
   </article>
@@ -1147,7 +1266,9 @@ const THEME_BODY = `
       <div class="post-meta">
         <span>2026. 3. 18.</span>
         <span class="post-meta-sep">·</span>
-        <span>by 예은</span>
+        <a href="#" class="post-meta-link">by 예은</a>
+        <span class="post-meta-sep">·</span>
+        <a href="#" class="post-meta-link">댓글 0</a>
       </div>
     </div>
   </article>
@@ -1161,7 +1282,9 @@ const THEME_BODY = `
       <div class="post-meta">
         <span>2026. 3. 5.</span>
         <span class="post-meta-sep">·</span>
-        <span>by 예은</span>
+        <a href="#" class="post-meta-link">by 예은</a>
+        <span class="post-meta-sep">·</span>
+        <a href="#" class="post-meta-link">댓글 3</a>
       </div>
     </div>
   </article>
@@ -1265,9 +1388,11 @@ const THEME_TIGHT_STYLE = `
   color: var(--color-text-subtle);
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
-  display: flex; gap: 10px; align-items: center;
+  display: flex; gap: 3px; align-items: center;
 }
 .post-tight-meta-sep { color: var(--color-border-strong); }
+.post-tight-meta .post-meta-link { color: inherit; transition: color .15s ease; }
+.post-tight-meta .post-meta-link:hover { color: var(--color-text-heading); font-weight: 600; }
 
 .theme2-pagination {
   max-width: 1280px; margin: 0 auto;
@@ -1280,7 +1405,7 @@ const THEME_TIGHT_STYLE = `
   font-size: 12.5px; color: var(--color-text-secondary);
   padding: 0 10px;
 }
-.theme2-pagination a:hover { color: var(--color-text-heading); }
+.theme2-pagination a:hover { color: var(--color-text-heading); font-weight: 600; }
 .theme2-pagination .current {
   color: var(--color-text-heading);
   font-weight: 600;
@@ -1308,6 +1433,21 @@ const THEME_TIGHT_STYLE = `
 </style>
 `;
 
+/* 게시글 목록 — 큰 썸 (tight 와 동일 마크업, 썸네일 크기·여백만 확대) */
+const THEME_TIGHT_BIG_STYLE = THEME_TIGHT_STYLE + `
+<style>
+.post-tight { grid-template-columns: 200px minmax(0, 1fr) auto; gap: 32px; padding: 26px 0; }
+.post-tight-media { width: 200px; height: 150px; }
+.post-tight-body h2 { font-size: 20px; line-height: 1.3; }
+.post-tight-eyebrow { font-size: 12px; margin-bottom: 8px; }
+@media (max-width: 760px) {
+  .post-tight { grid-template-columns: 140px minmax(0, 1fr); gap: 16px; padding: 18px 0; }
+  .post-tight-media { width: 140px; height: 105px; }
+  .post-tight-body h2 { font-size: 17px; }
+}
+</style>
+`;
+
 const THEME_TIGHT_BODY = `
 <section class="theme2-hero">
   <div class="eyebrow">Notebook · Since 2023</div>
@@ -1324,7 +1464,7 @@ const THEME_TIGHT_BODY = `
       <h2><a href="#">건축에 대한 깊은 사고 — 짓는 일이 아니라 묻는 일이다</a></h2>
     </div>
     <div class="post-tight-meta">
-      <span>2026. 4. 28.</span><span class="post-tight-meta-sep">·</span><span>by 예은</span>
+      <span>2026. 4. 28.</span><span class="post-tight-meta-sep">·</span><a href="#" class="post-meta-link">by 예은</a><span class="post-tight-meta-sep">·</span><a href="#" class="post-meta-link">댓글 4</a>
     </div>
   </li>
 
@@ -1335,7 +1475,7 @@ const THEME_TIGHT_BODY = `
       <h2><a href="#">빛은 가장 비싼 재료입니다 — 그러나 가장 공짜입니다</a></h2>
     </div>
     <div class="post-tight-meta">
-      <span>2026. 4. 14.</span><span class="post-tight-meta-sep">·</span><span>by 예은</span>
+      <span>2026. 4. 14.</span><span class="post-tight-meta-sep">·</span><a href="#" class="post-meta-link">by 예은</a><span class="post-tight-meta-sep">·</span><a href="#" class="post-meta-link">댓글 2</a>
     </div>
   </li>
 
@@ -1346,7 +1486,7 @@ const THEME_TIGHT_BODY = `
       <h2><a href="#">좋은 계단은 발이 먼저 알아봅니다</a></h2>
     </div>
     <div class="post-tight-meta">
-      <span>2026. 3. 30.</span><span class="post-tight-meta-sep">·</span><span>by 예은</span>
+      <span>2026. 3. 30.</span><span class="post-tight-meta-sep">·</span><a href="#" class="post-meta-link">by 예은</a><span class="post-tight-meta-sep">·</span><a href="#" class="post-meta-link">댓글 1</a>
     </div>
   </li>
 
@@ -1357,7 +1497,7 @@ const THEME_TIGHT_BODY = `
       <h2><a href="#">사무실은 왜 점점 거실을 닮아가는가</a></h2>
     </div>
     <div class="post-tight-meta">
-      <span>2026. 3. 18.</span><span class="post-tight-meta-sep">·</span><span>by 예은</span>
+      <span>2026. 3. 18.</span><span class="post-tight-meta-sep">·</span><a href="#" class="post-meta-link">by 예은</a><span class="post-tight-meta-sep">·</span><a href="#" class="post-meta-link">댓글 0</a>
     </div>
   </li>
 
@@ -1368,7 +1508,7 @@ const THEME_TIGHT_BODY = `
       <h2><a href="#">오래된 주방이 가르쳐주는 것</a></h2>
     </div>
     <div class="post-tight-meta">
-      <span>2026. 3. 5.</span><span class="post-tight-meta-sep">·</span><span>by 예은</span>
+      <span>2026. 3. 5.</span><span class="post-tight-meta-sep">·</span><a href="#" class="post-meta-link">by 예은</a><span class="post-tight-meta-sep">·</span><a href="#" class="post-meta-link">댓글 3</a>
     </div>
   </li>
 
@@ -1379,7 +1519,7 @@ const THEME_TIGHT_BODY = `
       <h2><a href="#">로비는 왜 가장 늦게 설계됩니까</a></h2>
     </div>
     <div class="post-tight-meta">
-      <span>2026. 2. 22.</span><span class="post-tight-meta-sep">·</span><span>by 예은</span>
+      <span>2026. 2. 22.</span><span class="post-tight-meta-sep">·</span><a href="#" class="post-meta-link">by 예은</a><span class="post-tight-meta-sep">·</span><a href="#" class="post-meta-link">댓글 0</a>
     </div>
   </li>
 
@@ -1390,7 +1530,7 @@ const THEME_TIGHT_BODY = `
       <h2><a href="#">『도시는 무엇으로 사는가』 — 다섯 번째 읽고 적은 메모</a></h2>
     </div>
     <div class="post-tight-meta">
-      <span>2026. 2. 10.</span><span class="post-tight-meta-sep">·</span><span>by 예은</span>
+      <span>2026. 2. 10.</span><span class="post-tight-meta-sep">·</span><a href="#" class="post-meta-link">by 예은</a><span class="post-tight-meta-sep">·</span><a href="#" class="post-meta-link">댓글 2</a>
     </div>
   </li>
 
@@ -1401,7 +1541,7 @@ const THEME_TIGHT_BODY = `
       <h2><a href="#">노출 콘크리트는 정말 정직한 재료인가</a></h2>
     </div>
     <div class="post-tight-meta">
-      <span>2026. 1. 28.</span><span class="post-tight-meta-sep">·</span><span>by 예은</span>
+      <span>2026. 1. 28.</span><span class="post-tight-meta-sep">·</span><a href="#" class="post-meta-link">by 예은</a><span class="post-tight-meta-sep">·</span><a href="#" class="post-meta-link">댓글 1</a>
     </div>
   </li>
 
@@ -1412,7 +1552,7 @@ const THEME_TIGHT_BODY = `
       <h2><a href="#">서소문 일대를 걸으며 — 작은 골목의 큰 디테일</a></h2>
     </div>
     <div class="post-tight-meta">
-      <span>2026. 1. 14.</span><span class="post-tight-meta-sep">·</span><span>by 예은</span>
+      <span>2026. 1. 14.</span><span class="post-tight-meta-sep">·</span><a href="#" class="post-meta-link">by 예은</a><span class="post-tight-meta-sep">·</span><a href="#" class="post-meta-link">댓글 0</a>
     </div>
   </li>
 
@@ -1423,7 +1563,7 @@ const THEME_TIGHT_BODY = `
       <h2><a href="#">현관은 집의 첫 문장입니다</a></h2>
     </div>
     <div class="post-tight-meta">
-      <span>2025. 12. 30.</span><span class="post-tight-meta-sep">·</span><span>by 예은</span>
+      <span>2025. 12. 30.</span><span class="post-tight-meta-sep">·</span><a href="#" class="post-meta-link">by 예은</a><span class="post-tight-meta-sep">·</span><a href="#" class="post-meta-link">댓글 1</a>
     </div>
   </li>
 
@@ -1511,10 +1651,12 @@ const THEME_GRID_STYLE = `
   font-size: 12px;
   color: var(--color-text-subtle);
   font-variant-numeric: tabular-nums;
-  display: flex; gap: 8px; align-items: center;
+  display: flex; gap: 3px; align-items: center;
   margin-top: 2px;
 }
 .post-card-meta-sep { color: var(--color-border-strong); }
+.post-card-meta .post-meta-link { color: inherit; transition: color .15s ease; }
+.post-card-meta .post-meta-link:hover { color: var(--color-text-heading); font-weight: 600; }
 
 .theme3-pagination {
   max-width: 1280px; margin: 0 auto;
@@ -1527,7 +1669,7 @@ const THEME_GRID_STYLE = `
   font-size: 12.5px; color: var(--color-text-secondary);
   padding: 0 10px;
 }
-.theme3-pagination a:hover { color: var(--color-text-heading); }
+.theme3-pagination a:hover { color: var(--color-text-heading); font-weight: 600; }
 .theme3-pagination .current {
   color: var(--color-text-heading);
   font-weight: 600;
@@ -1572,7 +1714,7 @@ const THEME_GRID_BODY = `
     <div class="post-card-body">
       <div class="post-card-eyebrow">Essay · 건축적 사고</div>
       <h3><a href="#">건축에 대한 깊은 사고 — 짓는 일이 아니라 묻는 일이다</a></h3>
-      <div class="post-card-meta"><span>2026. 4. 28.</span><span class="post-card-meta-sep">·</span><span>예은</span></div>
+      <div class="post-card-meta"><span>2026. 4. 28.</span><span class="post-card-meta-sep">·</span><a href="#" class="post-meta-link">예은</a><span class="post-card-meta-sep">·</span><a href="#" class="post-meta-link">댓글 4</a></div>
     </div>
   </article>
 
@@ -1581,7 +1723,7 @@ const THEME_GRID_BODY = `
     <div class="post-card-body">
       <div class="post-card-eyebrow">Material · 빛</div>
       <h3><a href="#">빛은 가장 비싼 재료입니다 — 그러나 가장 공짜입니다</a></h3>
-      <div class="post-card-meta"><span>2026. 4. 14.</span><span class="post-card-meta-sep">·</span><span>예은</span></div>
+      <div class="post-card-meta"><span>2026. 4. 14.</span><span class="post-card-meta-sep">·</span><a href="#" class="post-meta-link">예은</a><span class="post-card-meta-sep">·</span><a href="#" class="post-meta-link">댓글 2</a></div>
     </div>
   </article>
 
@@ -1590,7 +1732,7 @@ const THEME_GRID_BODY = `
     <div class="post-card-body">
       <div class="post-card-eyebrow">Detail · 디테일</div>
       <h3><a href="#">좋은 계단은 발이 먼저 알아봅니다</a></h3>
-      <div class="post-card-meta"><span>2026. 3. 30.</span><span class="post-card-meta-sep">·</span><span>예은</span></div>
+      <div class="post-card-meta"><span>2026. 3. 30.</span><span class="post-card-meta-sep">·</span><a href="#" class="post-meta-link">예은</a><span class="post-card-meta-sep">·</span><a href="#" class="post-meta-link">댓글 1</a></div>
     </div>
   </article>
 
@@ -1599,7 +1741,7 @@ const THEME_GRID_BODY = `
     <div class="post-card-body">
       <div class="post-card-eyebrow">Workplace · 사무공간</div>
       <h3><a href="#">사무실은 왜 점점 거실을 닮아가는가</a></h3>
-      <div class="post-card-meta"><span>2026. 3. 18.</span><span class="post-card-meta-sep">·</span><span>예은</span></div>
+      <div class="post-card-meta"><span>2026. 3. 18.</span><span class="post-card-meta-sep">·</span><a href="#" class="post-meta-link">예은</a><span class="post-card-meta-sep">·</span><a href="#" class="post-meta-link">댓글 0</a></div>
     </div>
   </article>
 
@@ -1608,7 +1750,7 @@ const THEME_GRID_BODY = `
     <div class="post-card-body">
       <div class="post-card-eyebrow">Domestic · 주거</div>
       <h3><a href="#">오래된 주방이 가르쳐주는 것</a></h3>
-      <div class="post-card-meta"><span>2026. 3. 5.</span><span class="post-card-meta-sep">·</span><span>예은</span></div>
+      <div class="post-card-meta"><span>2026. 3. 5.</span><span class="post-card-meta-sep">·</span><a href="#" class="post-meta-link">예은</a><span class="post-card-meta-sep">·</span><a href="#" class="post-meta-link">댓글 3</a></div>
     </div>
   </article>
 
@@ -1617,7 +1759,7 @@ const THEME_GRID_BODY = `
     <div class="post-card-body">
       <div class="post-card-eyebrow">Memo · 단상</div>
       <h3><a href="#">로비는 왜 가장 늦게 설계됩니까</a></h3>
-      <div class="post-card-meta"><span>2026. 2. 22.</span><span class="post-card-meta-sep">·</span><span>예은</span></div>
+      <div class="post-card-meta"><span>2026. 2. 22.</span><span class="post-card-meta-sep">·</span><a href="#" class="post-meta-link">예은</a><span class="post-card-meta-sep">·</span><a href="#" class="post-meta-link">댓글 0</a></div>
     </div>
   </article>
 
@@ -1626,7 +1768,7 @@ const THEME_GRID_BODY = `
     <div class="post-card-body">
       <div class="post-card-eyebrow">Reading · 책에서</div>
       <h3><a href="#">『도시는 무엇으로 사는가』 — 다섯 번째 읽고 적은 메모</a></h3>
-      <div class="post-card-meta"><span>2026. 2. 10.</span><span class="post-card-meta-sep">·</span><span>예은</span></div>
+      <div class="post-card-meta"><span>2026. 2. 10.</span><span class="post-card-meta-sep">·</span><a href="#" class="post-meta-link">예은</a><span class="post-card-meta-sep">·</span><a href="#" class="post-meta-link">댓글 2</a></div>
     </div>
   </article>
 
@@ -1635,7 +1777,7 @@ const THEME_GRID_BODY = `
     <div class="post-card-body">
       <div class="post-card-eyebrow">Material · 콘크리트</div>
       <h3><a href="#">노출 콘크리트는 정말 정직한 재료인가</a></h3>
-      <div class="post-card-meta"><span>2026. 1. 28.</span><span class="post-card-meta-sep">·</span><span>예은</span></div>
+      <div class="post-card-meta"><span>2026. 1. 28.</span><span class="post-card-meta-sep">·</span><a href="#" class="post-meta-link">예은</a><span class="post-card-meta-sep">·</span><a href="#" class="post-meta-link">댓글 1</a></div>
     </div>
   </article>
 
@@ -1644,7 +1786,7 @@ const THEME_GRID_BODY = `
     <div class="post-card-body">
       <div class="post-card-eyebrow">Field · 답사</div>
       <h3><a href="#">서소문 일대를 걸으며 — 작은 골목의 큰 디테일</a></h3>
-      <div class="post-card-meta"><span>2026. 1. 14.</span><span class="post-card-meta-sep">·</span><span>예은</span></div>
+      <div class="post-card-meta"><span>2026. 1. 14.</span><span class="post-card-meta-sep">·</span><a href="#" class="post-meta-link">예은</a><span class="post-card-meta-sep">·</span><a href="#" class="post-meta-link">댓글 0</a></div>
     </div>
   </article>
 
@@ -1653,7 +1795,7 @@ const THEME_GRID_BODY = `
     <div class="post-card-body">
       <div class="post-card-eyebrow">Domestic · 주거</div>
       <h3><a href="#">현관은 집의 첫 문장입니다</a></h3>
-      <div class="post-card-meta"><span>2025. 12. 30.</span><span class="post-card-meta-sep">·</span><span>예은</span></div>
+      <div class="post-card-meta"><span>2025. 12. 30.</span><span class="post-card-meta-sep">·</span><a href="#" class="post-meta-link">예은</a><span class="post-card-meta-sep">·</span><a href="#" class="post-meta-link">댓글 1</a></div>
     </div>
   </article>
 
@@ -1662,7 +1804,7 @@ const THEME_GRID_BODY = `
     <div class="post-card-body">
       <div class="post-card-eyebrow">Essay · 시간</div>
       <h3><a href="#">건물이 늙는 방식에 대하여</a></h3>
-      <div class="post-card-meta"><span>2025. 12. 16.</span><span class="post-card-meta-sep">·</span><span>예은</span></div>
+      <div class="post-card-meta"><span>2025. 12. 16.</span><span class="post-card-meta-sep">·</span><a href="#" class="post-meta-link">예은</a><span class="post-card-meta-sep">·</span><a href="#" class="post-meta-link">댓글 4</a></div>
     </div>
   </article>
 
@@ -1671,7 +1813,7 @@ const THEME_GRID_BODY = `
     <div class="post-card-body">
       <div class="post-card-eyebrow">Workshop · 작업실</div>
       <h3><a href="#">작은 작업실을 짓는다면 가장 먼저 결정해야 할 것</a></h3>
-      <div class="post-card-meta"><span>2025. 12. 2.</span><span class="post-card-meta-sep">·</span><span>예은</span></div>
+      <div class="post-card-meta"><span>2025. 12. 2.</span><span class="post-card-meta-sep">·</span><a href="#" class="post-meta-link">예은</a><span class="post-card-meta-sep">·</span><a href="#" class="post-meta-link">댓글 2</a></div>
     </div>
   </article>
 
@@ -1704,14 +1846,17 @@ const POST_STANTON_STYLE = `
   margin: 0 0 24px;
 }
 .post-stanton-meta {
-  display: flex; gap: 14px; flex-wrap: wrap;
-  font-size: 13px;
-  color: var(--color-text-secondary);
+  display: flex; gap: 3px; flex-wrap: wrap;
+  font-size: 12px;
+  color: var(--color-text-subtle);
+  letter-spacing: -.005em;
   padding-bottom: 40px;
   border-bottom: 1px solid var(--color-border-subtle);
   margin-bottom: 48px;
 }
-.post-stanton-meta strong { color: var(--color-text-heading); font-weight: 600; }
+.post-stanton-meta .post-meta-sep { color: var(--color-border-strong); }
+.post-stanton-meta .post-meta-link { color: inherit; transition: color .15s ease; }
+.post-stanton-meta .post-meta-link:hover { color: var(--color-text-heading); font-weight: 600; }
 
 .post-stanton-hero {
   max-width: 1100px; margin: 0 auto 64px;
@@ -1800,6 +1945,7 @@ const POST_STANTON_STYLE = `
   font-weight: 600; letter-spacing: -.01em; line-height: 1.4;
 }
 .post-stanton-nav .nav-next { text-align: right; }
+.post-stanton-nav a:hover .nav-title { text-decoration: underline; text-underline-offset: 4px; }
 
 .post-comments {
   max-width: 720px; margin: 64px auto 80px;
@@ -1814,29 +1960,106 @@ const POST_STANTON_STYLE = `
   padding-bottom: 14px;
   border-bottom: 1px solid var(--color-border-default);
 }
-.comment-item {
+/* 댓글 — 방명록(.guestbook-*) 디자인과 동일하게 아바타 + 헤더 + 본문 + 답글 패턴.
+   tag-guest-a 패널의 MISC_PAGE_STYLE 과 동기화. */
+.guestbook-list { display: flex; flex-direction: column; margin-bottom: 24px; }
+.guestbook-item {
   padding: 20px 0;
   border-bottom: 1px solid var(--color-border-subtle);
+  display: flex;
+  gap: 16px;
 }
-.comment-item:last-child { border-bottom: none; }
-.comment-meta { display: flex; gap: 10px; font-size: 12.5px; color: var(--color-text-subtle); margin-bottom: 8px; }
-.comment-meta strong { color: var(--color-text-heading); font-weight: 600; }
-.comment-body { font-size: 14px; color: var(--color-text-default); line-height: 1.65; }
-
-.comment-form {
-  margin-top: 32px;
+.guestbook-item:first-child { padding-top: 0; }
+.guestbook-item:last-child { border-bottom: none; }
+.guestbook-item--reply {
   background: var(--color-surface-subtle);
-  padding: 20px;
+  padding: 16px 18px 16px 22px;
+  margin: 0 0 1px 28px;
+  border-bottom: none;
+  border-left: 3px solid var(--color-border-strong);
 }
-.comment-form textarea {
-  width: 100%; min-height: 96px;
+.gb-avatar {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--color-surface-subtle);
+  flex-shrink: 0;
+}
+.gb-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.gb-body { flex: 1; min-width: 0; }
+.gb-header {
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+.gb-author { font-size: 14px; font-weight: 600; color: var(--color-text-heading); letter-spacing: -.005em; }
+.gb-author:hover { text-decoration: underline; text-underline-offset: 4px; }
+.gb-date { font-size: 12px; color: var(--color-text-subtle); }
+.gb-text {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  margin-bottom: 8px;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+.gb-actions { display: flex; gap: 12px; }
+.gb-action-btn {
+  font-size: 12px;
+  color: var(--color-text-subtle);
+  background: none; border: none; cursor: pointer; padding: 0;
+  font-family: inherit;
+}
+.gb-action-btn:hover { color: var(--color-text-heading); font-weight: 600; }
+
+.guestbook-form {
+  border-top: 1px solid var(--color-border-default);
+  padding-top: 24px;
+  margin-top: 8px;
+}
+.guestbook-form-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-heading);
+  margin-bottom: 14px;
+}
+.guestbook-form-body { display: flex; gap: 12px; align-items: flex-start; }
+.gb-form-avatar {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--color-surface-subtle);
+  flex-shrink: 0;
+}
+.gb-form-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.gb-form-right { flex: 1; min-width: 0; }
+.guestbook-textarea {
+  width: 100%; height: 90px;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border-strong);
   background: var(--color-surface-card);
-  border: 1px solid var(--color-border-default);
-  padding: 12px; font-size: 13.5px; font-family: inherit;
-  resize: vertical; color: var(--color-text-default);
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--color-text-default);
+  resize: vertical;
+  display: block;
+  margin-bottom: 10px;
+  box-sizing: border-box;
 }
-.comment-form textarea:focus { outline: none; border-color: var(--color-text-heading); }
-.comment-form-actions { display: flex; justify-content: flex-end; margin-top: 12px; }
+.guestbook-form-footer { display: flex; justify-content: flex-end; }
+.gb-submit-btn {
+  padding: 7px 18px;
+  background: var(--raw-bg-inv);
+  color: var(--raw-text-inv);
+  border: 1px solid var(--raw-bg-inv);
+  border-radius: 2px;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  letter-spacing: -.005em;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background .15s ease, opacity .15s ease;
+}
+.gb-submit-btn:hover { opacity: .88; }
 
 @media (max-width: 760px) {
   .post-stanton { padding: 48px 20px 0; }
@@ -1855,10 +2078,10 @@ const POST_STANTON_BODY = `
     <h1>건축에 대한 깊은 사고 — 짓는 일이 아니라 묻는 일이다.</h1>
     <div class="post-stanton-meta">
       <span>2026. 4. 28.</span>
-      <span>·</span>
-      <span>by <strong>예은</strong></span>
-      <span>·</span>
-      <span>댓글 4</span>
+      <span class="post-meta-sep">·</span>
+      <a href="#" class="post-meta-link">by 예은</a>
+      <span class="post-meta-sep">·</span>
+      <a href="#" class="post-meta-link">댓글 4</a>
     </div>
   </header>
 
@@ -1926,29 +2149,68 @@ const POST_STANTON_BODY = `
   <section class="post-comments">
     <h3 class="post-comments-title">댓글 4</h3>
 
-    <div class="comment-item">
-      <div class="comment-meta"><strong>도서관 사서</strong><span>·</span><span>2026. 4. 28.</span></div>
-      <div class="comment-body">"공간은 침묵하지 않습니다" 문장에서 한참 멈췄습니다. 평소에 자주 가는 도서관의 빛이 새삼 다르게 보이네요. 잘 읽었습니다.</div>
-    </div>
-    <div class="comment-item">
-      <div class="comment-meta"><strong>건축학생_2년차</strong><span>·</span><span>2026. 4. 29.</span></div>
-      <div class="comment-body">'어떻게 늙어갈 것인가'라는 질문이 정말 중요한데 학교에서는 잘 다루지 않습니다. 좋은 글 감사합니다.</div>
-    </div>
-    <div class="comment-item">
-      <div class="comment-meta"><strong>인테리어_지망생</strong><span>·</span><span>2026. 4. 30.</span></div>
-      <div class="comment-body">천장 높이 20cm 차이 부분이 와닿네요. 숫자로는 별 것 아닌데, 몸은 정확히 알아본다는 게.</div>
-    </div>
-    <div class="comment-item">
-      <div class="comment-meta"><strong>예은</strong><span>·</span><span>2026. 4. 30.</span></div>
-      <div class="comment-body">댓글 감사합니다. 다음 글에서는 '비례'에 대해 좀 더 구체적인 사례를 다뤄볼 생각입니다.</div>
+    <div class="guestbook-list">
+      <div class="guestbook-item">
+        <div class="gb-avatar"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=120&amp;h=120&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></div>
+        <div class="gb-body">
+          <div class="gb-header">
+            <a href="#" class="gb-author">도서관 사서</a>
+            <span class="gb-date">2026. 4. 28.</span>
+          </div>
+          <p class="gb-text">"공간은 침묵하지 않습니다" 문장에서 한참 멈췄습니다. 평소에 자주 가는 도서관의 빛이 새삼 다르게 보이네요. 잘 읽었습니다.</p>
+          <div class="gb-actions"><button class="gb-action-btn">답글</button></div>
+        </div>
+      </div>
+
+      <div class="guestbook-item">
+        <div class="gb-avatar"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=120&amp;h=120&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></div>
+        <div class="gb-body">
+          <div class="gb-header">
+            <a href="#" class="gb-author">건축학생_2년차</a>
+            <span class="gb-date">2026. 4. 29.</span>
+          </div>
+          <p class="gb-text">'어떻게 늙어갈 것인가'라는 질문이 정말 중요한데 학교에서는 잘 다루지 않습니다. 좋은 글 감사합니다.</p>
+          <div class="gb-actions"><button class="gb-action-btn">답글</button></div>
+        </div>
+      </div>
+
+      <div class="guestbook-item">
+        <div class="gb-avatar"><img src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=120&amp;h=120&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></div>
+        <div class="gb-body">
+          <div class="gb-header">
+            <a href="#" class="gb-author">인테리어_지망생</a>
+            <span class="gb-date">2026. 4. 30.</span>
+          </div>
+          <p class="gb-text">천장 높이 20cm 차이 부분이 와닿네요. 숫자로는 별 것 아닌데, 몸은 정확히 알아본다는 게.</p>
+          <div class="gb-actions"><button class="gb-action-btn">답글</button></div>
+        </div>
+      </div>
+
+      <div class="guestbook-item guestbook-item--reply">
+        <div class="gb-avatar"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=120&amp;h=120&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></div>
+        <div class="gb-body">
+          <div class="gb-header">
+            <a href="#" class="gb-author">예은</a>
+            <span class="gb-date">2026. 4. 30.</span>
+          </div>
+          <p class="gb-text">댓글 감사합니다. 다음 글에서는 '비례'에 대해 좀 더 구체적인 사례를 다뤄볼 생각입니다.</p>
+          <div class="gb-actions"><button class="gb-action-btn">답글</button></div>
+        </div>
+      </div>
     </div>
 
-    <form class="comment-form" onsubmit="event.preventDefault();">
-      <textarea placeholder="댓글을 입력하세요…"></textarea>
-      <div class="comment-form-actions">
-        <button type="submit" class="btn-primary">댓글 등록</button>
+    <div class="guestbook-form">
+      <p class="guestbook-form-title">댓글 쓰기</p>
+      <div class="guestbook-form-body">
+        <div class="gb-form-avatar"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=120&amp;h=120&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></div>
+        <div class="gb-form-right">
+          <textarea class="guestbook-textarea" placeholder="댓글을 입력하세요."></textarea>
+          <div class="guestbook-form-footer">
+            <button class="gb-submit-btn">등록</button>
+          </div>
+        </div>
       </div>
-    </form>
+    </div>
   </section>
 </article>
 `;
@@ -2163,7 +2425,6 @@ const POST_CLARKSON_BODY = `
     <img src="https://images.unsplash.com/photo-1777734583715-04b11a672b99?w=2000&amp;h=1400&amp;fit=crop&amp;q=80&amp;auto=format" alt="발코니와 계단이 있는 현대적인 흰색 건물">
     <div class="clp-hero-overlay"></div>
     <div class="clp-hero-content">
-      <div class="eyebrow">Essay · 건축적 사고 · 2026.04</div>
       <h1>건축은 짓는 일이 아니라,<br>묻는 일이다.</h1>
     </div>
   </section>
@@ -2642,7 +2903,7 @@ const FOOTER_COMPONENT_STYLE = `
   letter-spacing: .04em;
 }
 .ft-powered a { color: var(--color-text-secondary); }
-.ft-powered a:hover { color: var(--color-text-heading); }
+.ft-powered a:hover { color: var(--color-text-heading); font-weight: 600; }
 
 /* ① 중앙 정렬 — 세로 스택 가운데 */
 .ft-center .ft-inner {
@@ -2864,6 +3125,7 @@ const SIDEBAR_COMPONENT_STYLE = `
 
 .sb-list { display: flex; flex-direction: column; gap: 14px; margin: 0; padding: 0; list-style: none; }
 .sb-list a { display: flex; gap: 10px; align-items: flex-start; }
+.sb-list a:hover .sb-list-title { text-decoration: underline; text-underline-offset: 4px; }
 .sb-list-thumb {
   width: 48px; height: 48px;
   flex-shrink: 0;
@@ -2891,6 +3153,7 @@ const SIDEBAR_COMPONENT_STYLE = `
   display: flex; flex-direction: column; gap: 4px;
   padding: 4px 0;
 }
+.sb-comments a:hover .sb-comment-text { text-decoration: underline; text-underline-offset: 4px; }
 .sb-comment-text {
   font-size: var(--font-size-sm);
   color: var(--color-text-default);
@@ -2914,7 +3177,7 @@ const SIDEBAR_COMPONENT_STYLE = `
   letter-spacing: -.005em;
 }
 .sb-cats a:last-child { border-bottom: none; }
-.sb-cats a:hover { color: var(--color-text-heading); }
+.sb-cats a:hover { color: var(--color-text-heading); font-weight: 600; }
 .sb-cats .sb-cat-root { font-weight: 600; color: var(--color-text-heading); }
 .sb-cats .sb-cat-cnt {
   font-size: var(--font-size-xs);
@@ -3015,7 +3278,7 @@ body.has-right-sidebar > .preview-page > footer { padding-right: 280px; }
   padding: 4px;
   font-family: inherit;
 }
-.sb-drawer-close:hover { color: var(--color-text-heading); }
+.sb-drawer-close:hover { color: var(--color-text-heading); font-weight: 600; }
 .sb-drawer-dim {
   position: fixed;
   top: 0; bottom: 0; left: 0; right: 280px;
@@ -3139,7 +3402,7 @@ const SIDEBAR_VARIANTS_HTML = {
 
 /* 사이드바 단독 검수 — 미니멀 헤더 + placeholder 본문 + 미니멀 푸터 + 검수 대상 사이드바 */
 function buildSidebarPreviewBody(variantKey) {
-  const sidebarHtml = SIDEBAR_VARIANTS_HTML[variantKey] || SIDEBAR_VARIANTS_HTML['right-fixed'];
+  const sidebarHtml = variantKey === 'none' ? '' : (SIDEBAR_VARIANTS_HTML[variantKey] || SIDEBAR_VARIANTS_HTML['right-fixed']);
   return `
 <div class="preview-page">
   <header class="preview-header-min">공간노트</header>
@@ -4359,11 +4622,14 @@ const SLOT_DEFINITIONS = {
     label: '레이아웃',
     param: 'b',
     options: [
-      { key: 'base',     label: '기본 — 카드 리스트' },
-      { key: 'tight1',   label: '간격 살짝 타이트' },
-      { key: 'tight',    label: '타이트 리스트 · 작은 썸' },
-      { key: 'grid',     label: '4 컬럼 · 세로 썸' },
-      { key: 'campaign', label: '캠페인 — 풀폭 알터네이트' },
+      { key: 'tight1',     label: '기본 — 블로그홈' },
+      { key: 'tight',      label: '게시글 목록 — 작은 썸' },
+      { key: 'tight-big',  label: '게시글 목록 — 큰 썸' },
+      { key: 'grid',       label: '게시글 목록 — 세로 썸' },
+      { key: 'magazine-1', label: '게시글 목록 — 매거진1' },
+      { key: 'magazine-2', label: '게시글 목록 — 매거진2' },
+      { key: 'pinterest',  label: '게시글 목록 — 핀터레스트' },
+      { key: 'campaign',   label: '캠페인 — 웹사이트형' },
     ],
   },
   header: {
@@ -4392,21 +4658,1332 @@ const SLOT_DEFINITIONS = {
       { key: 'right-fixed',   label: '고정영역 (디폴트)' },
       { key: 'drawer-open',   label: '서랍형 — 열린' },
       { key: 'drawer-closed', label: '서랍형 — 닫힌' },
+      { key: 'none',          label: '사이드바 없음' },
+    ],
+  },
+  pagination: {
+    label: '유형',
+    param: 'g',
+    options: [
+      { key: 'numbered',  label: '① 숫자 페이지네이션' },
+      { key: 'load-more', label: '② 더보기 버튼형' },
+    ],
+  },
+  /* home-layout-a 전용 — 홈 레이아웃 (기본 블로그홈 / 캠페인 웹사이트형) */
+  layout: {
+    label: '레이아웃',
+    param: 'l',
+    options: [
+      { key: 'tight1',   label: '기본 — 블로그홈' },
+      { key: 'campaign', label: '캠페인 — 웹사이트형' },
+    ],
+  },
+  /* home-a 전용 — 게시글 목록 변형 (tight1·campaign 은 home-layout-a 로 분리) */
+  'list-body': {
+    label: '레이아웃',
+    param: 'lb',
+    options: [
+      { key: 'tight',      label: '게시글 목록 — 작은 썸' },
+      { key: 'tight-big',  label: '게시글 목록 — 큰 썸' },
+      { key: 'grid',       label: '게시글 목록 — 세로 썸' },
+      { key: 'magazine-1', label: '게시글 목록 — 매거진1' },
+      { key: 'magazine-2', label: '게시글 목록 — 매거진2' },
+      { key: 'pinterest',  label: '게시글 목록 — 핀터레스트' },
+    ],
+  },
+  /* tag-guest-a 전용 — 태그 / 방명록 전환 */
+  misc: {
+    label: '화면',
+    param: 'm',
+    options: [
+      { key: 'tag',       label: '태그' },
+      { key: 'guestbook', label: '방명록' },
+    ],
+  },
+  /* post-top-a 전용 — 게시글 상단 헤더 영역 변형 3종 */
+  'post-top': {
+    label: '상단 유형',
+    param: 'pt',
+    options: [
+      { key: 'no-cover',       label: '① 커버 없음' },
+      { key: 'cover-image',    label: '② 커버 — 썸네일 이미지' },
+      { key: 'cover-fallback', label: '③ 커버 — 단색 fallback' },
     ],
   },
   // (앞으로 추가) list ...
 };
 
+/* 홈(게시글 목록) 페이지 공용 브레드크럼 — "홈 > 전체 글 (N)".
+   home-a / pagination-a 가 동일하게 사용. */
+const HOME_BREADCRUMB_HTML = `
+<nav class="home-breadcrumb">
+  홈 &nbsp;/&nbsp; <strong>전체 글</strong> <span class="hb-count">(8)</span>
+</nav>`;
+
+const HOME_BREADCRUMB_STYLE = `
+<style>
+.home-breadcrumb {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px 40px 24px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  letter-spacing: -.005em;
+}
+.home-breadcrumb strong { color: var(--color-text-heading); font-weight: 600; }
+.home-breadcrumb .hb-count { color: var(--color-text-subtle); margin-left: 2px; }
+/* 브레드크럼 직후에 오는 list section 은 자체 상단 padding 제거 (브레드크럼 bottom 24px 와 더해져 여백이 과도해지는 것 방지) */
+.home-breadcrumb + .theme-list,
+.home-breadcrumb + .theme2-list,
+.home-breadcrumb + .theme3-grid { padding-top: 0; }
+</style>`;
+
+/* hero 섹션(.theme-/.theme2-/.theme3-hero) 제거 + 상단에 브레드크럼 추가.
+   home-a 는 글 클릭 후 상세가 아니라 "전체 글 목록" 페이지이므로 hero 가 없어야 함. */
+function makeHomeListBody(srcBody) {
+  return HOME_BREADCRUMB_HTML + srcBody.replace(
+    /<section class="theme[23]?-hero">[\s\S]*?<\/section>\s*/,
+    ''
+  );
+}
+
+/* ───────────────────────────────────────────────────────────
+   기타 화면 — 태그 / 방명록 (tag-guest-a 패널)
+   원본 tstory_theme_basic.html 의 #tag-guest 구조를 Clarkson 톤 + 공간노트 콘텐츠로 재구성.
+   브레드크럼 + h1 + 본문(태그 클라우드 또는 방명록 리스트+폼) 단일 컬럼.
+   ─────────────────────────────────────────────────────────── */
+const MISC_PAGE_STYLE = `
+<style>
+.misc-page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 40px 40px 80px;
+}
+.misc-breadcrumb {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  letter-spacing: -.005em;
+  margin-bottom: 18px;
+}
+.misc-breadcrumb a { color: var(--color-text-secondary); transition: color .15s ease; }
+.misc-breadcrumb a:hover { color: var(--color-text-heading); font-weight: 600; }
+.misc-breadcrumb strong { color: var(--color-text-heading); font-weight: 600; }
+.misc-page-title {
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--color-text-heading);
+  letter-spacing: -.025em;
+  line-height: 1.2;
+  margin: 0 0 28px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+/* 태그 클라우드 — 사이드바 .sb-tags 와 동일 디자인 (외곽선 강조형) */
+.tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag-item {
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 12px;
+  color: var(--color-text-default);
+  border: 1px solid var(--color-border-strong);
+  border-radius: 2px;
+  letter-spacing: -.005em;
+  transition: background .15s ease;
+}
+.tag-item:hover { background: var(--color-surface-subtle); }
+
+/* 방명록 */
+.guestbook-count {
+  font-size: 13px;
+  color: var(--color-text-subtle);
+  margin-bottom: 24px;
+}
+.guestbook-count strong { color: var(--color-text-heading); font-weight: 600; }
+
+.guestbook-list { display: flex; flex-direction: column; margin-bottom: 32px; }
+.guestbook-item {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+  display: flex;
+  gap: 16px;
+}
+.guestbook-item:first-child { padding-top: 0; }
+.guestbook-item:last-child { border-bottom: none; }
+.guestbook-item--reply {
+  background: var(--color-surface-subtle);
+  padding: 16px 18px 16px 22px;
+  margin: 0 0 1px 28px;
+  border-bottom: none;
+  border-left: 3px solid var(--color-border-strong);
+}
+
+.gb-avatar {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--color-surface-subtle);
+  flex-shrink: 0;
+}
+.gb-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.gb-body { flex: 1; min-width: 0; }
+.gb-header {
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+.gb-author { font-size: 14px; font-weight: 600; color: var(--color-text-heading); letter-spacing: -.005em; }
+.gb-author:hover { text-decoration: underline; text-underline-offset: 4px; }
+.gb-date { font-size: 12px; color: var(--color-text-subtle); }
+.gb-text {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  margin-bottom: 8px;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+.gb-actions { display: flex; gap: 12px; }
+.gb-action-btn {
+  font-size: 12px;
+  color: var(--color-text-subtle);
+  background: none; border: none; cursor: pointer; padding: 0;
+  font-family: inherit;
+}
+.gb-action-btn:hover { color: var(--color-text-heading); font-weight: 600; }
+
+/* 방명록 입력 폼 */
+.guestbook-form {
+  border-top: 1px solid var(--color-border-default);
+  padding-top: 24px;
+}
+.guestbook-form-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-heading);
+  margin-bottom: 14px;
+}
+.guestbook-form-body { display: flex; gap: 12px; align-items: flex-start; }
+.gb-form-avatar {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--color-surface-subtle);
+  flex-shrink: 0;
+}
+.gb-form-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.gb-form-right { flex: 1; min-width: 0; }
+.guestbook-textarea {
+  width: 100%;
+  height: 90px;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border-strong);
+  background: var(--color-surface-card);
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--color-text-default);
+  resize: vertical;
+  display: block;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+.guestbook-form-footer { display: flex; justify-content: flex-end; }
+.gb-submit-btn {
+  padding: 7px 18px;
+  background: var(--raw-bg-inv);
+  color: var(--raw-text-inv);
+  border: 1px solid var(--raw-bg-inv);
+  border-radius: 2px;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  letter-spacing: -.005em;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background .15s ease, opacity .15s ease;
+}
+.gb-submit-btn:hover { opacity: .88; }
+
+@media (max-width: 760px) {
+  .misc-page { padding: 32px 24px 60px; }
+  .misc-page-title { font-size: 26px; padding-bottom: 14px; margin-bottom: 22px; }
+  .guestbook-item--reply { margin-left: 0; }
+}
+</style>`;
+
+const TAG_BODY = `
+<section class="misc-page">
+  <nav class="misc-breadcrumb">홈 &nbsp;/&nbsp; <strong>태그</strong></nav>
+  <h1 class="misc-page-title">태그</h1>
+  <div class="tag-cloud">
+    <a href="#" class="tag-item">건축</a>
+    <a href="#" class="tag-item">공간</a>
+    <a href="#" class="tag-item">인테리어</a>
+    <a href="#" class="tag-item">빛</a>
+    <a href="#" class="tag-item">재료</a>
+    <a href="#" class="tag-item">디테일</a>
+    <a href="#" class="tag-item">답사</a>
+    <a href="#" class="tag-item">책에서</a>
+    <a href="#" class="tag-item">건축노트</a>
+    <a href="#" class="tag-item">사무공간</a>
+    <a href="#" class="tag-item">주거</a>
+    <a href="#" class="tag-item">단상</a>
+    <a href="#" class="tag-item">콘크리트</a>
+    <a href="#" class="tag-item">나무</a>
+    <a href="#" class="tag-item">계단</a>
+    <a href="#" class="tag-item">창</a>
+    <a href="#" class="tag-item">주방</a>
+    <a href="#" class="tag-item">사례</a>
+    <a href="#" class="tag-item">메모</a>
+    <a href="#" class="tag-item">비례</a>
+    <a href="#" class="tag-item">도시</a>
+    <a href="#" class="tag-item">골목</a>
+    <a href="#" class="tag-item">거실</a>
+    <a href="#" class="tag-item">부엌</a>
+    <a href="#" class="tag-item">사진</a>
+    <a href="#" class="tag-item">자연광</a>
+    <a href="#" class="tag-item">시간</a>
+    <a href="#" class="tag-item">동선</a>
+    <a href="#" class="tag-item">마감</a>
+    <a href="#" class="tag-item">토속</a>
+    <a href="#" class="tag-item">모듈</a>
+    <a href="#" class="tag-item">풍경</a>
+    <a href="#" class="tag-item">길</a>
+    <a href="#" class="tag-item">로비</a>
+    <a href="#" class="tag-item">서소문</a>
+    <a href="#" class="tag-item">Pallasmaa</a>
+  </div>
+</section>`;
+
+const GUESTBOOK_BODY = `
+<section class="misc-page">
+  <nav class="misc-breadcrumb">홈 &nbsp;/&nbsp; <strong>방명록</strong></nav>
+  <h1 class="misc-page-title">방명록</h1>
+  <p class="guestbook-count">방명록 <strong>3</strong></p>
+
+  <div class="guestbook-list">
+    <div class="guestbook-item">
+      <div class="gb-avatar"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&amp;h=120&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></div>
+      <div class="gb-body">
+        <div class="gb-header">
+          <a href="#" class="gb-author">한울</a>
+          <span class="gb-date">2026. 5. 12.</span>
+        </div>
+        <p class="gb-text">주방 글 잘 읽고 갑니다. 할머니 부엌 이야기가 오래 남네요.</p>
+        <div class="gb-actions">
+          <button class="gb-action-btn">답글</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="guestbook-item guestbook-item--reply">
+      <div class="gb-avatar"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=120&amp;h=120&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></div>
+      <div class="gb-body">
+        <div class="gb-header">
+          <a href="#" class="gb-author">예은</a>
+          <span class="gb-date">2026. 5. 12.</span>
+        </div>
+        <p class="gb-text">읽어주셔서 감사합니다. 다음엔 부엌에서 사라진 도구들에 대해 적어보려고 합니다.</p>
+        <div class="gb-actions">
+          <button class="gb-action-btn">답글</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="guestbook-item">
+      <div class="gb-avatar"><img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&amp;h=120&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></div>
+      <div class="gb-body">
+        <div class="gb-header">
+          <a href="#" class="gb-author">민지</a>
+          <span class="gb-date">2026. 5. 10.</span>
+        </div>
+        <p class="gb-text">정말 공감되는 글이에요. 비례 얘기 더 듣고 싶습니다.</p>
+        <div class="gb-actions">
+          <button class="gb-action-btn">답글</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="guestbook-item">
+      <div class="gb-avatar"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&amp;h=120&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></div>
+      <div class="gb-body">
+        <div class="gb-header">
+          <a href="#" class="gb-author">이명</a>
+          <span class="gb-date">2026. 5. 8.</span>
+        </div>
+        <p class="gb-text">계단 부분 좋네요. 다음 글 기다립니다.</p>
+        <div class="gb-actions">
+          <button class="gb-action-btn">답글</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="guestbook-form">
+    <p class="guestbook-form-title">방명록 쓰기</p>
+    <div class="guestbook-form-body">
+      <div class="gb-form-avatar"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=120&amp;h=120&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></div>
+      <div class="gb-form-right">
+        <textarea class="guestbook-textarea" placeholder="내용을 입력하세요."></textarea>
+        <div class="guestbook-form-footer">
+          <button class="gb-submit-btn">등록</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>`;
+
+/* ───────────────────────────────────────────────────────────
+   게시글 — 상단 (post-top-a 패널) — 헤더 영역 변형 단독 검수
+   ① no-cover: 헤더 바로 아래 카테고리·제목·메타. 심플·가독성 중심.
+   ② cover-image: 풀블리드 썸네일 + 그라데이션 오버레이 + 텍스트 하단 좌측.
+   ③ cover-fallback: 썸네일 없을 때 단색 배경 + 동일 구조.
+   ─────────────────────────────────────────────────────────── */
+const POST_TOP_STYLE = `
+<style>
+.post-top-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+.post-view-header {
+  padding-bottom: 22px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--color-border-default);
+}
+.post-view-category {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--color-text-heading);
+  margin-bottom: 14px;
+}
+.post-view-title {
+  font-size: 36px;
+  font-weight: 600;
+  color: var(--color-text-heading);
+  line-height: 1.25;
+  letter-spacing: -.025em;
+  margin: 0 0 16px;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+/* no-cover variant 메타 — 표준 .post-meta 패턴 (12px · subtle · gap 3px · sep · by/댓글 링크) */
+.post-view-meta {
+  display: flex; gap: 3px; flex-wrap: wrap;
+  font-size: 12px;
+  color: var(--color-text-subtle);
+  letter-spacing: -.005em;
+}
+.post-view-meta .post-meta-sep { color: var(--color-border-strong); }
+.post-view-meta .post-meta-link { color: inherit; transition: color .15s ease; }
+.post-view-meta .post-meta-link:hover { color: var(--color-text-heading); font-weight: 600; }
+
+/* 본문 placeholder (회색 라인) — 검수 영역이 헤더이므로 본문은 단순화 */
+.body-placeholder {
+  background: var(--color-surface-subtle);
+  border: 1px solid var(--color-border-subtle);
+  padding: 28px 24px;
+}
+.body-line {
+  height: 13px;
+  background: var(--color-border-subtle);
+  border-radius: 2px;
+  margin-bottom: 10px;
+}
+.body-line:last-child { margin-bottom: 0; width: 65%; }
+.body-line.body-line--text {
+  background: none;
+  color: var(--color-text-subtle);
+  font-size: 13px;
+  height: auto;
+  margin-bottom: 14px;
+}
+
+/* 커버 공통 */
+.post-cover {
+  position: relative;
+  width: 100%;
+  height: 360px;
+  overflow: hidden;
+}
+.post-cover-bg {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+.post-cover-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(31,29,24,.10) 0%,
+    rgba(31,29,24,.35) 40%,
+    rgba(31,29,24,.78) 100%
+  );
+}
+.post-cover-text {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 36px 48px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.post-cover-category {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(245,241,234,.85);
+  margin-bottom: 14px;
+}
+.post-cover-title {
+  font-size: 36px;
+  font-weight: 600;
+  color: var(--raw-text-inv, #F5F1EA);
+  line-height: 1.25;
+  letter-spacing: -.025em;
+  margin: 0 0 14px;
+  max-width: 920px;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+/* cover variant 메타 — 표준 .post-meta 패턴 동일, 단 cover 위 흰 톤 */
+.post-cover-meta {
+  display: flex; gap: 3px; flex-wrap: wrap;
+  font-size: 12px;
+  color: rgba(245,241,234,.7);
+  letter-spacing: -.005em;
+}
+.post-cover-meta .post-meta-sep { color: rgba(245,241,234,.35); }
+.post-cover-meta .post-meta-link { color: inherit; transition: color .15s ease; }
+.post-cover-meta .post-meta-link:hover { color: #fff; font-weight: 600; }
+
+/* 단색 fallback 커버 — 우리 다크 토큰 */
+.post-cover-bg--fallback { background-color: var(--color-text-heading); }
+.post-cover--fallback .post-cover-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(31,29,24,0) 0%,
+    rgba(31,29,24,.45) 100%
+  );
+}
+
+@media (max-width: 760px) {
+  .post-top-page { padding: 36px 20px 60px; }
+  .post-view-title { font-size: 28px; }
+  .post-cover { height: 280px; }
+  .post-cover-text { padding: 24px 28px; }
+  .post-cover-title { font-size: 26px; }
+}
+</style>`;
+
+/* 공통: 본문 placeholder 마크업 */
+const POST_TOP_BODY_PLACEHOLDER = `
+<div class="body-placeholder">
+  <div class="body-line body-line--text">본문 영역 — 검수 대상 외</div>
+  <div class="body-line" style="width:100%;"></div>
+  <div class="body-line" style="width:96%;"></div>
+  <div class="body-line" style="width:92%;"></div>
+  <div class="body-line" style="width:97%;"></div>
+  <div class="body-line"></div>
+</div>`;
+
+const POST_TOP_HEADER_NO_COVER = `
+<article class="post-top-page">
+  <header class="post-view-header">
+    <span class="post-view-category">Essay · 건축적 사고</span>
+    <h1 class="post-view-title">건축에 대한 깊은 사고 — 짓는 일이 아니라 묻는 일이다.</h1>
+    <div class="post-view-meta">
+      <span>2026. 4. 28.</span>
+      <span class="post-meta-sep">·</span>
+      <a href="#" class="post-meta-link">by 예은</a>
+      <span class="post-meta-sep">·</span>
+      <a href="#" class="post-meta-link">댓글 4</a>
+    </div>
+  </header>
+  ${POST_TOP_BODY_PLACEHOLDER}
+</article>`;
+
+const POST_TOP_HEADER_COVER_IMAGE = `
+<div class="post-cover">
+  <div class="post-cover-bg" style="background-image: url('https://images.unsplash.com/photo-1774050952646-a850ad28ad6f?w=1600&amp;h=900&amp;fit=crop&amp;q=80&amp;auto=format');"></div>
+  <div class="post-cover-overlay"></div>
+  <div class="post-cover-text">
+    <span class="post-cover-category">Essay · 건축적 사고</span>
+    <h1 class="post-cover-title">건축에 대한 깊은 사고 — 짓는 일이 아니라 묻는 일이다.</h1>
+    <div class="post-cover-meta">
+      <span>2026. 4. 28.</span>
+      <span class="post-meta-sep">·</span>
+      <a href="#" class="post-meta-link">by 예은</a>
+      <span class="post-meta-sep">·</span>
+      <a href="#" class="post-meta-link">댓글 4</a>
+    </div>
+  </div>
+</div>
+<article class="post-top-page">
+  ${POST_TOP_BODY_PLACEHOLDER}
+</article>`;
+
+const POST_TOP_HEADER_COVER_FALLBACK = `
+<div class="post-cover post-cover--fallback">
+  <div class="post-cover-bg post-cover-bg--fallback"></div>
+  <div class="post-cover-overlay"></div>
+  <div class="post-cover-text">
+    <span class="post-cover-category">Essay · 건축적 사고</span>
+    <h1 class="post-cover-title">건축에 대한 깊은 사고 — 짓는 일이 아니라 묻는 일이다.</h1>
+    <div class="post-cover-meta">
+      <span>2026. 4. 28.</span>
+      <span class="post-meta-sep">·</span>
+      <a href="#" class="post-meta-link">by 예은</a>
+      <span class="post-meta-sep">·</span>
+      <a href="#" class="post-meta-link">댓글 4</a>
+    </div>
+  </div>
+</div>
+<article class="post-top-page">
+  ${POST_TOP_BODY_PLACEHOLDER}
+</article>`;
+
+/* 게시글 메타 공용 스타일 — post-row / post-stanton-meta / 매거진 / 핀터레스트 모두 동일 톤.
+   "2026. 4. 28. · by 예은 · 댓글 4" — 12px subtle / sep border-strong / regular / letter-spacing -.005em / gap 14px */
+const POST_META_STYLE = `
+<style>
+.post-meta {
+  display: flex; gap: 3px; flex-wrap: wrap;
+  font-size: 12px;
+  color: var(--color-text-subtle);
+  letter-spacing: -.005em;
+}
+.post-meta-sep { color: var(--color-border-strong); }
+.post-meta-link { color: inherit; transition: color .15s ease; }
+.post-meta-link:hover { color: var(--color-text-heading); font-weight: 600; }
+</style>`;
+
+/* ───────────────────────────────────────────────────────────
+   게시글 목록 — 매거진1 (원본 tstory_theme_basic ④ 매거진형)
+   첫 글 = 큰 피처드, 나머지 = 2열 소형 카드. Clarkson 톤 + 공간노트 콘텐츠.
+   ─────────────────────────────────────────────────────────── */
+const THEME_MAGAZINE_1_STYLE = `
+<style>
+.mag-a {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 8px 40px 80px;
+}
+/* 피처드 */
+.mag-a-featured {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 36px;
+  padding-bottom: 36px;
+  margin-bottom: 36px;
+  border-bottom: 1px solid var(--color-border-default);
+}
+.mag-a-feat-media {
+  display: block;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  background: var(--color-surface-subtle);
+}
+.mag-a-feat-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s ease; }
+.mag-a-featured:hover .mag-a-feat-media img { transform: scale(1.03); }
+.mag-a-feat-body h2 a { transition: opacity .15s ease; }
+.mag-a-feat-body h2 a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.mag-a-feat-body {
+  display: flex; flex-direction: column; justify-content: center;
+}
+.mag-a-feat-body .eyebrow {
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--color-text-heading);
+  margin: 0 0 14px;
+}
+.mag-a-feat-body h2 {
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -.025em;
+  margin: 0 0 16px;
+  color: var(--color-text-heading);
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+.mag-a-feat-body h2 a { color: inherit; }
+.mag-a-feat-body p {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  margin: 0 0 20px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: keep-all;
+}
+
+/* 소형 2열 grid */
+.mag-a-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px 40px;
+}
+.mag-a-small {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 16px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+.mag-a-small:nth-last-child(-n+2) { border-bottom: none; padding-bottom: 0; }
+.mag-a-small-media {
+  width: 130px; height: 96px;
+  overflow: hidden;
+  background: var(--color-surface-subtle);
+}
+.mag-a-small-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s ease; }
+.mag-a-small:hover .mag-a-small-media img { transform: scale(1.04); }
+.mag-a-small-body h3 a { transition: opacity .15s ease; }
+.mag-a-small-body h3 a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.mag-a-small-body .eyebrow {
+  font-size: 10.5px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--color-text-heading);
+  margin: 0 0 8px;
+}
+.mag-a-small-body h3 {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -.005em;
+  margin: 0 0 10px;
+  color: var(--color-text-heading);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: keep-all;
+}
+.mag-a-small-body h3 a { color: inherit; }
+
+@media (max-width: 760px) {
+  .mag-a { padding: 8px 24px 60px; }
+  .mag-a-featured { grid-template-columns: 1fr; gap: 22px; padding-bottom: 28px; margin-bottom: 28px; }
+  .mag-a-feat-body h2 { font-size: 24px; }
+  .mag-a-grid { grid-template-columns: 1fr; gap: 22px; }
+  .mag-a-small:nth-last-child(2) { border-bottom: 1px solid var(--color-border-subtle); padding-bottom: 22px; }
+  .mag-a-small { grid-template-columns: 100px 1fr; gap: 12px; }
+  .mag-a-small-media { width: 100px; height: 75px; }
+}
+</style>`;
+
+const THEME_MAGAZINE_1_BODY = `
+<section class="mag-a">
+  <article class="mag-a-featured">
+    <a class="mag-a-feat-media" href="#"><img src="https://images.unsplash.com/photo-1774050952646-a850ad28ad6f?w=1200&amp;h=750&amp;fit=crop&amp;q=80&amp;auto=format" alt=""></a>
+    <div class="mag-a-feat-body">
+      <div class="eyebrow">Essay · 건축적 사고</div>
+      <h2><a href="#">건축에 대한 깊은 사고 — 짓는 일이 아니라 묻는 일이다</a></h2>
+      <p>좋은 건축은 멋진 형태에서 시작하지 않습니다. 누가 이 공간에 머물 것인가, 그 사람의 하루는 어떻게 흐를 것인가 — 이 질문에서 시작합니다. 모든 결정은 그 질문에 대한 답입니다.</p>
+      <div class="post-meta">
+        <span>2026. 4. 28.</span>
+        <span class="post-meta-sep">·</span>
+        <a href="#" class="post-meta-link">by 예은</a>
+        <span class="post-meta-sep">·</span>
+        <a href="#" class="post-meta-link">댓글 4</a>
+      </div>
+    </div>
+  </article>
+
+  <div class="mag-a-grid">
+    <article class="mag-a-small">
+      <a class="mag-a-small-media" href="#"><img src="https://images.unsplash.com/photo-1752154023453-faba02f8a841?w=320&amp;h=240&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></a>
+      <div class="mag-a-small-body">
+        <div class="eyebrow">Material · 빛</div>
+        <h3><a href="#">빛은 가장 비싼 재료입니다 — 그러나 가장 공짜입니다</a></h3>
+        <div class="post-meta">
+          <span>2026. 4. 14.</span><span class="post-meta-sep">·</span><a href="#" class="post-meta-link">댓글 2</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="mag-a-small">
+      <a class="mag-a-small-media" href="#"><img src="https://images.unsplash.com/photo-1777997288465-c435b4d03133?w=320&amp;h=240&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></a>
+      <div class="mag-a-small-body">
+        <div class="eyebrow">Detail · 디테일</div>
+        <h3><a href="#">좋은 계단은 발이 먼저 알아봅니다</a></h3>
+        <div class="post-meta">
+          <span>2026. 3. 30.</span><span class="post-meta-sep">·</span><a href="#" class="post-meta-link">댓글 1</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="mag-a-small">
+      <a class="mag-a-small-media" href="#"><img src="https://images.unsplash.com/photo-1768836180167-6d4a25c421b2?w=320&amp;h=240&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></a>
+      <div class="mag-a-small-body">
+        <div class="eyebrow">Workplace · 사무공간</div>
+        <h3><a href="#">사무실은 왜 점점 거실을 닮아가는가</a></h3>
+        <div class="post-meta">
+          <span>2026. 3. 18.</span><span class="post-meta-sep">·</span><a href="#" class="post-meta-link">댓글 0</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="mag-a-small">
+      <a class="mag-a-small-media" href="#"><img src="https://images.unsplash.com/photo-1769745918779-f255f567664c?w=320&amp;h=240&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></a>
+      <div class="mag-a-small-body">
+        <div class="eyebrow">Domestic · 주거</div>
+        <h3><a href="#">오래된 주방이 가르쳐주는 것</a></h3>
+        <div class="post-meta">
+          <span>2026. 3. 5.</span><span class="post-meta-sep">·</span><a href="#" class="post-meta-link">댓글 3</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="mag-a-small">
+      <a class="mag-a-small-media" href="#"><img src="https://images.unsplash.com/photo-1774050952646-a850ad28ad6f?w=320&amp;h=240&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></a>
+      <div class="mag-a-small-body">
+        <div class="eyebrow">Memo · 단상</div>
+        <h3><a href="#">로비는 왜 가장 늦게 설계됩니까</a></h3>
+        <div class="post-meta">
+          <span>2026. 2. 22.</span><span class="post-meta-sep">·</span><a href="#" class="post-meta-link">댓글 0</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="mag-a-small">
+      <a class="mag-a-small-media" href="#"><img src="https://images.unsplash.com/photo-1752154023453-faba02f8a841?w=320&amp;h=240&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></a>
+      <div class="mag-a-small-body">
+        <div class="eyebrow">Reading · 책에서</div>
+        <h3><a href="#">『도시는 무엇으로 사는가』 — 다섯 번째 읽고 적은 메모</a></h3>
+        <div class="post-meta">
+          <span>2026. 2. 10.</span><span class="post-meta-sep">·</span><a href="#" class="post-meta-link">댓글 2</a>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>`;
+
+/* ───────────────────────────────────────────────────────────
+   게시글 목록 — 매거진2 (wallpaper.com 레이아웃 참고)
+   레이아웃 패턴만 차용: 큰 풀폭 hero + hairline 섹션 + 비대칭 grid + 균등 4열.
+   타이포는 우리 기본 (Pretendard / Clarkson 토큰) 그대로.
+   ─────────────────────────────────────────────────────────── */
+const THEME_MAGAZINE_2_STYLE = `
+<style>
+.mag2 {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px 80px;
+}
+
+/* Hero — 풀폭 큰 이미지 + 텍스트 아래 */
+.mag2-hero {
+  display: block;
+  margin-bottom: 28px;
+}
+.mag2-hero-media {
+  display: block;
+  aspect-ratio: 21/9;
+  overflow: hidden;
+  background: var(--color-surface-subtle);
+  margin-bottom: 24px;
+}
+.mag2-hero-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s ease; }
+.mag2-hero:hover .mag2-hero-media img { transform: scale(1.02); }
+.mag2-hero-title a { transition: opacity .15s ease; }
+.mag2-hero-title a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.mag2-hero-text {
+  max-width: 820px;
+}
+.mag2-eyebrow {
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--color-text-heading);
+  margin: 0 0 14px;
+}
+.mag2-hero-title {
+  font-size: 38px;
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -.025em;
+  color: var(--color-text-heading);
+  margin: 0 0 14px;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+.mag2-hero-title a { color: inherit; }
+.mag2-hero-dek {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  margin: 0 0 18px;
+  word-break: keep-all;
+}
+
+/* Hairline 섹션 구분 */
+.mag2-rule {
+  height: 1px;
+  background: var(--color-text-heading);
+  margin: 56px 0 24px;
+}
+.mag2-section-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  margin-bottom: 28px;
+}
+.mag2-section-label {
+  font-size: 12px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--color-text-heading);
+}
+.mag2-section-more {
+  font-size: 12px;
+  letter-spacing: .04em;
+  color: var(--color-text-secondary);
+}
+.mag2-section-more:hover { color: var(--color-text-heading); font-weight: 600; }
+
+/* 비대칭 mix: 큰 카드 + 옆 stack */
+.mag2-mix {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 40px;
+}
+.mag2-mix-feature { display: block; }
+.mag2-mix-feature-media {
+  display: block;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: var(--color-surface-subtle);
+  margin-bottom: 18px;
+}
+.mag2-mix-feature-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s ease; }
+.mag2-mix-feature:hover .mag2-mix-feature-media img { transform: scale(1.03); }
+.mag2-mix-feature h3 a { transition: opacity .15s ease; }
+.mag2-mix-feature h3 a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.mag2-mix-feature h3 {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -.018em;
+  color: var(--color-text-heading);
+  margin: 0 0 12px;
+  word-break: keep-all;
+}
+.mag2-mix-feature h3 a { color: inherit; }
+.mag2-mix-feature p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  margin: 0 0 14px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: keep-all;
+}
+
+.mag2-mix-stack { display: flex; flex-direction: column; }
+.mag2-mix-row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+.mag2-mix-row:first-child { padding-top: 0; }
+.mag2-mix-row:last-child { border-bottom: none; padding-bottom: 0; }
+.mag2-mix-row-media {
+  display: block;
+  width: 110px; height: 82px;
+  overflow: hidden;
+  background: var(--color-surface-subtle);
+}
+.mag2-mix-row-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s ease; }
+.mag2-mix-row:hover .mag2-mix-row-media img { transform: scale(1.05); }
+.mag2-mix-row h4 a { transition: opacity .15s ease; }
+.mag2-mix-row h4 a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.mag2-mix-row h4 {
+  font-size: 14.5px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -.005em;
+  color: var(--color-text-heading);
+  margin: 0 0 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: keep-all;
+}
+.mag2-mix-row .mag2-eyebrow {
+  font-size: 10.5px;
+  margin: 0 0 6px;
+}
+
+/* Quad: 4열 균등 카드 */
+.mag2-quad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+.mag2-quad-card { display: block; }
+.mag2-quad-media {
+  display: block;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: var(--color-surface-subtle);
+  margin-bottom: 14px;
+}
+.mag2-quad-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s ease; }
+.mag2-quad-card:hover .mag2-quad-media img { transform: scale(1.05); }
+.mag2-quad-card h4 a { transition: opacity .15s ease; }
+.mag2-quad-card h4 a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.mag2-quad-card .mag2-eyebrow {
+  font-size: 10.5px;
+  margin: 0 0 8px;
+}
+.mag2-quad-card h4 {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -.005em;
+  color: var(--color-text-heading);
+  margin: 0 0 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: keep-all;
+}
+
+@media (max-width: 900px) {
+  .mag2-hero-title { font-size: 28px; }
+  .mag2-mix { grid-template-columns: 1fr; gap: 32px; }
+  .mag2-quad { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+}
+@media (max-width: 600px) {
+  .mag2 { padding: 0 24px 60px; }
+  .mag2-hero-media { aspect-ratio: 16/10; }
+  .mag2-quad { grid-template-columns: 1fr; gap: 22px; }
+  .mag2-mix-row { grid-template-columns: 90px 1fr; gap: 12px; }
+  .mag2-mix-row-media { width: 90px; height: 68px; }
+}
+</style>`;
+
+const THEME_MAGAZINE_2_BODY = `
+<section class="mag2">
+
+  <!-- Hero -->
+  <article class="mag2-hero">
+    <a class="mag2-hero-media" href="#"><img src="https://images.unsplash.com/photo-1774050952646-a850ad28ad6f?w=1600&amp;h=686&amp;fit=crop&amp;q=85&amp;auto=format" alt=""></a>
+    <div class="mag2-hero-text">
+      <div class="mag2-eyebrow">Essay · 건축적 사고</div>
+      <h2 class="mag2-hero-title"><a href="#">건축에 대한 깊은 사고 — 짓는 일이 아니라 묻는 일이다</a></h2>
+      <p class="mag2-hero-dek">좋은 건축은 멋진 형태에서 시작하지 않습니다. 누가 이 공간에 머물 것인가, 그 사람의 하루는 어떻게 흐를 것인가 — 이 질문에서 시작합니다. 모든 결정은 그 질문에 대한 답입니다.</p>
+      <div class="post-meta">
+        <span>2026. 4. 28.</span>
+        <span class="post-meta-sep">·</span>
+        <a href="#" class="post-meta-link">by 예은</a>
+        <span class="post-meta-sep">·</span>
+        <a href="#" class="post-meta-link">댓글 4</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- Section: 비대칭 mix -->
+  <div class="mag2-rule"></div>
+  <header class="mag2-section-head">
+    <span class="mag2-section-label">From the Field</span>
+    <a href="#" class="mag2-section-more">더 보기 →</a>
+  </header>
+
+  <div class="mag2-mix">
+    <article class="mag2-mix-feature">
+      <a class="mag2-mix-feature-media" href="#"><img src="https://images.unsplash.com/photo-1752154023453-faba02f8a841?w=900&amp;h=675&amp;fit=crop&amp;q=80&amp;auto=format" alt=""></a>
+      <div class="mag2-eyebrow">Material · 빛</div>
+      <h3><a href="#">빛은 가장 비싼 재료입니다 — 그러나 가장 공짜입니다</a></h3>
+      <p>건축에서 빛은 마감재가 아니라 시간의 매개입니다. 같은 공간이 아침과 저녁에 다른 표정을 짓는 이유.</p>
+      <div class="post-meta">
+        <span>2026. 4. 14.</span><span class="post-meta-sep">·</span><a href="#" class="post-meta-link">by 예은</a><span class="post-meta-sep">·</span><a href="#" class="post-meta-link">댓글 2</a>
+      </div>
+    </article>
+
+    <div class="mag2-mix-stack">
+      <article class="mag2-mix-row">
+        <a class="mag2-mix-row-media" href="#"><img src="https://images.unsplash.com/photo-1777997288465-c435b4d03133?w=240&amp;h=180&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></a>
+        <div>
+          <div class="mag2-eyebrow">Detail · 디테일</div>
+          <h4><a href="#">좋은 계단은 발이 먼저 알아봅니다</a></h4>
+          <div class="post-meta"><span>2026. 3. 30.</span><span class="post-meta-sep">·</span><a href="#" class="post-meta-link">댓글 1</a></div>
+        </div>
+      </article>
+      <article class="mag2-mix-row">
+        <a class="mag2-mix-row-media" href="#"><img src="https://images.unsplash.com/photo-1768836180167-6d4a25c421b2?w=240&amp;h=180&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></a>
+        <div>
+          <div class="mag2-eyebrow">Workplace · 사무공간</div>
+          <h4><a href="#">사무실은 왜 점점 거실을 닮아가는가</a></h4>
+          <div class="post-meta"><span>2026. 3. 18.</span><span class="post-meta-sep">·</span><a href="#" class="post-meta-link">댓글 0</a></div>
+        </div>
+      </article>
+      <article class="mag2-mix-row">
+        <a class="mag2-mix-row-media" href="#"><img src="https://images.unsplash.com/photo-1769745918779-f255f567664c?w=240&amp;h=180&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></a>
+        <div>
+          <div class="mag2-eyebrow">Domestic · 주거</div>
+          <h4><a href="#">오래된 주방이 가르쳐주는 것</a></h4>
+          <div class="post-meta"><span>2026. 3. 5.</span><span class="post-meta-sep">·</span><a href="#" class="post-meta-link">댓글 3</a></div>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <!-- Section: 4열 균등 -->
+  <div class="mag2-rule"></div>
+  <header class="mag2-section-head">
+    <span class="mag2-section-label">Latest</span>
+    <a href="#" class="mag2-section-more">전체 글 →</a>
+  </header>
+
+  <div class="mag2-quad">
+    <article class="mag2-quad-card">
+      <a class="mag2-quad-media" href="#"><img src="https://images.unsplash.com/photo-1774050952646-a850ad28ad6f?w=400&amp;h=300&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></a>
+      <div class="mag2-eyebrow">Memo · 단상</div>
+      <h4><a href="#">로비는 왜 가장 늦게 설계됩니까</a></h4>
+      <div class="post-meta"><span>2026. 2. 22.</span><span class="post-meta-sep">·</span><a href="#" class="post-meta-link">댓글 0</a></div>
+    </article>
+    <article class="mag2-quad-card">
+      <a class="mag2-quad-media" href="#"><img src="https://images.unsplash.com/photo-1752154023453-faba02f8a841?w=400&amp;h=300&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></a>
+      <div class="mag2-eyebrow">Reading · 책에서</div>
+      <h4><a href="#">『도시는 무엇으로 사는가』 — 다섯 번째 읽고 적은 메모</a></h4>
+      <div class="post-meta"><span>2026. 2. 10.</span><span class="post-meta-sep">·</span><a href="#" class="post-meta-link">댓글 2</a></div>
+    </article>
+    <article class="mag2-quad-card">
+      <a class="mag2-quad-media" href="#"><img src="https://images.unsplash.com/photo-1777997288465-c435b4d03133?w=400&amp;h=300&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></a>
+      <div class="mag2-eyebrow">Material · 콘크리트</div>
+      <h4><a href="#">노출 콘크리트는 정말 정직한 재료인가</a></h4>
+      <div class="post-meta"><span>2026. 1. 28.</span><span class="post-meta-sep">·</span><a href="#" class="post-meta-link">댓글 1</a></div>
+    </article>
+    <article class="mag2-quad-card">
+      <a class="mag2-quad-media" href="#"><img src="https://images.unsplash.com/photo-1768836180167-6d4a25c421b2?w=400&amp;h=300&amp;fit=crop&amp;q=75&amp;auto=format" alt=""></a>
+      <div class="mag2-eyebrow">Field · 답사</div>
+      <h4><a href="#">서소문 일대를 걸으며 — 작은 골목의 큰 디테일</a></h4>
+      <div class="post-meta"><span>2026. 1. 14.</span><span class="post-meta-sep">·</span><a href="#" class="post-meta-link">댓글 0</a></div>
+    </article>
+  </div>
+
+</section>`;
+
+/* ───────────────────────────────────────────────────────────
+   게시글 목록 — 핀터레스트 (masonry)
+   CSS columns 로 폭에 따라 자동 컬럼 수 조정 — JS 없이 반응형.
+   이미지 종횡비를 다양하게 (3:4 / 4:5 / 1:1 / 4:3 / 2:3) 섞어 masonry 효과.
+   ─────────────────────────────────────────────────────────── */
+const THEME_PINTEREST_STYLE = `
+<style>
+.pin {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 8px 40px 80px;
+  column-width: 260px;
+  column-gap: 20px;
+}
+.pin-card {
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  display: block;
+  margin-bottom: 20px;
+}
+.pin-card-media {
+  display: block;
+  overflow: hidden;
+  background: var(--color-surface-subtle);
+  border-radius: 4px;
+}
+.pin-card-media img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: opacity .2s ease;
+}
+.pin-card:hover .pin-card-media img { opacity: .92; }
+.pin-card-body {
+  padding: 12px 4px 0;
+}
+.pin-card .eyebrow {
+  font-size: 10.5px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--color-text-heading);
+  margin: 0 0 6px;
+}
+.pin-card h4 {
+  font-size: 14.5px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -.005em;
+  color: var(--color-text-heading);
+  margin: 0 0 8px;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+.pin-card h4 a { color: inherit; transition: opacity .15s ease; }
+.pin-card h4 a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+@media (max-width: 600px) {
+  .pin { padding: 8px 20px 60px; column-width: 160px; column-gap: 14px; }
+  .pin-card { margin-bottom: 14px; }
+  .pin-card h4 { font-size: 13.5px; }
+}
+</style>`;
+
+const THEME_PINTEREST_BODY = `
+<section class="pin">
+  <article class="pin-card">
+    <a class="pin-card-media" href="#"><img src="https://images.unsplash.com/photo-1774050952646-a850ad28ad6f?w=480&amp;h=640&amp;fit=crop&amp;q=80&amp;auto=format" alt=""></a>
+    <div class="pin-card-body">
+      <div class="eyebrow">Essay · 건축적 사고</div>
+      <h4><a href="#">건축에 대한 깊은 사고 — 짓는 일이 아니라 묻는 일이다</a></h4>
+      <div class="post-meta"><span>2026. 4. 28.</span><span class="post-meta-sep">·</span><a href="#" class="post-meta-link">댓글 4</a></div>
+    </div>
+  </article>
+
+  <article class="pin-card">
+    <a class="pin-card-media" href="#"><img src="https://images.unsplash.com/photo-1752154023453-faba02f8a841?w=480&amp;h=600&amp;fit=crop&amp;q=80&amp;auto=format" alt=""></a>
+    <div class="pin-card-body">
+      <div class="eyebrow">Material · 빛</div>
+      <h4><a href="#">빛은 가장 비싼 재료입니다 — 그러나 가장 공짜입니다</a></h4>
+      <div class="post-meta"><span>2026. 4. 14.</span><span class="post-meta-sep">·</span><a href="#" class="post-meta-link">댓글 2</a></div>
+    </div>
+  </article>
+
+  <article class="pin-card">
+    <a class="pin-card-media" href="#"><img src="https://images.unsplash.com/photo-1777997288465-c435b4d03133?w=480&amp;h=360&amp;fit=crop&amp;q=80&amp;auto=format" alt=""></a>
+    <div class="pin-card-body">
+      <div class="eyebrow">Detail · 디테일</div>
+      <h4><a href="#">좋은 계단은 발이 먼저 알아봅니다</a></h4>
+      <div class="post-meta"><span>2026. 3. 30.</span><span class="post-meta-sep">·</span><a href="#" class="post-meta-link">댓글 1</a></div>
+    </div>
+  </article>
+
+  <article class="pin-card">
+    <a class="pin-card-media" href="#"><img src="https://images.unsplash.com/photo-1768836180167-6d4a25c421b2?w=480&amp;h=480&amp;fit=crop&amp;q=80&amp;auto=format" alt=""></a>
+    <div class="pin-card-body">
+      <div class="eyebrow">Workplace · 사무공간</div>
+      <h4><a href="#">사무실은 왜 점점 거실을 닮아가는가</a></h4>
+      <div class="post-meta"><span>2026. 3. 18.</span><span class="post-meta-sep">·</span><a href="#" class="post-meta-link">댓글 0</a></div>
+    </div>
+  </article>
+
+  <article class="pin-card">
+    <a class="pin-card-media" href="#"><img src="https://images.unsplash.com/photo-1769745918779-f255f567664c?w=480&amp;h=620&amp;fit=crop&amp;q=80&amp;auto=format" alt=""></a>
+    <div class="pin-card-body">
+      <div class="eyebrow">Domestic · 주거</div>
+      <h4><a href="#">오래된 주방이 가르쳐주는 것</a></h4>
+      <div class="post-meta"><span>2026. 3. 5.</span><span class="post-meta-sep">·</span><a href="#" class="post-meta-link">댓글 3</a></div>
+    </div>
+  </article>
+
+  <article class="pin-card">
+    <a class="pin-card-media" href="#"><img src="https://images.unsplash.com/photo-1774050952646-a850ad28ad6f?w=480&amp;h=720&amp;fit=crop&amp;q=80&amp;auto=format" alt=""></a>
+    <div class="pin-card-body">
+      <div class="eyebrow">Memo · 단상</div>
+      <h4><a href="#">로비는 왜 가장 늦게 설계됩니까</a></h4>
+      <div class="post-meta"><span>2026. 2. 22.</span><span class="post-meta-sep">·</span><a href="#" class="post-meta-link">댓글 0</a></div>
+    </div>
+  </article>
+
+  <article class="pin-card">
+    <a class="pin-card-media" href="#"><img src="https://images.unsplash.com/photo-1752154023453-faba02f8a841?w=480&amp;h=320&amp;fit=crop&amp;q=80&amp;auto=format" alt=""></a>
+    <div class="pin-card-body">
+      <div class="eyebrow">Reading · 책에서</div>
+      <h4><a href="#">『도시는 무엇으로 사는가』 — 다섯 번째 읽고 적은 메모</a></h4>
+      <div class="post-meta"><span>2026. 2. 10.</span><span class="post-meta-sep">·</span><a href="#" class="post-meta-link">댓글 2</a></div>
+    </div>
+  </article>
+
+  <article class="pin-card">
+    <a class="pin-card-media" href="#"><img src="https://images.unsplash.com/photo-1777997288465-c435b4d03133?w=480&amp;h=560&amp;fit=crop&amp;q=80&amp;auto=format" alt=""></a>
+    <div class="pin-card-body">
+      <div class="eyebrow">Material · 콘크리트</div>
+      <h4><a href="#">노출 콘크리트는 정말 정직한 재료인가</a></h4>
+      <div class="post-meta"><span>2026. 1. 28.</span><span class="post-meta-sep">·</span><a href="#" class="post-meta-link">댓글 1</a></div>
+    </div>
+  </article>
+
+  <article class="pin-card">
+    <a class="pin-card-media" href="#"><img src="https://images.unsplash.com/photo-1768836180167-6d4a25c421b2?w=480&amp;h=600&amp;fit=crop&amp;q=80&amp;auto=format" alt=""></a>
+    <div class="pin-card-body">
+      <div class="eyebrow">Field · 답사</div>
+      <h4><a href="#">서소문 일대를 걸으며 — 작은 골목의 큰 디테일</a></h4>
+      <div class="post-meta"><span>2026. 1. 14.</span><span class="post-meta-sep">·</span><a href="#" class="post-meta-link">댓글 0</a></div>
+    </div>
+  </article>
+
+  <article class="pin-card">
+    <a class="pin-card-media" href="#"><img src="https://images.unsplash.com/photo-1769745918779-f255f567664c?w=480&amp;h=420&amp;fit=crop&amp;q=80&amp;auto=format" alt=""></a>
+    <div class="pin-card-body">
+      <div class="eyebrow">Domestic · 주거</div>
+      <h4><a href="#">현관은 집의 첫 문장입니다</a></h4>
+      <div class="post-meta"><span>2025. 12. 30.</span><span class="post-meta-sep">·</span><a href="#" class="post-meta-link">댓글 1</a></div>
+    </div>
+  </article>
+
+  <article class="pin-card">
+    <a class="pin-card-media" href="#"><img src="https://images.unsplash.com/photo-1774050952646-a850ad28ad6f?w=480&amp;h=480&amp;fit=crop&amp;q=80&amp;auto=format" alt=""></a>
+    <div class="pin-card-body">
+      <div class="eyebrow">Light · 빛</div>
+      <h4><a href="#">남향이 항상 정답은 아닙니다</a></h4>
+      <div class="post-meta"><span>2025. 12. 18.</span><span class="post-meta-sep">·</span><a href="#" class="post-meta-link">댓글 0</a></div>
+    </div>
+  </article>
+
+  <article class="pin-card">
+    <a class="pin-card-media" href="#"><img src="https://images.unsplash.com/photo-1777997288465-c435b4d03133?w=480&amp;h=680&amp;fit=crop&amp;q=80&amp;auto=format" alt=""></a>
+    <div class="pin-card-body">
+      <div class="eyebrow">Form · 형태</div>
+      <h4><a href="#">곡선은 왜 더 비쌉니까</a></h4>
+      <div class="post-meta"><span>2025. 12. 4.</span><span class="post-meta-sep">·</span><a href="#" class="post-meta-link">댓글 2</a></div>
+    </div>
+  </article>
+</section>`;
+
 /* 화면별 본문 — body 슬롯이 가리키는 본문은 SCREENS_BODY 로 분리
    Blog A 는 기존 키 유지, Blog B 는 'B:' 접두사. */
 const SCREENS_BODY = {
   // ── Blog A ──
-  'theme:base':     { body: THEME_BODY,         style: THEME_STYLE },
-  'theme:campaign': { body: POST_CLARKSON_BODY, style: POST_CLARKSON_STYLE },
-  'theme:tight1':   { body: THEME_BODY,         style: THEME_TIGHT1_STYLE },
-  'theme:tight':    { body: THEME_TIGHT_BODY,   style: THEME_TIGHT_STYLE },
-  'theme:grid':     { body: THEME_GRID_BODY,    style: THEME_GRID_STYLE },
-  'post:default':   { body: POST_STANTON_BODY,  style: POST_STANTON_STYLE },
+  // tight1(기본 블로그홈) 과 campaign(캠페인) 은 홈 레이아웃이라 hero 유지.
+  // tight/tight-big/grid 는 "전체 글 목록" 페이지 성격 → hero 제거 + "홈 > 전체 글 (N)" 브레드크럼 적용.
+  // theme/home-a/pagination-a 패널 모두 같은 본문 키를 공유.
+  'theme:campaign':  { body: POST_CLARKSON_BODY,                style: POST_CLARKSON_STYLE },
+  'theme:tight1':    { body: THEME_BODY,                        style: THEME_TIGHT1_STYLE },
+  'theme:tight':     { body: makeHomeListBody(THEME_TIGHT_BODY), style: THEME_TIGHT_STYLE     + HOME_BREADCRUMB_STYLE },
+  'theme:tight-big': { body: makeHomeListBody(THEME_TIGHT_BODY), style: THEME_TIGHT_BIG_STYLE + HOME_BREADCRUMB_STYLE },
+  'theme:grid':      { body: makeHomeListBody(THEME_GRID_BODY),  style: THEME_GRID_STYLE      + HOME_BREADCRUMB_STYLE },
+  // 매거진 — 피처드+소형(매거진1) / wallpaper.com 레이아웃(매거진2). hero 없이 브레드크럼만.
+  // POST_META_STYLE 주입 — 자체 style 에 .post-meta 룰이 없거나 다른 본문(.post-row 등)의 룰을 받지 못하므로 공용 메타 톤 보장.
+  'theme:magazine-1': { body: HOME_BREADCRUMB_HTML + THEME_MAGAZINE_1_BODY, style: POST_META_STYLE + THEME_MAGAZINE_1_STYLE + HOME_BREADCRUMB_STYLE },
+  'theme:magazine-2': { body: HOME_BREADCRUMB_HTML + THEME_MAGAZINE_2_BODY, style: POST_META_STYLE + THEME_MAGAZINE_2_STYLE + HOME_BREADCRUMB_STYLE },
+  // 핀터레스트 — CSS columns masonry. column-width 로 폭에 따라 자동 컬럼 수 조정.
+  'theme:pinterest':  { body: HOME_BREADCRUMB_HTML + THEME_PINTEREST_BODY,  style: POST_META_STYLE + THEME_PINTEREST_STYLE  + HOME_BREADCRUMB_STYLE },
+  'post:default':    { body: POST_STANTON_BODY,                 style: POST_STANTON_STYLE },
+  // ── 기타 화면 (태그 / 방명록) — tag-guest-a 패널 ──
+  'misc:tag':        { body: TAG_BODY,        style: MISC_PAGE_STYLE },
+  'misc:guestbook':  { body: GUESTBOOK_BODY,  style: MISC_PAGE_STYLE },
+  // ── 게시글 — 상단 (post-top-a 패널) — 헤더 영역 변형 3종 ──
+  'post-top:no-cover':       { body: POST_TOP_HEADER_NO_COVER,       style: POST_TOP_STYLE },
+  'post-top:cover-image':    { body: POST_TOP_HEADER_COVER_IMAGE,    style: POST_TOP_STYLE },
+  'post-top:cover-fallback': { body: POST_TOP_HEADER_COVER_FALLBACK, style: POST_TOP_STYLE },
   // ── Blog B (theme/post 는 이전 호환 유지) ──
   'B:theme:hero':      { body: THEME_BODY_B, style: THEME_STYLE_B },
   'B:theme:editorial': { body: THEME_BODY_B, style: THEME_STYLE_B },
@@ -4419,15 +5996,89 @@ const SCREENS_BODY = {
   'B:walking:default':   { body: POST_BODY_B,            style: POST_STYLE_B },
 };
 
+/* 페이지네이션 단독 — 2가지 표준 스타일.
+   ① 숫자 페이지네이션 = 우리 디자인 (.theme-pagination, 큰 셀 · 3 페이지). THEME_TIGHT1_STYLE 안의 CSS 재사용.
+   ② 더보기 버튼형 (.load-more-wrap) = tstory_theme_basic 원본 — 하단 "더보기" 버튼, 다음 페이지 이어 로드. */
+const PAGINATION_LOADMORE_STYLE = `
+<style>
+.load-more-wrap {
+  max-width: 1280px; margin: 0 auto;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  padding: 40px 40px 0;
+}
+.load-more-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 11px 32px;
+  border: 1px solid var(--color-border-strong);
+  background: var(--color-surface-card);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  font-family: inherit;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.load-more-btn:hover {
+  background: var(--color-text-heading);
+  color: var(--color-surface-card);
+  border-color: var(--color-text-heading);
+}
+.load-more-btn svg {
+  width: 14px; height: 14px;
+  stroke: currentColor; fill: none;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+.load-more-info {
+  font-size: 12px;
+  color: var(--color-text-subtle);
+}
+</style>`;
+
+const PAGINATION_MAP = {
+  numbered: {
+    html: `
+<nav class="theme2-pagination">
+  <a href="#" class="disabled">← Previous</a>
+  <span class="current">1</span>
+  <a href="#">2</a>
+  <a href="#">3</a>
+  <a href="#">4</a>
+  <a href="#">Next →</a>
+</nav>`,
+    extraStyle: '',
+  },
+  'load-more': {
+    html: `
+<div class="load-more-wrap">
+  <button class="load-more-btn">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    더보기
+  </button>
+  <span class="load-more-info">4 / 8 개 표시 중</span>
+</div>`,
+    extraStyle: PAGINATION_LOADMORE_STYLE,
+  },
+};
+
+/* pagination-a 패널 본문 = theme:tight 본문 (hero 없음 + "홈 > 전체 글 (N)" 브레드크럼 포함) 에서
+   본문 끝의 <nav class="theme2-pagination"> 만 제거. 그 자리에 PAGINATION_MAP 옵션을 외부에서 갈아끼움. */
+const PAGINATION_SAMPLE_BODY = SCREENS_BODY['theme:tight'].body.replace(
+  /<nav class="theme2-pagination">[\s\S]*?<\/nav>/,
+  ''
+);
+
 /* Blog 별 슬롯 옵션 — 드롭다운 동적 옵션 생성용 */
 const BLOG_SLOT_OPTIONS = {
   A: {
     body: [
-      { key: 'base',     label: '기본 — 카드 리스트' },
-      { key: 'tight1',   label: '간격 살짝 타이트' },
-      { key: 'tight',    label: '타이트 리스트 · 작은 썸' },
-      { key: 'grid',     label: '4 컬럼 · 세로 썸' },
-      { key: 'campaign', label: '캠페인 — 풀폭 알터네이트' },
+      { key: 'tight1',     label: '기본 — 블로그홈' },
+      { key: 'tight',      label: '게시글 목록 — 작은 썸' },
+      { key: 'tight-big',  label: '게시글 목록 — 큰 썸' },
+      { key: 'grid',       label: '게시글 목록 — 세로 썸' },
+      { key: 'magazine-1', label: '게시글 목록 — 매거진1' },
+      { key: 'magazine-2', label: '게시글 목록 — 매거진2' },
+      { key: 'pinterest',  label: '게시글 목록 — 핀터레스트' },
+      { key: 'campaign',   label: '캠페인 — 웹사이트형' },
     ],
     header: [
       { key: 'left',  label: '좌측 정렬' },
@@ -4444,6 +6095,32 @@ const BLOG_SLOT_OPTIONS = {
       { key: 'right-fixed',   label: '고정영역 (디폴트)' },
       { key: 'drawer-open',   label: '서랍형 — 열린' },
       { key: 'drawer-closed', label: '서랍형 — 닫힌' },
+      { key: 'none',          label: '사이드바 없음' },
+    ],
+    pagination: [
+      { key: 'numbered',  label: '① 숫자 페이지네이션' },
+      { key: 'load-more', label: '② 더보기 버튼형' },
+    ],
+    layout: [
+      { key: 'tight1',   label: '기본 — 블로그홈' },
+      { key: 'campaign', label: '캠페인 — 웹사이트형' },
+    ],
+    'list-body': [
+      { key: 'tight',      label: '게시글 목록 — 작은 썸' },
+      { key: 'tight-big',  label: '게시글 목록 — 큰 썸' },
+      { key: 'grid',       label: '게시글 목록 — 세로 썸' },
+      { key: 'magazine-1', label: '게시글 목록 — 매거진1' },
+      { key: 'magazine-2', label: '게시글 목록 — 매거진2' },
+      { key: 'pinterest',  label: '게시글 목록 — 핀터레스트' },
+    ],
+    misc: [
+      { key: 'tag',       label: '태그' },
+      { key: 'guestbook', label: '방명록' },
+    ],
+    'post-top': [
+      { key: 'no-cover',       label: '① 커버 없음' },
+      { key: 'cover-image',    label: '② 커버 — 썸네일 이미지' },
+      { key: 'cover-fallback', label: '③ 커버 — 단색 fallback' },
     ],
   },
   B: {
@@ -4466,11 +6143,16 @@ const BLOG_SLOT_OPTIONS = {
 /* Blog 별 디폴트 (PANEL_CONFIG.defaults 대체) */
 const BLOG_PANEL_DEFAULTS = {
   A: {
-    theme:   { body: 'base', header: 'hero', footer: 'center', sidebar: 'right-fixed' },
+    theme:   { body: 'tight1', header: 'hero', footer: 'center', sidebar: 'right-fixed' },
     post:    { header: 'hero', footer: 'center', sidebar: 'right-fixed' },
     header:  { variant: 'hero' },
     footer:  { variant: 'center' },
     sidebar: { variant: 'right-fixed' },
+    'home-layout-a': { layout: 'tight1' },
+    'home-a': { 'list-body': 'tight' },
+    'pagination-a': { pagination: 'numbered' },
+    'tag-guest-a': { misc: 'tag' },
+    'post-top-a': { 'post-top': 'no-cover' },
   },
   B: {
     theme:   { body: 'hero', header: 'hero', footer: 'center', sidebar: 'right-fixed' },
@@ -4494,7 +6176,7 @@ const PANEL_CONFIG = {
     frameId: 'frame-theme',
     fileLabelSlot: 'theme',
     slots: ['body', 'header', 'footer', 'sidebar'],
-    defaults: { body: 'base', header: 'left', footer: 'center', sidebar: 'right-fixed' },
+    defaults: { body: 'tight1', header: 'left', footer: 'center', sidebar: 'right-fixed' },
     bodySlot: 'body',
     bodyScreenPrefix: 'theme:',
   },
@@ -4557,6 +6239,57 @@ const PANEL_CONFIG = {
     slots: [], defaults: {},
     bodySlot: null, bodyScreenKey: 'walking:default',
   },
+  // ─── Blog A · 홈 화면 레이아웃 — 기본/캠페인 두 레이아웃 ───
+  'home-layout-a': {
+    kind: 'screen',
+    frameId: 'frame-home-layout-a',
+    fileLabelSlot: 'home-layout-a',
+    slots: ['layout'],
+    defaults: { layout: 'tight1' },
+    bodySlot: 'layout',
+    bodyScreenPrefix: 'theme:',
+  },
+  // ─── Blog A · 홈(게시글 목록) — 게시글 목록 변형만 (tight1·campaign 은 home-layout-a 로 분리) ───
+  // theme: 키를 그대로 사용 — tight/tight-big/grid 는 SCREENS_BODY 에서 이미 hero 제거 + 브레드크럼 포함된 본문으로 정의됨.
+  'home-a': {
+    kind: 'screen',
+    frameId: 'frame-home-a',
+    fileLabelSlot: 'home-a',
+    slots: ['list-body'],
+    defaults: { 'list-body': 'tight' },
+    bodySlot: 'list-body',
+    bodyScreenPrefix: 'theme:',
+  },
+  // ─── Blog A · 게시글 — 상단 (헤더 영역 변형 단독 검수) ───
+  'post-top-a': {
+    kind: 'screen',
+    frameId: 'frame-post-top-a',
+    fileLabelSlot: 'post-top-a',
+    slots: ['post-top'],
+    defaults: { 'post-top': 'no-cover' },
+    bodySlot: 'post-top',
+    bodyScreenPrefix: 'post-top:',
+  },
+  // ─── Blog A · 기타 화면 — 태그 / 방명록 전환 ───
+  'tag-guest-a': {
+    kind: 'screen',
+    frameId: 'frame-tag-guest-a',
+    fileLabelSlot: 'tag-guest-a',
+    slots: ['misc'],
+    defaults: { misc: 'tag' },
+    bodySlot: 'misc',
+    bodyScreenPrefix: 'misc:',
+  },
+  // ─── Blog A · 페이지네이션 — 유형별 nav 만 단독 검수 ───
+  'pagination-a': {
+    kind: 'screen',
+    frameId: 'frame-pagination-a',
+    fileLabelSlot: 'pagination-a',
+    slots: ['pagination'],
+    defaults: { pagination: 'numbered' },
+    bodySlot: null,
+    bodyScreenKey: 'theme:tight1',
+  },
   // ─── Website 페이지 (나기사 료칸 · 외부 단독 파일) ───
   'pension-home': {
     kind: 'external', frameId: 'frame-pension-home', fileLabelSlot: null,
@@ -4610,7 +6343,39 @@ function applySlotsToScreen(panelKey, slotState) {
     // cfg.bodyScreenKey 는 Blog A 기준 ("post:default"). Blog B 면 접두사.
     screenKey = ctx.screenPrefix + cfg.bodyScreenKey;
   }
-  const screen = SCREENS_BODY[screenKey] || SCREENS_BODY['theme:base'];
+  const screen = SCREENS_BODY[screenKey] || SCREENS_BODY['theme:tight1'];
+
+  // 홈 — 게시글 목록: 본문(목록)만 검수, 헤더/푸터 자리는 placeholder 로 대체.
+  // .preview-page(flex column) 를 쓰면 자식 sections 의 max-width+margin:auto 가 collapse 되므로
+  // 일반 block 흐름으로 두어 본문이 전체 테마와 동일하게 max-width:1280 centered 로 렌더되게 함.
+  if (panelKey === 'home-a' || panelKey === 'home-layout-a' || panelKey === 'tag-guest-a' || panelKey === 'post-top-a') {
+    const body = `
+<div class="placeholder-block">placeholder · 헤더 (검수 대상 외)</div>
+${screen.body}
+<div class="placeholder-block">placeholder · 푸터 (검수 대상 외)</div>`;
+    return wrapDoc(PREVIEW_PLACEHOLDER_STYLE + screen.style, body, {
+      suppressChrome: true,
+      baseStyleOverride: ctx.baseStyle,
+    });
+  }
+
+  // 페이지네이션 단독: 본문은 home-a?b=tight 의 샘플 본문 (THEME_TIGHT_BODY) 그대로,
+  // 끝의 .theme2-pagination 만 제거한 자리에 옵션별 페이지네이션을 갈아끼움. 헤더/푸터는 placeholder.
+  // numbered = 우리 .theme2-pagination (tight 본문과 동일 디자인) / load-more = 원본 더보기 버튼.
+  if (panelKey === 'pagination-a') {
+    const pagKey = slotState.pagination || defaults.pagination || 'numbered';
+    const entry = PAGINATION_MAP[pagKey] || PAGINATION_MAP.numbered;
+    const baseStyle = SCREENS_BODY['theme:tight'].style;
+    const body = `
+<div class="placeholder-block">placeholder · 헤더 (검수 대상 외)</div>
+${PAGINATION_SAMPLE_BODY}
+${entry.html}
+<div class="placeholder-block">placeholder · 푸터 (검수 대상 외)</div>`;
+    return wrapDoc(PREVIEW_PLACEHOLDER_STYLE + baseStyle + entry.extraStyle, body, {
+      suppressChrome: true,
+      baseStyleOverride: ctx.baseStyle,
+    });
+  }
 
   // 헤더 / 푸터 / 사이드바
   const headerKey  = slotState.header  || defaults.header  || 'left';
@@ -4826,7 +6591,7 @@ function rebuildSlotSelectOptions() {
 
 /* Blog 별로 LNB 에 보이는 패널 키 목록 — 그룹 hide/show 와 일치 */
 const BLOG_AVAILABLE_PANELS = {
-  A: ['theme', 'post', 'header', 'footer', 'sidebar'],
+  A: ['theme', 'post', 'home-layout-a', 'home-a', 'post-top-a', 'pagination-a', 'tag-guest-a', 'header', 'footer', 'sidebar'],
   B: ['home', 'districts', 'mission', 'stories', 'walking', 'header', 'footer'],
   WC: ['pension-home'],
   ML: ['cafe-home'],
@@ -4873,6 +6638,11 @@ const PANEL_LABELS = {
   A: {
     theme:   { title: '전체 테마',           desc: '레이아웃(기본 · 1-1 · 2 · 3 · 캠페인) + 헤더/푸터/사이드바를 슬롯으로 선택해 조합 검수.' },
     post:    { title: '게시글 상세 — 블로그형', desc: '단일 컬럼 블로그 글 형식의 게시글 상세. 각 모듈을 슬롯으로 갈아끼워 조합 검수.' },
+    'home-layout-a': { title: '홈 레이아웃', desc: '블로그 홈의 두 가지 레이아웃(기본 블로그홈 / 캠페인 웹사이트형) 비교.' },
+    'home-a': { title: '홈 — 게시글 목록',     desc: '블로그 홈(게시글 목록) 단독 검수. 게시글 목록 변형(작은썸/큰썸/세로썸)을 비교. 기본 블로그홈·캠페인 풀폭은 홈 레이아웃 패널 참조.' },
+    'pagination-a': { title: '페이지네이션',     desc: '페이지네이션 단독 검수. 본문/헤더/푸터는 placeholder. 본문 변형에 따라 .theme-/.theme2-/.theme3-pagination 이 적용됨.' },
+    'tag-guest-a': { title: '태그 / 방명록',     desc: '기타 화면 — 태그 클라우드와 방명록(리스트 + 입력 폼) 단독 검수. 헤더/푸터는 placeholder.' },
+    'post-top-a': { title: '게시글 — 상단',     desc: '게시글 상세 화면 상단부 변형 검수 — ① 커버 없음 / ② 썸네일 커버 / ③ 단색 fallback 커버. 본문/사이트 헤더·푸터는 placeholder.' },
     header:  { title: '컴포넌트 — 헤더',     desc: '헤더 단독 검수. 본문·푸터는 placeholder. 화면(전체 테마/게시글) 에 적용된 모습은 좌측 sidenav 의 "화면" 섹션에서 확인.' },
     footer:  { title: '컴포넌트 — 푸터',     desc: '푸터 단독 검수. 헤더·본문은 placeholder. 푸터 메뉴(홈/방명록/RSS/맨위로) · 카피라이트 · Powered by Tistory 공통.' },
     sidebar: { title: '컴포넌트 — 사이드바', desc: '위젯 6종(프로필 · 최근/인기글 · 최근 댓글 · 카테고리 · 방문자 · 태그) 라이브러리. 변형 3종 — 고정영역(디폴트) / 서랍형 열린 / 서랍형 닫힌.' },
