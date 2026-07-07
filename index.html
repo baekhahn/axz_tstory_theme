@@ -4183,7 +4183,7 @@ const EDITORIAL_BODY_B = `
 /* ── Blog B THEME (홈) — Pano variant (풀스크린 가로 스크롤) ── */
 const PANO_STYLE_B = `
 <style>
-.b-pano { overflow: hidden; background: #1E1E1E; }
+.b-pano { position: relative; overflow: hidden; background: #1E1E1E; }
 .b-pano-track {
   display: flex; height: 100vh;
   overflow-x: auto; overflow-y: hidden;
@@ -7117,7 +7117,10 @@ function applySlotsToScreen(panelKey, slotState) {
   // .preview-page(flex column) 를 쓰면 자식 sections 의 max-width+margin:auto 가 collapse 되므로
   // 일반 block 흐름으로 두어 본문이 전체 테마와 동일하게 max-width:1280 centered 로 렌더되게 함.
   if (panelKey === 'home-a' || panelKey === 'home-layout-a' || panelKey === 'tag-guest-a' || panelKey === 'post-top-a' || panelKey === 'home-layout-b') {
-    const body = `
+    // pano 등 풀블리드(100vh) 레이아웃은 헤더/푸터 placeholder 로 감싸면 뷰포트를 넘쳐
+    // 좌우 nav 버튼과 본문 텍스트의 하단 기준이 어긋나 겹치므로, placeholder 없이 뷰포트에 꽉 채워 렌더한다.
+    const isFullbleed = screenKey.endsWith(':pano');
+    const body = isFullbleed ? screen.body : `
 <div class="placeholder-block">placeholder · 헤더 (검수 대상 외)</div>
 ${screen.body}
 <div class="placeholder-block">placeholder · 푸터 (검수 대상 외)</div>`;
