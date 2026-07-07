@@ -292,11 +292,11 @@ body[data-blog="ML"] .panel.is-blog-wc { display: none !important; }
       <p class="sidenav-eyebrow">티스토리 테마</p>
       <select class="theme-select" id="blog-select" aria-label="블로그 선택">
         <option value="A">Blog A — 공간노트</option>
-        <option value="B" hidden>Blog B — San Francisco</option>
+        <option value="B">Blog B — San Francisco</option>
         <option value="WC" hidden>Website — Nagi (료칸)</option>
         <option value="ML" hidden>Website — Maison Lumière (프렌치 카페)</option>
       </select>
-      <p class="sidenav-sub">1차 통합 미리보기</p>
+      <p class="sidenav-sub">통합 미리보기</p>
     </div>
 
     <!-- Blog A LNB — 테마 검수용 -->
@@ -338,59 +338,23 @@ body[data-blog="ML"] .panel.is-blog-wc { display: none !important; }
 
     <!-- Blog B LNB — 웹사이트 페이지 트리 -->
     <div class="lnb-group lnb-group-b">
-      <div class="sidenav-section">화면 (사이트 페이지)</div>
-      <button class="nav-item" data-tab="home">
-        <span class="nav-label">Home</span>
+      <div class="sidenav-section">화면 (조합 검수)</div>
+      <button class="nav-item" data-tab="theme-b">
+        <span class="nav-label">전체 테마</span>
       </button>
-      <button class="nav-item" disabled>
-        <span class="nav-label">About</span><span class="nav-tag">TODO</span>
-      </button>
-
-      <button class="nav-item nav-item-parent" data-tab="districts">
-        <span class="nav-label">Districts</span>
-      </button>
-      <button class="nav-item nav-item-child" data-tab="mission">
-        <span class="nav-label">Mission</span>
-      </button>
-      <button class="nav-item nav-item-child" disabled>
-        <span class="nav-label">Castro</span><span class="nav-tag">TODO</span>
-      </button>
-      <button class="nav-item nav-item-child" disabled>
-        <span class="nav-label">Sunset</span><span class="nav-tag">TODO</span>
-      </button>
-      <button class="nav-item nav-item-child" disabled>
-        <span class="nav-label">North Beach</span><span class="nav-tag">TODO</span>
-      </button>
-      <button class="nav-item nav-item-child" disabled>
-        <span class="nav-label">SoMa</span><span class="nav-tag">TODO</span>
-      </button>
-      <button class="nav-item nav-item-child" disabled>
-        <span class="nav-label">Richmond</span><span class="nav-tag">TODO</span>
-      </button>
-
-      <button class="nav-item nav-item-parent" data-tab="stories">
-        <span class="nav-label">Stories</span>
-      </button>
-      <button class="nav-item nav-item-child" data-tab="walking">
-        <span class="nav-label">On walking the bridge</span>
-      </button>
-
-      <button class="nav-item" disabled>
-        <span class="nav-label">Food</span><span class="nav-tag">TODO</span>
-      </button>
-      <button class="nav-item" disabled>
-        <span class="nav-label">Events</span><span class="nav-tag">TODO</span>
-      </button>
-      <button class="nav-item" disabled>
-        <span class="nav-label">Contact</span><span class="nav-tag">TODO</span>
+      <button class="nav-item" data-tab="subpage-b">
+        <span class="nav-label">서브 페이지</span>
       </button>
 
       <div class="sidenav-section">컴포넌트 (단독 검수)</div>
       <button class="nav-item" data-tab="header">
-        <span class="nav-label">헤더 (Hero overlay)</span>
+        <span class="nav-label">헤더</span>
       </button>
       <button class="nav-item" data-tab="footer">
-        <span class="nav-label">푸터 (Minimal)</span>
+        <span class="nav-label">푸터</span>
+      </button>
+      <button class="nav-item" data-tab="home-layout-b">
+        <span class="nav-label">홈 레이아웃</span>
       </button>
     </div>
 
@@ -660,68 +624,71 @@ body[data-blog="ML"] .panel.is-blog-wc { display: none !important; }
     </section>
 
     <!-- ─── Blog B 패널들 (5개 페이지) ─── -->
-    <section class="panel is-blog-b" data-panel="home">
+    <!-- 화면 · 전체 테마 (Blog B, 웹사이트형) -->
+    <section class="panel is-blog-b" data-panel="theme-b">
       <header class="panel-header">
-        <h2 class="panel-title">Home — San Francisco</h2>
-        <p class="panel-desc">사이트 홈. 풀스크린 hero + 이단 섹션 + Districts 그리드.</p>
+        <h2 class="panel-title">전체 테마</h2>
+        <p class="panel-desc">웹사이트 홈 조립 검수. 홈 레이아웃 + 헤더 + 푸터를 슬롯으로 조합. 사이드바 없음(블로그가 아니므로).</p>
         <div class="panel-meta">
-          <span class="panel-file">restore_sf_home.html</span>
+          <span class="panel-file" data-panel-file="theme-b"></span>
+        </div>
+        <div class="slot-bar" data-panel="theme-b">
+          <label class="slot-field">
+            <span class="slot-label">레이아웃</span>
+            <select class="slot-select" data-panel="theme-b" data-slot="body"></select>
+          </label>
+          <label class="slot-field">
+            <span class="slot-label">헤더</span>
+            <select class="slot-select" data-panel="theme-b" data-slot="header"></select>
+          </label>
+          <label class="slot-field">
+            <span class="slot-label">푸터</span>
+            <select class="slot-select" data-panel="theme-b" data-slot="footer"></select>
+          </label>
         </div>
       </header>
       <div class="frame-wrap">
-        <iframe class="preview-frame" id="frame-home" title="Home"></iframe>
+        <iframe class="preview-frame" id="frame-theme-b" title="전체 테마"></iframe>
       </div>
     </section>
 
-    <section class="panel is-blog-b" data-panel="districts">
+    <!-- 화면 · 서브 페이지 (Blog B) -->
+    <section class="panel is-blog-b" data-panel="subpage-b">
       <header class="panel-header">
-        <h2 class="panel-title">Districts — 동네 목록</h2>
-        <p class="panel-desc">6개 동네 카드 그리드 + 짧은 인트로. 카테고리 `/category/districts` 매핑.</p>
+        <h2 class="panel-title">서브 페이지</h2>
+        <p class="panel-desc">웹사이트가 가질 수 있는 다양한 페이지 예시 — Districts / Mission / Stories / 스토리 상세 / Food / Events. 실제 헤더·푸터 포함.</p>
         <div class="panel-meta">
-          <span class="panel-file">restore_sf_districts.html</span>
+          <span class="panel-file" data-panel-file="subpage-b"></span>
+        </div>
+        <div class="slot-bar" data-panel="subpage-b">
+          <label class="slot-field">
+            <span class="slot-label">페이지</span>
+            <select class="slot-select" data-panel="subpage-b" data-slot="subpage"></select>
+          </label>
         </div>
       </header>
       <div class="frame-wrap">
-        <iframe class="preview-frame" id="frame-districts" title="Districts"></iframe>
+        <iframe class="preview-frame" id="frame-subpage-b" title="서브 페이지"></iframe>
       </div>
     </section>
 
-    <section class="panel is-blog-b" data-panel="mission">
+    <!-- 컴포넌트 · 홈 레이아웃 (Blog B) -->
+    <section class="panel is-blog-b" data-panel="home-layout-b">
       <header class="panel-header">
-        <h2 class="panel-title">Mission — 동네 상세</h2>
-        <p class="panel-desc">District 상세 페이지 (예: Mission). Hero + 본문 단락 + 풀폭 이미지 + 카드.</p>
+        <h2 class="panel-title">홈 레이아웃</h2>
+        <p class="panel-desc">웹사이트 홈의 세 가지 레이아웃 (좌우풀이미지 / Hero 캠페인 / Editorial 매거진) 비교. 헤더/푸터는 placeholder.</p>
         <div class="panel-meta">
-          <span class="panel-file">restore_sf_mission.html</span>
+          <span class="panel-file" data-panel-file="home-layout-b"></span>
+        </div>
+        <div class="slot-bar" data-panel="home-layout-b">
+          <label class="slot-field">
+            <span class="slot-label">레이아웃</span>
+            <select class="slot-select" data-panel="home-layout-b" data-slot="layout"></select>
+          </label>
         </div>
       </header>
       <div class="frame-wrap">
-        <iframe class="preview-frame" id="frame-mission" title="Mission"></iframe>
-      </div>
-    </section>
-
-    <section class="panel is-blog-b" data-panel="stories">
-      <header class="panel-header">
-        <h2 class="panel-title">Stories — 에세이 목록</h2>
-        <p class="panel-desc">Field Notes 에세이 목록. 가로 카드 리스트.</p>
-        <div class="panel-meta">
-          <span class="panel-file">restore_sf_stories.html</span>
-        </div>
-      </header>
-      <div class="frame-wrap">
-        <iframe class="preview-frame" id="frame-stories" title="Stories"></iframe>
-      </div>
-    </section>
-
-    <section class="panel is-blog-b" data-panel="walking">
-      <header class="panel-header">
-        <h2 class="panel-title">On walking the bridge, twice. — 에세이</h2>
-        <p class="panel-desc">Stories 의 첫 에세이. Hero 이미지 + 장문 + blockquote + 풀폭 이미지.</p>
-        <div class="panel-meta">
-          <span class="panel-file">restore_sf_walking.html</span>
-        </div>
-      </header>
-      <div class="frame-wrap">
-        <iframe class="preview-frame" id="frame-walking" title="Walking"></iframe>
+        <iframe class="preview-frame" id="frame-home-layout-b" title="홈 레이아웃"></iframe>
       </div>
     </section>
 
@@ -3125,7 +3092,7 @@ const SIDEBAR_COMPONENT_STYLE = `
 
 .sb-list { display: flex; flex-direction: column; gap: 14px; margin: 0; padding: 0; list-style: none; }
 .sb-list a { display: flex; gap: 10px; align-items: flex-start; }
-.sb-list a:hover .sb-list-title { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.sb-list a:hover .sb-list-title { color: var(--color-text-heading); font-weight: 600; }
 .sb-list-thumb {
   width: 48px; height: 48px;
   flex-shrink: 0;
@@ -3138,7 +3105,9 @@ const SIDEBAR_COMPONENT_STYLE = `
   font-size: var(--font-size-sm);
   color: var(--color-text-default);
   line-height: 1.4;
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  /* -webkit-box 대신 max-height 로 2줄 자르기 — webkit 의 line-clamp 가 두 번째 줄 underline 을 가늘게 그리는 버그 우회 */
+  display: block;
+  max-height: 2.8em; /* line-height 1.4 × 2 */
   overflow: hidden;
 }
 .sb-list-date {
@@ -3153,7 +3122,7 @@ const SIDEBAR_COMPONENT_STYLE = `
   display: flex; flex-direction: column; gap: 4px;
   padding: 4px 0;
 }
-.sb-comments a:hover .sb-comment-text { text-decoration: underline; text-underline-offset: 4px; }
+.sb-comments a:hover .sb-comment-text { color: var(--color-text-heading); font-weight: 600; }
 .sb-comment-text {
   font-size: var(--font-size-sm);
   color: var(--color-text-default);
@@ -3480,10 +3449,14 @@ body {
   letter-spacing: -.01em;
 }
 ul, ol { margin: 0; padding: 0; list-style: none; }
-a { color: inherit; text-decoration: none; }
+a { color: inherit; text-decoration: none; cursor: pointer; }
 p { margin: 0; }
 img { max-width: 100%; height: auto; vertical-align: middle; display: block; }
 button { font-family: inherit; cursor: pointer; }
+select, label { cursor: pointer; }
+/* 호버 효과가 있는 카드/행(앵커가 아닌 것 포함)도 손가락 커서 */
+.b-district, .b-list-item, .b-story, .b-spot, .b-ev-row,
+.b-food-card, .b-food-feature, .b-ed-card, .b-ed-feature { cursor: pointer; }
 
 /* ── 대형 타이포 (Re-Store 시그니처) ── */
 .massive {
@@ -3494,6 +3467,11 @@ button { font-family: inherit; cursor: pointer; }
   line-height: .95;
   color: var(--color-text-heading);
 }
+/* 서브페이지 큰 타이틀(Districts/Stories/Food/Events) 은 San Francisco 레드 */
+.b-list-head .massive,
+.b-stories-head .massive,
+.b-food-head .massive,
+.b-ev-head .massive { color: var(--color-accent); }
 .hero-display {
   font-family: var(--font-display);
   font-size: clamp(48px, 6vw, 92px);
@@ -3521,10 +3499,12 @@ button { font-family: inherit; cursor: pointer; }
 .site-header.is-dark   { color: var(--color-text-heading); background: var(--color-surface-page); border-bottom: 1px solid var(--color-border-subtle); position: sticky; }
 .site-brand {
   font-size: 22px;
-  font-weight: 500;
-  letter-spacing: -.025em;
-  color: inherit;
+  font-weight: 800;
+  letter-spacing: -.03em;
+  color: var(--color-accent);
 }
+/* hero 오버레이(어두운 이미지 위)에서는 로고 red 명도를 올려 딤드 그라데이션과 섞이지 않게 */
+.site-header.is-light .site-brand { color: #FF6A45; }
 .site-nav {
   display: flex; align-items: center; gap: 28px;
 }
@@ -3533,9 +3513,9 @@ button { font-family: inherit; cursor: pointer; }
   font-weight: 500;
   letter-spacing: -.02em;
   color: inherit;
-  transition: opacity .15s ease;
+  transition: color .15s ease;
 }
-.site-nav a:hover { opacity: .65; }
+.site-nav a:hover { color: var(--color-accent); }
 .site-lang {
   display: flex; gap: 12px;
   font-size: 14px; font-weight: 500;
@@ -3610,7 +3590,7 @@ button { font-family: inherit; cursor: pointer; }
   gap: 32px; flex-wrap: wrap;
 }
 .site-footer-row .footer-brand {
-  font-size: 22px; font-weight: 500; letter-spacing: -.025em;
+  font-size: 22px; font-weight: 800; letter-spacing: -.03em; color: var(--color-accent);
 }
 .site-footer-row .footer-tagline {
   font-size: 14px; color: var(--color-text-secondary);
@@ -3630,10 +3610,104 @@ button { font-family: inherit; cursor: pointer; }
   letter-spacing: -.005em;
 }
 
+/* ═══ 헤더 variant — 웹사이트형 (Blog B) ═══ */
+/* (1) is-light = Hero 오버레이 (기존, 투명·absolute) */
+/* (2) is-bar = 솔리드 상단바 (sticky·불투명) */
+.site-header.is-bar {
+  position: sticky; top: 0;
+  background: var(--color-surface-page);
+  border-bottom: 1px solid var(--color-border-subtle);
+  color: var(--color-text-heading);
+  padding: 20px clamp(24px, 4vw, 64px);
+}
+/* (3) is-center = 센터 로고 (sticky·불투명·로고 가운데·메뉴 아래) */
+.site-header.is-center {
+  position: sticky; top: 0;
+  background: var(--color-surface-page);
+  border-bottom: 1px solid var(--color-border-subtle);
+  color: var(--color-text-heading);
+  flex-direction: column; align-items: center; gap: 14px;
+  padding: 22px clamp(24px, 4vw, 64px) 18px;
+}
+.site-header.is-center .site-brand { font-size: 28px; }
+.site-header.is-center .site-nav { gap: 32px; }
+.site-header.is-center .site-lang {
+  position: absolute; top: 22px; right: clamp(24px, 4vw, 64px);
+}
+/* 솔리드 헤더일 때 홈 hero 상단 여백 축소 (오버레이용 160px 과다 방지) */
+body.bhdr-bar    .b-hero { padding-top: 104px; }
+body.bhdr-center .b-hero { padding-top: 132px; }
+
+/* ═══ 푸터 variant — 웹사이트형 (Blog B) ═══ */
+/* (2) is-columns = 다단 (브랜드 + 링크 3열 + 뉴스레터) */
+.site-footer.is-columns { gap: 48px; }
+.site-footer-cols {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1.4fr;
+  gap: 40px;
+}
+.site-footer-cols .fcol-brand .footer-brand { font-size: 24px; font-weight: 800; letter-spacing: -.03em; color: var(--color-accent); }
+.site-footer-cols .fcol-brand .footer-tagline { font-size: 14px; color: var(--color-text-secondary); margin-top: 6px; max-width: 260px; }
+.site-footer-cols .fcol h4 {
+  font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--color-text-subtle); margin: 0 0 16px;
+}
+.site-footer-cols .fcol a {
+  display: block; padding: 5px 0;
+  font-size: 15px; font-weight: 500; letter-spacing: -.015em;
+  color: var(--color-text-default);
+  transition: color .15s ease;
+}
+.site-footer-cols .fcol a:hover { color: var(--color-accent); }
+.site-footer-cols .fcol-news p { font-size: 14px; color: var(--color-text-secondary); margin-bottom: 14px; }
+.fnews-form { display: flex; border: 1px solid var(--color-border-strong); }
+.fnews-form input {
+  flex: 1; min-width: 0; border: none; background: transparent;
+  padding: 11px 14px; font-size: 14px; font-family: inherit; color: var(--color-text-default);
+}
+.fnews-form input::placeholder { color: var(--color-text-subtle); }
+.fnews-form button {
+  border: none; background: var(--color-text-heading); color: var(--color-text-inv);
+  padding: 0 18px; font-size: 14px; font-weight: 500; font-family: inherit;
+}
+
+/* (3) is-bigcta = 큰 CTA (다크 배경 + 대형 헤드라인 + pill) */
+.site-footer.is-bigcta {
+  background: var(--raw-bg-inv);
+  color: var(--color-text-inv);
+  border-top: none;
+  margin-top: 0;
+  padding: clamp(72px, 12vh, 140px) clamp(24px, 4vw, 64px) 40px;
+  gap: 56px;
+}
+.site-footer.is-bigcta .fcta-headline {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.6vw, 52px);
+  font-weight: 500; letter-spacing: -.03em; line-height: 1.05;
+  color: var(--color-text-inv);
+  max-width: 720px;
+}
+.site-footer.is-bigcta .fcta-row {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: 32px; flex-wrap: wrap;
+}
+.site-footer.is-bigcta .btn-pill { background: var(--color-text-inv); color: var(--color-text-heading); }
+.site-footer.is-bigcta .fcta-nav { display: flex; gap: 26px; flex-wrap: wrap; font-size: 15px; font-weight: 500; }
+.site-footer.is-bigcta .fcta-nav a { color: var(--color-text-inv); opacity: .8; }
+.site-footer.is-bigcta .fcta-nav a:hover { color: var(--color-accent); opacity: 1; }
+.site-footer.is-bigcta .site-footer-meta { color: rgba(255,255,255,.5); border-top: 1px solid rgba(255,255,255,.15); padding-top: 24px; }
+.site-footer.is-bigcta .site-footer-meta a { color: inherit; }
+
+@media (max-width: 900px) {
+  .site-footer-cols { grid-template-columns: 1fr 1fr; gap: 32px; }
+}
 @media (max-width: 760px) {
   .site-header { padding: 16px 20px; flex-wrap: wrap; gap: 14px; }
   .site-nav { gap: 18px; }
   .site-lang { display: none; }
+  .site-header.is-center { flex-direction: column; }
+  .site-header.is-center .site-lang { display: none; }
+  .site-footer-cols { grid-template-columns: 1fr; }
 }
 </style>
 `;
@@ -3663,6 +3737,102 @@ const FOOTER_HTML_B = `
       <div class="footer-tagline">A field guide by the bay</div>
     </div>
     <nav class="site-footer-nav">
+      <a href="#">Districts</a>
+      <a href="#">Stories</a>
+      <a href="#">Food</a>
+      <a href="#">Events</a>
+      <a href="#">Contact</a>
+    </nav>
+  </div>
+  <div class="site-footer-meta">
+    <span>© 2026 San Francisco Field Guide</span>
+    <span>Powered by <a href="#" style="color:inherit;border-bottom:1px solid currentColor">Tistory</a></span>
+  </div>
+</footer>
+`;
+
+/* 헤더 (2) 솔리드 상단바 */
+const HEADER_HTML_B_BAR = `
+<header class="site-header is-bar">
+  <a class="site-brand" href="#">San Francisco</a>
+  <nav class="site-nav">
+    <a href="#">Districts</a>
+    <a href="#">Stories</a>
+    <a href="#">Food</a>
+    <a href="#">Events</a>
+  </nav>
+  <div class="site-lang">
+    <span class="active">EN</span>
+    <span>ES</span>
+    <span>JP</span>
+  </div>
+</header>
+`;
+
+/* 헤더 (3) 센터 로고 */
+const HEADER_HTML_B_CENTER = `
+<header class="site-header is-center">
+  <a class="site-brand" href="#">San Francisco</a>
+  <nav class="site-nav">
+    <a href="#">Districts</a>
+    <a href="#">Stories</a>
+    <a href="#">Food</a>
+    <a href="#">Events</a>
+    <a href="#">Contact</a>
+  </nav>
+  <div class="site-lang">
+    <span class="active">EN</span>
+    <span>ES</span>
+    <span>JP</span>
+  </div>
+</header>
+`;
+
+/* 푸터 (2) 다단 (브랜드 + 링크 3열 + 뉴스레터) */
+const FOOTER_HTML_B_COLUMNS = `
+<footer class="site-footer is-columns">
+  <div class="site-footer-cols">
+    <div class="fcol fcol-brand">
+      <div class="footer-brand">San Francisco</div>
+      <div class="footer-tagline">A field guide to the city between fog and ocean.</div>
+    </div>
+    <div class="fcol">
+      <h4>Explore</h4>
+      <a href="#">Districts</a>
+      <a href="#">Stories</a>
+      <a href="#">Food</a>
+      <a href="#">Events</a>
+    </div>
+    <div class="fcol">
+      <h4>About</h4>
+      <a href="#">Our story</a>
+      <a href="#">Contributors</a>
+      <a href="#">Contact</a>
+      <a href="#">Press</a>
+    </div>
+    <div class="fcol fcol-news">
+      <h4>Newsletter</h4>
+      <p>Monthly dispatches from the bay.</p>
+      <form class="fnews-form" onsubmit="event.preventDefault();">
+        <input type="email" placeholder="you@email.com">
+        <button type="submit">Join</button>
+      </form>
+    </div>
+  </div>
+  <div class="site-footer-meta">
+    <span>© 2026 San Francisco Field Guide</span>
+    <span>Powered by <a href="#" style="color:inherit;border-bottom:1px solid currentColor">Tistory</a></span>
+  </div>
+</footer>
+`;
+
+/* 푸터 (3) 큰 CTA (다크 배경) */
+const FOOTER_HTML_B_BIGCTA = `
+<footer class="site-footer is-bigcta">
+  <div class="fcta-headline">Find your corner of the city.</div>
+  <div class="fcta-row">
+    <a class="btn-pill" href="#">Start exploring</a>
+    <nav class="fcta-nav">
       <a href="#">Districts</a>
       <a href="#">Stories</a>
       <a href="#">Food</a>
@@ -3785,7 +3955,9 @@ const THEME_STYLE_B = `
 .b-district .label {
   font-size: 22px; font-weight: 500; letter-spacing: -.025em;
   color: var(--color-text-heading);
+  transition: color .15s ease;
 }
+.b-district:hover .label { color: var(--color-accent); }
 .b-district .copy {
   font-size: 15px; color: var(--color-text-secondary);
   letter-spacing: -.015em; line-height: 1.4;
@@ -3898,6 +4070,298 @@ const THEME_BODY_B = `
   </section>
 
 </div>
+`;
+
+/* ── Blog B THEME (홈) — Editorial variant (매거진식 홈) ── */
+const EDITORIAL_STYLE_B = `
+<style>
+.b-ed { padding-top: 0; }
+.b-ed-masthead {
+  padding: 40px max(clamp(24px,4vw,64px), (100% - 1600px)/2) 48px;
+  border-bottom: 1px solid var(--color-border-strong);
+}
+.b-ed-eyebrow {
+  font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--color-text-heading); margin-bottom: 20px;
+}
+.b-ed-masthead .massive { max-width: 1100px; color: var(--color-accent); }
+.b-ed-sub { font-size: 18px; color: var(--color-text-secondary); letter-spacing: -.015em; margin-top: 24px; max-width: 620px; }
+
+/* 피처드 (큰 이미지 + 텍스트) */
+.b-ed-feature {
+  display: grid; grid-template-columns: 1.35fr 1fr; gap: clamp(32px, 4vw, 72px);
+  padding: clamp(56px, 8vh, 96px) max(clamp(24px,4vw,64px), (100% - 1600px)/2);
+  align-items: center;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+.b-ed-feature .img-wrap { aspect-ratio: 4/3; overflow: hidden; background: var(--color-surface-subtle); }
+.b-ed-feature img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.b-ed-feature:hover img { transform: scale(1.03); }
+.b-ed-feature .kicker { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 18px; }
+.b-ed-feature h2 { font-family: var(--font-display); font-size: clamp(32px, 4vw, 56px); font-weight: 500; letter-spacing: -.03em; line-height: 1.05; margin-bottom: 20px; color: var(--color-text-heading); }
+.b-ed-feature p { font-size: 18px; color: var(--color-text-secondary); letter-spacing: -.015em; line-height: 1.55; margin-bottom: 28px; }
+
+/* 섹션 타이틀 */
+.b-ed-secthead {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 24px;
+  padding: clamp(48px, 7vh, 88px) max(clamp(24px,4vw,64px), (100% - 1600px)/2) 36px;
+}
+.b-ed-secthead h3 { font-size: clamp(22px, 2.4vw, 30px); font-weight: 500; letter-spacing: -.02em; color: var(--color-text-heading); }
+.b-ed-secthead a { font-size: 14px; font-weight: 500; color: var(--color-text-secondary); }
+.b-ed-secthead a:hover { color: var(--color-accent); }
+
+/* 3열 그리드 */
+.b-ed-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px 32px;
+  padding: 0 max(clamp(24px,4vw,64px), (100% - 1600px)/2) clamp(72px, 12vh, 140px);
+}
+.b-ed-card { display: flex; flex-direction: column; gap: 16px; }
+.b-ed-card .img-wrap { aspect-ratio: 3/4; overflow: hidden; background: var(--color-surface-subtle); }
+.b-ed-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.b-ed-card:hover img { transform: scale(1.04); }
+.b-ed-card .kicker { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--color-accent); }
+.b-ed-card .label { font-size: 22px; font-weight: 500; letter-spacing: -.025em; line-height: 1.15; color: var(--color-text-heading); }
+.b-ed-card .label { transition: color .15s ease; }
+.b-ed-card:hover .label { color: var(--color-accent); }
+.b-ed-card .copy { font-size: 15px; color: var(--color-text-secondary); letter-spacing: -.015em; line-height: 1.45; }
+
+@media (max-width: 900px) {
+  .b-ed-feature { grid-template-columns: 1fr; }
+  .b-ed-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .b-ed-grid { grid-template-columns: 1fr; }
+}
+</style>
+`;
+
+const EDITORIAL_BODY_B = `
+<div class="b-page b-ed">
+  <section class="b-ed-masthead">
+    <div class="b-ed-eyebrow">The Bay Dispatch · Issue 04</div>
+    <h1 class="massive">Between fog<br>and ocean.</h1>
+    <p class="b-ed-sub">A field guide to San Francisco — its districts, its people, and the stories that only make sense on foot.</p>
+  </section>
+
+  <article class="b-ed-feature">
+    <a class="img-wrap" href="#"><img src="https://images.unsplash.com/photo-1760264412079-4ba58d188c92?w=1200&h=900&fit=crop&q=80&auto=format" alt="미션 지구의 벽화 벽"></a>
+    <div class="b-ed-feature-text">
+      <div class="kicker">Feature · Districts</div>
+      <h2>The Mission, in six blocks and forty years.</h2>
+      <p>How one neighborhood holds a city's memory — murals, taquerias, and the quiet arithmetic of who gets to stay.</p>
+      <a class="btn-pill" href="#">Read the story</a>
+    </div>
+  </article>
+
+  <header class="b-ed-secthead">
+    <h3>From the districts</h3>
+    <a href="#">All districts →</a>
+  </header>
+  <section class="b-ed-grid">
+    <a class="b-ed-card" href="#">
+      <div class="img-wrap"><img src="https://images.unsplash.com/photo-1569848707917-59e1485852e1?w=600&h=800&fit=crop&q=80&auto=format" alt="카스트로 극장과 무지개 깃발"></div>
+      <div class="kicker">Neighborhood</div>
+      <div class="label">The Castro</div>
+      <div class="copy">Rainbow crossings and a history that refuses to be quiet.</div>
+    </a>
+    <a class="b-ed-card" href="#">
+      <div class="img-wrap"><img src="https://images.unsplash.com/photo-1614068214049-605cfb8af09d?w=600&h=800&fit=crop&q=80&auto=format" alt="선셋 지구 앞 오션 비치의 일몰"></div>
+      <div class="kicker">Neighborhood</div>
+      <div class="label">Sunset</div>
+      <div class="copy">Where the fog rolls in first and the city goes quiet.</div>
+    </a>
+    <a class="b-ed-card" href="#">
+      <div class="img-wrap"><img src="https://images.unsplash.com/photo-1534050359320-02900022671e?w=600&h=800&fit=crop&q=80&auto=format" alt="노스 비치 언덕을 오르는 케이블카"></div>
+      <div class="kicker">Neighborhood</div>
+      <div class="label">North Beach</div>
+      <div class="copy">Espresso, beat poets, and the last of the old Italian bakeries.</div>
+    </a>
+  </section>
+</div>
+`;
+
+/* ── Blog B THEME (홈) — Pano variant (풀스크린 가로 스크롤) ── */
+const PANO_STYLE_B = `
+<style>
+.b-pano { overflow: hidden; background: #1E1E1E; }
+.b-pano-track {
+  display: flex; height: 100vh;
+  overflow-x: auto; overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  /* 스크롤바 전 브라우저 숨김 — 이동은 ← → 버튼/트랙패드/드래그로. 기능은 유지 */
+  scrollbar-width: none;      /* Firefox */
+  -ms-overflow-style: none;   /* 구 Edge/IE */
+}
+.b-pano-track::-webkit-scrollbar { display: none; }  /* Chrome·Edge·Safari(Blink/WebKit) */
+.b-pano-panel {
+  position: relative; flex: 0 0 auto; height: 100%;
+  scroll-snap-align: start; overflow: hidden;
+}
+.b-pano-panel::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: var(--img); background-size: cover; background-position: center;
+  z-index: 0;
+}
+.b-pano-panel::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(30,30,30,.82) 0%, rgba(30,30,30,.2) 55%, rgba(30,30,30,.35) 100%);
+  z-index: 1;
+}
+.b-pano-panel > * { position: relative; z-index: 2; }
+
+/* 인트로 패널 (넓게) */
+.b-pano-intro { width: min(94vw, 1180px); }
+.b-pano-intro-inner {
+  position: absolute; left: clamp(24px,4vw,72px); right: clamp(24px,4vw,72px); bottom: clamp(106px,13vh,132px);
+  color: #fff; max-width: 860px;
+}
+.b-pano-intro .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.8); margin-bottom: 22px; }
+.b-pano-intro h1 { font-family: var(--font-display); font-size: clamp(48px, 7vw, 108px); font-weight: 500; letter-spacing: -.035em; line-height: .98; color: #fff; margin: 0 0 24px; }
+.b-pano-intro p { font-size: clamp(16px, 1.4vw, 20px); line-height: 1.55; letter-spacing: -.015em; color: rgba(255,255,255,.88); max-width: 560px; margin: 0; }
+
+/* 슬라이드 패널 */
+.b-pano-slide { width: min(64vw, 760px); }
+.b-pano-slide-text {
+  position: absolute; left: clamp(24px,3vw,48px); right: clamp(24px,3vw,48px); bottom: clamp(106px,13vh,132px);
+  color: #fff;
+}
+.b-pano-slide .num { font-size: 13px; font-weight: 600; letter-spacing: .12em; color: rgba(255,255,255,.6); margin-bottom: 14px; }
+.b-pano-slide .kicker { font-size: 11.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 12px; }
+.b-pano-slide h2 { font-family: var(--font-display); font-size: clamp(32px, 3.6vw, 56px); font-weight: 500; letter-spacing: -.03em; line-height: 1.0; color: #fff; margin: 0 0 12px; }
+.b-pano-slide p { font-size: 15px; line-height: 1.5; letter-spacing: -.015em; color: rgba(255,255,255,.85); max-width: 420px; margin: 0; }
+
+/* 좌우 네비게이션 버튼 (매직마우스 없이 클릭 이동) */
+.b-pano-nav {
+  position: absolute; z-index: 5;
+  left: clamp(24px, 4vw, 72px); bottom: clamp(28px, 4vh, 44px);
+  display: flex; gap: 12px;
+}
+.b-pano-btn {
+  width: 56px; height: 56px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.55);
+  background: rgba(30,30,30,.32); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  color: #fff; display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background .2s ease, border-color .2s ease, opacity .2s ease;
+}
+.b-pano-btn:hover { background: var(--color-accent); border-color: var(--color-accent); }
+.b-pano-btn svg { width: 22px; height: 22px; }
+.b-pano-btn:disabled { opacity: .3; pointer-events: none; }
+
+@media (max-width: 760px) {
+  .b-pano-intro { width: 92vw; }
+  .b-pano-slide { width: 86vw; }
+  .b-pano-btn { width: 48px; height: 48px; }
+}
+</style>
+`;
+
+const PANO_BODY_B = `
+<div class="b-page b-pano">
+  <div class="b-pano-track" id="panoTrack">
+
+    <section class="b-pano-panel b-pano-intro" style="--img: url('https://images.unsplash.com/photo-1753563351975-7304490da3f3?w=2000&fit=crop&q=80&auto=format');">
+      <div class="b-pano-intro-inner">
+        <div class="eyebrow">A field guide · Scroll →</div>
+        <h1>Scroll the city,<br>sideways.</h1>
+        <p>안개 위로 솟은 도시를 옆으로 걷는다. 다리에서 시작해 미션, 카스트로, 차이나타운까지 — 좌하단 화살표로 도시를 옆으로 넘겨 본다.</p>
+      </div>
+    </section>
+
+    <section class="b-pano-panel b-pano-slide" style="--img: url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=1400&fit=crop&q=80&auto=format');">
+      <div class="b-pano-slide-text">
+        <div class="num">01</div>
+        <div class="kicker">Golden Gate</div>
+        <h2>The bridge that<br>names the city.</h2>
+        <p>안개가 걷히면 가장 먼저, 안개가 내리면 가장 늦게 사라지는 붉은 실루엣.</p>
+      </div>
+    </section>
+
+    <section class="b-pano-panel b-pano-slide" style="--img: url('https://images.unsplash.com/photo-1760264412079-4ba58d188c92?w=1400&fit=crop&q=80&auto=format');">
+      <div class="b-pano-slide-text">
+        <div class="num">02</div>
+        <div class="kicker">Mission</div>
+        <h2>Walls that<br>talk back.</h2>
+        <p>발미 골목의 벽화, 24번가의 타케리아. 도시에서 가장 따뜻하고 시끄러운 거리.</p>
+      </div>
+    </section>
+
+    <section class="b-pano-panel b-pano-slide" style="--img: url('https://images.unsplash.com/photo-1569848707917-59e1485852e1?w=1400&fit=crop&q=80&auto=format');">
+      <div class="b-pano-slide-text">
+        <div class="num">03</div>
+        <div class="kicker">Castro</div>
+        <h2>Where the flag<br>was raised.</h2>
+        <p>카스트로 극장의 네온과 무지개 깃발. 한 도시가 자기 자신을 받아들인 언덕.</p>
+      </div>
+    </section>
+
+    <section class="b-pano-panel b-pano-slide" style="--img: url('https://images.unsplash.com/photo-1702563388650-24b5cc756e35?w=1400&fit=crop&q=80&auto=format');">
+      <div class="b-pano-slide-text">
+        <div class="num">04</div>
+        <div class="kicker">Chinatown</div>
+        <h2>A city inside<br>the city.</h2>
+        <p>붉은 등불 아래 광동어 간판, 김이 오르는 딤섬. 미국에서 가장 오래된 차이나타운.</p>
+      </div>
+    </section>
+
+    <section class="b-pano-panel b-pano-slide" style="--img: url('https://images.unsplash.com/photo-1670382393811-5604f952b50b?w=1400&fit=crop&q=80&auto=format');">
+      <div class="b-pano-slide-text">
+        <div class="num">05</div>
+        <div class="kicker">Alamo Square</div>
+        <h2>Victorian rows,<br>a skyline behind.</h2>
+        <p>페인티드 레이디스와 그 뒤로 솟은 도시. 엽서가 된 언덕.</p>
+      </div>
+    </section>
+
+  </div>
+  <div class="b-pano-nav">
+    <button class="b-pano-btn" id="panoPrev" aria-label="이전"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 19l-7-7 7-7"/></svg></button>
+    <button class="b-pano-btn" id="panoNext" aria-label="다음"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+  </div>
+</div>
+<script>
+(function(){
+  var t=document.getElementById('panoTrack');
+  if(!t)return;
+  var panels=[].slice.call(t.querySelectorAll('.b-pano-panel'));
+  var prev=document.getElementById('panoPrev'), next=document.getElementById('panoNext');
+  function maxLeft(){ return t.scrollWidth - t.clientWidth; }
+  // 부드러운 슬라이드 이동. scroll-snap mandatory 가 애니를 취소하지 못하도록 이동 중에만 스냅을 끄고 rAF 로 애니메이션.
+  var animId=null;
+  function animateTo(target){
+    target=Math.max(0,Math.min(target,maxLeft()));
+    var start=t.scrollLeft, dist=target-start;
+    if(Math.abs(dist)<1)return;
+    if(animId)cancelAnimationFrame(animId);
+    t.style.scrollSnapType='none';
+    var dur=460, t0=null;
+    function ease(x){return 1-Math.pow(1-x,3);}
+    function frame(ts){
+      if(t0===null)t0=ts;
+      var p=Math.min((ts-t0)/dur,1);
+      t.scrollLeft=start+dist*ease(p);
+      if(p<1){ animId=requestAnimationFrame(frame); }
+      else{ animId=null; t.scrollLeft=target; t.style.scrollSnapType='x mandatory'; sync(); }
+    }
+    animId=requestAnimationFrame(frame);
+  }
+  function step(dir){
+    var cur=t.scrollLeft, tgt;
+    if(dir>0){ var n=panels.filter(function(p){return p.offsetLeft>cur+4;})[0]; tgt=n?n.offsetLeft:maxLeft(); }
+    else { var ps=panels.filter(function(p){return p.offsetLeft<cur-4;}); tgt=ps.length?ps[ps.length-1].offsetLeft:0; }
+    animateTo(tgt);
+  }
+  function sync(){
+    if(prev)prev.disabled=t.scrollLeft<=2;
+    if(next)next.disabled=t.scrollLeft>=maxLeft()-2;
+  }
+  if(prev)prev.addEventListener('click',function(){step(-1);});
+  if(next)next.addEventListener('click',function(){step(1);});
+  t.addEventListener('scroll',sync,{passive:true});
+  sync();
+  // 가로 이동은 버튼(← →)/트랙패드/드래그로만 — 마우스 상하 휠은 그대로 세로 스크롤(→ 푸터)되게 가로채지 않음
+})();
+<\/script>
 `;
 
 /* ── Blog B POST 상세 — Long-form essay ── */
@@ -4040,7 +4504,7 @@ const POST_BODY_B = `
     <blockquote>도시는 만 위로 400 미터쯤 나갔을 때 가장 명료하게 보인다. 거기서 보면 언덕이 거리를 잡고 있는 방식, 안개가 동네 단위로 줄을 지어 들어오는 방식이 보인다.</blockquote>
 
     <figure class="b-post-figure">
-      <img src="https://images.unsplash.com/photo-1506146332389-18140dc7b2fb?w=1600&fit=crop&q=80&auto=format" alt="다리 중간에서 본 케이블">
+      <img src="https://images.unsplash.com/photo-1753563351975-7304490da3f3?w=1600&fit=crop&q=80&auto=format" alt="안개 위로 솟은 도시를 향해 걷는 다리 위">
       <figcaption>다리 중간에서 뒤를 돌아본다. 타워는 수평선을 거의 수직으로 압축한다.</figcaption>
     </figure>
 
@@ -4116,7 +4580,9 @@ const DISTRICTS_LIST_STYLE_B = `
   letter-spacing: -.025em;
   line-height: 1.05;
   color: var(--color-text-heading);
+  transition: color .15s ease;
 }
+.b-list-item:hover .label { color: var(--color-accent); }
 .b-list-item .copy {
   font-size: 17px;
   letter-spacing: -.015em;
@@ -4133,12 +4599,15 @@ const DISTRICTS_LIST_STYLE_B = `
 .b-list-item .meta-sep { color: var(--color-border-strong); }
 .b-list-item .more {
   margin-top: 8px;
-  display: inline-flex; align-items: center; gap: 12px;
+  display: inline-flex; align-items: center; gap: 7px;
   font-size: 15px; font-weight: 500;
   color: var(--color-accent);
   letter-spacing: -.015em;
 }
-.b-list-item .more svg { width: 18px; height: 18px; }
+.b-list-item .more svg { width: 18px; height: 18px; transition: transform .2s ease; }
+/* 호버 시 화살표가 텍스트에서 오른쪽으로 살짝 이동 */
+.b-list-item:hover .more svg,
+.b-list-item .more:hover svg { transform: translateX(6px); }
 
 @media (max-width: 760px) {
   .b-list-head { grid-template-columns: 1fr; }
@@ -4344,7 +4813,9 @@ const MISSION_STYLE_B = `
   font-size: 19px; font-weight: 500;
   letter-spacing: -.02em;
   color: var(--color-text-heading);
+  transition: color .15s ease;
 }
+.b-spot:hover .name { color: var(--color-accent); }
 .b-spot .addr {
   font-size: 14px;
   color: var(--color-text-secondary);
@@ -4440,7 +4911,7 @@ const MISSION_BODY_B = `
         <div class="addr">1026 Valencia St · 로컬 로스터</div>
       </article>
       <article class="b-spot">
-        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1481833761820-0509d3217039?w=900&fit=crop&q=80&auto=format" alt="벽화 골목"></div>
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1760264412079-4ba58d188c92?w=900&fit=crop&q=80&auto=format" alt="발미 골목의 벽화"></div>
         <div class="tag">Murals</div>
         <div class="name">Balmy Alley</div>
         <div class="addr">발미 골목 · 1971년 시작</div>
@@ -4493,6 +4964,8 @@ const STORIES_LIST_STYLE_B = `
 }
 .b-story-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
 .b-story:hover .b-story-media img { transform: scale(1.03); }
+.b-story-body h2 { transition: color .15s ease; }
+.b-story:hover .b-story-body h2 { color: var(--color-accent); }
 .b-story-eyebrow {
   font-size: 11.5px;
   font-weight: 600;
@@ -4559,7 +5032,7 @@ const STORIES_LIST_BODY_B = `
 
     <article class="b-story reverse">
       <div class="b-story-media">
-        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1494522855154-9297ac14b55f?w=1400&fit=crop&q=80&auto=format" alt="딤섬 가게"></div>
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1687627089396-c0e9565817e6?w=1400&fit=crop&q=80&auto=format" alt="차이나타운의 식당 거리"></div>
       </div>
       <div class="b-story-body">
         <div class="b-story-eyebrow">Field Notes — Food</div>
@@ -4571,7 +5044,7 @@ const STORIES_LIST_BODY_B = `
 
     <article class="b-story">
       <div class="b-story-media">
-        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1400&fit=crop&q=80&auto=format" alt="언덕 위에서 본 도시"></div>
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1670382393811-5604f952b50b?w=1400&fit=crop&q=80&auto=format" alt="알라모 스퀘어에서 본 도시 스카이라인"></div>
       </div>
       <div class="b-story-body">
         <div class="b-story-eyebrow">Field Notes — Light</div>
@@ -4583,7 +5056,7 @@ const STORIES_LIST_BODY_B = `
 
     <article class="b-story reverse">
       <div class="b-story-media">
-        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1582034986517-30d8c8d2ca6c?w=1400&fit=crop&q=80&auto=format" alt="미션 지구"></div>
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1770739530783-0f7a66c0251a?w=1400&fit=crop&q=80&auto=format" alt="미션 지구의 뉴 미션 극장"></div>
       </div>
       <div class="b-story-body">
         <div class="b-story-eyebrow">Field Notes — Neighborhood</div>
@@ -4598,17 +5071,282 @@ const STORIES_LIST_BODY_B = `
 </div>
 `;
 
+/* ── Blog B · Food (도시 음식 가이드) ── */
+const FOOD_STYLE_B = `
+<style>
+.b-food-page { padding-top: 0; }
+.b-food-head {
+  max-width: 1280px; margin: 0 auto;
+  padding: clamp(40px, 6vh, 80px) clamp(24px, 4vw, 64px) clamp(40px, 6vh, 60px);
+  display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 4vw, 80px);
+  border-bottom: 1px solid var(--color-border-default);
+}
+.b-food-head .massive { font-size: clamp(64px, 9vw, 140px); }
+.b-food-head .lede { font-size: 20px; line-height: 1.5; color: var(--color-text-default); letter-spacing: -.02em; padding-top: 12px; }
+.b-food-head .lede strong { font-weight: 500; color: var(--color-text-heading); }
+
+/* 피처드 */
+.b-food-feature {
+  max-width: 1280px; margin: 0 auto;
+  padding: clamp(48px, 7vh, 88px) clamp(24px, 4vw, 64px);
+  display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(32px, 4vw, 72px);
+  align-items: center;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+.b-food-feature .img-wrap { aspect-ratio: 4/3; overflow: hidden; background: var(--color-surface-subtle); }
+.b-food-feature img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.b-food-feature:hover img { transform: scale(1.03); }
+.b-food-feature .eyebrow { font-size: 11.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 16px; }
+.b-food-feature h2 { font-family: var(--font-display); font-size: clamp(32px, 4vw, 56px); font-weight: 500; letter-spacing: -.03em; line-height: 1.05; color: var(--color-text-heading); margin: 0 0 18px; }
+.b-food-feature p { font-size: 18px; line-height: 1.55; letter-spacing: -.015em; color: var(--color-text-default); margin: 0 0 20px; }
+.b-food-feature .place { font-size: 14px; color: var(--color-text-secondary); letter-spacing: -.005em; }
+
+/* 그리드 */
+.b-food-grid-wrap { max-width: 1280px; margin: 0 auto; padding: clamp(48px, 7vh, 80px) clamp(24px, 4vw, 64px) clamp(80px, 12vh, 120px); }
+.b-food-grid-head { margin-bottom: 40px; }
+.b-food-grid-head h3 { font-size: clamp(22px, 2.4vw, 30px); font-weight: 500; letter-spacing: -.02em; color: var(--color-text-heading); }
+.b-food-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(36px, 4vw, 56px) clamp(28px, 3vw, 40px); }
+.b-food-card { display: flex; flex-direction: column; gap: 14px; }
+.b-food-card .img-wrap { aspect-ratio: 3/4; overflow: hidden; background: var(--color-surface-subtle); }
+.b-food-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.b-food-card:hover img { transform: scale(1.04); }
+.b-food-card .place { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--color-accent); }
+.b-food-card .name { font-size: 22px; font-weight: 500; letter-spacing: -.025em; line-height: 1.15; color: var(--color-text-heading); }
+.b-food-card .name { transition: color .15s ease; }
+.b-food-card:hover .name { color: var(--color-accent); }
+.b-food-card .copy { font-size: 15px; color: var(--color-text-secondary); letter-spacing: -.015em; line-height: 1.45; }
+
+@media (max-width: 900px) {
+  .b-food-feature { grid-template-columns: 1fr; }
+  .b-food-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .b-food-head { grid-template-columns: 1fr; }
+  .b-food-grid { grid-template-columns: 1fr; }
+}
+</style>
+`;
+
+const FOOD_BODY_B = `
+<div class="b-food-page">
+
+  <header class="b-food-head">
+    <span class="massive">Food</span>
+    <p class="lede"><strong>샌프란시스코는 접시 위에서 가장 정직하다.</strong> 차가운 태평양, 이민의 역사, 그리고 언덕만큼 많은 동네가 이 도시의 식탁을 만든다. 관광지 말고, 사람들이 실제로 줄 서는 곳.</p>
+  </header>
+
+  <article class="b-food-feature">
+    <a class="img-wrap" href="#"><img src="https://images.unsplash.com/photo-1759306103437-c0984f7bba9d?w=1200&h=900&fit=crop&q=80&auto=format" alt="피셔맨스 워프의 던지니스 크랩"></a>
+    <div class="b-food-feature-text">
+      <div class="eyebrow">This month · Fisherman's Wharf</div>
+      <h2>The catch of the cold Pacific.</h2>
+      <p>11월부터 이듬해 6월까지, 던지니스 크랩의 계절. 부두 끝 좌판에서 소금물에 삶아 그대로 쪼개 먹는 게 정석이다. 사워도우 한 덩이와 함께면 더 좋다.</p>
+      <div class="place">제철: 11월–6월 · 피셔맨스 워프 · 페리 빌딩</div>
+    </div>
+  </article>
+
+  <section class="b-food-grid-wrap">
+    <header class="b-food-grid-head">
+      <h3>도시를 먹는 여섯 가지 방법</h3>
+    </header>
+    <div class="b-food-grid">
+
+      <article class="b-food-card">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1597604391235-a7429b4b350c?w=700&h=930&fit=crop&q=80&auto=format" alt="사워도우 빵"></div>
+        <div class="place">Downtown</div>
+        <div class="name">Sourdough</div>
+        <div class="copy">도시에서 가장 오래된 맛은 시큼하다. 1849년 골드러시 때부터 이어진 천연 발효 반죽. 겉은 단단하고 속은 쫄깃하다.</div>
+      </article>
+
+      <article class="b-food-card">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1523905330026-b8bd1f5f320e?w=700&h=930&fit=crop&q=80&auto=format" alt="대나무 찜기의 딤섬"></div>
+        <div class="place">Richmond · Chinatown</div>
+        <div class="name">Dim Sum</div>
+        <div class="copy">클레멘트 거리와 차이나타운의 아침. 대나무 찜기에서 올라오는 김, 광동어로만 적힌 메뉴, 카트를 밀며 도는 주문.</div>
+      </article>
+
+      <article class="b-food-card">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=700&h=930&fit=crop&q=80&auto=format" alt="미션 스타일 타코"></div>
+        <div class="place">Mission · 24th St</div>
+        <div class="name">The Mission Burrito</div>
+        <div class="copy">알루미늄 포일에 단단하게 말린, 손목만 한 부리토. 24번가 타케리아마다 자기만의 정답이 있다. 은박지를 벗기는 순간이 시작.</div>
+      </article>
+
+      <article class="b-food-card">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=700&h=930&fit=crop&q=80&auto=format" alt="스페셜티 커피"></div>
+        <div class="place">Hayes Valley</div>
+        <div class="name">Third-Wave Coffee</div>
+        <div class="copy">서드웨이브 커피의 진원지 중 하나. 싱글 오리진, 손으로 내리는 푸어오버, 로스터리마다 다른 산미. 도시는 카페인으로 돌아간다.</div>
+      </article>
+
+      <article class="b-food-card">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1691995989456-6a77273f9f0c?w=700&h=930&fit=crop&q=80&auto=format" alt="만두 한 그릇"></div>
+        <div class="place">Chinatown</div>
+        <div class="name">Wonton & Noodles</div>
+        <div class="copy">골목 안쪽, 간판도 흐릿한 국숫집. 완탕과 손으로 뽑은 면, 그리고 자정까지 켜져 있는 주방. 관광객이 지나치는 진짜 동네 맛.</div>
+      </article>
+
+      <article class="b-food-card">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?w=700&h=930&fit=crop&q=80&auto=format" alt="길거리 부리토"></div>
+        <div class="place">Mission</div>
+        <div class="name">Late-night Taquería</div>
+        <div class="copy">밤이 깊을수록 진가를 발휘하는 미션의 야식. 형광등 아래, 살사 바, 그리고 줄. 이 도시에서 새벽 두 시에 가장 붐비는 곳.</div>
+      </article>
+
+    </div>
+  </section>
+
+</div>
+`;
+
+/* ── Blog B · Events (도시 이벤트 캘린더) ── */
+const EVENTS_STYLE_B = `
+<style>
+.b-ev-page { padding-top: 0; }
+.b-ev-head {
+  max-width: 1280px; margin: 0 auto;
+  padding: clamp(40px, 6vh, 80px) clamp(24px, 4vw, 64px) clamp(40px, 6vh, 60px);
+  display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 4vw, 80px);
+  border-bottom: 1px solid var(--color-border-default);
+}
+.b-ev-head .massive { font-size: clamp(64px, 9vw, 140px); }
+.b-ev-head .lede { font-size: 20px; line-height: 1.5; color: var(--color-text-default); letter-spacing: -.02em; padding-top: 12px; }
+.b-ev-head .lede strong { font-weight: 500; color: var(--color-text-heading); }
+
+/* 피처드 (다가오는 이벤트) */
+.b-ev-feature {
+  position: relative; max-width: 1600px;
+  margin: 0 auto;
+  min-height: 62vh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 64px clamp(24px, 4vw, 64px);
+  color: var(--color-text-inv); overflow: hidden; background: #1E1E1E;
+}
+.b-ev-feature::before { content:''; position:absolute; inset:0; background-image: var(--ev-img); background-size: cover; background-position: center; z-index:0; }
+.b-ev-feature::after { content:''; position:absolute; inset:0; background: linear-gradient(180deg, rgba(30,30,30,.2) 0%, rgba(30,30,30,.4) 45%, rgba(30,30,30,.85) 100%); z-index:1; }
+.b-ev-feature > * { position: relative; z-index: 2; }
+.b-ev-feature .tag { font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.85); margin-bottom: 16px; }
+.b-ev-feature h2 { font-family: var(--font-display); font-size: clamp(40px, 6vw, 92px); font-weight: 500; letter-spacing: -.035em; line-height: .98; color: var(--color-text-inv); margin: 0 0 16px; max-width: 900px; }
+.b-ev-feature .when { display: flex; gap: 14px; flex-wrap: wrap; font-size: 16px; font-weight: 500; letter-spacing: -.01em; }
+.b-ev-feature .when .sep { opacity: .5; }
+
+/* 리스트 */
+.b-ev-list-wrap { max-width: 1280px; margin: 0 auto; padding: clamp(48px, 7vh, 80px) clamp(24px, 4vw, 64px) clamp(80px, 12vh, 120px); }
+.b-ev-list-head { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; margin-bottom: 20px; }
+.b-ev-list-head h3 { font-size: clamp(22px, 2.4vw, 30px); font-weight: 500; letter-spacing: -.02em; color: var(--color-text-heading); }
+.b-ev-list-head .note { font-size: 14px; color: var(--color-text-secondary); }
+.b-ev-row {
+  display: grid; grid-template-columns: 96px 1fr 200px; gap: clamp(20px, 3vw, 44px);
+  align-items: center;
+  padding: 28px 0; border-top: 1px solid var(--color-border-default);
+}
+.b-ev-row:last-child { border-bottom: 1px solid var(--color-border-default); }
+.b-ev-date { text-align: center; line-height: 1; }
+.b-ev-date .mon { font-size: 13px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--color-accent); }
+.b-ev-date .day { font-family: var(--font-display); font-size: 40px; font-weight: 500; letter-spacing: -.03em; color: var(--color-text-heading); margin-top: 4px; }
+.b-ev-body .cat { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--color-text-subtle); margin-bottom: 8px; }
+.b-ev-body h4 { font-family: var(--font-display); font-size: clamp(22px, 2.4vw, 30px); font-weight: 500; letter-spacing: -.02em; line-height: 1.1; color: var(--color-text-heading); margin: 0 0 8px; }
+.b-ev-body .venue { font-size: 15px; color: var(--color-text-secondary); letter-spacing: -.01em; }
+.b-ev-thumb { aspect-ratio: 16/10; overflow: hidden; background: var(--color-surface-subtle); }
+.b-ev-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.b-ev-row:hover .b-ev-thumb img { transform: scale(1.05); }
+.b-ev-body h4 { transition: color .15s ease; }
+.b-ev-row:hover h4 { color: var(--color-accent); }
+
+@media (max-width: 760px) {
+  .b-ev-head { grid-template-columns: 1fr; }
+  .b-ev-row { grid-template-columns: 72px 1fr; }
+  .b-ev-thumb { display: none; }
+  .b-ev-date .day { font-size: 32px; }
+}
+</style>
+`;
+
+const EVENTS_BODY_B = `
+<div class="b-ev-page">
+
+  <header class="b-ev-head">
+    <span class="massive">Events</span>
+    <p class="lede"><strong>도시는 일 년 내내 무언가를 연다.</strong> 골든 게이트 파크의 음악, 차이나타운의 등불, 미션의 행렬. 계절마다 도시가 스스로를 축하하는 방식을 모았다.</p>
+  </header>
+
+  <section class="b-ev-feature" style="--ev-img: url('https://images.unsplash.com/photo-1582711012124-a56cf82307a0?w=2000&fit=crop&q=80&auto=format');">
+    <div class="tag">Featured · This August</div>
+    <h2>Outside Lands</h2>
+    <div class="when"><span>8월 8–10일</span><span class="sep">·</span><span>Golden Gate Park</span><span class="sep">·</span><span>3-day pass</span></div>
+  </section>
+
+  <section class="b-ev-list-wrap">
+    <header class="b-ev-list-head">
+      <h3>다가오는 일정</h3>
+      <span class="note">2026 · 자세한 시간은 각 이벤트 페이지 참조</span>
+    </header>
+
+    <article class="b-ev-row">
+      <div class="b-ev-date"><div class="mon">Sep</div><div class="day">26</div></div>
+      <div class="b-ev-body">
+        <div class="cat">Festival · Chinatown</div>
+        <h4>Autumn Moon Festival</h4>
+        <div class="venue">그랜트 애비뉴 · 중추절 등불과 거리 공연</div>
+      </div>
+      <div class="b-ev-thumb"><img src="https://images.unsplash.com/photo-1702563388650-24b5cc756e35?w=800&fit=crop&q=80&auto=format" alt="차이나타운 등불 축제"></div>
+    </article>
+
+    <article class="b-ev-row">
+      <div class="b-ev-date"><div class="mon">Oct</div><div class="day">17</div></div>
+      <div class="b-ev-body">
+        <div class="cat">Music · SoMa</div>
+        <h4>SF Jazz Festival</h4>
+        <div class="venue">SFJAZZ Center · 2주간의 라이브 프로그램</div>
+      </div>
+      <div class="b-ev-thumb"><img src="https://images.unsplash.com/photo-1769812343936-fb9fc21f99c0?w=800&fit=crop&q=80&auto=format" alt="재즈 무대"></div>
+    </article>
+
+    <article class="b-ev-row">
+      <div class="b-ev-date"><div class="mon">Nov</div><div class="day">02</div></div>
+      <div class="b-ev-body">
+        <div class="cat">Culture · Mission</div>
+        <h4>Día de los Muertos</h4>
+        <div class="venue">24번가 · 촛불 행렬과 제단, 밤의 벽화 투어</div>
+      </div>
+      <div class="b-ev-thumb"><img src="https://images.unsplash.com/photo-1760264412079-4ba58d188c92?w=800&fit=crop&q=80&auto=format" alt="미션 지구의 벽화"></div>
+    </article>
+
+    <article class="b-ev-row">
+      <div class="b-ev-date"><div class="mon">Sat</div><div class="day">every</div></div>
+      <div class="b-ev-body">
+        <div class="cat">Market · Embarcadero</div>
+        <h4>Ferry Plaza Farmers Market</h4>
+        <div class="venue">페리 빌딩 · 매주 토 오전 · 로컬 농산물과 로스터</div>
+      </div>
+      <div class="b-ev-thumb"><img src="https://images.unsplash.com/photo-1645976442233-bcf005876613?w=800&fit=crop&q=80&auto=format" alt="파머스 마켓"></div>
+    </article>
+
+    <article class="b-ev-row">
+      <div class="b-ev-date"><div class="mon">Apr</div><div class="day">11</div></div>
+      <div class="b-ev-body">
+        <div class="cat">Film · Castro</div>
+        <h4>SF International Film Festival</h4>
+        <div class="venue">카스트로 극장 · 2주간의 상영과 감독 대담</div>
+      </div>
+      <div class="b-ev-thumb"><img src="https://images.unsplash.com/photo-1702890764798-eda71e941da1?w=800&fit=crop&q=80&auto=format" alt="영화관 천막"></div>
+    </article>
+
+  </section>
+
+</div>
+`;
+
 /* ── Blog B 의 컴포넌트 variant (헤더/푸터 단독 검수용) ── */
 const HEADER_VARIANTS_HTML_B = {
-  'left':  HEADER_HTML_B,
-  'split': HEADER_HTML_B,
-  'hero':  HEADER_HTML_B.replace('is-light', 'is-light'),
+  'hero':   HEADER_HTML_B,
+  'bar':    HEADER_HTML_B_BAR,
+  'center': HEADER_HTML_B_CENTER,
 };
 const FOOTER_VARIANTS_HTML_B = {
-  'center':  FOOTER_HTML_B,
-  'split-h': FOOTER_HTML_B,
-  'split-v': FOOTER_HTML_B,
-  'left':    FOOTER_HTML_B,
+  'minimal': FOOTER_HTML_B,
+  'columns': FOOTER_HTML_B_COLUMNS,
+  'bigcta':  FOOTER_HTML_B_BIGCTA,
 };
 
 /* ═══════════════════════════════════════════════════════════
@@ -4689,6 +5427,19 @@ const SLOT_DEFINITIONS = {
       { key: 'magazine-1', label: '게시글 목록 — 매거진1' },
       { key: 'magazine-2', label: '게시글 목록 — 매거진2' },
       { key: 'pinterest',  label: '게시글 목록 — 핀터레스트' },
+    ],
+  },
+  /* subpage-b 전용 (Blog B) — 웹사이트 서브 페이지 변형 */
+  subpage: {
+    label: '페이지',
+    param: 'sp',
+    options: [
+      { key: 'districts', label: 'Districts — 리스트형' },
+      { key: 'mission',   label: 'District — 상세페이지' },
+      { key: 'stories',   label: 'Stories — 리스트형' },
+      { key: 'walking',   label: 'Stories — 상세페이지' },
+      { key: 'food',      label: 'Food — 음식 가이드' },
+      { key: 'events',    label: 'Events — 이벤트 캘린더' },
     ],
   },
   /* tag-guest-a 전용 — 태그 / 방명록 전환 */
@@ -5984,16 +6735,20 @@ const SCREENS_BODY = {
   'post-top:no-cover':       { body: POST_TOP_HEADER_NO_COVER,       style: POST_TOP_STYLE },
   'post-top:cover-image':    { body: POST_TOP_HEADER_COVER_IMAGE,    style: POST_TOP_STYLE },
   'post-top:cover-fallback': { body: POST_TOP_HEADER_COVER_FALLBACK, style: POST_TOP_STYLE },
-  // ── Blog B (theme/post 는 이전 호환 유지) ──
-  'B:theme:hero':      { body: THEME_BODY_B, style: THEME_STYLE_B },
-  'B:theme:editorial': { body: THEME_BODY_B, style: THEME_STYLE_B },
-  'B:post:default':    { body: POST_BODY_B,  style: POST_STYLE_B },
-  // ── Blog B 의 새 페이지 5개 ──
-  'B:home:default':      { body: THEME_BODY_B,           style: THEME_STYLE_B },
-  'B:districts:default': { body: DISTRICTS_LIST_BODY_B,  style: DISTRICTS_LIST_STYLE_B },
-  'B:mission:default':   { body: MISSION_BODY_B,         style: MISSION_STYLE_B },
-  'B:stories:default':   { body: STORIES_LIST_BODY_B,    style: STORIES_LIST_STYLE_B },
-  'B:walking:default':   { body: POST_BODY_B,            style: POST_STYLE_B },
+  // ── Blog B (웹사이트형) — 홈 레이아웃 variant (theme 패널 body / home-layout-b 공유) ──
+  'B:theme:hero':      { body: THEME_BODY_B,     style: THEME_STYLE_B },
+  'B:theme:editorial': { body: EDITORIAL_BODY_B, style: EDITORIAL_STYLE_B },
+  'B:theme:pano':      { body: PANO_BODY_B,      style: PANO_STYLE_B },
+  // ── Blog B 서브 페이지 variant (subpage-b 패널) — 웹사이트가 가질 수 있는 다양한 페이지 예시 ──
+  'B:subpage:districts': { body: DISTRICTS_LIST_BODY_B, style: DISTRICTS_LIST_STYLE_B },
+  'B:subpage:mission':   { body: MISSION_BODY_B,        style: MISSION_STYLE_B },
+  'B:subpage:stories':   { body: STORIES_LIST_BODY_B,   style: STORIES_LIST_STYLE_B },
+  'B:subpage:walking':   { body: POST_BODY_B,           style: POST_STYLE_B },
+  'B:subpage:food':      { body: FOOD_BODY_B,           style: FOOD_STYLE_B },
+  'B:subpage:events':    { body: EVENTS_BODY_B,         style: EVENTS_STYLE_B },
+  // 이전 호환 (직접 URL 접근용) — home/post 키 유지
+  'B:home:default':      { body: THEME_BODY_B, style: THEME_STYLE_B },
+  'B:post:default':      { body: POST_BODY_B,  style: POST_STYLE_B },
 };
 
 /* 페이지네이션 단독 — 2가지 표준 스타일.
@@ -6124,18 +6879,41 @@ const BLOG_SLOT_OPTIONS = {
     ],
   },
   B: {
+    // theme-b(전체 테마) 의 '레이아웃' — 홈 레이아웃 3종 + 서브 페이지 6종을 한 드롭다운에.
+    // 값에 theme:/subpage: 접두사를 넣어 screenKey('B:'+값) 가 올바른 화면을 가리키게 함.
     body: [
-      { key: 'hero',      label: 'Hero 캠페인 (홈)' },
-      { key: 'editorial', label: 'Editorial (옵션)' },
+      { key: 'theme:pano',        label: '홈 — 좌우풀이미지' },
+      { key: 'theme:hero',        label: '홈 — Hero 캠페인' },
+      { key: 'theme:editorial',   label: '홈 — Editorial' },
+      { key: 'subpage:districts', label: 'Districts — 리스트형' },
+      { key: 'subpage:mission',   label: 'District — 상세페이지' },
+      { key: 'subpage:stories',   label: 'Stories — 리스트형' },
+      { key: 'subpage:walking',   label: 'Stories — 상세페이지' },
+      { key: 'subpage:food',      label: 'Food — 음식 가이드' },
+      { key: 'subpage:events',    label: 'Events — 이벤트 캘린더' },
+    ],
+    layout: [
+      { key: 'pano',      label: '좌우풀이미지' },
+      { key: 'hero',      label: 'Hero 캠페인' },
+      { key: 'editorial', label: 'Editorial' },
     ],
     header: [
-      { key: 'hero', label: 'Hero 오버레이' },
+      { key: 'hero',   label: 'Hero 오버레이(배경X)' },
+      { key: 'bar',    label: '솔리드 상단바' },
+      { key: 'center', label: '센터 로고' },
     ],
     footer: [
-      { key: 'center', label: '미니멀' },
+      { key: 'minimal', label: '미니멀' },
+      { key: 'columns', label: '다단 (링크+뉴스레터)' },
+      { key: 'bigcta',  label: '다크 CTA' },
     ],
-    sidebar: [
-      { key: 'right-fixed', label: '고정영역 (디폴트)' },
+    subpage: [
+      { key: 'districts', label: 'Districts — 리스트형' },
+      { key: 'mission',   label: 'District — 상세페이지' },
+      { key: 'stories',   label: 'Stories — 리스트형' },
+      { key: 'walking',   label: 'Stories — 상세페이지' },
+      { key: 'food',      label: 'Food — 음식 가이드' },
+      { key: 'events',    label: 'Events — 이벤트 캘린더' },
     ],
   },
 };
@@ -6155,17 +6933,11 @@ const BLOG_PANEL_DEFAULTS = {
     'post-top-a': { 'post-top': 'no-cover' },
   },
   B: {
-    theme:   { body: 'hero', header: 'hero', footer: 'center', sidebar: 'right-fixed' },
-    post:    { header: 'hero', footer: 'center', sidebar: 'right-fixed' },
+    'theme-b':       { body: 'theme:pano', header: 'hero', footer: 'bigcta' },
+    'home-layout-b': { layout: 'pano' },
+    'subpage-b':     { subpage: 'districts', header: 'bar', footer: 'bigcta' },
     header:  { variant: 'hero' },
-    footer:  { variant: 'center' },
-    sidebar: { variant: 'right-fixed' },
-    // Blog B 새 페이지들
-    home:      {},
-    districts: {},
-    mission:   {},
-    stories:   {},
-    walking:   {},
+    footer:  { variant: 'bigcta' },
   },
 };
 
@@ -6213,31 +6985,27 @@ const PANEL_CONFIG = {
     defaults: { variant: 'right-fixed' },
     componentSlot: 'sidebar',
   },
-  // ─── Blog B 페이지들 (슬롯 없는 단일 화면) ───
-  'home': {
-    kind: 'screen', frameId: 'frame-home', fileLabelSlot: null,
-    slots: [], defaults: {},
-    bodySlot: null, bodyScreenKey: 'home:default',
+  // ─── Blog B (웹사이트형) — Blog A 미러, 사이드바 없음 ───
+  // 전체 테마: 홈 레이아웃(body) + 헤더 + 푸터 조합 (사이드바 슬롯 없음)
+  'theme-b': {
+    kind: 'screen', frameId: 'frame-theme-b', fileLabelSlot: 'theme-b',
+    slots: ['body', 'header', 'footer'],
+    defaults: { body: 'theme:pano', header: 'hero', footer: 'bigcta' },
+    bodySlot: 'body', bodyScreenPrefix: '',
   },
-  'districts': {
-    kind: 'screen', frameId: 'frame-districts', fileLabelSlot: null,
-    slots: [], defaults: {},
-    bodySlot: null, bodyScreenKey: 'districts:default',
+  // 홈 레이아웃 단독 (헤더/푸터 placeholder) — Hero / Editorial
+  'home-layout-b': {
+    kind: 'screen', frameId: 'frame-home-layout-b', fileLabelSlot: 'home-layout-b',
+    slots: ['layout'],
+    defaults: { layout: 'hero' },
+    bodySlot: 'layout', bodyScreenPrefix: 'theme:',
   },
-  'mission': {
-    kind: 'screen', frameId: 'frame-mission', fileLabelSlot: null,
-    slots: [], defaults: {},
-    bodySlot: null, bodyScreenKey: 'mission:default',
-  },
-  'stories': {
-    kind: 'screen', frameId: 'frame-stories', fileLabelSlot: null,
-    slots: [], defaults: {},
-    bodySlot: null, bodyScreenKey: 'stories:default',
-  },
-  'walking': {
-    kind: 'screen', frameId: 'frame-walking', fileLabelSlot: null,
-    slots: [], defaults: {},
-    bodySlot: null, bodyScreenKey: 'walking:default',
+  // 서브 페이지 (실제 헤더/푸터 포함) — Districts/Mission/Stories/스토리 상세
+  'subpage-b': {
+    kind: 'screen', frameId: 'frame-subpage-b', fileLabelSlot: 'subpage-b',
+    slots: ['subpage'],
+    defaults: { subpage: 'districts', header: 'bar', footer: 'minimal' },
+    bodySlot: 'subpage', bodyScreenPrefix: 'subpage:',
   },
   // ─── Blog A · 홈 화면 레이아웃 — 기본/캠페인 두 레이아웃 ───
   'home-layout-a': {
@@ -6348,7 +7116,7 @@ function applySlotsToScreen(panelKey, slotState) {
   // 홈 — 게시글 목록: 본문(목록)만 검수, 헤더/푸터 자리는 placeholder 로 대체.
   // .preview-page(flex column) 를 쓰면 자식 sections 의 max-width+margin:auto 가 collapse 되므로
   // 일반 block 흐름으로 두어 본문이 전체 테마와 동일하게 max-width:1280 centered 로 렌더되게 함.
-  if (panelKey === 'home-a' || panelKey === 'home-layout-a' || panelKey === 'tag-guest-a' || panelKey === 'post-top-a') {
+  if (panelKey === 'home-a' || panelKey === 'home-layout-a' || panelKey === 'tag-guest-a' || panelKey === 'post-top-a' || panelKey === 'home-layout-b') {
     const body = `
 <div class="placeholder-block">placeholder · 헤더 (검수 대상 외)</div>
 ${screen.body}
@@ -6384,9 +7152,19 @@ ${entry.html}
 
   let headerHtml = ctx.headerVariants[headerKey] || ctx.headerHtmlDefault;
   const footerHtml = ctx.footerVariants[footerKey] || ctx.footerHtmlDefault;
-  // Blog B 상세 페이지(walking/mission/stories/districts/post)는 hero 가 없으므로 is-light 헤더가 흰 배경에 안 보임 → is-dark 로 전환
-  if (currentBlog === 'B' && /^B:(walking|mission|stories|districts|post)(:|$)/.test(screenKey)) {
-    headerHtml = headerHtml.replace('site-header is-light', 'site-header is-dark');
+
+  // Blog B: 헤더 가시성 + hero 홈 상단 여백 보정
+  let bBodyClass = '';
+  if (currentBlog === 'B') {
+    // 어두운 full-bleed 상단(hero 홈 / pano 가로스크롤)에서는 오버레이(is-light) 헤더가 보임.
+    // editorial/서브페이지 등 밝은 상단은 솔리드 바로 전환.
+    const isDarkTop = screenKey === 'B:theme:hero' || screenKey === 'B:theme:pano';
+    if (headerKey === 'hero' && !isDarkTop) {
+      headerHtml = HEADER_HTML_B_BAR;
+    }
+    // b-hero(hero 홈)만 오버레이용 160px 상단 여백 축소 필요 (pano 는 100vh 패널이라 불필요)
+    if (screenKey === 'B:theme:hero' && headerKey === 'bar')    bBodyClass = 'bhdr-bar';
+    if (screenKey === 'B:theme:hero' && headerKey === 'center') bBodyClass = 'bhdr-center';
   }
 
   // Blog B / Website A 는 사이드바 미사용. Blog A 만 기존 사이드바 주입.
@@ -6401,7 +7179,7 @@ ${entry.html}
     headerHtml: headerHtml,
     footerHtml: footerHtml,
     sidebarHtml: sidebarHtml,
-    bodyClass: sidebarBodyClass,
+    bodyClass: sidebarBodyClass || bBodyClass,
     extraHeaderCss: ctx.useComponentChrome
       ? (HEADER_COMPONENT_STYLE + FOOTER_COMPONENT_STYLE + SIDEBAR_COMPONENT_STYLE)
       : '',
@@ -6419,10 +7197,13 @@ function applyComponentPanel(panelKey, slotState) {
   // Blog B: 헤더/푸터 디자인은 B 본연 유지, 본문은 Blog A placeholder-block 으로 통일
   // 각 컴포넌트 패널은 해당 컴포넌트만 보여줌 — 헤더 패널엔 푸터 없음, 푸터 패널엔 헤더 없음.
   if (isBlogB() && cfg.componentSlot === 'header') {
-    // 홈 그대로 — .b-hero(이미지+헤드라인+CTA) + site-header(absolute) 오버레이
-    const body = `
+    const hv = variant || 'hero';
+    const headerHtml = HEADER_VARIANTS_HTML_B[hv] || HEADER_HTML_B;
+    if (hv === 'hero') {
+      // 오버레이 — .b-hero(이미지+헤드라인+CTA) 위에 site-header(absolute)
+      const body = `
 <div class="preview-page">
-  ${HEADER_HTML_B}
+  ${headerHtml}
   <section class="b-hero" style="--hero-img: url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=2200&fit=crop&q=80&auto=format');">
     <h1 class="b-hero-headline">Find a city that lives between fog and ocean.</h1>
     <div class="b-hero-cta">
@@ -6430,18 +7211,30 @@ function applyComponentPanel(panelKey, slotState) {
     </div>
   </section>
   <main class="preview-main">
-    <div class="placeholder-block">placeholder</div>
+    <div class="placeholder-block">placeholder · 본문 (검수 대상 외)</div>
   </main>
 </div>`;
-    return wrapDoc(PREVIEW_PLACEHOLDER_STYLE + THEME_STYLE_B, body, { suppressChrome: true, baseStyleOverride: BASE_STYLE_B });
+      return wrapDoc(PREVIEW_PLACEHOLDER_STYLE + THEME_STYLE_B, body, { suppressChrome: true, baseStyleOverride: BASE_STYLE_B });
+    }
+    // 솔리드 (bar/center) — placeholder 본문 위에 솔리드 헤더
+    const body = `
+<div class="preview-page">
+  ${headerHtml}
+  <main class="preview-main">
+    <div class="placeholder-block">placeholder · 본문 (검수 대상 외)</div>
+  </main>
+</div>`;
+    return wrapDoc(PREVIEW_PLACEHOLDER_STYLE, body, { suppressChrome: true, baseStyleOverride: BASE_STYLE_B });
   }
   if (isBlogB() && cfg.componentSlot === 'footer') {
+    const fv = variant || 'minimal';
+    const footerHtml = FOOTER_VARIANTS_HTML_B[fv] || FOOTER_HTML_B;
     const body = `
 <div class="preview-page">
   <main class="preview-main">
-    <div class="placeholder-block">placeholder</div>
+    <div class="placeholder-block">placeholder · 본문 (검수 대상 외)</div>
   </main>
-  ${FOOTER_HTML_B}
+  ${footerHtml}
 </div>`;
     return wrapDoc(PREVIEW_PLACEHOLDER_STYLE, body, { suppressChrome: true, baseStyleOverride: BASE_STYLE_B });
   }
@@ -6592,7 +7385,7 @@ function rebuildSlotSelectOptions() {
 /* Blog 별로 LNB 에 보이는 패널 키 목록 — 그룹 hide/show 와 일치 */
 const BLOG_AVAILABLE_PANELS = {
   A: ['theme', 'post', 'home-layout-a', 'home-a', 'post-top-a', 'pagination-a', 'tag-guest-a', 'header', 'footer', 'sidebar'],
-  B: ['home', 'districts', 'mission', 'stories', 'walking', 'header', 'footer'],
+  B: ['theme-b', 'subpage-b', 'header', 'footer', 'home-layout-b'],
   WC: ['pension-home'],
   ML: ['cafe-home'],
 };
@@ -6604,6 +7397,14 @@ function firstPanelOf(blog) {
 }
 
 /* Blog 전환 — body 속성·sidenav 라벨·슬롯 옵션·state 재초기화·재렌더 */
+/* 브라우저 탭 제목 — 현재 선택된 blog 라벨 + " · 통합 미리보기" */
+function updateDocTitle() {
+  const sel = document.getElementById('blog-select');
+  const opt = sel && sel.options[sel.selectedIndex];
+  const label = opt ? opt.text.trim() : '티스토리 테마';
+  document.title = label + ' · 통합 미리보기';
+}
+
 function setBlog(newBlog, opts) {
   opts = opts || {};
   if (newBlog !== 'A' && newBlog !== 'B' && newBlog !== 'WC' && newBlog !== 'ML') return;
@@ -6612,6 +7413,8 @@ function setBlog(newBlog, opts) {
   // 드롭다운 동기화
   const sel = document.getElementById('blog-select');
   if (sel && sel.value !== newBlog) sel.value = newBlog;
+  // 브라우저 탭 제목을 현재 blog 로 동적 갱신
+  updateDocTitle();
   // 패널 메타 라벨 (제목/설명) 갱신
   updatePanelLabels();
   // 슬롯 state 재초기화 (Blog B 의 옵션 키가 다르므로)
@@ -6648,17 +7451,11 @@ const PANEL_LABELS = {
     sidebar: { title: '컴포넌트 — 사이드바', desc: '위젯 6종(프로필 · 최근/인기글 · 최근 댓글 · 카테고리 · 방문자 · 태그) 라이브러리. 변형 3종 — 고정영역(디폴트) / 서랍형 열린 / 서랍형 닫힌.' },
   },
   B: {
-    theme:   { title: '전체 테마 — San Francisco', desc: 'Blog B 캠페인 홈. 풀스크린 hero + 이단 섹션 + District 그리드.' },
-    post:    { title: '게시글 상세 — Long-form',   desc: 'SF Field Guide 장문 에세이 포맷. Hero 이미지 + 큰 H1 + 본문 + 풀폭 이미지.' },
-    header:  { title: '컴포넌트 — 헤더 (Hero overlay)', desc: '이미지 hero 위에 오버레이되는 흰 텍스트 헤더. Blog B 는 단일 variant 만 사용.' },
-    footer:  { title: '컴포넌트 — 푸터 (Minimal)',     desc: '브랜드 마크 + 메뉴 + 메타 한 줄. 다단 그리드 없음.' },
-    sidebar: { title: '컴포넌트 — 사이드바',            desc: 'Blog B 는 사이드바를 쓰지 않습니다. Blog A 에서 검수.' },
-    // Blog B 사이트 페이지
-    home:      { title: 'Home — San Francisco',  desc: '사이트 홈. 풀스크린 hero + 이단 섹션 + Districts 그리드.' },
-    districts: { title: 'Districts — 동네 목록', desc: '6개 동네 카드 그리드. 카테고리 `/category/districts` 매핑.' },
-    mission:   { title: 'Mission — 동네 상세',   desc: 'District 상세 페이지 (예: Mission). Hero + 본문 + 추천 스팟 그리드.' },
-    stories:   { title: 'Stories — 에세이 목록', desc: 'Field Notes 에세이 목록. 이미지 좌우 알터네이트 카드 리스트.' },
-    walking:   { title: 'On walking the bridge, twice. — 에세이', desc: 'Stories 의 첫 에세이 상세. Hero + 장문 + blockquote + 풀폭 이미지.' },
+    'theme-b':       { title: '전체 테마 — San Francisco', desc: '웹사이트 홈 조립 검수. 홈 레이아웃(좌우풀이미지/Hero/Editorial) + 헤더 + 푸터를 슬롯으로 조합. 사이드바 없음 (블로그가 아니므로).' },
+    'home-layout-b': { title: '홈 레이아웃', desc: '웹사이트 홈의 세 가지 레이아웃 (좌우풀이미지 / Hero 캠페인 / Editorial 매거진) 비교. 헤더/푸터는 placeholder.' },
+    'subpage-b':     { title: '서브 페이지', desc: '웹사이트가 가질 수 있는 다양한 페이지 예시 — Districts / Mission / Stories / 스토리 상세 / Food / Events. 실제 헤더·푸터 포함.' },
+    header:  { title: '컴포넌트 — 헤더', desc: '웹사이트 헤더 단독 검수. 변형 3종 — Hero 오버레이(배경X) / 솔리드 상단바 / 센터 로고.' },
+    footer:  { title: '컴포넌트 — 푸터', desc: '웹사이트 푸터 단독 검수. 변형 3종 — 미니멀 / 다단(링크+뉴스레터) / 다크 CTA.' },
   },
   WC: {
     'pension-home': { title: 'Nagi 凪 — Home (원페이지)', desc: '다크 톤 료칸 원페이지. 어두운 이미지 full-bleed(gap 0) 그리드 + 큰 serif 섹션 타이틀. 객실 카탈로그형.' },
@@ -6797,6 +7594,7 @@ if (LITE) {
   } else {
     // 동일하지만 초기 라벨/옵션은 한 번 그려야 함
     document.body.setAttribute('data-blog', currentBlog);
+    updateDocTitle();
     updatePanelLabels();
     rebuildSlotSelectOptions();
   }
