@@ -4250,8 +4250,9 @@ const PANO_STYLE_B = `
 .b-pano-btn:disabled { opacity: .3; pointer-events: none; }
 
 @media (max-width: 760px) {
-  .b-pano-intro { width: 92vw; }
-  .b-pano-slide { width: 86vw; }
+  /* 모바일: 각 패널을 화면 폭에 꽉 채워 우측에 다음 패널이 잘려 보이지 않게 */
+  .b-pano-intro { width: 100vw; }
+  .b-pano-slide { width: 100vw; }
   .b-pano-btn { width: 48px; height: 48px; }
 }
 </style>
