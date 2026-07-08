@@ -7119,10 +7119,10 @@ function applySlotsToScreen(panelKey, slotState) {
   // .preview-page(flex column) 를 쓰면 자식 sections 의 max-width+margin:auto 가 collapse 되므로
   // 일반 block 흐름으로 두어 본문이 전체 테마와 동일하게 max-width:1280 centered 로 렌더되게 함.
   if (panelKey === 'home-a' || panelKey === 'home-layout-a' || panelKey === 'tag-guest-a' || panelKey === 'post-top-a' || panelKey === 'home-layout-b') {
-    // pano 등 풀블리드(100vh) 레이아웃은 헤더/푸터 placeholder 로 감싸면 뷰포트를 넘쳐
-    // 좌우 nav 버튼과 본문 텍스트의 하단 기준이 어긋나 겹치므로, placeholder 없이 뷰포트에 꽉 채워 렌더한다.
-    const isFullbleed = screenKey.endsWith(':pano');
-    const body = isFullbleed ? screen.body : `
+    // 모든 홈 레이아웃(pano 포함)을 헤더/푸터 placeholder 로 감싸 hero·editorial 과 일관되게 렌더.
+    // pano 는 100vh 풀블리드라 세로로 넘치지만 hero 도 마찬가지로 넘쳐 세로 스크롤되므로 동일 경험이고,
+    // 좌우 nav 는 .b-pano{position:relative} 로 pano 하단 기준이라 본문 텍스트와 겹치지 않는다.
+    const body = `
 <div class="placeholder-block">placeholder · 헤더 (검수 대상 외)</div>
 ${screen.body}
 <div class="placeholder-block">placeholder · 푸터 (검수 대상 외)</div>`;
