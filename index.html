@@ -294,7 +294,7 @@ body[data-blog="ML"] .panel.is-blog-wc { display: none !important; }
         <option value="A">Blog A — 공간노트</option>
         <option value="B">Blog B — San Francisco</option>
         <option value="WC">Website — Nagi (료칸)</option>
-        <option value="ML" hidden>Website — Maison Lumière (프렌치 카페)</option>
+        <option value="ML">Website — Maison Lumière (프렌치 카페)</option>
       </select>
       <p class="sidenav-sub">통합 미리보기</p>
     </div>
@@ -358,11 +358,20 @@ body[data-blog="ML"] .panel.is-blog-wc { display: none !important; }
       </button>
     </div>
 
-    <!-- Website LNB — 나기사 료칸 원페이지 -->
+    <!-- Website LNB — Nagi 凪 료칸 -->
     <div class="lnb-group lnb-group-wc">
       <div class="sidenav-section">화면 (사이트 페이지)</div>
       <button class="nav-item" data-tab="pension-home">
-        <span class="nav-label">Home — 원페이지</span>
+        <span class="nav-label">Home</span>
+      </button>
+      <button class="nav-item" data-tab="nagi-rooms">
+        <span class="nav-label">Rooms</span>
+      </button>
+      <button class="nav-item" data-tab="nagi-onsen">
+        <span class="nav-label">Onsen</span>
+      </button>
+      <button class="nav-item" data-tab="nagi-info">
+        <span class="nav-label">Info</span>
       </button>
     </div>
 
@@ -716,17 +725,56 @@ body[data-blog="ML"] .panel.is-blog-wc { display: none !important; }
       </div>
     </section>
 
-    <!-- ─── Website 패널 (나기사 료칸 · 일본 해변 료칸) ─── -->
+    <!-- ─── Website 패널 (Nagi 凪 료칸 · 일본 해변 료칸) ─── -->
     <section class="panel is-blog-wc" data-panel="pension-home">
       <header class="panel-header">
-        <h2 class="panel-title">Nagi 凪 — Home (원페이지)</h2>
-        <p class="panel-desc">타이트 이미지 그리드 료칸 원페이지. 풀블리드 hero + 2열 그리드(gap 2px).</p>
-        <div class="panel-meta">
-          <span class="panel-file">pension_landing.html</span>
+        <h2 class="panel-title">Nagi 凪 — Home</h2>
+        <p class="panel-desc">료칸 홈 변형.</p>
+        <div class="slot-bar" data-panel="pension-home">
+          <label class="slot-field">
+            <span class="slot-label">변형</span>
+            <select class="slot-select" data-panel="pension-home" data-slot="homevar"></select>
+          </label>
         </div>
       </header>
       <div class="frame-wrap">
-        <iframe class="preview-frame" id="frame-pension-home" title="Nagi Home" src="pension_landing.html"></iframe>
+        <iframe class="preview-frame" id="frame-pension-home" title="Nagi Home"></iframe>
+      </div>
+    </section>
+
+    <section class="panel is-blog-wc" data-panel="nagi-rooms">
+      <header class="panel-header">
+        <h2 class="panel-title">Nagi 凪 — Rooms</h2>
+        <p class="panel-desc">객실 페이지 변형.</p>
+        <div class="slot-bar" data-panel="nagi-rooms">
+          <label class="slot-field">
+            <span class="slot-label">변형</span>
+            <select class="slot-select" data-panel="nagi-rooms" data-slot="roomsvar"></select>
+          </label>
+        </div>
+      </header>
+      <div class="frame-wrap">
+        <iframe class="preview-frame" id="frame-nagi-rooms" title="Nagi Rooms"></iframe>
+      </div>
+    </section>
+
+    <section class="panel is-blog-wc" data-panel="nagi-onsen">
+      <header class="panel-header">
+        <h2 class="panel-title">Nagi 凪 — Onsen</h2>
+        <p class="panel-desc">노천온천 몰입형 페이지.</p>
+      </header>
+      <div class="frame-wrap">
+        <iframe class="preview-frame" id="frame-nagi-onsen" title="Nagi Onsen"></iframe>
+      </div>
+    </section>
+
+    <section class="panel is-blog-wc" data-panel="nagi-info">
+      <header class="panel-header">
+        <h2 class="panel-title">Nagi 凪 — Info</h2>
+        <p class="panel-desc">실용 안내 페이지.</p>
+      </header>
+      <div class="frame-wrap">
+        <iframe class="preview-frame" id="frame-nagi-info" title="Nagi Info"></iframe>
       </div>
     </section>
 
@@ -6918,6 +6966,18 @@ const BLOG_SLOT_OPTIONS = {
       { key: 'events',    label: 'Events — 이벤트 캘린더' },
     ],
   },
+  WC: {
+    homevar: [
+      { key: 'h1', label: '원페이지 (기본)' },
+      { key: 'h2', label: '스플릿 hero' },
+      { key: 'h3', label: '모자이크 갤러리' },
+      { key: 'h4', label: '좌우풀이미지 (가로 스크롤)' },
+    ],
+    roomsvar: [
+      { key: 'r1', label: '카탈로그 그리드' },
+      { key: 'r2', label: '객실 상세' },
+    ],
+  },
 };
 
 /* Blog 별 디폴트 (PANEL_CONFIG.defaults 대체) */
@@ -6940,6 +7000,10 @@ const BLOG_PANEL_DEFAULTS = {
     'subpage-b':     { subpage: 'districts', header: 'bar', footer: 'bigcta' },
     header:  { variant: 'hero' },
     footer:  { variant: 'bigcta' },
+  },
+  WC: {
+    'pension-home': { homevar: 'h1' },
+    'nagi-rooms':   { roomsvar: 'r1' },
   },
 };
 
@@ -7063,8 +7127,25 @@ const PANEL_CONFIG = {
   // ─── Website 페이지 (나기사 료칸 · 외부 단독 파일) ───
   'pension-home': {
     kind: 'external', frameId: 'frame-pension-home', fileLabelSlot: null,
+    slots: ['homevar'], defaults: { homevar: 'h1' }, bodySlot: 'homevar',
+    variantSrc: { h1: 'nagi_home_1.html', h2: 'nagi_home_2.html', h3: 'nagi_home_3.html', h4: 'nagi_home_4.html' },
+    src: 'nagi_home_1.html',
+  },
+  'nagi-rooms': {
+    kind: 'external', frameId: 'frame-nagi-rooms', fileLabelSlot: null,
+    slots: ['roomsvar'], defaults: { roomsvar: 'r1' }, bodySlot: 'roomsvar',
+    variantSrc: { r1: 'nagi_rooms_1.html', r2: 'nagi_rooms_2.html' },
+    src: 'nagi_rooms_1.html',
+  },
+  'nagi-onsen': {
+    kind: 'external', frameId: 'frame-nagi-onsen', fileLabelSlot: null,
     slots: [], defaults: {},
-    src: 'pension_landing.html',
+    src: 'nagi_onsen.html',
+  },
+  'nagi-info': {
+    kind: 'external', frameId: 'frame-nagi-info', fileLabelSlot: null,
+    slots: [], defaults: {},
+    src: 'nagi_info.html',
   },
   // ─── Website 페이지 (Maison Lumière 프렌치 카페 · 외부 단독 파일) ───
   'cafe-home': {
@@ -7391,7 +7472,7 @@ function rebuildSlotSelectOptions() {
 const BLOG_AVAILABLE_PANELS = {
   A: ['theme', 'post', 'home-layout-a', 'home-a', 'post-top-a', 'pagination-a', 'tag-guest-a', 'header', 'footer', 'sidebar'],
   B: ['theme-b', 'subpage-b', 'header', 'footer', 'home-layout-b'],
-  WC: ['pension-home'],
+  WC: ['pension-home', 'nagi-rooms', 'nagi-onsen', 'nagi-info'],
   ML: ['cafe-home'],
 };
 function isPanelInBlog(panelKey, blog) {
@@ -7463,7 +7544,10 @@ const PANEL_LABELS = {
     footer:  { title: '컴포넌트 — 푸터', desc: '웹사이트 푸터 단독 검수. 변형 3종 — 미니멀 / 다단(링크+뉴스레터) / 다크 CTA.' },
   },
   WC: {
-    'pension-home': { title: 'Nagi 凪 — Home (원페이지)', desc: '다크 톤 료칸 원페이지. 어두운 이미지 full-bleed(gap 0) 그리드 + 큰 serif 섹션 타이틀. 객실 카탈로그형.' },
+    'pension-home': { title: 'Nagi 凪 — Home', desc: '료칸 홈 4가지 변형 — 원페이지(기본) / 스플릿 hero / 모자이크 갤러리 / 좌우풀이미지(가로 스크롤). 드롭다운으로 전환.' },
+    'nagi-rooms':   { title: 'Nagi 凪 — Rooms', desc: '객실 페이지 2가지 변형 — 카탈로그 그리드 / 객실 상세형.' },
+    'nagi-onsen':   { title: 'Nagi 凪 — Onsen', desc: '노천온천 몰입형 페이지. 안개 바다 hero + 이용 안내.' },
+    'nagi-info':    { title: 'Nagi 凪 — Info', desc: '실용 안내 페이지. 滞在·温泉·食事·交通 + FAQ + 지도.' },
   },
   ML: {
     'cafe-home': { title: 'Maison Lumière — Home (원페이지)', desc: '프렌치 스페셜티 카페 원페이지. 화이트 베이스 + 웜 베이지 밴드 · 1px 헤어라인 타이트 그리드 메뉴 + 인테리어 갤러리 + 다음지도.' },
@@ -7492,8 +7576,14 @@ function renderPanel(panelKey) {
   if (frame) {
     if (cfg.kind === 'external') {
       // 외부 단독 페이지 — src 로 통째 로드 (srcdoc 사용 안 함)
+      // variantSrc 가 있으면 현재 선택된 variant 슬롯 값으로 파일을 스왑
       frame.removeAttribute('srcdoc');
-      if (frame.getAttribute('src') !== cfg.src) frame.src = cfg.src;
+      let extSrc = cfg.src;
+      if (cfg.variantSrc && cfg.bodySlot) {
+        const vsel = (slotState[panelKey] && slotState[panelKey][cfg.bodySlot]) || (cfg.defaults && cfg.defaults[cfg.bodySlot]);
+        if (cfg.variantSrc[vsel]) extSrc = cfg.variantSrc[vsel];
+      }
+      if (frame.getAttribute('src') !== extSrc) frame.src = extSrc;
     } else if (cfg.kind === 'screen') {
       frame.srcdoc = applySlotsToScreen(panelKey, slotState[panelKey]);
     } else {
