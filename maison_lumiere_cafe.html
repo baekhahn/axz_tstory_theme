@@ -138,8 +138,10 @@ h1,h2,h3,p,dl,dd,dt{margin:0}
 /* 구글맵 임베드 — 브랜드 톤에 맞춰 흑백으로 (조작은 그대로 동작) */
 .visit-map iframe{display:block;width:100%;height:100%;min-height:var(--visit-h);border:0;
   filter:grayscale(1) contrast(1.06)}
+/* 지도와 푸터 사이 여백 — 상세페이지 Related↔푸터 와 같은 값 */
+.visit{margin-bottom:140px}
 @media(max-width:900px){
-  .visit{grid-template-columns:1fr;--visit-h:380px}
+  .visit{grid-template-columns:1fr;--visit-h:380px;margin-bottom:80px}
   .visit-info{min-height:0;padding:52px 26px 56px}
   .visit-map{border-left:0;border-top:1px solid var(--line)}
 }
