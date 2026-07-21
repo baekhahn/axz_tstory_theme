@@ -114,48 +114,46 @@ h1,h2,h3,p,dl,dd,dt{margin:0}
 
 .sec-wrap{position:relative}
 
-/* ── Our Space 콜라주 — 사진 스트립 + 2단 패널, 스티커는 사진 위에만 ── */
-.space-grid{position:relative}
-.space-grid img{display:block;width:100%}
-.sg-row{display:grid;grid-template-columns:1fr 1fr}
-.space-grid img.sticker{position:absolute;z-index:4;pointer-events:none}
-/* 피그마 좌표(콜라주 1180×1063 기준) 그대로 — cup 162.31/232.38, bread 513/877.38 */
-.space-grid img.st-cup{left:13.76%;top:21.86%;width:21.72%}
-.space-grid img.st-bread{left:43.47%;top:82.54%;width:21.82%}
-/* 에펠탑 — 피그마 export 박스 128.75×250.25 를 x 1005 / y -145.55 에 배치.
-   PNG 가장자리 = 다이컷 흰 테두리 끝이라 그대로 두어야 스티커로 읽힘 (헤딩 영역까지 걸쳐 올라감) */
-.space-grid img.st-eiffel{left:85.17%;top:-13.69%;width:10.91%}
+/* ── Our Space 콜라주 — 피그마(Frame 6)가 스티커까지 합성해 렌더한 단일 이미지 ──
+   이미지 상단 145.5px 은 에펠탑이 헤딩 영역으로 솟은 부분(흰 배경)이라 위로 당겨 올림.
+   % 마진은 폭 기준 → 145.5/1180 = 12.331% */
+.space-figma img{display:block;width:100%;margin-top:-12.331%}
+/* 흰 오버플로 밴드가 헤딩을 덮지 않도록 텍스트를 위 레이어로 (배경은 투명이어야 에펠탑이 보임) */
+#space .sec{position:relative;z-index:2;background:transparent}
 
 /* ── Visit / Map ── */
-.visit{display:grid;grid-template-columns:1fr 1fr;background:#fff}
-.visit-info{position:relative;min-height:403px;padding:44px 26px 38px}
+.visit{display:grid;grid-template-columns:1fr 1fr;background:#fff;--visit-h:600px}
+/* 좌측 정보는 지도와 같은 높이 안에서 세로 중앙 정렬 (여백이 위아래 같도록) */
+.visit-info{position:relative;min-height:var(--visit-h);padding:0 26px;
+  display:flex;flex-direction:column;justify-content:center}
 .visit-info .brand{font-family:var(--aboreto);font-size:31px;line-height:normal;text-transform:uppercase;color:#000}
-.visit-dl{margin-top:26px;display:grid;gap:18px}
+.visit-dl{margin-top:34px;display:grid;gap:24px}
 .visit-dl dt{font-family:var(--sans);font-size:12px;line-height:19.2px;letter-spacing:.96px;text-transform:uppercase;color:var(--label)}
 .visit-dl dd{margin-top:3px;font-size:15px;line-height:24px;color:var(--value)}
-.btn-map{display:inline-flex;align-items:center;justify-content:center;margin-top:30px;
+.btn-map{align-self:flex-start;display:inline-flex;align-items:center;justify-content:center;margin-top:40px;
   padding:16px 29px;background:var(--ink);color:#fff;font-family:var(--kr);font-weight:500;font-size:16px}
 .btn-map:hover{opacity:.85}
-.visit-map{position:relative;background:#e8e6e2;border-left:1px solid var(--line);min-height:403px;overflow:hidden}
+.visit-map{position:relative;background:#e8e6e2;border-left:1px solid var(--line);
+  min-height:var(--visit-h);overflow:hidden}
 /* 구글맵 임베드 — 브랜드 톤에 맞춰 흑백으로 (조작은 그대로 동작) */
-.visit-map iframe{display:block;width:100%;height:100%;min-height:403px;border:0;
+.visit-map iframe{display:block;width:100%;height:100%;min-height:var(--visit-h);border:0;
   filter:grayscale(1) contrast(1.06)}
 @media(max-width:900px){
-  .visit{grid-template-columns:1fr}
-  .visit-map{border-left:0;border-top:1px solid var(--line);min-height:300px}
-  .visit-map iframe{min-height:300px}
+  .visit{grid-template-columns:1fr;--visit-h:380px}
+  .visit-info{min-height:0;padding:52px 26px 56px}
+  .visit-map{border-left:0;border-top:1px solid var(--line)}
 }
 
 /* ── FOOTER ── */
 .foot{background:var(--foot);color:#fff}
-.foot-in{max-width:1180px;margin:0 auto;position:relative;padding:52px 26px 40px}
+.foot-in{max-width:1180px;margin:0 auto;position:relative;padding:84px 26px 64px}
 .foot-grid{display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap}
 .foot-brand{font-family:var(--aboreto);font-size:19px;text-transform:uppercase;letter-spacing:.02em}
 .foot-cols{display:flex;gap:clamp(28px,5vw,64px)}
 .foot-col{font-family:var(--sans);font-size:14px;line-height:25.2px}
 .foot-col b{font-weight:500;display:block}
 .foot-col span{display:block;color:rgba(255,255,255,.6)}
-.foot-base{margin-top:38px;padding-top:12px;border-top:1px solid rgba(255,255,255,.16);
+.foot-base{margin-top:56px;padding-top:20px;border-top:1px solid rgba(255,255,255,.16);
   font-family:var(--sans);font-size:12.5px;line-height:18.75px;color:rgba(255,255,255,.46)}
 @media(max-width:760px){.foot-grid{flex-direction:column;align-items:flex-start}}
 
@@ -213,15 +211,8 @@ h1,h2,h3,p,dl,dd,dt{margin:0}
       <h2>Our Space</h2>
       <p>파리의 아틀리에를 닮은 정제된 공간에서 묵직하게 채워지는 일상의 영감을 마주해 보세요.</p>
     </div>
-    <div class="space-grid">
-      <img src="cafe_assets/space-strip.jpg" alt="빛과 그림자, 드립 커피, 건축적인 외관">
-      <div class="sg-row">
-        <img src="cafe_assets/space-left.jpg" alt="메종 루미에르 입간판">
-        <img src="cafe_assets/space-right.jpg" alt="메종 루미에르 브랜드 컵">
-      </div>
-      <img class="sticker st-cup" src="cafe_assets/sticker-cup.png" alt="">
-      <img class="sticker st-bread" src="cafe_assets/sticker-bread.png" alt="">
-      <img class="sticker st-eiffel" src="cafe_assets/sticker-eiffel.png" alt="">
+    <div class="space-figma">
+      <img src="cafe_assets/space-collage.jpg" alt="메종 루미에르의 공간 — 빛과 그림자, 드립 커피, 입간판과 브랜드 컵">
     </div>
   </div>
 

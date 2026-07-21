@@ -138,17 +138,20 @@ h1,h2,h3,p,ul{margin:0}
   color:var(--ink);font-variant-numeric:tabular-nums}
 @media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:460px){.grid{grid-template-columns:1fr}}
+/* Related 그리드와 푸터 사이 여백 — 바로 붙으면 답답해 보임 */
+#rel-grid{margin-bottom:140px}
+@media(max-width:900px){#rel-grid{margin-bottom:80px}}
 
 /* ── FOOTER ── */
 .foot{background:var(--foot);color:#fff}
-.foot-in{max-width:1180px;margin:0 auto;position:relative;padding:52px 26px 40px}
+.foot-in{max-width:1180px;margin:0 auto;position:relative;padding:84px 26px 64px}
 .foot-grid{display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap}
 .foot-brand{font-family:var(--aboreto);font-size:19px;text-transform:uppercase;letter-spacing:.02em}
 .foot-cols{display:flex;gap:clamp(28px,5vw,64px)}
 .foot-col{font-family:var(--sans);font-size:14px;line-height:25.2px}
 .foot-col b{font-weight:500;display:block}
 .foot-col span{display:block;color:rgba(255,255,255,.6)}
-.foot-base{margin-top:38px;padding-top:12px;border-top:1px solid rgba(255,255,255,.16);
+.foot-base{margin-top:56px;padding-top:20px;border-top:1px solid rgba(255,255,255,.16);
   font-family:var(--sans);font-size:12.5px;line-height:18.75px;color:rgba(255,255,255,.46)}
 @media(max-width:760px){.foot-grid{flex-direction:column;align-items:flex-start}}
 
