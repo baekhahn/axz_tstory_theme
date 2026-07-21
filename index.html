@@ -379,7 +379,10 @@ body[data-blog="ML"] .panel.is-blog-wc { display: none !important; }
     <div class="lnb-group lnb-group-ml">
       <div class="sidenav-section">화면 (사이트 페이지)</div>
       <button class="nav-item" data-tab="cafe-home">
-        <span class="nav-label">Home — 원페이지</span>
+        <span class="nav-label">Home</span>
+      </button>
+      <button class="nav-item" data-tab="cafe-item">
+        <span class="nav-label">Menu — 상세 (쇼핑몰)</span>
       </button>
     </div>
 
@@ -789,6 +792,22 @@ body[data-blog="ML"] .panel.is-blog-wc { display: none !important; }
       </header>
       <div class="frame-wrap">
         <iframe class="preview-frame" id="frame-cafe-home" title="Maison Lumière Home" src="maison_lumiere_cafe.html"></iframe>
+      </div>
+    </section>
+
+    <section class="panel is-blog-ml" data-panel="cafe-item">
+      <header class="panel-header">
+        <h2 class="panel-title">Maison Lumière — Menu 상세</h2>
+        <p class="panel-desc">쇼핑몰형 메뉴 상세.</p>
+        <div class="slot-bar" data-panel="cafe-item">
+          <label class="slot-field">
+            <span class="slot-label">품목</span>
+            <select class="slot-select" data-panel="cafe-item" data-slot="itemvar"></select>
+          </label>
+        </div>
+      </header>
+      <div class="frame-wrap">
+        <iframe class="preview-frame" id="frame-cafe-item" title="Maison Lumière Menu 상세"></iframe>
       </div>
     </section>
 
@@ -6978,6 +6997,16 @@ const BLOG_SLOT_OPTIONS = {
       { key: 'r2', label: '객실 상세' },
     ],
   },
+  ML: {
+    itemvar: [
+      { key: 'espresso',        label: '에스프레소 (Coffee)' },
+      { key: 'cafe-latte',      label: '카페 라떼 (Coffee)' },
+      { key: 'einspanner',      label: '아인슈페너 (Coffee)' },
+      { key: 'croissant',       label: '크루아상 (Bakery)' },
+      { key: 'strawberry-tart', label: '딸기 타르트 (Bakery)' },
+      { key: 'macaron',         label: '마카롱 (Bakery)' },
+    ],
+  },
 };
 
 /* Blog 별 디폴트 (PANEL_CONFIG.defaults 대체) */
@@ -7004,6 +7033,9 @@ const BLOG_PANEL_DEFAULTS = {
   WC: {
     'pension-home': { homevar: 'h1' },
     'nagi-rooms':   { roomsvar: 'r1' },
+  },
+  ML: {
+    'cafe-item': { itemvar: 'espresso' },
   },
 };
 
@@ -7152,6 +7184,19 @@ const PANEL_CONFIG = {
     kind: 'external', frameId: 'frame-cafe-home', fileLabelSlot: null,
     slots: [], defaults: {},
     src: 'maison_lumiere_cafe.html',
+  },
+  'cafe-item': {
+    kind: 'external', frameId: 'frame-cafe-item', fileLabelSlot: null,
+    slots: ['itemvar'], defaults: { itemvar: 'espresso' }, bodySlot: 'itemvar',
+    variantSrc: {
+      espresso:        'maison_lumiere_item.html?item=espresso',
+      'cafe-latte':    'maison_lumiere_item.html?item=cafe-latte',
+      einspanner:      'maison_lumiere_item.html?item=einspanner',
+      croissant:       'maison_lumiere_item.html?item=croissant',
+      'strawberry-tart':'maison_lumiere_item.html?item=strawberry-tart',
+      macaron:         'maison_lumiere_item.html?item=macaron',
+    },
+    src: 'maison_lumiere_item.html?item=espresso',
   },
 };
 
@@ -7473,7 +7518,7 @@ const BLOG_AVAILABLE_PANELS = {
   A: ['theme', 'post', 'home-layout-a', 'home-a', 'post-top-a', 'pagination-a', 'tag-guest-a', 'header', 'footer', 'sidebar'],
   B: ['theme-b', 'subpage-b', 'header', 'footer', 'home-layout-b'],
   WC: ['pension-home', 'nagi-rooms', 'nagi-onsen', 'nagi-info'],
-  ML: ['cafe-home'],
+  ML: ['cafe-home', 'cafe-item'],
 };
 function isPanelInBlog(panelKey, blog) {
   return (BLOG_AVAILABLE_PANELS[blog] || []).indexOf(panelKey) !== -1;
@@ -7550,7 +7595,8 @@ const PANEL_LABELS = {
     'nagi-info':    { title: 'Nagi 凪 — Info', desc: '실용 안내 페이지. 滞在·温泉·食事·交通 + FAQ + 지도.' },
   },
   ML: {
-    'cafe-home': { title: 'Maison Lumière — Home (원페이지)', desc: '프렌치 스페셜티 카페 원페이지. 화이트 베이스 + 웜 베이지 밴드 · 1px 헤어라인 타이트 그리드 메뉴 + 인테리어 갤러리 + 다음지도.' },
+    'cafe-home': { title: 'Maison Lumière — Home', desc: '프렌치 카페 홈. 로고·사진·타이포를 피그마 브랜드로 교체. Coffee 8종 + Bakery 12종 메뉴 그리드(클릭 시 상세) + Our Space + Visit.' },
+    'cafe-item': { title: 'Maison Lumière — Menu 상세', desc: '쇼핑몰형 메뉴 상세. 제품컷 + 한/영 설명 + 수량 스테퍼·총 금액 + 장바구니/구매하기 + 즐기는 방법 + Related Products. 드롭다운으로 품목 전환.' },
   },
 };
 function updatePanelLabels() {

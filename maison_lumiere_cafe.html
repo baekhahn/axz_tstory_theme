@@ -2,302 +2,299 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Maison Lumière — 빛이 머무는 카페</title>
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="font" type="font/woff2" crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff2/Pretendard-Regular.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff2/Pretendard-Medium.woff2">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aboreto&family=Spectral:wght@400&display=block">
+<script>
+/* 웹폰트 로드 전 기본폰트가 잠깐 보이는 것(FOUT) 차단.
+   JS 로만 가리므로 스크립트가 막혀도 빈 화면이 되지 않음. 1.2초 후에는 무조건 표시. */
+(function(){
+  if(!document.fonts || !document.fonts.load) return;
+  var gate = document.createElement('style');
+  gate.textContent = 'body{visibility:hidden}';
+  document.head.appendChild(gate);
+  var shown = false;
+  var show = function(){ if(shown) return; shown = true; gate.remove(); };
+  var timer = setTimeout(show, 1200);
+  Promise.all([
+    document.fonts.load('400 1em Pretendard'),
+    document.fonts.load('500 1em Pretendard'),
+    document.fonts.load('400 1em Aboreto'),
+    document.fonts.load('400 1em Spectral')
+  ]).then(function(){ clearTimeout(timer); show(); },
+          function(){ clearTimeout(timer); show(); });
+})();
+</script>
 <style>
 :root{
-  --sv-bg-base:#FFFFFF;
-  --sv-bg-band:#D9D1C5;
-  --sv-bg-cell:#C8BEB4;
-  --sv-text-str:#222222;
-  --sv-text-pri:#222222;
-  --sv-text-mut:#6B6B6B;
-  --sv-line:#E5E7EB;
-  --sv-line-str:#222222;
-  --sv-font:'Inter','Pretendard',sans-serif;
+  --ink:#222;
+  --line:#e5e7eb;
+  --en:#6b6b6b;
+  --note:#5a534a;
+  --label:#7a7264;
+  --value:#3a352d;
+  --foot:#141210;
+  --aboreto:'Aboreto',serif;
+  --spectral:'Spectral',Georgia,serif;
+  --sans:'Pretendard',-apple-system,sans-serif;
+  --kr:'Pretendard',-apple-system,sans-serif;
+  --tight:-.02em;
 }
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
-body{
-  word-break:keep-all;overflow-wrap:break-word;
-  font-family:var(--sv-font);
-  font-weight:400;
-  font-size:17px;
-  line-height:1.5;
-  color:var(--sv-text-pri);
-  background:var(--sv-bg-base);
-  -webkit-font-smoothing:antialiased;
-}
-img{display:block;max-width:100%}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);font-family:var(--kr);font-size:15px;line-height:1.5;
+  letter-spacing:var(--tight);
+  word-break:keep-all;overflow-wrap:break-word;-webkit-font-smoothing:antialiased}
+/* 라틴 전용(메뉴·숫자)은 자간 원복 — 좁히면 오히려 답답해짐 */
+.card-price{letter-spacing:normal}
+img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
+h1,h2,h3,p,dl,dd,dt{margin:0}
+:focus-visible{outline:1.5px solid var(--ink);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto}
 
-/* ── 마퀴 티커 ── */
-.ticker{
-  border-bottom:1px solid var(--sv-line);
-  overflow:hidden;white-space:nowrap;
-  font-size:13px;letter-spacing:.02em;color:var(--sv-text-str);
-  padding:9px 0;
-}
-.ticker__track{display:inline-block;animation:tick 32s linear infinite}
-.ticker__track span{margin:0 28px}
-.ticker__track b{font-weight:500}
-@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* ── NAV ── */
+.nav{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line)}
+.nav-in{position:relative;height:83px;max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 26px}
+.nav-l,.nav-r{display:flex;gap:26px;font-family:var(--spectral);font-size:15px;
+  text-transform:uppercase;letter-spacing:.08em;color:var(--ink)}
+.nav-r{gap:28px}
+.nav a{padding:6px 0;border-bottom:1px solid transparent}
+.nav a:hover,.nav a.is-on{border-bottom-color:var(--ink)}
+.nav-logo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);height:49px;width:auto}
+@media(max-width:640px){.nav-l a:nth-child(3),.nav-r a:nth-child(2){display:none}}
 
-/* ── 내비 ── */
-.nav{
-  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
-  padding:18px 26px;border-bottom:1px solid var(--sv-line);
-  position:sticky;top:0;background:var(--sv-bg-base);z-index:20;
-}
-.nav__links{display:flex;gap:26px;font-size:15px}
-.nav__links a:hover{color:var(--sv-text-mut)}
-.nav__brand{
-  text-align:center;font-size:18px;letter-spacing:.22em;font-weight:500;
-  text-transform:uppercase;
-}
-.nav__util{display:flex;gap:22px;justify-content:flex-end;font-size:15px}
-.nav__util a:hover{color:var(--sv-text-mut)}
+/* ── HERO ── */
+.hero{position:relative;height:607px;overflow:hidden}
+.hero>img{width:100%;height:100%;object-fit:cover}
+.hero::after{content:'';position:absolute;left:0;right:0;bottom:0;top:55%;
+  background:linear-gradient(to top,rgba(18,14,8,.7),rgba(18,14,8,.12) 60%,rgba(18,14,8,0))}
+.hero-tx{position:absolute;left:50%;bottom:73px;transform:translateX(-50%);z-index:2;
+  width:min(430px,86vw);display:flex;flex-direction:column;gap:11px;align-items:center;text-align:center;color:#fff}
+.hero-tx h1{font-family:var(--aboreto);font-weight:400;font-size:clamp(30px,4.3vw,50px);line-height:normal;
+  text-transform:uppercase;letter-spacing:.01em;white-space:nowrap}
+.hero-tx p{font-size:14px;line-height:24px;opacity:.92;text-shadow:0 1px 24px rgba(0,0,0,.35)}
+@media(max-width:640px){.hero{height:64vh;min-height:420px}}
 
-/* ── Hero ── */
-.hero{position:relative}
-.hero img{width:100%;height:78vh;min-height:480px;object-fit:cover}
-.hero::after{
-  content:"";position:absolute;left:0;right:0;bottom:0;height:55%;
-  background:linear-gradient(to top,rgba(18,14,8,.78),rgba(18,14,8,.12) 60%,rgba(18,14,8,0));
-  pointer-events:none;
+/* ── 섹션 헤드 ── */
+/* 헤딩과 설명문을 같은 베이스라인에 붙임 — 고정 left 값이면 짧은 제목에서 사이가 벌어짐 */
+.sec{position:relative;height:200px;background:#fff;
+  display:flex;align-items:baseline;gap:30px;padding:116px 26px 0}
+.sec h2{font-family:var(--spectral);font-weight:400;
+  font-size:64px;line-height:64px;letter-spacing:-.32px;color:var(--ink);white-space:nowrap}
+.sec p{font-size:15px;line-height:22.5px;color:var(--note)}
+@media(max-width:900px){
+  .sec{height:auto;display:block;padding:56px 26px 24px}
+  .sec h2{font-size:44px;line-height:1;white-space:normal}
+  .sec p{margin-top:14px;font-size:14px}
 }
-.hero__cap{
-  position:absolute;left:26px;bottom:26px;color:#fff;z-index:1;
-  text-shadow:0 1px 24px rgba(0,0,0,.35);
-}
-.hero__cap h1{
-  margin:0;font-weight:200;line-height:1.04;letter-spacing:-.005em;
-  font-size:clamp(40px,7vw,84px);
-}
-.hero__cap p{margin:10px 0 0;font-size:16px;opacity:.92;max-width:32ch}
 
-/* ── 섹션 타이틀 밴드 ── */
-.band{background:var(--sv-bg-band);padding:clamp(48px,7vw,80px) 26px 32px}
-.band h2{
-  margin:0;font-weight:200;letter-spacing:-.005em;line-height:1;
-  font-size:clamp(34px,5.5vw,64px);color:var(--sv-text-str);
-}
-.band p{margin:12px 0 0;font-size:15px;color:#5a534a;max-width:54ch}
+/* ── 제품 그리드 ── */
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);
+  border-bottom:1px solid var(--line)}
+.card{background:#fff;display:block}
+.card-media{aspect-ratio:294.25/367.81;background:#f3f3f3;overflow:hidden}
+.card-media img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.22,.61,.36,1)}
+.card:hover .card-media img{transform:scale(1.03)}
+.card-cap{position:relative;height:69.5px;border-top:1px solid var(--line);background:#fff}
+.card-name{position:absolute;left:14px;top:14px;font-size:15px;line-height:22.5px;color:var(--ink)}
+.card-en{position:absolute;left:14px;top:37.5px;font-family:var(--sans);font-size:12px;line-height:18px;
+  letter-spacing:.48px;text-transform:uppercase;color:var(--en)}
+.card-price{position:absolute;right:14px;top:13px;font-family:var(--sans);font-size:15px;line-height:22.5px;
+  color:var(--ink);font-variant-numeric:tabular-nums}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:460px){.grid{grid-template-columns:1fr}}
 
-/* ── 타이트 그리드 ── */
-.grid{
-  display:grid;gap:1px;background:var(--sv-line);
-  border-bottom:1px solid var(--sv-line);
-}
-.menu-grid{grid-template-columns:repeat(2,1fr)}
-.gallery-grid{grid-template-columns:repeat(2,1fr)}
-@media(min-width:760px){
-  .menu-grid{grid-template-columns:repeat(4,1fr)}
-  .gallery-grid{grid-template-columns:repeat(4,1fr)}
-}
-.cell{background:var(--sv-bg-base);position:relative}
-.cell img{width:100%;aspect-ratio:4/5;object-fit:cover;transition:opacity .5s}
-.cell--wide{grid-column:span 2}
-.cell--wide img{aspect-ratio:auto;height:100%}
+.sec-wrap{position:relative}
 
-/* 메뉴 캡션 바 */
-.cap{
-  display:flex;justify-content:space-between;align-items:baseline;gap:10px;
-  padding:13px 14px;border-top:1px solid var(--sv-line);font-size:15px;
+/* ── Our Space 콜라주 — 사진 스트립 + 2단 패널, 스티커는 사진 위에만 ── */
+.space-grid{position:relative}
+.space-grid img{display:block;width:100%}
+.sg-row{display:grid;grid-template-columns:1fr 1fr}
+.space-grid img.sticker{position:absolute;z-index:4;pointer-events:none}
+/* 피그마 좌표(콜라주 1180×1063 기준) 그대로 — cup 162.31/232.38, bread 513/877.38 */
+.space-grid img.st-cup{left:13.76%;top:21.86%;width:21.72%}
+.space-grid img.st-bread{left:43.47%;top:82.54%;width:21.82%}
+/* 에펠탑 — 피그마 export 박스 128.75×250.25 를 x 1005 / y -145.55 에 배치.
+   PNG 가장자리 = 다이컷 흰 테두리 끝이라 그대로 두어야 스티커로 읽힘 (헤딩 영역까지 걸쳐 올라감) */
+.space-grid img.st-eiffel{left:85.17%;top:-13.69%;width:10.91%}
+
+/* ── Visit / Map ── */
+.visit{display:grid;grid-template-columns:1fr 1fr;background:#fff}
+.visit-info{position:relative;min-height:403px;padding:44px 26px 38px}
+.visit-info .brand{font-family:var(--aboreto);font-size:31px;line-height:normal;text-transform:uppercase;color:#000}
+.visit-dl{margin-top:26px;display:grid;gap:18px}
+.visit-dl dt{font-family:var(--sans);font-size:12px;line-height:19.2px;letter-spacing:.96px;text-transform:uppercase;color:var(--label)}
+.visit-dl dd{margin-top:3px;font-size:15px;line-height:24px;color:var(--value)}
+.btn-map{display:inline-flex;align-items:center;justify-content:center;margin-top:30px;
+  padding:16px 29px;background:var(--ink);color:#fff;font-family:var(--kr);font-weight:500;font-size:16px}
+.btn-map:hover{opacity:.85}
+.visit-map{position:relative;background:#e8e6e2;border-left:1px solid var(--line);min-height:403px;overflow:hidden}
+/* 구글맵 임베드 — 브랜드 톤에 맞춰 흑백으로 (조작은 그대로 동작) */
+.visit-map iframe{display:block;width:100%;height:100%;min-height:403px;border:0;
+  filter:grayscale(1) contrast(1.06)}
+@media(max-width:900px){
+  .visit{grid-template-columns:1fr}
+  .visit-map{border-left:0;border-top:1px solid var(--line);min-height:300px}
+  .visit-map iframe{min-height:300px}
 }
-.cap__name{color:var(--sv-text-str)}
-.cap__en{color:var(--sv-text-mut);font-size:12px;letter-spacing:.04em;display:block;margin-top:2px;text-transform:uppercase}
-.cap__price{color:var(--sv-text-str);white-space:nowrap}
 
-/* ── 찾아오는 곳 (배경 웜 베이지로 통일) ── */
-.visit{display:grid;grid-template-columns:1fr 1fr;background:var(--sv-bg-band)}
-.visit__info{padding:48px 26px;display:flex;flex-direction:column;gap:18px;justify-content:center}
-.visit__info h3{margin:0;font-weight:400;font-size:clamp(28px,4vw,44px);line-height:1.05;color:var(--sv-text-str);text-transform:uppercase;letter-spacing:.02em}
-.visit__row{font-size:15px;line-height:1.6;color:#3a352d}
-.visit__row .lbl{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#7a7264;margin-bottom:3px}
-.map-wrap{position:relative;min-height:340px;border-left:1px solid rgba(34,34,34,.12)}
-@media(max-width:560px){
-  .visit__info{padding:30px 18px;gap:13px}
-  .map-wrap{min-height:240px}
-}
-.map-wrap{background:var(--sv-bg-cell)}
-.map-wrap .gmap{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;z-index:1;filter:grayscale(1) contrast(1.05)}
+/* ── FOOTER ── */
+.foot{background:var(--foot);color:#fff}
+.foot-in{max-width:1180px;margin:0 auto;position:relative;padding:52px 26px 40px}
+.foot-grid{display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap}
+.foot-brand{font-family:var(--aboreto);font-size:19px;text-transform:uppercase;letter-spacing:.02em}
+.foot-cols{display:flex;gap:clamp(28px,5vw,64px)}
+.foot-col{font-family:var(--sans);font-size:14px;line-height:25.2px}
+.foot-col b{font-weight:500;display:block}
+.foot-col span{display:block;color:rgba(255,255,255,.6)}
+.foot-base{margin-top:38px;padding-top:12px;border-top:1px solid rgba(255,255,255,.16);
+  font-family:var(--sans);font-size:12.5px;line-height:18.75px;color:rgba(255,255,255,.46)}
+@media(max-width:760px){.foot-grid{flex-direction:column;align-items:flex-start}}
 
-/* ── About ── */
-.about{display:grid;grid-template-columns:1fr}
-@media(min-width:860px){.about{grid-template-columns:1fr 1fr}}
-.about__img img{width:100%;height:100%;min-height:340px;object-fit:cover}
-.about__txt{padding:48px 26px;display:flex;flex-direction:column;gap:18px;justify-content:center;max-width:60ch}
-.about__txt h2{margin:0;font-weight:400;font-size:clamp(30px,4.5vw,52px);line-height:1.05;letter-spacing:-.01em}
-.about__txt p{margin:0;color:#3a3630;line-height:1.7}
-
-/* ── 버튼 ── */
-.btn{
-  display:inline-flex;align-items:center;gap:.55em;
-  padding:14px 28px;border:1px solid var(--sv-line-str);border-radius:9999px;
-  background:transparent;color:var(--sv-text-str);font:500 16px var(--sv-font);
-  cursor:pointer;transition:background .2s,color .2s;width:fit-content;
-}
-.btn:hover{background:var(--sv-text-str);color:#fff}
-
-/* ── 푸터 (블랙 배경 · 무게감) ── */
-.foot{padding:60px 26px 40px;display:flex;flex-wrap:wrap;gap:28px;justify-content:space-between;align-items:flex-end;font-size:14px;color:rgba(255,255,255,.6);background:#141210}
-.foot__brand{font-size:19px;letter-spacing:.22em;text-transform:uppercase;color:#fff;font-weight:500}
-.foot__cols{display:flex;gap:48px;flex-wrap:wrap}
-.foot__cols div{line-height:1.8}
-.foot__cols a:hover{color:#fff}
-.foot__copy{width:100%;border-top:1px solid rgba(255,255,255,.16);padding-top:20px;font-size:12.5px;color:rgba(255,255,255,.46)}
+@media(prefers-reduced-motion:reduce){*{transition-duration:.001ms !important}}
 </style>
 </head>
 <body>
 
-<div class="ticker">
-  <div class="ticker__track">
-    <span><b>Maison Lumière</b> — 매일 08:00 – 22:00 영업</span>
-    <span>이번 주 싱글 오리진: Ethiopia Guji Natural</span>
-    <span>오후의 빛이 가장 좋은 시간, 15:00 – 17:00</span>
-    <span><b>Maison Lumière</b> — 매일 08:00 – 22:00 영업</span>
-    <span>이번 주 싱글 오리진: Ethiopia Guji Natural</span>
-    <span>오후의 빛이 가장 좋은 시간, 15:00 – 17:00</span>
-  </div>
-</div>
-
-<nav class="nav">
-  <div class="nav__links">
-    <a href="#menu">Menu</a>
-    <a href="#space">Space</a>
-    <a href="#visit">Visit</a>
-  </div>
-  <a href="#top" class="nav__brand">Maison Lumière</a>
-  <div class="nav__util">
-    <a href="#visit">오시는 길</a>
-    <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
-  </div>
-</nav>
-
-<header class="hero" id="top">
-  <img src="https://images.unsplash.com/photo-1774521044355-508615f287ca?w=1800&h=1100&fit=crop&q=80&auto=format" alt="창으로 쏟아지는 햇빛이 머무는 Maison Lumière 자리">
-  <div class="hero__cap">
-    <h1>A French café<br>where light lingers</h1>
-    <p>아침의 첫 잔부터 늦은 오후의 한 잔까지, 천천히 흐르는 시간을 위한 공간.</p>
+<header class="nav">
+  <div class="nav-in">
+    <nav class="nav-l">
+      <a href="#coffee">Coffee</a>
+      <a href="#bakery">Bakery</a>
+      <a href="#space">Space</a>
+    </nav>
+    <a href="#top" aria-label="Maison Lumière"><img class="nav-logo" src="cafe_assets/logo.svg" alt="Maison Lumière"></a>
+    <nav class="nav-r">
+      <a href="#visit">Map</a>
+      <a href="#" rel="noopener">Instagram</a>
+    </nav>
   </div>
 </header>
 
-<!-- ── MENU ── -->
-<section class="band" id="menu">
-  <h2>Coffee</h2>
-  <p>매일 직접 볶은 원두로 내리는 스페셜티 커피. 모든 음료는 매장과 테이크아웃 동일한 가격입니다.</p>
+<section class="hero" id="top">
+  <img src="cafe_assets/hero.jpg" alt="빛이 드는 메종 루미에르 매장" fetchpriority="high">
+  <div class="hero-tx">
+    <h1>Maison Lumière</h1>
+    <p>아침의 첫 잔부터 늦은 오후의 한 잔까지, 천천히 흐르는 시간을 위한 공간.</p>
+  </div>
 </section>
-<div class="grid menu-grid">
-  <div class="cell">
-    <img src="https://images.unsplash.com/photo-1609050471053-8636409f9f5b?w=520&h=650&fit=crop&q=78&auto=format" alt="에스프레소">
-    <div class="cap"><span class="cap__name">에스프레소<span class="cap__en">Espresso</span></span><span class="cap__price">₩6,500</span></div>
-  </div>
-  <div class="cell">
-    <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=520&h=650&fit=crop&q=78&auto=format" alt="콜드 브루">
-    <div class="cap"><span class="cap__name">콜드 브루<span class="cap__en">Cold Brew</span></span><span class="cap__price">₩7,800</span></div>
-  </div>
-  <div class="cell">
-    <img src="https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?w=520&h=650&fit=crop&q=78&auto=format" alt="카페 라떼">
-    <div class="cap"><span class="cap__name">카페 라떼<span class="cap__en">Café Latte</span></span><span class="cap__price">₩7,500</span></div>
-  </div>
-  <div class="cell">
-    <img src="https://images.unsplash.com/photo-1735132619395-a8f675a2dc66?w=520&h=650&fit=crop&q=78&auto=format" alt="카푸치노">
-    <div class="cap"><span class="cap__name">카푸치노<span class="cap__en">Cappuccino</span></span><span class="cap__price">₩7,000</span></div>
-  </div>
-</div>
 
-<section class="band">
-  <h2>Pastry</h2>
-  <p>매일 아침 매장에서 구워내는 프렌치 페이스트리. 소진되면 마감됩니다.</p>
-</section>
-<div class="grid menu-grid">
-  <div class="cell">
-    <img src="https://images.unsplash.com/photo-1681218079567-35aef7c8e7e4?w=520&h=650&fit=crop&q=78&auto=format" alt="크루아상">
-    <div class="cap"><span class="cap__name">크루아상<span class="cap__en">Croissant</span></span><span class="cap__price">₩4,500</span></div>
-  </div>
-  <div class="cell">
-    <img src="https://images.unsplash.com/photo-1681218424681-b4f8228ecea9?w=520&h=650&fit=crop&q=78&auto=format" alt="뺑 오 쇼콜라">
-    <div class="cap"><span class="cap__name">뺑 오 쇼콜라<span class="cap__en">Pain au Chocolat</span></span><span class="cap__price">₩5,000</span></div>
-  </div>
-  <div class="cell">
-    <img src="https://images.unsplash.com/photo-1759303380903-11154bc5d5bf?w=520&h=650&fit=crop&q=78&auto=format" alt="아몬드 크루아상">
-    <div class="cap"><span class="cap__name">아몬드 크루아상<span class="cap__en">Almond Croissant</span></span><span class="cap__price">₩5,500</span></div>
-  </div>
-  <div class="cell">
-    <img src="https://images.unsplash.com/photo-1607174644416-25df985337f6?w=520&h=650&fit=crop&q=78&auto=format" alt="마들렌">
-    <div class="cap"><span class="cap__name">마들렌<span class="cap__en">Madeleine</span></span><span class="cap__price">₩4,000</span></div>
-  </div>
-</div>
+<main class="wrap">
 
-<!-- ── SPACE / 인테리어 갤러리 ── -->
-<section class="band" id="space">
-  <h2>Our Space</h2>
-  <p>오래된 나무와 부드러운 빛, 라탄과 리넨. 파리의 작은 살롱을 닮은 자리에서 머무는 시간.</p>
-</section>
-<div class="grid gallery-grid">
-  <div class="cell"><img src="https://images.unsplash.com/photo-1635236796520-68dd8df87895?w=620&h=780&fit=crop&q=80&auto=format" alt="밝은 룸과 원형 테이블, 식물"></div>
-  <div class="cell"><img src="https://images.unsplash.com/photo-1638778527450-31e8587f62aa?w=620&h=780&fit=crop&q=80&auto=format" alt="밝은 라운드 테이블과 커브드 체어"></div>
-  <div class="cell"><img src="https://images.unsplash.com/photo-1588253137728-1e4dd0fe9a93?w=620&h=780&fit=crop&q=80&auto=format" alt="흰 벽과 늘어진 식물, 한 잔의 커피"></div>
-  <div class="cell"><img src="https://images.unsplash.com/photo-1685602729695-0664ea4e5c06?w=620&h=780&fit=crop&q=80&auto=format" alt="크림 벽과 벤트우드 의자, 빈 자리"></div>
-</div>
+  <!-- COFFEE -->
+  <div class="sec-wrap" id="coffee">
+    <div class="sec">
+      <h2>Coffee</h2>
+      <p>매일 아침 매장에서 정성껏 볶아내는 신선한 원두와 가장 향기로운 순간의 스페셜티 커피.</p>
+    </div>
+    <div class="grid" id="grid-coffee"></div>
+  </div>
 
-<!-- ── VISIT / 찾아오는 곳 ── -->
-<section class="band" id="visit">
-  <h2>Visit</h2>
-  <p>찾아오시는 길과 영업시간을 안내합니다.</p>
-</section>
-<div class="visit">
-  <div class="visit__info">
-    <h3>Maison Lumière</h3>
-    <div class="visit__row"><span class="lbl">Address</span>서울특별시 중구 세종대로 110 (서울시청)</div>
-    <div class="visit__row"><span class="lbl">Hours</span>매일 08:00 – 22:00 (연중무휴)</div>
-    <div class="visit__row"><span class="lbl">Contact</span>02-0000-0000 · hello@maisonlumiere.kr</div>
-    <a class="btn" href="https://map.kakao.com/link/search/서울특별시청" target="_blank" rel="noopener">카카오맵에서 길찾기 <span aria-hidden="true">&#8594;</span></a>
+  <!-- BAKERY -->
+  <div class="sec-wrap" id="bakery">
+    <div class="sec">
+      <h2>Bakery</h2>
+      <p>매일 아침 정성껏 구워내어 신선함이 가득 살아있는 따뜻한 빵과 쿠키를 만나보세요.</p>
+    </div>
+    <div class="grid" id="grid-bakery"></div>
   </div>
-  <div class="map-wrap">
-    <iframe class="gmap" title="Maison Lumière 위치 — 서울시청"
-      src="https://maps.google.com/maps?q=37.566295,126.977945&z=16&hl=ko&output=embed"
-      loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-  </div>
-</div>
 
-<!-- ── ABOUT ── -->
-<section class="about">
-  <div class="about__img"><img src="https://images.unsplash.com/photo-1565650839149-2c48a094196c?w=900&h=1100&fit=crop&q=80&auto=format" alt="우드 슬랫 벽과 가죽 벤치가 있는 카페 좌석"></div>
-  <div class="about__txt">
-    <h2>천천히, 빛을 따라</h2>
-    <p>Maison Lumière 는 '빛의 집' 이라는 이름 그대로, 하루의 빛이 가장 아름답게 머무는 자리에 자리잡았습니다. 우리는 매일 아침 작은 로스터로 원두를 볶고, 한 잔의 커피가 완성되기까지의 시간을 서두르지 않습니다.</p>
-    <p>프랑스의 동네 카페가 그렇듯, 이곳은 빠르게 마시고 떠나는 곳이 아니라 잠시 머무는 곳입니다. 좋은 빛과 좋은 커피, 그리고 조용한 대화를 위한 자리를 마련해 두었습니다.</p>
-    <a class="btn" href="#menu">메뉴 보기 <span aria-hidden="true">&#8594;</span></a>
+  <!-- OUR SPACE -->
+  <div class="sec-wrap" id="space">
+    <div class="sec">
+      <h2>Our Space</h2>
+      <p>파리의 아틀리에를 닮은 정제된 공간에서 묵직하게 채워지는 일상의 영감을 마주해 보세요.</p>
+    </div>
+    <div class="space-grid">
+      <img src="cafe_assets/space-strip.jpg" alt="빛과 그림자, 드립 커피, 건축적인 외관">
+      <div class="sg-row">
+        <img src="cafe_assets/space-left.jpg" alt="메종 루미에르 입간판">
+        <img src="cafe_assets/space-right.jpg" alt="메종 루미에르 브랜드 컵">
+      </div>
+      <img class="sticker st-cup" src="cafe_assets/sticker-cup.png" alt="">
+      <img class="sticker st-bread" src="cafe_assets/sticker-bread.png" alt="">
+      <img class="sticker st-eiffel" src="cafe_assets/sticker-eiffel.png" alt="">
+    </div>
   </div>
-</section>
+
+  <!-- VISIT / MAP -->
+  <section class="visit" id="visit">
+    <div class="visit-info">
+      <div class="brand">Maison Lumière</div>
+      <dl class="visit-dl">
+        <div><dt>Address</dt><dd>서울특별시 중구 세종대로 110 (서울시청)</dd></div>
+        <div><dt>Hours</dt><dd>매일 08:00 – 22:00 (연중무휴)</dd></div>
+        <div><dt>Contact</dt><dd>02-0000-0000 · hello@maisonlumiere.kr</dd></div>
+      </dl>
+      <a class="btn-map" href="https://www.google.com/maps/dir/?api=1&amp;destination=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%EC%84%B8%EC%A2%85%EB%8C%80%EB%A1%9C%20110"
+         target="_blank" rel="noopener">구글맵에서 길찾기</a>
+    </div>
+    <div class="visit-map">
+      <iframe title="매장 위치 지도" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              src="https://maps.google.com/maps?q=37.566295,126.977945&amp;hl=ko&amp;z=17&amp;output=embed"></iframe>
+    </div>
+  </section>
+
+</main>
 
 <footer class="foot">
-  <div class="foot__brand">Maison Lumière</div>
-  <div class="foot__cols">
-    <div><strong style="color:#fff;font-weight:500">Hours</strong><br>Mon – Sun<br>08:00 – 22:00</div>
-    <div><strong style="color:#fff;font-weight:500">Visit</strong><br>세종대로 110<br>중구, 서울</div>
-    <div><strong style="color:#fff;font-weight:500">Follow</strong><br><a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a><br>hello@maisonlumiere.kr</div>
+  <div class="foot-in">
+    <div class="foot-grid">
+      <div class="foot-brand">Maison Lumière</div>
+      <div class="foot-cols">
+        <div class="foot-col"><b>Hours</b><span>Mon – Sun</span><span>08:00 – 22:00</span></div>
+        <div class="foot-col"><b>Visit</b><span>세종대로 110</span><span>중구, 서울</span></div>
+        <div class="foot-col"><b>Follow</b><span>Instagram</span><span>hello@maisonlumiere.kr</span></div>
+      </div>
+    </div>
+    <div class="foot-base">© Maison Lumière · Powered by Tistory</div>
   </div>
-  <div class="foot__copy">© Maison Lumière · Powered by Tistory</div>
 </footer>
 
 <script>
-/* 빈 앵커 점프 차단 (#top, #menu 등 실제 섹션은 통과) */
-document.addEventListener('click',function(e){
-  var a=e.target.closest('a');
-  if(a&&a.getAttribute('href')==='#'){e.preventDefault();}
-});
-/*
-  지도: Google Maps 임베드(키 불필요)를 iframe 으로 표시하고 CSS filter:grayscale 로 흑백 처리.
-  위치는 임시로 서울시청(37.566295,126.977945). 실제 주소가 정해지면 .gmap iframe 의 q= 좌표만 교체.
-*/
+var MENU = [
+  {g:'coffee', s:'espresso',        ko:'에스프레소',          en:'Espresso',           p:'₩4,500'},
+  {g:'coffee', s:'americano',       ko:'아메리카노',          en:'Ice americano',      p:'₩5,500'},
+  {g:'coffee', s:'cafe-latte',      ko:'카페 라떼',           en:'Café Latte',         p:'₩6,000'},
+  {g:'coffee', s:'cappuccino',      ko:'카푸치노',            en:'Cappuccino',         p:'₩6,500'},
+  {g:'coffee', s:'einspanner',      ko:'아인슈페너',          en:'Einspänner',         p:'₩7,000'},
+  {g:'coffee', s:'cappuccino', img:'cappuccino2', ko:'카푸치노', en:'Cappuccino',      p:'₩6,800'},
+  {g:'coffee', s:'matcha-latte',    ko:'말차 라떼',           en:'Matcha Latte',       p:'₩7,000'},
+  {g:'coffee', s:'orange-juice',    ko:'오렌지 주스',         en:'Orange Juice',       p:'₩6,800'},
+  {g:'bakery', s:'croissant',       ko:'크루아상',            en:'Croissant',          p:'₩4,500'},
+  {g:'bakery', s:'pain-au-chocolat',ko:'뺑 오 쇼콜라',        en:'Pain au Chocolat',   p:'₩5,000'},
+  {g:'bakery', s:'baguette',        ko:'플레인 바게트',       en:'Baguette',           p:'₩5,500'},
+  {g:'bakery', s:'fougasse',        ko:'푸가스',              en:'Fougasse',           p:'₩5,000'},
+  {g:'bakery', s:'country-bread',   ko:'통밀 깜빠뉴',         en:'Country Bread',      p:'₩4,500'},
+  {g:'bakery', s:'bagel',           ko:'플레인 베이글',       en:'Plain Bagel',        p:'₩4,000'},
+  {g:'bakery', s:'apple-pie',       ko:'애플파이',            en:'APPLE PIE',          p:'₩7,000'},
+  {g:'bakery', s:'cheesecake',      ko:'치즈 케이크',         en:'CHEESE CAKE',        p:'₩6,000'},
+  {g:'bakery', s:'madeleine',       ko:'마들렌',              en:'Madeleine',          p:'₩4,500'},
+  {g:'bakery', s:'strawberry-tart', ko:'딸기 타르트',         en:'Strawberry Tart',    p:'₩8,000'},
+  {g:'bakery', s:'pound-cake',      ko:'바닐라 파운드케이크', en:'Vanilla Pound Cake', p:'₩5,500'},
+  {g:'bakery', s:'macaron',         ko:'마카롱',              en:'macaron',            p:'₩6,000'}
+];
+function card(m){
+  var img = m.img || m.s;
+  return '<a class="card" href="maison_lumiere_item.html?item=' + m.s + '">' +
+    '<div class="card-media"><img src="cafe_assets/' + img + '.jpg" alt="' + m.ko + '" loading="lazy"></div>' +
+    '<div class="card-cap">' +
+      '<span class="card-name">' + m.ko + '</span>' +
+      '<span class="card-en">' + m.en + '</span>' +
+      '<span class="card-price">' + m.p + '</span>' +
+    '</div></a>';
+}
+document.getElementById('grid-coffee').innerHTML = MENU.filter(function(m){return m.g==='coffee';}).map(card).join('');
+document.getElementById('grid-bakery').innerHTML = MENU.filter(function(m){return m.g==='bakery';}).map(card).join('');
 </script>
+
 </body>
 </html>

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maison Lumière — Menu</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="font" type="font/woff2" crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff2/Pretendard-Regular.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff2/Pretendard-Medium.woff2">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aboreto&family=Spectral:wght@400&display=block">
+<script>
+/* 웹폰트 로드 전 기본폰트가 잠깐 보이는 것(FOUT) 차단.
+   JS 로만 가리므로 스크립트가 막혀도 빈 화면이 되지 않음. 1.2초 후에는 무조건 표시. */
+(function(){
+  if(!document.fonts || !document.fonts.load) return;
+  var gate = document.createElement('style');
+  gate.textContent = 'body{visibility:hidden}';
+  document.head.appendChild(gate);
+  var shown = false;
+  var show = function(){ if(shown) return; shown = true; gate.remove(); };
+  var timer = setTimeout(show, 1200);
+  Promise.all([
+    document.fonts.load('400 1em Pretendard'),
+    document.fonts.load('500 1em Pretendard'),
+    document.fonts.load('400 1em Aboreto'),
+    document.fonts.load('400 1em Spectral')
+  ]).then(function(){ clearTimeout(timer); show(); },
+          function(){ clearTimeout(timer); show(); });
+})();
+</script>
+<style>
+:root{
+  --ink:#222;
+  --line:#e5e7eb;
+  --en:#6b6b6b;
+  --note:#5a534a;
+  --foot:#141210;
+  --aboreto:'Aboreto',serif;
+  --spectral:'Spectral',Georgia,serif;
+  --sans:'Pretendard',-apple-system,sans-serif;
+  --kr:'Pretendard',-apple-system,sans-serif;
+  --tight:-.02em;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);font-family:var(--kr);font-size:15px;line-height:1.5;
+  letter-spacing:var(--tight);
+  word-break:keep-all;overflow-wrap:break-word;-webkit-font-smoothing:antialiased}
+/* 라틴 전용(메뉴·숫자)은 자간 원복 — 좁히면 오히려 답답해짐 */
+.card-price,.pd-price,.pd-total,.qty output{letter-spacing:normal}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,p,ul{margin:0}
+:focus-visible{outline:1.5px solid var(--ink);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto}
+
+/* ── NAV ── */
+.nav{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line)}
+.nav-in{position:relative;height:83px;max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 26px}
+.nav-l,.nav-r{display:flex;gap:26px;font-family:var(--spectral);font-size:15px;
+  text-transform:uppercase;letter-spacing:.08em;color:var(--ink)}
+.nav-r{gap:28px}
+.nav a{padding:6px 0;border-bottom:1px solid transparent}
+.nav a:hover,.nav a.is-on{border-bottom-color:var(--ink)}
+.nav-logo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);height:49px;width:auto}
+@media(max-width:640px){.nav-l a:nth-child(3),.nav-r a:nth-child(2){display:none}}
+
+/* ── 상세 상단 — 좌측 이미지는 스크롤해도 고정(sticky), 우측만 흘러내림 ── */
+.pd{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line);align-items:start}
+.pd-media{position:sticky;top:83px;align-self:start;aspect-ratio:590/740;background:#f3f3f3;overflow:hidden}
+.pd-media img{width:100%;height:100%;object-fit:cover}
+/* 세로 디바이더는 우측 컬럼 전체 높이로 (정보 + 드시는 방법 연속) */
+.pd-col{border-left:1px solid var(--line)}
+.pd-info{position:relative;padding:50px 60px 46px 41px}
+.pd-title{font-size:25px;font-weight:400;line-height:normal;color:var(--ink)}
+.pd-en{margin-top:7px;font-family:var(--sans);font-size:12px;line-height:18px;letter-spacing:.48px;text-transform:uppercase;color:var(--en)}
+.pd-price{margin-top:26px;font-family:var(--sans);font-size:14px;line-height:20px;color:var(--ink);font-variant-numeric:tabular-nums}
+.pd-desc{margin-top:37px;font-family:var(--sans);font-size:14px;line-height:20px;color:var(--ink)}
+.pd-desc p+p{margin-top:30px}
+.pd-buy{margin-top:56px}
+.pd-labels{display:flex;justify-content:space-between;font-family:var(--sans);font-size:14px;line-height:20px}
+.pd-row{margin-top:14px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.qty{display:flex;align-items:center;justify-content:space-between;width:150px;height:50px;
+  padding:0 29px;border:1px solid var(--line)}
+.qty button{border:0;background:none;padding:0;cursor:pointer;font-family:var(--sans);color:var(--ink);
+  font-size:20px;font-weight:300;line-height:1}
+.qty output{font-family:var(--sans);font-size:15px;font-variant-numeric:tabular-nums}
+.pd-total{font-family:var(--sans);font-size:22px;line-height:20px;text-align:right;font-variant-numeric:tabular-nums}
+.pd-cta{margin-top:44px;display:flex;gap:1px}
+.pd-cta button{flex:1;max-width:249px;padding:16px 29px;border:0;cursor:pointer;
+  font-family:var(--kr);font-weight:500;font-size:15px;line-height:normal;color:#fff}
+.btn-cart{background:#d3d3d3}
+.btn-cart:hover{background:#c6c6c6}
+.btn-buy{background:var(--ink)}
+.btn-buy:hover{opacity:.86}
+@media(max-width:860px){
+  .pd{grid-template-columns:1fr}
+  .pd-media{position:static}
+  .pd-col{border-left:0}
+  .pd-info{padding:34px 26px 40px}
+}
+
+/* ── 재료와 공정 ── */
+.ing{border-top:1px solid var(--line);padding:44px 60px 44px 41px}
+.ing h4{font-family:var(--sans);font-weight:400;font-size:14px;line-height:22px;margin:0 0 20px}
+.ing dl{margin:0;display:grid;grid-template-columns:88px 1fr;column-gap:20px;row-gap:13px}
+.ing dt{font-size:13px;line-height:21px;color:var(--en)}
+.ing dd{margin:0;font-size:14px;line-height:21px;color:var(--ink)}
+@media(max-width:860px){.ing{padding:34px 26px}.ing dl{grid-template-columns:76px 1fr;column-gap:14px}}
+
+/* ── 드시는 방법 — 피그마대로 우측 컬럼에 이어짐 (좌측은 고정 이미지가 채움) ── */
+.hw-right{border-top:1px solid var(--line);padding:50px 60px 60px 41px}
+.hw-right h4{font-family:var(--sans);font-weight:400;font-size:14px;line-height:22px;margin:0}
+.hw-right ul{list-style:disc;padding-left:21px;margin:0}
+.hw-right li{font-family:var(--sans);font-size:14px;line-height:22px;color:var(--ink);margin:0}
+.hw-right .blk+ .blk{margin-top:30px}
+@media(max-width:860px){.hw-right{padding:34px 26px 44px}}
+
+/* ── Related ── */
+.rel-head{height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding-top:32px}
+.rel-head h2{font-family:var(--spectral);font-weight:400;font-size:36px;letter-spacing:-.32px;line-height:normal;color:var(--ink)}
+.rel-head p{font-size:15px;line-height:22.5px;color:var(--note)}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);
+  border-bottom:1px solid var(--line)}
+.card{background:#fff;display:block}
+.card-media{aspect-ratio:294.25/367.81;background:#f3f3f3;overflow:hidden}
+.card-media img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.22,.61,.36,1)}
+.card:hover .card-media img{transform:scale(1.03)}
+.card-cap{position:relative;height:69.5px;border-top:1px solid var(--line);background:#fff}
+.card-name{position:absolute;left:14px;top:14px;font-size:15px;line-height:22.5px;color:var(--ink)}
+.card-en{position:absolute;left:14px;top:37.5px;font-family:var(--sans);font-size:12px;line-height:18px;
+  letter-spacing:.48px;text-transform:uppercase;color:var(--en)}
+.card-price{position:absolute;right:14px;top:13px;font-family:var(--sans);font-size:15px;line-height:22.5px;
+  color:var(--ink);font-variant-numeric:tabular-nums}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:460px){.grid{grid-template-columns:1fr}}
+
+/* ── FOOTER ── */
+.foot{background:var(--foot);color:#fff}
+.foot-in{max-width:1180px;margin:0 auto;position:relative;padding:52px 26px 40px}
+.foot-grid{display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap}
+.foot-brand{font-family:var(--aboreto);font-size:19px;text-transform:uppercase;letter-spacing:.02em}
+.foot-cols{display:flex;gap:clamp(28px,5vw,64px)}
+.foot-col{font-family:var(--sans);font-size:14px;line-height:25.2px}
+.foot-col b{font-weight:500;display:block}
+.foot-col span{display:block;color:rgba(255,255,255,.6)}
+.foot-base{margin-top:38px;padding-top:12px;border-top:1px solid rgba(255,255,255,.16);
+  font-family:var(--sans);font-size:12.5px;line-height:18.75px;color:rgba(255,255,255,.46)}
+@media(max-width:760px){.foot-grid{flex-direction:column;align-items:flex-start}}
+
+@media(prefers-reduced-motion:reduce){*{transition-duration:.001ms !important}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-in">
+    <nav class="nav-l">
+      <a href="maison_lumiere_cafe.html#coffee" id="nav-coffee">Coffee</a>
+      <a href="maison_lumiere_cafe.html#bakery" id="nav-bakery">Bakery</a>
+      <a href="maison_lumiere_cafe.html#space">Space</a>
+    </nav>
+    <a href="maison_lumiere_cafe.html" aria-label="Maison Lumière"><img class="nav-logo" src="cafe_assets/logo.svg" alt="Maison Lumière"></a>
+    <nav class="nav-r">
+      <a href="maison_lumiere_cafe.html#visit">Map</a>
+      <a href="#" rel="noopener">Instagram</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="pd">
+    <div class="pd-media"><img id="pd-img" src="" alt="" fetchpriority="high"></div>
+    <div class="pd-col">
+    <div class="pd-info">
+      <h1 class="pd-title" id="pd-title"></h1>
+      <div class="pd-en" id="pd-en"></div>
+      <div class="pd-price" id="pd-price"></div>
+      <div class="pd-desc" id="pd-desc"></div>
+      <div class="pd-buy">
+        <div class="pd-labels"><span>수량</span><span>총 금액</span></div>
+        <div class="pd-row">
+          <div class="qty">
+            <button type="button" id="minus" aria-label="수량 감소">-</button>
+            <output id="qty" aria-live="polite">1</output>
+            <button type="button" id="plus" aria-label="수량 증가">+</button>
+          </div>
+          <div class="pd-total" id="total"></div>
+        </div>
+        <div class="pd-cta">
+          <button type="button" class="btn-cart" id="btn-cart">장바구니</button>
+          <button type="button" class="btn-buy" id="btn-buy">구매하기</button>
+        </div>
+      </div>
+    </div>
+      <div class="ing" id="ing"></div>
+      <div class="hw-right" id="hw-right"></div>
+    </div>
+  </section>
+
+  <section class="rel-head">
+    <h2>Related Products</h2>
+    <p id="rel-note">함께 즐기면 좋은 메뉴</p>
+  </section>
+  <div class="grid" id="rel-grid"></div>
+</main>
+
+<footer class="foot">
+  <div class="foot-in">
+    <div class="foot-grid">
+      <div class="foot-brand">Maison Lumière</div>
+      <div class="foot-cols">
+        <div class="foot-col"><b>Hours</b><span>Mon – Sun</span><span>08:00 – 22:00</span></div>
+        <div class="foot-col"><b>Visit</b><span>세종대로 110</span><span>중구, 서울</span></div>
+        <div class="foot-col"><b>Follow</b><span>Instagram</span><span>hello@maisonlumiere.kr</span></div>
+      </div>
+    </div>
+    <div class="foot-base">© Maison Lumière · Powered by Tistory</div>
+  </div>
+</footer>
+
+<script>
+var BREW_COFFEE = {
+  krTitle:'드시는 방법',
+  kr:['에스프레소로 드실 경우 한잔당 6~10g 을 사용하여 15~20g 의 커피가 30~40초 사이에 만들어지는 곱게 분쇄된 커피를 사용하시기 바랍니다.',
+      '푸어오버 방법으로 드실 경우 끓인 물을 사용하시고 물의 온도가 낮아질 수록 산뜻함이 살아납니다.(한잔에 원두 10g, 뜨거운물 150~200g 사용권장)',
+      '모카포트 사용시 바스켓에 커피를 소복하게 담은 후 버너의 불 세기를 가장 약하게 놓고 끓입니다.(커피가 다 나왔을때는 폭폭 소리가 납니다) 인덕션 사용시 중불 정도나 3분에서 4분 정도에 커피가 완성되는 화력을 조절합니다. (더욱 진하게 드시고 싶으시다면 물을 담는 하부에도 커피 가루를 넣어주세요) *주관적인 추천방법이며 기호와 취향에 맞는 방법으로 이용하시기 바랍니다.'],
+  enTitle:'How to enjoy',
+  en:['For the pour over method, boil the water to the desired temperature. The colder the water is, the more refreshing your coffee tastes. (we recommend 10 grams of coffee beans and 150-200 grams of hot water for a cup of coffee.)',
+      'When using a moka pot, put a good deal of ground coffee in the funnel basket and boil it on the lowest heat. (When your coffee is done, the moka pot will make a hissing, gurgling sound like a kettle.) If you are using an induction cooktop, boil it over medium heat or adjust the heat after 3 to 4 minutes. (For a darker cup of coffee, add some grounds to the water in the bottom pot.) *This is one of many ways you can enjoy coffee. Explore the possibilities and create your own brewing method.']
+};
+var BREW_BAKERY = {
+  krTitle:'보관과 즐기는 방법',
+  kr:['갓 구운 상태가 가장 맛있습니다. 당일 섭취를 권해 드립니다.',
+      '보관하실 경우 밀봉하여 실온에 두시고, 드시기 전 180도 오븐에서 3~5분 데우면 처음의 식감이 살아납니다.',
+      '냉동 보관 시에는 한 개씩 감싸 얼린 뒤 자연 해동 후 데워 주세요. *기호와 취향에 맞는 방법으로 자유롭게 즐기시기 바랍니다.'],
+  enTitle:'How to keep',
+  en:['Best enjoyed on the day it is baked.',
+      'Keep it sealed at room temperature, then warm for 3-5 minutes at 180C to bring back the original texture. For freezing, wrap each piece individually, thaw naturally and warm before serving.']
+};
+
+var MENU = [
+  {g:'coffee',s:'espresso',ko:'에스프레소',en:'Espresso',p:4500,
+   d:'메종 루미에르의 모든 커피는 이 한 잔에서 출발합니다. 하우스 블렌드 다크는 브라질 세하도의 견과류 단맛에 에티오피아 예가체프를 소량 더해, 진한 무게감 뒤에 은은한 산미가 남도록 맞춘 배합입니다. 매장 안쪽 로스터에서 주 두 번, 한 번에 12kg 이하로만 볶고 로스팅 후 7일 안에 모두 사용합니다.\n20g 을 도징해 28초 동안 40g 을 받아냅니다. 초콜릿과 구운 아몬드의 향이 먼저 오고, 잔을 비운 뒤에도 단맛이 길게 이어집니다. 설탕 한 스푼을 저어 넣으면 무게감이 한 겹 더 두꺼워집니다.',
+   de:'Every cup at Maison Lumière begins here. Our House Blend Dark pairs the nutty sweetness of Brazilian Cerrado with a small portion of Ethiopian Yirgacheffe, so a quiet acidity stays behind the weight. We roast twice a week in batches under 12kg and use every bean within seven days.\n20g in, 40g out, 28 seconds. Chocolate and toasted almond arrive first, and the sweetness lingers long after the cup is empty.',
+   ing:[['원두','아라비카 100% — 브라질 세하도 90%, 에티오피아 예가체프 10%'],
+        ['배전도','중강배전 · 주 2회 자가 로스팅 (배치당 12kg 이하)'],
+        ['추출','도징 20g · 추출 40g · 28초'],
+        ['용량','40ml (더블 샷)']]},
+  {g:'coffee',s:'americano',ko:'아메리카노',en:'Ice americano',p:5500,
+   d:'하우스 블렌드를 평소보다 조금 더 진하게 받아, 정수한 찬물과 얼음 위로 천천히 흘려 넣습니다. 뜨거운 물로 희석한 뒤 식히는 방식은 쓰지 않습니다. 향이 날아가기 전에 온도를 떨어뜨려야 다크 초콜릿의 여운이 흐트러지지 않기 때문입니다.\n얼음은 매일 아침 정수한 물로 얼린 것만 쓰고, 잔은 미리 차갑게 식혀 둡니다. 마지막 모금까지 처음의 농도가 크게 흔들리지 않도록 얼음이 녹는 속도까지 계산해 물의 양을 맞췄습니다.',
+   de:'A slightly heavier pull of the house blend, poured straight over filtered water and ice. We never dilute with hot water and cool it down afterwards — the aroma has to be locked in before it escapes.\nThe glass is chilled in advance and the water is measured against how fast the ice melts, so the last sip holds the same weight as the first.',
+   ing:[['원두','아라비카 100% 하우스 블렌드 다크'],
+        ['구성','에스프레소 2샷 · 정수 · 얼음'],
+        ['제조','뜨거운 물 희석 없이 냉수 직주'],
+        ['용량','470ml']]},
+  {g:'coffee',s:'cafe-latte',ko:'카페 라떼',en:'Café Latte',p:6000,
+   d:'에스프레소 한 샷 위에 데운 우유를 부어 둥근 단맛을 만듭니다. 우유는 62도에서 스팀을 멈춥니다. 그보다 높으면 단백질이 익으면서 고소함이 사라지고, 낮으면 거품의 결이 거칠어집니다. 이 온도에서만 표면이 도자기처럼 매끈하게 정리됩니다.\n첫 모금의 벨벳 같은 질감이 마지막까지 이어지도록 입구가 좁은 잔을 씁니다. 매장에서 드시면 라떼아트를 올려 드리고, 원하시면 우유를 오트밀크로 바꿔 드립니다.',
+   de:'A single shot under gently steamed milk, stopped at exactly 62°C. Any hotter and the proteins cook out the sweetness; any cooler and the foam turns coarse.\nWe serve it in a narrow-mouthed cup so the velvet texture holds to the final sip. Latte art on request, and oat milk if you prefer.',
+   ing:[['원두','에스프레소 1샷 (하우스 블렌드 다크)'],
+        ['우유','1등급 살균우유 · 62도 스티밍'],
+        ['옵션','오트밀크 변경 가능'],
+        ['용량','355ml']]},
+  {g:'coffee',s:'cappuccino',ko:'카푸치노',en:'Cappuccino',p:6500,
+   d:'에스프레소와 데운 우유, 우유 거품을 같은 양으로 나눠 담는 고전적인 비율을 그대로 지킵니다. 요즘은 우유를 늘려 부드럽게 만드는 곳이 많지만, 메종 루미에르는 거품이 두툼하게 올라앉은 원래의 형태를 유지합니다.\n숟가락을 얹어도 잠시 버틸 만큼 조밀한 거품이 향을 가둬 두기 때문에, 잔을 입에 대는 순간 커피 향이 먼저 도착합니다. 거품을 지나 커피에 닿으면 의외로 가볍게 넘어갑니다. 계핏가루는 말씀해 주시면 올려 드립니다.',
+   de:'Espresso, steamed milk and foam in equal thirds — the classic ratio, kept as it was. Many places stretch the milk for softness; we keep the thick cap.\nThe foam is dense enough to hold a spoon for a moment, trapping the aroma so it reaches you before the coffee does. Cinnamon on request.',
+   ing:[['원두','에스프레소 1샷 (하우스 블렌드 다크)'],
+        ['우유','1등급 살균우유 · 스팀 밀크 + 폼 밀크'],
+        ['비율','에스프레소 : 우유 : 거품 = 1 : 1 : 1'],
+        ['용량','200ml']]},
+  {g:'coffee',s:'einspanner',ko:'아인슈페너',en:'Einspänner',p:7000,
+   d:'빈에서 마부가 한 손으로 마시던 커피에서 온 이름입니다. 차갑고 진한 커피 위에 크림을 덮어 흔들려도 쏟아지지 않게 만든 것이 시작이었습니다. 메종 루미에르는 생크림에 설탕을 최소한만 넣고 하루 냉장해 안정시킨 하우스 크림을 씁니다.\n젓지 말고 크림 사이로 커피를 통과시키며 드시는 편이 좋습니다. 달콤함과 쌉싸름함이 층층이 번갈아 도착하고, 크림이 조금씩 녹아 내려가면서 마지막에는 부드러운 라떼에 가까워집니다. 무가당으로도 준비해 드립니다.',
+   de:'Named for the Viennese coachman who drank it one-handed — the cream was a lid, so it would not spill. Ours is whipped with minimal sugar and rested overnight to stabilise.\nDrink through the cream without stirring: sweetness and bitterness arrive in alternating layers, and as the cream melts down it settles into something close to a latte. Unsweetened on request.',
+   ing:[['원두','에스프레소 2샷 (하우스 블렌드 다크)'],
+        ['크림','생크림 · 저당 · 하루 냉장 안정화'],
+        ['옵션','무가당 크림 선택 가능'],
+        ['용량','355ml']]},
+  {g:'coffee',s:'matcha-latte',ko:'말차 라떼',en:'Matcha Latte',p:7000,
+   d:'우지산 말차를 그날 쓸 만큼만 체에 내려 사용합니다. 미리 풀어 두면 30분이 지나면서 향이 눕고 떫음이 앞으로 나오기 때문입니다. 80도 물에 먼저 개어 덩어리를 풀고, 데운 우유를 나중에 부어 색이 탁해지지 않게 합니다.\n풀 향과 은은한 단맛이 먼저 오고 마지막에 가벼운 떫음이 입안을 정리합니다. 이 떫음이 말차 본래의 성격이라 일부러 남겨 두었습니다. 단맛을 원하시면 시럽 양을 조절해 드립니다.',
+   de:'Uji matcha, sifted only in the amount needed that day — left standing for thirty minutes the aroma flattens and the astringency comes forward. Whisked first in 80°C water, then the milk, so the colour stays clean.\nGrass and a quiet sweetness arrive first; a light astringency closes the sip. That edge is the character of matcha, so we leave it in. Sweetness adjustable.',
+   ing:[['말차','우지산 말차 파우더 (세리머니얼 등급)'],
+        ['우유','1등급 살균우유 · 62도 스티밍'],
+        ['제조','주문 시 체에 내려 80도 물로 개어 사용'],
+        ['용량','355ml']]},
+  {g:'coffee',s:'orange-juice',ko:'오렌지 주스',en:'Orange Juice',p:6800,
+   d:'매일 아침 문을 열기 전에 착즙합니다. 설탕도 물도 넣지 않고, 착즙 후 두 시간 안에 나갈 분량만 만듭니다. 오렌지는 껍질이 얇고 묵직한 것으로 골라 과육의 단맛과 산미가 함께 살아 있는 상태를 씁니다.\n커피가 부담스러운 시간이나 늦은 오후에 산뜻하게 드시기 좋습니다. 가라앉는 과육은 원래 그대로의 상태이니 가볍게 흔들어 드십시오. 당일 생산분이 소진되면 다음 날 아침까지 기다려 주셔야 합니다.',
+   de:'Squeezed each morning before we open — no sugar, no water, and only as much as will leave the counter within two hours. We pick thin-skinned, heavy fruit so sweetness and acidity survive together.\nGood for the hours when coffee feels like too much. The pulp settles because nothing was taken out; give it a gentle shake.',
+   ing:[['원료','오렌지 100% (당일 착즙)'],
+        ['첨가물','설탕 · 물 · 보존료 무첨가'],
+        ['생산','매일 오전 착즙 · 당일 소진'],
+        ['용량','300ml']]},
+  {g:'bakery',s:'croissant',ko:'크루아상',en:'Croissant',p:4500,
+   d:'반죽에 프랑스산 발효 버터를 넣고 접는 과정을 사흘에 걸쳐 나눕니다. 하루는 반죽을 재우고, 하루는 버터를 접어 넣고, 마지막 하루에 성형해 굽습니다. 서두르면 버터층이 반죽에 스며 결이 사라지기 때문에 각 단계 사이마다 저온에서 충분히 쉬게 합니다.\n겉은 유리처럼 얇게 부서지고 안은 벌집 같은 결이 열려 있습니다. 오븐에서 나온 직후가 가장 좋아 매일 아침 그날 구울 양만 준비합니다. 자르지 말고 손으로 결을 따라 뜯어 드시면 층이 더 잘 느껴집니다.',
+   de:'Three days, split into three jobs: one to rest the dough, one to fold in the butter, one to shape and bake. Rush any of them and the butter melts into the dough and the layers disappear.\nA glass-thin shell over an open honeycomb crumb. Best straight from the oven, so we bake only the day’s count. Tear it along the grain rather than cutting it.',
+   ing:[['버터','프랑스산 AOP 발효 버터 (유지율 82%)'],
+        ['밀가루','프랑스산 T55'],
+        ['공정','3일 저온 숙성 · 27겹 접기 · 매일 아침 생산'],
+        ['알레르기','밀 · 우유 함유']]},
+  {g:'bakery',s:'pain-au-chocolat',ko:'뺑 오 쇼콜라',en:'Pain au Chocolat',p:5000,
+   d:'크루아상과 같은 반죽을 씁니다. 사흘에 걸쳐 접은 반죽 안에 카카오 55% 다크 초콜릿 바를 두 줄 넣어 구웠습니다. 초콜릿은 단맛이 앞서지 않는 것으로 골라 버터 향과 부딪히지 않게 맞췄습니다.\n따뜻할 때는 초콜릿이 흐르고, 식은 뒤에는 결과 함께 또렷하게 부서집니다. 두 상태의 성격이 꽤 달라 취향이 갈리는 편입니다. 식은 것을 사 가셨다면 180도에서 3분 정도 데우면 처음에 가까워집니다.',
+   de:'The same laminated dough, with two bars of 55% dark chocolate folded in. We choose a chocolate that does not lead with sugar, so it never argues with the butter.\nMolten when warm; crisp and clearly defined once cooled. The two states are different enough that people take sides.',
+   ing:[['초콜릿','카카오 55% 다크 초콜릿 바 2입'],
+        ['버터','프랑스산 AOP 발효 버터'],
+        ['공정','크루아상 반죽 · 3일 저온 숙성'],
+        ['알레르기','밀 · 우유 · 대두 함유']]},
+  {g:'bakery',s:'baguette',ko:'플레인 바게트',en:'Baguette',p:5500,
+   d:'밀가루와 물, 소금, 효모. 네 가지만 씁니다. 유지도 설탕도 넣지 않기 때문에 반죽을 오래 두는 것 말고는 맛을 끌어올릴 방법이 없어, 18시간 저온에서 천천히 발효시킵니다.\n두꺼운 크러스트 안에 큼직한 기공이 불규칙하게 자리 잡습니다. 씹을수록 곡물의 단맛이 올라오고, 다음 날에는 크러스트가 부드러워지는 대신 향이 깊어집니다. 당일 구울 양만 만들기 때문에 오후 늦게는 남아 있지 않을 수 있습니다.',
+   de:'Flour, water, salt, yeast. Nothing else. With no fat and no sugar there is no way to build flavour except time, so the dough ferments cold for eighteen hours.\nA thick crust over an irregular open crumb. The grain gets sweeter the longer you chew, and by the next day the crust softens while the aroma deepens.',
+   ing:[['재료','밀가루 · 물 · 소금 · 효모 (4종)'],
+        ['밀가루','프랑스산 T65'],
+        ['공정','18시간 저온 발효 · 무유지 · 무설탕'],
+        ['알레르기','밀 함유']]},
+  {g:'bakery',s:'fougasse',ko:'푸가스',en:'Fougasse',p:5000,
+   d:'남프랑스에서 화덕의 온도를 확인하려고 먼저 구워 보던 빵이 그대로 자리를 잡은 형태입니다. 잎사귀 모양으로 갈라 놓는 것도 원래는 빨리 익히기 위해서였습니다.\n엑스트라 버진 올리브유를 넉넉히 넣어 반죽이 촉촉하고, 넓게 갈라진 단면마다 로즈마리와 타임 향이 배어 나옵니다. 그대로 뜯어 드셔도 좋고 올리브유에 찍거나 수프 곁에 두어도 잘 어울립니다.',
+   de:'In the south of France this was the loaf you baked first to test the oven — the leaf-shaped cuts were there to make it cook faster.\nGenerous with olive oil, so the crumb stays moist, and rosemary and thyme come through at every open cut. Tear it as it is, dip it, or set it beside soup.',
+   ing:[['오일','엑스트라 버진 올리브유'],
+        ['허브','로즈마리 · 타임 (프로방스 허브)'],
+        ['공정','당일 반죽 · 당일 생산'],
+        ['알레르기','밀 함유']]},
+  {g:'bakery',s:'country-bread',ko:'통밀 깜빠뉴',en:'Country Bread',p:4500,
+   d:'통밀과 호밀을 섞어 천연 발효종으로 부풀립니다. 매장에서 5년째 이어 오는 발효종을 매일 먹여 관리하고 있어, 계절에 따라 산미의 결이 조금씩 달라집니다.\n묵직한 산미와 구수함이 오래 남아 버터나 치즈 없이 한 조각으로도 충분합니다. 얇게 썰어 구우면 표면이 바삭해지면서 곡물 향이 한 번 더 올라옵니다. 상온에서 사흘까지는 맛이 크게 떨어지지 않습니다.',
+   de:'Whole wheat and rye raised with a natural starter we have kept and fed for five years — which is why the acidity shifts a little with the season.\nA steady sourness and depth that needs nothing on top. Sliced thin and toasted, the grain comes forward once more. It holds for about three days at room temperature.',
+   ing:[['곡물','통밀 30% · 호밀 10% · 강력분 60%'],
+        ['발효','자가 배양 천연 발효종 (5년 유지)'],
+        ['공정','24시간 저온 숙성'],
+        ['알레르기','밀 · 호밀 함유']]},
+  {g:'bakery',s:'bagel',ko:'플레인 베이글',en:'Plain Bagel',p:4000,
+   d:'성형한 반죽을 끓는 물에 앞뒤로 30초씩 데친 뒤 굽습니다. 이 과정에서 표면의 전분이 먼저 익어 막을 만들기 때문에, 오븐 안에서 크게 부풀지 않고 속이 촘촘하게 남습니다.\n겉은 쫀득하고 속은 밀도가 높습니다. 반으로 갈라 가볍게 구우면 단면이 바삭해지면서 결이 한 번 더 살아납니다. 유지가 들어가지 않아 담백해 크림치즈나 훈제 연어와 잘 맞습니다.',
+   de:'Boiled thirty seconds a side before baking. The surface starch sets into a skin, so it never balloons in the oven and the crumb stays tight.\nChewy outside, dense inside. Split and toast it for one more layer of texture. With no fat in the dough it stays plain enough for cream cheese or smoked salmon.',
+   ing:[['재료','밀가루 · 물 · 소금 · 효모 · 몰트'],
+        ['공정','보일링 30초 후 베이킹 · 무유지'],
+        ['생산','매일 아침 생산'],
+        ['알레르기','밀 함유']]},
+  {g:'bakery',s:'apple-pie',ko:'애플파이',en:'Apple Pie',p:7000,
+   d:'국내산 사과를 껍질째 썰어 시나몬과 함께 조립니다. 설탕은 일반적인 배합보다 줄이고 조리는 시간은 짧게 잡아, 사과가 뭉개지지 않고 형태를 유지한 채 남도록 했습니다.\n격자로 짠 파이지는 발효 버터로 반죽해 결이 살아 있습니다. 사과의 산미가 끝까지 남아 마지막 한 조각까지 물리지 않습니다. 차갑게 드셔도 좋지만 데우면 시나몬 향이 훨씬 또렷해집니다.',
+   de:'Korean apples, skin on, simmered with cinnamon — less sugar than usual and a shorter time on the heat, so the fruit keeps its shape instead of collapsing.\nThe lattice is made with cultured butter and stays flaky. The acidity holds to the end, so the last piece is as easy as the first. Warm it and the cinnamon sharpens.',
+   ing:[['과일','국내산 사과 (껍질째 사용)'],
+        ['향신료','실론 시나몬'],
+        ['파이지','프랑스산 발효 버터 반죽 · 격자 성형'],
+        ['알레르기','밀 · 우유 · 달걀 함유']]},
+  {g:'bakery',s:'cheesecake',ko:'치즈 케이크',en:'Cheese Cake',p:6000,
+   d:'크림치즈의 비율을 높이고 밀가루는 최소한만 넣어 밀도 있게 굽습니다. 구운 직후에는 조직이 불안정해 그대로 내지 않고, 하루 냉장해 안정시킨 뒤에 판매합니다.\n차갑게 드시면 단단하게 잘리고, 상온에 10분쯤 두었다 드시면 부드럽게 풀립니다. 두 가지가 꽤 다른 디저트처럼 느껴져 취향에 따라 고르시면 됩니다. 사워크림을 섞어 단맛 뒤에 산미가 남도록 맞췄습니다.',
+   de:'A high ratio of cream cheese and as little flour as we can get away with. Straight from the oven the structure is still loose, so it rests a full day in the fridge before it is sold.\nCold, it cuts firm; ten minutes at room temperature and it loosens. The two read almost as different desserts. Sour cream keeps an acidity behind the sweetness.',
+   ing:[['치즈','크림치즈 · 사워크림'],
+        ['공정','저온 베이킹 후 하루 냉장 숙성'],
+        ['특징','밀가루 최소 배합 · 고밀도'],
+        ['알레르기','밀 · 우유 · 달걀 함유']]},
+  {g:'bakery',s:'madeleine',ko:'마들렌',en:'Madeleine',p:4500,
+   d:'발효 버터를 갈색이 돌 때까지 태워 향을 낸 뒤 반죽에 넣습니다. 레몬 제스트는 굽기 직전에 갈아 넣어 향이 날아가지 않게 합니다. 반죽은 하루 냉장해 쉬게 해야 가운데가 봉긋하게 솟습니다.\n가장자리는 바삭하고 가운데는 촉촉합니다. 구운 당일이 가장 좋고, 다음 날에는 전체적으로 촉촉해지면서 버터 향이 더 앞으로 나옵니다. 커피 한 잔 곁에 두기 좋은 크기로 만들었습니다.',
+   de:'The cultured butter is browned until it turns nutty before it goes into the batter, and the lemon zest is grated in at the last moment so the oils do not escape. The batter rests overnight — that is what gives the hump.\nCrisp at the edge, moist at the centre. Best the day it is baked; by the next day it softens through and the butter comes forward.',
+   ing:[['버터','프랑스산 발효 버터 (브라운 버터)'],
+        ['향','레몬 제스트 (굽기 직전 사용)'],
+        ['공정','반죽 하루 냉장 후 베이킹 · 당일 생산'],
+        ['알레르기','밀 · 우유 · 달걀 함유']]},
+  {g:'bakery',s:'strawberry-tart',ko:'딸기 타르트',en:'Strawberry Tart',p:8000,
+   d:'사블레를 얇게 밀어 낮은 온도에서 오래 구워 바닥이 눅지 않게 합니다. 그 위에 바닐라빈을 넣어 끓인 크렘 파티시에르를 채우고, 그날 들어온 제철 딸기를 올립니다.\n크림의 단맛을 평소보다 낮춰 과일의 향과 산미가 먼저 도착하도록 맞췄습니다. 딸기는 계절에 따라 산지가 바뀌며, 제철이 아닐 때는 다른 과일로 대체하거나 판매하지 않습니다. 만든 당일에 드시는 것을 권해 드립니다.',
+   de:'The sablé is rolled thin and baked long at a low temperature so the base never goes soggy. On top, a crème pâtissière cooked with real vanilla bean, then whatever strawberries came in that morning.\nThe cream is pulled back so the fruit arrives first. When strawberries are out of season we swap the fruit or simply do not make it.',
+   ing:[['과일','제철 딸기 (산지 계절별 변동)'],
+        ['크림','바닐라 크렘 파티시에르 (마다가스카르 바닐라빈)'],
+        ['베이스','사블레 (프랑스산 발효 버터)'],
+        ['알레르기','밀 · 우유 · 달걀 함유']]},
+  {g:'bakery',s:'pound-cake',ko:'바닐라 파운드케이크',en:'Vanilla Pound Cake',p:5500,
+   d:'마다가스카르 바닐라빈을 통째로 갈아 넣습니다. 에센스나 향료는 쓰지 않기 때문에 반죽 안에 검은 씨가 그대로 보입니다. 낮은 온도에서 천천히 구워 조직을 촘촘하게 만듭니다.\n굽고 나서 하루 재우면 버터와 바닐라가 자리를 잡으면서 향이 더 깊어집니다. 그래서 당일보다 다음 날을 권해 드리는 몇 안 되는 품목입니다. 밀봉해 두면 사흘까지 촉촉함이 유지됩니다.',
+   de:'Whole Madagascar vanilla beans, ground into the batter. No essence, no flavouring — which is why you can see the seeds. Baked slow and low for a tight crumb.\nRested a day, the butter and vanilla settle and the aroma deepens. It is one of the few things here we ask you to wait on. Sealed, it stays moist for three days.',
+   ing:[['바닐라','마다가스카르 바닐라빈 (통째로 사용)'],
+        ['버터','프랑스산 발효 버터'],
+        ['공정','저온 장시간 베이킹 · 하루 숙성 권장'],
+        ['알레르기','밀 · 우유 · 달걀 함유']]},
+  {g:'bakery',s:'macaron',ko:'마카롱',en:'Macaron',p:6000,
+   d:'아몬드 가루를 두 번 체에 내려 껍질을 굽습니다. 굽기 전 상온에서 표면을 말리는 시간이 그날 습도에 따라 달라져, 매일 같은 시간에 만들 수 없는 품목입니다.\n겉은 얇게 부서지고 속은 쫀득하게 이어지는 두 질감이 핵심입니다. 가나슈는 그날의 네 가지로 준비하며 구성은 계절과 재료 상황에 따라 바뀝니다. 냉장 보관 후 상온에 15분쯤 두었다 드시면 가장 좋습니다.',
+   de:'Almond flour sifted twice for the shells. How long they dry before baking depends on the humidity that day, which is why they never come out at the same hour.\nA thin crack, then a chewy centre — the two textures are the whole point. Four ganaches a day, changing with the season. Best after fifteen minutes out of the fridge.',
+   ing:[['껍질','아몬드 가루 100% (2회 체 내림)'],
+        ['필링','데일리 가나슈 4종 (구성 변동)'],
+        ['공정','상온 건조 후 베이킹'],
+        ['알레르기','아몬드 · 우유 · 달걀 함유 (밀 미함유)']]}
+];
+
+var won = function(n){ return '₩' + n.toLocaleString('ko-KR'); };
+// 구 슬러그 별칭 (예전 링크·캐시 호환)
+var ALIAS = { latte:'cafe-latte', cappuccino2:'cappuccino' };
+var params = new URLSearchParams(location.search);
+var slug = params.get('item') || 'espresso';
+if (ALIAS[slug]) slug = ALIAS[slug];
+var item = null;
+for (var i=0;i<MENU.length;i++){ if(MENU[i].s===slug){ item=MENU[i]; break; } }
+if(!item) item = MENU[0];
+var brew = item.g==='coffee' ? BREW_COFFEE : BREW_BAKERY;
+
+document.title = 'Maison Lumière — ' + item.ko;
+document.getElementById(item.g==='coffee'?'nav-coffee':'nav-bakery').classList.add('is-on');
+document.getElementById('pd-img').src = 'cafe_assets/' + item.s + '.jpg';
+document.getElementById('pd-img').alt = item.ko;
+document.getElementById('pd-title').textContent = item.ko;
+document.getElementById('pd-en').textContent = item.en;
+document.getElementById('pd-price').textContent = won(item.p);
+document.getElementById('pd-desc').innerHTML =
+  '<p>' + item.d.replace(/\n/g,'<br>') + '</p>' +
+  '<p>' + item.de.replace(/\n/g,'<br>') + '</p>';
+
+var esc = function(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); };
+document.getElementById('ing').innerHTML =
+  '<h4>재료와 공정</h4><dl>' +
+    item.ing.map(function(r){ return '<dt>'+esc(r[0])+'</dt><dd>'+esc(r[1])+'</dd>'; }).join('') +
+  '</dl>';
+
+document.getElementById('hw-right').innerHTML =
+  '<div class="blk"><h4>' + brew.krTitle + '</h4><ul>' +
+    brew.kr.map(function(t){return '<li>'+t+'</li>';}).join('') + '</ul></div>' +
+  '<div class="blk"><h4>' + brew.enTitle + '</h4><ul>' +
+    brew.en.map(function(t){return '<li>'+t+'</li>';}).join('') + '</ul></div>';
+
+var q = 1;
+var qEl = document.getElementById('qty'), tEl = document.getElementById('total');
+function sync(){ qEl.textContent = q; tEl.textContent = won(item.p * q); }
+document.getElementById('minus').addEventListener('click', function(){ if(q>1){q--;sync();} });
+document.getElementById('plus').addEventListener('click', function(){ if(q<99){q++;sync();} });
+document.getElementById('btn-cart').addEventListener('click', function(){ alert(item.ko+' '+q+'개를 장바구니에 담았습니다.'); });
+document.getElementById('btn-buy').addEventListener('click', function(){ alert(item.ko+' '+q+'개 · '+won(item.p*q)+' 결제를 진행합니다.'); });
+sync();
+
+/* 곁들임 큐레이션 — 카테고리를 넘나드는 추천 (커피↔베이커리) */
+var PAIR = {
+  espresso:        ['madeleine','pain-au-chocolat'],
+  americano:       ['croissant','bagel'],
+  'cafe-latte':    ['croissant','madeleine'],
+  cappuccino:      ['pain-au-chocolat','apple-pie'],
+  einspanner:      ['country-bread','baguette'],
+  'matcha-latte':  ['macaron','strawberry-tart'],
+  'orange-juice':  ['bagel','fougasse'],
+  croissant:       ['cafe-latte','americano'],
+  'pain-au-chocolat':['espresso','cappuccino'],
+  baguette:        ['americano','cafe-latte'],
+  fougasse:        ['americano','orange-juice'],
+  'country-bread': ['einspanner','americano'],
+  bagel:           ['orange-juice','americano'],
+  'apple-pie':     ['cappuccino','espresso'],
+  cheesecake:      ['espresso','americano'],
+  madeleine:       ['espresso','cafe-latte'],
+  'strawberry-tart':['matcha-latte','cafe-latte'],
+  'pound-cake':    ['espresso','americano'],
+  macaron:         ['matcha-latte','espresso']
+};
+
+var bySlug = {};
+MENU.forEach(function(m){ bySlug[m.s] = m; });
+
+var rotate = function(arr, n){ if(!arr.length) return arr; var i=((n%arr.length)+arr.length)%arr.length; return arr.slice(i).concat(arr.slice(0,i)); };
+
+// 같은 카테고리 2종 — 항상 같은 앞 2개가 나오지 않도록 품목별로 시작점을 옮김
+var same = rotate(MENU.filter(function(m){ return m.g===item.g && m.s!==item.s; }), MENU.indexOf(item)).slice(0,2);
+
+// 다른 카테고리 2종 — 큐레이션 우선, 모자라면 나머지로 채움
+var cross = (PAIR[item.s]||[]).map(function(s){ return bySlug[s]; })
+              .filter(function(m){ return m && m.g!==item.g; });
+MENU.forEach(function(m){ if(m.g!==item.g && cross.indexOf(m)<0) cross.push(m); });
+cross = cross.slice(0,2);
+
+var rel = same.concat(cross);
+document.getElementById('rel-note').textContent =
+  item.g==='coffee' ? '비슷한 음료와, 곁들이기 좋은 빵' : '비슷한 빵과, 곁들이기 좋은 음료';
+
+document.getElementById('rel-grid').innerHTML = rel.map(function(m){
+  return '<a class="card" href="maison_lumiere_item.html?item=' + m.s + '">' +
+    '<div class="card-media"><img src="cafe_assets/' + m.s + '.jpg" alt="' + m.ko + '" loading="lazy"></div>' +
+    '<div class="card-cap">' +
+      '<span class="card-name">' + m.ko + '</span>' +
+      '<span class="card-en">' + m.en + '</span>' +
+      '<span class="card-price">' + won(m.p) + '</span>' +
+    '</div></a>';
+}).join('');
+</script>
+
+</body>
+</html>
