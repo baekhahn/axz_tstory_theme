@@ -784,10 +784,13 @@ body[data-blog="ML"] .panel.is-blog-wc { display: none !important; }
     <!-- ─── Website 패널 (Maison Lumière · 프렌치 스페셜티 카페) ─── -->
     <section class="panel is-blog-ml" data-panel="cafe-home">
       <header class="panel-header">
-        <h2 class="panel-title">Maison Lumière — Home (원페이지)</h2>
-        <p class="panel-desc">프렌치 카페 원페이지. 화이트 베이스 + 웜 베이지 밴드 · 1px 헤어라인 타이트 그리드 메뉴 + 인테리어 갤러리 + 다음지도.</p>
-        <div class="panel-meta">
-          <span class="panel-file">maison_lumiere_cafe.html</span>
+        <h2 class="panel-title">Maison Lumière — Home</h2>
+        <p class="panel-desc">프렌치 카페 홈 5가지 레이아웃 — 기본형(hero + 그리드) / 에디토리얼(매거진) / 좌우 분할(풀이미지) / 모자이크(갤러리) / 인덱스(미니멀 리스트). 드롭다운으로 전환.</p>
+        <div class="slot-bar" data-panel="cafe-home">
+          <label class="slot-field">
+            <span class="slot-label">레이아웃</span>
+            <select class="slot-select" data-panel="cafe-home" data-slot="homevar"></select>
+          </label>
         </div>
       </header>
       <div class="frame-wrap">
@@ -6998,6 +7001,13 @@ const BLOG_SLOT_OPTIONS = {
     ],
   },
   ML: {
+    homevar: [
+      { key: 'classic',   label: '기본형 — hero + 그리드' },
+      { key: 'editorial', label: '에디토리얼 — 매거진' },
+      { key: 'split',     label: '좌우 분할 — 풀이미지' },
+      { key: 'mosaic',    label: '모자이크 — 갤러리' },
+      { key: 'index',     label: '인덱스 — 미니멀 리스트' },
+    ],
     itemvar: [
       { key: 'espresso',        label: '에스프레소 (Coffee)' },
       { key: 'cafe-latte',      label: '카페 라떼 (Coffee)' },
@@ -7035,6 +7045,7 @@ const BLOG_PANEL_DEFAULTS = {
     'nagi-rooms':   { roomsvar: 'r1' },
   },
   ML: {
+    'cafe-home': { homevar: 'classic' },
     'cafe-item': { itemvar: 'espresso' },
   },
 };
@@ -7182,7 +7193,14 @@ const PANEL_CONFIG = {
   // ─── Website 페이지 (Maison Lumière 프렌치 카페 · 외부 단독 파일) ───
   'cafe-home': {
     kind: 'external', frameId: 'frame-cafe-home', fileLabelSlot: null,
-    slots: [], defaults: {},
+    slots: ['homevar'], defaults: { homevar: 'classic' }, bodySlot: 'homevar',
+    variantSrc: {
+      classic:   'maison_lumiere_cafe.html',
+      editorial: 'maison_lumiere_home_editorial.html',
+      split:     'maison_lumiere_home_split.html',
+      mosaic:    'maison_lumiere_home_mosaic.html',
+      index:     'maison_lumiere_home_index.html',
+    },
     src: 'maison_lumiere_cafe.html',
   },
   'cafe-item': {
