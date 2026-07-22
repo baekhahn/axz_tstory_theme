@@ -7629,7 +7629,14 @@ function renderPanel(panelKey) {
         const vsel = (slotState[panelKey] && slotState[panelKey][cfg.bodySlot]) || (cfg.defaults && cfg.defaults[cfg.bodySlot]);
         if (cfg.variantSrc[vsel]) extSrc = cfg.variantSrc[vsel];
       }
-      if (frame.getAttribute('src') !== extSrc) frame.src = extSrc;
+      // iframe 내부에서 링크로 이동(예: 홈에서 제품 카드 클릭→상세)하면 src 속성은 그대로여서
+      // 속성 비교만으로는 리로드가 안 됨. 실제 표시 중인 위치를 확인해 다르면 강제 리로드.
+      let needLoad = frame.getAttribute('src') !== extSrc;
+      try {
+        const want = new URL(extSrc, location.href).href;
+        if (frame.contentWindow && frame.contentWindow.location.href !== want) needLoad = true;
+      } catch (e) { needLoad = true; }
+      if (needLoad) frame.src = extSrc;
     } else if (cfg.kind === 'screen') {
       frame.srcdoc = applySlotsToScreen(panelKey, slotState[panelKey]);
     } else {
