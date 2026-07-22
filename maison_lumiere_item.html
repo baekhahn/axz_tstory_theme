@@ -91,10 +91,8 @@ h1,h2,h3,p,ul{margin:0}
 .qty output{font-family:var(--sans);font-size:15px;font-variant-numeric:tabular-nums}
 .pd-total{font-family:var(--sans);font-size:22px;line-height:20px;text-align:right;font-variant-numeric:tabular-nums}
 .pd-cta{margin-top:44px;display:flex;gap:1px}
-.pd-cta button{flex:1;max-width:249px;padding:16px 29px;border:0;cursor:pointer;
+.pd-cta button{flex:1;padding:16px 29px;border:0;cursor:pointer;
   font-family:var(--kr);font-weight:500;font-size:15px;line-height:normal;color:#fff}
-.btn-cart{background:#d3d3d3}
-.btn-cart:hover{background:#c6c6c6}
 .btn-buy{background:var(--ink)}
 .btn-buy:hover{opacity:.86}
 @media(max-width:860px){
@@ -195,7 +193,6 @@ h1,h2,h3,p,ul{margin:0}
           <div class="pd-total" id="total"></div>
         </div>
         <div class="pd-cta">
-          <button type="button" class="btn-cart" id="btn-cart">장바구니</button>
           <button type="button" class="btn-buy" id="btn-buy">구매하기</button>
         </div>
       </div>
@@ -421,7 +418,6 @@ var qEl = document.getElementById('qty'), tEl = document.getElementById('total')
 function sync(){ qEl.textContent = q; tEl.textContent = won(item.p * q); }
 document.getElementById('minus').addEventListener('click', function(){ if(q>1){q--;sync();} });
 document.getElementById('plus').addEventListener('click', function(){ if(q<99){q++;sync();} });
-document.getElementById('btn-cart').addEventListener('click', function(){ alert(item.ko+' '+q+'개를 장바구니에 담았습니다.'); });
 document.getElementById('btn-buy').addEventListener('click', function(){ alert(item.ko+' '+q+'개 · '+won(item.p*q)+' 결제를 진행합니다.'); });
 sync();
 
